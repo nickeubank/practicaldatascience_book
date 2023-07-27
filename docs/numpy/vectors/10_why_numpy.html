@@ -1,0 +1,887 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Vectors &#8212; Practical Data Science</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Working with Vectors" href="20_intro_to_vectors.html" />
+    <link rel="prev" title="Welcome to Practical Data Science (in Python)" href="../../intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Practical Data Science</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to Practical Data Science (in Python)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Numpy
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   Vectors
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="20_intro_to_vectors.html">
+     Working with Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="21_math_with_vectors.html">
+     Doing Math With Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="23_type_promotion_in_vectors.html">
+     Type Promotion in numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="24_vector_recap.html">
+     Vector Recap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="30_subsetting_vectors.html">
+   Subsetting Vectors
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="35_modifying_subsets_of_vectors.html">
+     Modifying Subsets of Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="37_vector_subsets_recap.html">
+     Recap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="40_views_and_copies.html">
+   Views and Copies
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="45_when_do_I_get_a_view.html">
+     When Do I Get a View and When Do I Get a Copy?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="47_objects_and_variables.html">
+     Variables are pointers to objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="50_views_and_copies_recap.html">
+     Review of Views and Copies
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../matrices/00_welcome_to_week_3.html">
+   Matrices
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../matrices/20_matrices.html">
+     Intro to Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../matrices/22_reshaping_matrices.html">
+     Folding and Reshaping Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../matrices/25_images_as_matrices.html">
+     Matrices as Images
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../matrices/30_subsetting_matrices.html">
+     Subsetting Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../matrices/32_modifying_subsets.html">
+     Editing Subsets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../matrices/33_matrix_recaps.html">
+     Review of Matrices
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../matrices/40_nd_arrays.html">
+   Arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../matrices/41_broadcasting.html">
+     Broadcasting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../matrices/42_nd_array_review.html">
+     Review of ND-Arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Pandas
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../pandas/00_intro_to_pandas.html">
+   Intro to Pandas
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../pandas/10_pandas_series.html">
+     Pandas Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../pandas/15_manipulating_series.html">
+     Subsetting and indexing Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../pandas/16_indexing_with_brackets.html">
+     (OPTIONAL) Subsetting and Indexing with Single Square Brackets (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       []
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../pandas/30_pandas_dataframes.html">
+     Working with tabular data through Dataframes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../pandas/35_pandas_dataframe_gotchas.html">
+     Subsetting DataFrame Tricks and Gotchas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/numpy/vectors/10_why_numpy.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fnumpy/vectors/10_why_numpy.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/numpy/vectors/10_why_numpy.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-little-history">
+   A Little History
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-numpy-array">
+   The numpy array
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-numpy">
+   Using numpy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-speed-of-numpy">
+   The Speed of numpy
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Vectors</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-little-history">
+   A Little History
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-numpy-array">
+   The numpy array
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-numpy">
+   Using numpy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-speed-of-numpy">
+   The Speed of numpy
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="vectors">
+<h1>Vectors<a class="headerlink" href="#vectors" title="Permalink to this headline">#</a></h1>
+<p>The time has come for us to introduce the workhorse that makes nearly all data science in Python possible: the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> <code class="docutils literal notranslate"><span class="pre">array</span></code>.</p>
+<section id="a-little-history">
+<h2>A Little History<a class="headerlink" href="#a-little-history" title="Permalink to this headline">#</a></h2>
+<p>Python was invented in the early 1990s to be an accessible, general-purpose programming language. As part of that philosophy, it was designed to minimize the amount of “developer time” (the time a programmer actually spends writing code) required to complete a project, rather than to minimize “running time” (the amount of time a program runs). This was done, in part, because at the time programmers who needed code that ran fast already had access to the C and Fortran programming languages, languages which remain the gold standards for speed even today, but which are relatively hard to work with.</p>
+<p>The design choice was clearly a good one, as it explains much of the success of Python today—yes, Python may <em>run</em> more slowly than C for most things, but many programmers are happy to accept that in exchange for being able to write and iterate their Python code much faster than they could in other languages.</p>
+<p>Starting in the late 1990s and early 2000s, however, a group of developers realized that it might be useful for programmers working in Python to have access to libraries they could do high-performance numerical computing—doing matrix multiplication, factoring, generating random numbers, etc. They hoped that this would allow data analysts (this was long before the term “data science” was a thing) to benefit from the ease of use and interactivity of Python when writing code while also making it possible to get speed when they needed it for big mathematical operations. And so to make this possible, they created a new third-party library that could be loaded into Python called Numeric, which later became <code class="docutils literal notranslate"><span class="pre">numpy</span></code>.</p>
+</section>
+<section id="the-numpy-array">
+<h2>The numpy array<a class="headerlink" href="#the-numpy-array" title="Permalink to this headline">#</a></h2>
+<p>While numpy includes lots of functions and ancillary data structures, <strong>the</strong> heart of the numpy library is the <em>numpy array.</em></p>
+<p>Like the lists and dictionaries we’ve already seen, arrays are an object for collecting and organizing lots of individual records – what’s sometimes referred to as a <em>collection</em>. Unlike lists and dictionaries, however, which can store nearly anything you want to put into them, arrays are <em>homogeneously typed</em>, meaning that each array is designed to store a specific type of data, and can <em>only</em> store that type of data. An array of integers, for example, can only store integers, and an array of floating point numbers can only hold floating point numbers.</p>
+<p>While this may initially seem like it makes arrays inferior to more flexible collections, like lists, there is a major upside: this specialization makes arrays <em>fast</em>—as in orders of magnitude faster—and it is this speed that makes data science in Python possible.</p>
+<p>And as we’ll see in future readings, arrays make possible a style of programming called <em>vectorized programming</em> that not only tends to be very fast, but also makes the kind of programming we do a lot in data science especially concise and easy to read. And if you know any linear algebra, you’ll also see that this way of programming results in code that looks more like the math of linear algebra, which many data scientists find really appealing.</p>
+<p>Arrays come in many forms, but there are two specific types of arrays whose names will be familiar: when an array organizes its data along a single dimension, we call it a <em>vector</em>, and when its data is organized along two dimensions (like how data is laid out in an Excel spreadsheet), we call it a <em>matrix</em>.</p>
+<p>Most of the time when doing data science, these are actually the only two kinds of arrays you are likely to encounter, and so they will be the focus of the following several readings. However, as we’ll see towards the end of this course, there isn’t really anything different about working with arrays in three, four, or more dimensions; everything you learn in these first few lessons will generalize easily to all arrays.</p>
+</section>
+<section id="using-numpy">
+<h2>Using numpy<a class="headerlink" href="#using-numpy" title="Permalink to this headline">#</a></h2>
+<p>In past lessons, we saw that not all Python functionality is accessible when you first start a Python session—some functionality is located in libraries we have to import to use. For example, in a previous module, we used the command <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">math</span></code> to gain access to functions like <code class="docutils literal notranslate"><span class="pre">sqrt()</span></code>.</p>
+<p>Numpy basically works the same way – we can gain access to its functionality by typing <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 3])
+</pre></div>
+</div>
+</div>
+</div>
+<p>But there are two things that are a little different about numpy from the libraries we’ve used before.</p>
+<p>First, numpy is what’s called a <em>third-party library</em>, meaning that you don’t automatically get it when you install Python. Instead, you have to install the numpy library before it can be used. numpy has already been installed in the version of Python you have access to here on Coursera, but if you are working with Python on another computer, you’ll need to install it using a tool like <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>—we have a reading on installing third-party packages here.</p>
+<p>Second, because we will be working with numpy a lot, we don’t want to have to type out <code class="docutils literal notranslate"><span class="pre">numpy.</span></code> every time we access a numpy function. Instead, it is common practice to give numpy an alias (a different name) by typing: <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code>. Once we do that, we can access functions from the numpy library with the prefix <code class="docutils literal notranslate"><span class="pre">np.</span></code> instead of <code class="docutils literal notranslate"><span class="pre">numpy.</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 3])
+</pre></div>
+</div>
+</div>
+</div>
+<p>And now that we know how to access the functionality of numpy, let’s turn to using it to create vectors!</p>
+</section>
+<section id="the-speed-of-numpy">
+<h2>The Speed of numpy<a class="headerlink" href="#the-speed-of-numpy" title="Permalink to this headline">#</a></h2>
+<p>As noted above, one of the main reasons that numpy is the foundation of data science in Python is that it does numerical computations incredibly efficiently both in the sense that it is fast and also in the sense that it is good at not using up all of your computer’s memory. In a later lesson, we’ll talk more about the exact reasons that numpy is so fast, but before we dive into learning numpy, it’s worth taking a moment to illustrate just how impressive numpy is!</p>
+<p>To illustrate, let’s create a list with all the numbers from one to one hundred million and sum them up. We will do this twice—once using regular Python tools, and once using numpy. Don’t worry about the fact that some of the code that .all()e use isn’t familiar yet—we will learn all of these numpy tools soon—the goal is just to give you a basic demonstration of why we’re going through the trouble of learning this library. First, let’s make a regular list with all the numbers from 1 to 100,000,000 and a numpy array with all the numbers from 1 to 100,000,000:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a regular Python list</span>
+<span class="c1"># with all the numbers up to one hundred million</span>
+
+<span class="c1"># Remember `range` doesn&#39;t include the last number,</span>
+<span class="c1"># so I have to go up to 100_000_001 to actually get all</span>
+<span class="c1"># the numbers from 1 to 100_000_000</span>
+
+<span class="n">one_to_one_hund_mil_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100_000_001</span><span class="p">))</span>
+
+<span class="c1"># Now make a numpy vector</span>
+<span class="c1"># with all the numbers up to one hundred million</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">one_to_one_hund_mil_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100_000_001</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s add up all of the numbers in each of these two objects and keep track of how long it takes to do this with regular Python and with numpy.</p>
+<p><strong>Note:</strong> to measure how long each of these operations takes, we will use the <code class="docutils literal notranslate"><span class="pre">time()</span></code> function from the <code class="docutils literal notranslate"><span class="pre">time</span></code> module in the Python standard library. When run, <code class="docutils literal notranslate"><span class="pre">time()</span></code> returns the current time measured in the number of seconds that have passed since January 1st, 1970 UTC – something called “<a class="reference external" href="https://en.wikipedia.org/wiki/Unix_time">Epoch time or UNIX time</a>.” (<em>Why</em> is time measured using the number of seconds since 1970?! 🤷‍♂️ Basically it turns out to be helpful for all computers to measure time against a common benchmark, and 1970 is around the time when the UNIX operating system came online.) So if we record the time before we start running our code, then record the time when the code finishes, then the difference is the amount of time (in seconds) that the code took to run. This isn’t the way to do really accurate code timing – for that you would want to run your code over and over and calculate the average running time – but it’s more than sufficient for our purposes!</p>
+<p><strong>Note 2:</strong> In the following examples, I print my output using <em>f-strings</em>. f-strings were added to Python in 2017, and provide an alternate syntax for inserting the value of a variable into a string (“string interpolation”). They work the same way as the <code class="docutils literal notranslate"><span class="pre">.format()</span></code> method of string interpolation (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;my</span> <span class="pre">name</span> <span class="pre">is</span> <span class="pre">{}&quot;.format(name)</span></code>), but instead of putting <code class="docutils literal notranslate"><span class="pre">.format()</span></code> at the end of the string, you simply prefix your string with an <code class="docutils literal notranslate"><span class="pre">f</span></code> or <code class="docutils literal notranslate"><span class="pre">F</span></code> and place the name of the variable you want to be interpolated inside the curly braces (e.g. <code class="docutils literal notranslate"><span class="pre">f&quot;my</span> <span class="pre">name</span> <span class="pre">is</span> <span class="pre">{name}&quot;</span></code>). And as with the <code class="docutils literal notranslate"><span class="pre">.format()</span></code> method, you can also tell Python how to format the string with codes you pass inside the <code class="docutils literal notranslate"><span class="pre">{}</span></code>—for example, the <code class="docutils literal notranslate"><span class="pre">:.3f</span></code> that follows <code class="docutils literal notranslate"><span class="pre">python_total</span></code> below tells Python that it should print the number with only three decimal values. There’s a <a class="reference external" href="https://docs.python.org/3/library/string.html#formatspec">whole mini-language</a> for telling Python how to convert numbers into strings, but for now it’s enough to know that the colon and stuff that follows are just for formatting.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">one_to_one_hund_mil_list</span><span class="p">:</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">total</span> <span class="o">+</span> <span class="n">i</span>
+    <span class="k">pass</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">python_total</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Python took </span><span class="si">{</span><span class="n">python_total</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Python took 5.232 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># Now we sum up all the numbers in the array</span>
+<span class="c1"># using the numpy `sum` function.</span>
+<span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">one_to_one_hund_mil_vector</span><span class="p">)</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">numpy_total</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy took </span><span class="si">{</span><span class="n">numpy_total</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Numpy took 0.035 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy was </span><span class="si">{</span><span class="n">python_total</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">numpy_total</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">x faster!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Numpy was 149.8x faster!
+</pre></div>
+</div>
+</div>
+</div>
+<p>Yup… and that’s why we use numpy! (Note regular, non-numpy Python would be able to do this more quickly using the Python <code class="docutils literal notranslate"><span class="pre">sum()</span></code> function instead of writing our own loop, but even then numpy would be <em>substantially</em> faster.)</p>
+<p>But that’s not all – regular Python required <em>much</em> more memory to store its list of numbers than was required by numpy:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pympler</span> <span class="kn">import</span> <span class="n">asizeof</span>
+
+<span class="c1"># `asizeof.asizeof()` gets the size of an object</span>
+<span class="c1"># and all of its contents in bytes, so we&#39;ll</span>
+<span class="c1"># divide it&#39;s output by one billion to get</span>
+<span class="c1"># the value in gigabytes.</span>
+
+<span class="n">list_size_in_gb</span> <span class="o">=</span> <span class="n">asizeof</span><span class="o">.</span><span class="n">asizeof</span><span class="p">(</span><span class="n">one_to_one_hund_mil_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1_000_000_000</span>
+<span class="n">vector_size_in_gb</span> <span class="o">=</span> <span class="n">asizeof</span><span class="o">.</span><span class="n">asizeof</span><span class="p">(</span><span class="n">one_to_one_hund_mil_vector</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1_000_000_000</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">8</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">pympler</span> <span class="kn">import</span> <span class="n">asizeof</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># `asizeof.asizeof()` gets the size of an object</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># and all of its contents in bytes, so we&#39;ll</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># divide it&#39;s output by one billion to get</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># the value in gigabytes.</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">list_size_in_gb</span> <span class="o">=</span> <span class="n">asizeof</span><span class="o">.</span><span class="n">asizeof</span><span class="p">(</span><span class="n">one_to_one_hund_mil_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1_000_000_000</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">vector_size_in_gb</span> <span class="o">=</span> <span class="n">asizeof</span><span class="o">.</span><span class="n">asizeof</span><span class="p">(</span><span class="n">one_to_one_hund_mil_vector</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1_000_000_000</span>
+
+<span class="nn">File ~/opt/miniconda3/lib/python3.10/site-packages/pympler/asizeof.py:2603,</span> in <span class="ni">asizeof</span><span class="nt">(*objs, **opts)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2601</span> <span class="k">if</span> <span class="n">x</span><span class="p">:</span>  <span class="c1"># don&#39;t size, profile or rank _getobjects tuple</span>
+<span class="g g-Whitespace">   </span><span class="mi">2602</span>     <span class="n">_asizer</span><span class="o">.</span><span class="n">exclude_objs</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">2603</span> <span class="n">s</span> <span class="o">=</span> <span class="n">_asizer</span><span class="o">.</span><span class="n">asizeof</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2604</span> <span class="n">_asizer</span><span class="o">.</span><span class="n">print_stats</span><span class="p">(</span><span class="n">objs</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="n">opts</span><span class="p">)</span>  <span class="c1"># show opts as _kwdstr</span>
+<span class="g g-Whitespace">   </span><span class="mi">2605</span> <span class="n">_asizer</span><span class="o">.</span><span class="n">_clear</span><span class="p">()</span>
+
+<span class="nn">File ~/opt/miniconda3/lib/python3.10/site-packages/pympler/asizeof.py:2032,</span> in <span class="ni">Asizer.asizeof</span><span class="nt">(self, *objs, **opts)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2030</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="n">opts</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2031</span> <span class="bp">self</span><span class="o">.</span><span class="n">exclude_refs</span><span class="p">(</span><span class="o">*</span><span class="n">objs</span><span class="p">)</span>  <span class="c1"># skip refs to objs</span>
+<span class="ne">-&gt; </span><span class="mi">2032</span> <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sizer</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">objs</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/miniconda3/lib/python3.10/site-packages/pympler/asizeof.py:2032,</span> in <span class="ni">&lt;genexpr&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2030</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="n">opts</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2031</span> <span class="bp">self</span><span class="o">.</span><span class="n">exclude_refs</span><span class="p">(</span><span class="o">*</span><span class="n">objs</span><span class="p">)</span>  <span class="c1"># skip refs to objs</span>
+<span class="ne">-&gt; </span><span class="mi">2032</span> <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sizer</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">objs</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/miniconda3/lib/python3.10/site-packages/pympler/asizeof.py:1964,</span> in <span class="ni">Asizer._sizer</span><span class="nt">(self, obj, pid, deep, sized)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1962</span> <span class="k">else</span><span class="p">:</span>  <span class="c1"># just size and accumulate</span>
+<span class="g g-Whitespace">   </span><span class="mi">1963</span>     <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">refs</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1964</span>         <span class="n">s</span> <span class="o">+=</span> <span class="n">z</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1965</span> <span class="c1"># deepest recursion reached</span>
+<span class="g g-Whitespace">   </span><span class="mi">1966</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depth</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">:</span>
+
+<span class="nn">File ~/opt/miniconda3/lib/python3.10/site-packages/pympler/asizeof.py:1932,</span> in <span class="ni">Asizer._sizer</span><span class="nt">(self, obj, pid, deep, sized)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1930</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1931</span>     <span class="n">k</span><span class="p">,</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">_objkey</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="p">[]</span>
+<span class="ne">-&gt; </span><span class="mi">1932</span>     <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_excl_d</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1933</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_excl_d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="g g-Whitespace">   </span><span class="mi">1934</span>     <span class="k">else</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The Python list of numbers took up </span><span class="si">{</span><span class="n">list_size_in_gb</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> GB of RAM&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The numpy vector of numbers took up </span><span class="si">{</span><span class="n">vector_size_in_gb</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> GB of RAM&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;That means the Python list took up </span><span class="si">{</span><span class="n">list_size_in_gb</span><span class="o">/</span><span class="n">vector_size_in_gb</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">x &quot;</span>
+    <span class="s2">&quot;as much space as the numpy vector!&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The Python list of numbers took up 4.00 GB of RAM
+The numpy vector of numbers took up 0.80 GB of RAM
+That means the Python list took up 5x as much space as the numpy vector!
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is, of course, a toy example; if all we wanted to do as data scientists was sum up the contents of a couple vectors, it wouldn’t be worth learning numpy just to save eight seconds. But of course, that’s <em>not</em> what we do in data science – we work with data sets that not only have millions of rows, but also hundreds or thousands of columns. And we’re not just trying to sum them up; we are inverting and multiplying full matrices over and over, and running millions of calculations to estimate derivatives and evaluate objective functions. As a result, even with numpy, we are often doing tasks that take minutes, hours, or days.</p>
+<p>As data scientists, we often do computations and manipulations that take minutes, hours, or days. But without numpy, those same tasks would take hours, days, or even months. And that’s assuming you could even load your data in the first place!</p>
+<p>And so <em>that</em> is why we are learning numpy!</p>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./numpy/vectors"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../../intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Welcome to Practical Data Science (in Python)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="20_intro_to_vectors.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Working with Vectors</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Nick and Kyle<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

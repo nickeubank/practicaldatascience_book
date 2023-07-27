@@ -1,0 +1,856 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Working with Vectors &#8212; Practical Data Science</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Doing Math With Vectors" href="21_math_with_vectors.html" />
+    <link rel="prev" title="Numpy Arrays: The Workhorse of Data Science" href="10_why_numpy.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Practical Data Science</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to Practical Data Science (in Python)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Numpy
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="10_why_numpy.html">
+   Numpy Arrays: The Workhorse of Data Science
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Working with Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="21_math_with_vectors.html">
+     Doing Math With Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="23_type_promotion_in_vectors.html">
+     Type Promotion in numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="24_vector_recap.html">
+     Vector Recap
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="30_subsetting_vectors.html">
+     Subsetting Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="35_modifying_subsets_of_vectors.html">
+     Modifying Subsets of Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="37_vector_subsets_recap.html">
+     Recap
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Pandas
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../pandas/00_intro_to_pandas.html">
+   Intro to Pandas
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../pandas/10_pandas_series.html">
+     Pandas Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../pandas/15_manipulating_series.html">
+     Subsetting and indexing Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../pandas/16_indexing_with_brackets.html">
+     (OPTIONAL) Subsetting and Indexing with Single Square Brackets (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       []
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../pandas/30_pandas_dataframes.html">
+     Working with tabular data through Dataframes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../pandas/35_pandas_dataframe_gotchas.html">
+     Subsetting DataFrame Tricks and Gotchas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/numpy/vectors/20_intro_to_vectors.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fnumpy/vectors/20_intro_to_vectors.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/numpy/vectors/20_intro_to_vectors.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-should-i-care">
+   Why Should I Care?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vectors-in-context">
+   Vectors in Context
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vectors">
+   Vectors
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-a-vector">
+     Creating a Vector
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#numpy-data-types">
+     Numpy Data Types
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Working with Vectors</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-should-i-care">
+   Why Should I Care?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vectors-in-context">
+   Vectors in Context
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vectors">
+   Vectors
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-a-vector">
+     Creating a Vector
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#numpy-data-types">
+     Numpy Data Types
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="working-with-vectors">
+<h1>Working with Vectors<a class="headerlink" href="#working-with-vectors" title="Permalink to this headline">#</a></h1>
+<section id="why-should-i-care">
+<h2>Why Should I Care?<a class="headerlink" href="#why-should-i-care" title="Permalink to this headline">#</a></h2>
+<p>The year is 2028, and you have just been approached by the newly elected President of the United States. She hands you a flash drive and says:</p>
+<p>“On this drive is data from the U.S. Census Bureau of the total incomes of over one million households from last year. As you know for my campaign, I am deeply concerned about income inequality, and so I would like you to use this data to answer several questions for me:</p>
+<ul class="simple">
+<li><p>What is the average income of US households?</p></li>
+<li><p>How many households are currently living below the Federal poverty line of $28,000?</p></li>
+<li><p>Of those households, what share are near the poverty line (say, earning more than <span class="math notranslate nohighlight">\(20,000), and how many are in extreme poverty (below \)</span>20,000)?</p></li>
+<li><p>If I provided a tax credit of <span class="math notranslate nohighlight">\(10,000 to those making less than \)</span>10,000, what impact would that have on income inequality?”</p></li>
+</ul>
+<p>What would you do? Using some of the tools we’ve learned about previously—like lists—you could <em>maybe</em> load that data and do some simple calculations (like getting the average income of households), but how might you do these more complicated analyses?</p>
+<p>With numpy of course! As we will see in the following several readings, these types of questions—in which we seek to characterize various properties of a collection of individual measurements of income—are precisely what numpy was designed to answer. Indeed, later this week you will be provided with real US household income data from the US Census Bureau and you’ll be able to conduct analyses to answer these exact types of questions!</p>
+<p>(And don’t worry if income inequality isn’t a topic that you care about—these same skills are relevant to <em>lots</em> of business questions, income inequality is just a fun illustrative example. Feel free to also imagine you’re starting a business and want to use this income data to estimate the number of households that have the right income to be potential customers for your business!)</p>
+</section>
+<section id="vectors-in-context">
+<h2>Vectors in Context<a class="headerlink" href="#vectors-in-context" title="Permalink to this headline">#</a></h2>
+<p>In this reading, we’ll begin our introduction to numpy with the most basic form of numpy array: the vector! We’ll start by helping to contextualize and explain why we use vectors, then we’ll talk about how to create a vector and use it to do mathematical operations.</p>
+<p>As we mentioned in our last reading, the fundamental workhorse of data science in python is the numpy array. While all numpy arrays are similar, they do come in a range of flavors depending on the number of dimensions along which they organize the data they contain:</p>
+<p><img alt="numpy array example image" src="../../_images/arrays_w_axis_3d.png" /></p>
+<p>The simplest form of the numpy array is a one-dimensional array, also known as a <em>vector</em>. Vectors are a building block of data science because they are often used to represent a collection of different <em>measurements</em> or <em>observations</em> of the same thing. For example, one may use a vector to hold the heights of everyone in a classroom, or a series of measurements of one’s heart rate taken over time.</p>
+<p>When we move from one dimension to two, the resulting array is also known as a <em>matrix</em>. Matrices (the plural of matrix) are commonly used to represent data in two different ways.</p>
+<p>The first way we can represent data in a matrix is by placing lots of vectors side by side so that each column becomes a different property being measured, and each row becomes a single entity whose properties are being measured. For example, you could imagine storing data about customers in a matrix, where each row is a different individual customer, and each column is a different type of data being collected (days since customer’s last purchase, total dollars customer has spent at a store, customer age, etc.).</p>
+<p>The second common way of representing data in a matrix is by using the matrix to represent fundamentally two-dimensional data, like a picture. A simple black and white image, for example, can be represented by a matrix where the value in each cell is the darkness of the corresponding pixel, and a color image can be created by combining multiple matrices—one matrix for the amount of blue in each pixel, one for the amount of red, and one for the amount of green.</p>
+<p>While vectors and matrices are probably the most used types of arrays in data science, arrays can be extended into as many dimensions as one wants! For example, we could represent that color image we just described not with three matrices, but with one three-dimensional array composed of the three stacked matrices. Or we might also want to work with a three-dimensional array to represent three-dimensional data, like the results of an MRI scan of a brain with MRI signal strength in each cell, or a climate model with temperatures at a given location and altitude in each cell. Indeed, even higher dimensional arrays are commonly used, even if they’re harder to visualize—for example, if we wanted to model how a three-dimensional climate model changes over time, we could think of that as a series of three-dimensional arrays (each representing the world at a given time) stacked along a fourth dimension (time)!</p>
+</section>
+<section id="vectors">
+<h2>Vectors<a class="headerlink" href="#vectors" title="Permalink to this headline">#</a></h2>
+<p>All the flexibility that makes arrays so powerful can also be <strong>really</strong> overwhelming, so while it’s helpful for you to know a little about why arrays are so powerful, we’ll start our lesson by just getting a firm grasp on how to work with the simplest form of arrays—the vector.</p>
+<p>Then, once we feel really comfortable with vectors, we’ll talk about how everything you’ve learned about manipulating vectors can be easily generalized to these higher-dimensional arrays. Because as we’ll see, the real magic of arrays isn’t that they come in so many flavors—it’s that arrays follow the same logic whether they’re simple one-dimensional vectors or 10-dimensional tensors.</p>
+<section id="creating-a-vector">
+<h3>Creating a Vector<a class="headerlink" href="#creating-a-vector" title="Permalink to this headline">#</a></h3>
+<p>Vectors are one-dimensional arrays, which means they have two key properties: first, they organize all their data in a line along one dimension (like the lists you saw in your previous readings), and second, they are <em>homogeneously typed</em>, meaning each vector only holds data of one type (integer, floating point number, etc.).</p>
+<p>The simplest way to create a vector is with the <code class="docutils literal notranslate"><span class="pre">np.array()</span></code> function and a list:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># A vector of ints</span>
+<span class="n">an_integer_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">an_integer_vector</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 3])
+</pre></div>
+</div>
+</div>
+</div>
+<p>When you create a vector this way, numpy will do its best to infer the type of data you want the vector to store based on the data you provided it. You can see what it guessed by checking the <code class="docutils literal notranslate"><span class="pre">.dtype</span></code> attribute of your array:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">an_integer_vector</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype(&#39;int64&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’ll talk more about numpy data types, but for now it’s sufficient to know that <code class="docutils literal notranslate"><span class="pre">int64</span></code> is a kind of integer. So in this case, you passed <code class="docutils literal notranslate"><span class="pre">np.array()</span></code> a list of three integers, so it chose to create an array of integers!</p>
+<p>Vectors aren’t limited to integers, or course – we can also create vectors of floating point numbers (numbers with decimal components), Booleans, or strings!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A vector of floats</span>
+<span class="n">a_float_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">])</span>
+<span class="n">a_float_vector</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.7 , 2.  , 3.14])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a_float_vector</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype(&#39;float64&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A vector of booleans</span>
+<span class="n">a_boolean_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+<span class="n">a_boolean_vector</span>
+
+<span class="n">a_boolean_vector</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype(&#39;bool&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A vector of strings</span>
+<span class="c1"># (Note numpy is entirely happy with unicode</span>
+<span class="c1"># characters like emojis or Chinese characters!)</span>
+
+<span class="n">a_string_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;Lassie&quot;</span><span class="p">,</span> <span class="s2">&quot;盼盼&quot;</span><span class="p">,</span> <span class="s2">&quot;Hachi&quot;</span><span class="p">,</span> <span class="s2">&quot;Flipper&quot;</span><span class="p">,</span> <span class="s2">&quot;🐄&quot;</span><span class="p">])</span>
+<span class="n">a_string_vector</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Lassie&#39;, &#39;盼盼&#39;, &#39;Hachi&#39;, &#39;Flipper&#39;, &#39;🐄&#39;], dtype=&#39;&lt;U7&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data types for strings look especially strange -- </span>
+<span class="c1"># we&#39;ll talk about that below! Here, the U7 means </span>
+<span class="c1"># this is storing Unicode strings of length 7, </span>
+<span class="c1"># (but it won&#39;t hold any that are longer!).</span>
+<span class="c1"># Don&#39;t worry if that doesn&#39;t mean anything to you.</span>
+<span class="n">a_string_vector</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype(&#39;&lt;U7&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Of course, vectors wouldn’t be useful if we had to create a list and pass it to <code class="docutils literal notranslate"><span class="pre">np.array</span></code> anytime we wanted an array, so there are two other primary ways to get arrays.</p>
+<p>First, we can read in data from a file. In reality, this will <em>probably</em> be the method you use most for getting data in your career, though we won’t really get into reading in data from files till a later lesson.</p>
+<p>Second, we can use any one of a number of helper functions designed to generate especially helpful arrays. For example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Numbers from 0 to 9</span>
+<span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ones</span>
+<span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1., 1., 1.])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Zeros</span>
+<span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0., 0., 0.])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># An array of random values </span>
+<span class="c1"># distributed uniformally between 0 and 1</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.0341798 , 0.41909806, 0.91316355])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="numpy-data-types">
+<h3>Numpy Data Types<a class="headerlink" href="#numpy-data-types" title="Permalink to this headline">#</a></h3>
+<p>As we saw above, the way numpy writes out data types looks a little different from what we’ve previously seen from Python. For example, in Python the number 1 is just an <code class="docutils literal notranslate"><span class="pre">int</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>int
+</pre></div>
+</div>
+</div>
+</div>
+<p>And a floating point number like 3.14 is a <code class="docutils literal notranslate"><span class="pre">float</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="mf">3.14</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>float
+</pre></div>
+</div>
+</div>
+</div>
+<p>In numpy, by contrast, we also see these trailing numbers (e.g. <code class="docutils literal notranslate"><span class="pre">int64</span></code> and <code class="docutils literal notranslate"><span class="pre">float64</span></code>). Those trailing numbers just indicate the number of bits (individual 1s and 0s) that numpy is using to store each integer or floating point number. On any modern computer, numpy will default to 64 bits. This is a complexity you really don’t need to worry about for now, but basically, it’s there because you can tell numpy to allocate fewer bits to storing numbers if you want your data to take up less memory <em>and</em> you’re ok with the trade-offs that come with allocating fewer bits to storing a number (e.g. if you move from <code class="docutils literal notranslate"><span class="pre">float64</span></code> to <code class="docutils literal notranslate"><span class="pre">float16</span></code>, numpy will start ignoring many of the trailing digits of very long numbers).</p>
+<p>If at any point you want to control the type of your array (instead of having numpy guess), you can pass an argument to the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword when using <code class="docutils literal notranslate"><span class="pre">np.array()</span></code>. For example, if I want to make sure my array is an array of floats even if the data I’m putting in could be treated as integers, I could type:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">as_a_float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+<span class="n">as_a_float</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1., 2.])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">as_a_float</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype(&#39;float64&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’ll talk more about when you might want to do that in a later reading.</p>
+<p>(Also, note I didn’t have to say <code class="docutils literal notranslate"><span class="pre">float64</span></code> – if you don’t give a number when specifying a type, numpy will just use it’s own default, which is usually 64.)</p>
+</section>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p>Create a vector with all the prime numbers between 0 and 10 (e.g., just type the prime numbers in a vector).</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">len()</span></code> to get the number of numbers you put into your vector.</p></li>
+<li><p>Access the <code class="docutils literal notranslate"><span class="pre">.size</span></code> attribute to get the same number (just a different way!)</p></li>
+<li><p>What do you think is the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> of vector? Answer without running any code.</p></li>
+<li><p>Now access the <code class="docutils literal notranslate"><span class="pre">.dtype</span></code> attribute – were you correct?</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./numpy/vectors"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="10_why_numpy.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Numpy Arrays: The Workhorse of Data Science</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="21_math_with_vectors.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Doing Math With Vectors</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Nick and Kyle<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
