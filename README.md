@@ -1,4 +1,4 @@
-# Data Science for Humans Jupyter Book
+# Practical Data Science
 
 This repository is a [jupyter book project](https://jupyterbook.org/en/stable/intro.html)
 for Data Science for Humans.
