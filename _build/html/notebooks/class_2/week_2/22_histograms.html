@@ -1,0 +1,754 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Visualizing Your Data with Histograms &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_2/week_2/22_histograms';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="10_why_numpy.html">Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="30_subsetting_vectors.html">Subsetting Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/10_views_and_copies.html">Views and Copies</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/00_welcome_to_week_3.html">Matrices</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/40_nd_arrays.html">Arrays</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">Working with tabular data</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">Ways To Store and Read Data</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Ways To Store and Read Data: Binary Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Identifying Data Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Combining, grouping, and querying data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_2/week_2/22_histograms.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/class_2/week_2/22_histograms.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Visualizing Your Data with Histograms</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-bigger-dataset">Plotting a Bigger Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bins">Bins</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="visualizing-your-data-with-histograms">
+<h1>Visualizing Your Data with Histograms<a class="headerlink" href="#visualizing-your-data-with-histograms" title="Permalink to this headline">#</a></h1>
+<p>One tool that can be incredibly powerful for summarizing data alongside the functions detailed in our last reading is the <em>histogram</em>. A histogram is a tool for displaying the distribution of data in a vector in a plot. To illustrate, let’s consider a simple vector with some made-up ages of students in a master’s program:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">student_ages</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">])</span>
+<span class="n">student_ages</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([22, 23, 22, 21, 23, 25, 38, 24, 23, 30, 25, 25])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Obviously, this is a pretty small vector so we can get a sense of it just by looking at it, but suppose it were larger: how might you try and characterize it? Well, you might use <code class="docutils literal notranslate"><span class="pre">np.mean</span></code> to get the average, and <code class="docutils literal notranslate"><span class="pre">np.max</span></code> and <code class="docutils literal notranslate"><span class="pre">np.min</span></code> to get a sense of extreme values. But even then, those three data points don’t tell you everything.</p>
+<p>So let’s create a histogram of these ages. We’ll do so with the <code class="docutils literal notranslate"><span class="pre">hist</span></code> function from the <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> module of the library <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. We haven’t talked about this library at all yet, so this may seem a little out of left field, but don’t worry—data visualizations are <em>such</em> an important part of data science that we’ll do a full module on them later in this specialization. But histograms are so helpful for getting a <em>feel</em> for your data that we’re going to introduce this one function now.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">student_ages</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([3., 4., 3., 0., 0., 1., 0., 0., 0., 1.]),
+ array([21. , 22.7, 24.4, 26.1, 27.8, 29.5, 31.2, 32.9, 34.6, 36.3, 38. ]),
+ &lt;BarContainer object of 10 artists&gt;)
+</pre></div>
+</div>
+<img alt="../../../_images/d0359d4d767aab67b8b8643969890348b53ac6c01a6785c3f0b65b208e1d0671.png" src="../../../_images/d0359d4d767aab67b8b8643969890348b53ac6c01a6785c3f0b65b208e1d0671.png" />
+</div>
+</div>
+<p>Voilà, your first histogram! Let’s break this down.</p>
+<p>A histogram is made up of a series of vertical bars. Each bar covers a range of possible values on the bottom of the figure (the x-axis), and the height of each bar is determined by the number of observations in the original data whose value is in the range the bar covers.</p>
+<p>So for example the bar on the farthest right covers the values from about 36 to 38, and so it has a height (read on the left side of the figure, called the y-axis) of 1 because there’s only one observation in our vector with a value between 36 and 38. The bars on the left, by contrast, are much taller because there are more observations in the ranges each of those bars covers.</p>
+<p>Note that the ranges each bar covers as generally referred to as <em>bins</em> since we can think of a histogram as collecting all the observations in a given range, collecting them in a single bin, and then plotting a bar based on the number of observations in each bin.</p>
+<p>Together, these bars help give us a real <em>feel</em> for the distribution of student ages in the class in a way that <code class="docutils literal notranslate"><span class="pre">np.mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">np.min()</span></code>, and <code class="docutils literal notranslate"><span class="pre">np.max()</span></code> could not: the vast majority of students are about 24, but there are also a couple of older students in the class.</p>
+<p>(If you look <em>really</em> closely, you’ll actually also notice that what <code class="docutils literal notranslate"><span class="pre">plt.hist()</span></code> is returning is a tuple consisting of two numpy arrays and the plot itself (identified as a <code class="docutils literal notranslate"><span class="pre">&lt;BarContainer</span> <span class="pre">object</span> <span class="pre">of</span> <span class="pre">10</span> <span class="pre">artists&gt;</span></code>). The first numpy array contains the number of observations in each bin and the second numpy array contains all the edges of the bins over which observations are being counted.)</p>
+<p><strong>Note:</strong> As we will discuss when we get into data visualizations in more detail, one should <em>always</em> label plots and axes; the only reason we are doing that now is that we want to keep your focus on numpy, vectors, and arrays and not get into how to manipulate the properties of plots here. But we promise to explain the importance of labeling your data and how to do it soon!</p>
+<section id="plotting-a-bigger-dataset">
+<h2>Plotting a Bigger Dataset<a class="headerlink" href="#plotting-a-bigger-dataset" title="Permalink to this headline">#</a></h2>
+<p>Of course, in this case, we could have figured the distribution out by looking at the vector itself given it only had 12 values. But that will almost never be the case when you’re working with real data. So let’s see how valuable histograms can be with some real data! Let’s load a vector with the random sample of household incomes from the United States Census we’ll be working with in a later exercise:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;data/us_household_incomes.txt&quot;</span><span class="p">)</span>
+<span class="n">income</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 53308., 102050., 192994., ..., 407460.,  19856., 154754.])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>933695
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we will discuss in more detail in a later reading, this data comes from a survey of US Households conducted by the US Census Bureau, and each observation is the annual income of a randomly sampled household. And because it has 933,695 observations, there’s no way we can get a good sense of the distribution just by looking at the data.</p>
+<p>We could of course try and get a general sense with the functions we’ve discussed before. For example, the average household income is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>88298.96448626157
+</pre></div>
+</div>
+</div>
+</div>
+<p>$88,299! Not bad.</p>
+<p>OK, next up we’ll try and get a better sense of this data by creating a histogram, but before we do pause for a moment and think about what you think the histogram will look like. Do you think it will be pretty flat, with roughly the same share of households making 40,000 as make 89,000? Or do you think it’ll look like a bell curve centered on $89,000 where most households are making about that much money, and the further you get from that the fewer the number of households?</p>
+<p>Do you have a guess?</p>
+<p>Then let’s look at the data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([8.77542e+05, 4.35030e+04, 1.01710e+04, 1.92100e+03, 3.98000e+02,
+        1.17000e+02, 2.90000e+01, 8.00000e+00, 4.00000e+00, 2.00000e+00]),
+ array([ -16942. ,  225842.5,  468627. ,  711411.5,  954196. , 1196980.5,
+        1439765. , 1682549.5, 1925334. , 2168118.5, 2410903. ]),
+ &lt;BarContainer object of 10 artists&gt;)
+</pre></div>
+</div>
+<img alt="../../../_images/4542f69c492b043e5699cbd1d1fb3abbbd24163db248e1964cb594a14871fb8a.png" src="../../../_images/4542f69c492b043e5699cbd1d1fb3abbbd24163db248e1964cb594a14871fb8a.png" />
+</div>
+</div>
+<p>Now <em>that</em> is definitely not uniform or a bell curve!</p>
+<p>In this figure, values along the bottom (x-axis) correspond to household incomes. Note that the <code class="docutils literal notranslate"><span class="pre">1e6</span></code> plotted in the bottom right means that you have to multiply all the values along the x-axis by <span class="math notranslate nohighlight">\(10^6\)</span> (1,000,000) to get the actual value, so 0.5 on the x-axis corresponds to an income of $500,000. Values on the left (the y-axis) are the total number of observations in each range. Recall we saw above that there are only 933,695 observations in the data, so that first bar on the left really contains almost all our observations!</p>
+<p>This distribution is what we call <em>right skewed</em>, meaning that most of the observations are on the left side, but there are a small number of extreme values out on the right side (“in the tail”).</p>
+<p>In fact, this distribution is even more right-skewed than you might initially think because the reason that the plot extends all the way out to 2.5 (which, again, corresponds to 2.5 times 1,000,000 = 2,500,000) is that there are a <em>very</em> small number of households with incomes that large. The number is so small that they don’t even merit a single pixel given the scale we’re using on the y-axis, but <code class="docutils literal notranslate"><span class="pre">plt.hist()</span></code> extended the y-axis all the way out there because there are values that large. Indeed, using <code class="docutils literal notranslate"><span class="pre">np.max</span></code> we can see that the highest income in this data is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2410903.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>$2,410,903!</p>
+<p>(Even then, that’s actually nowhere near the highest real household income in the US. First, when the Census Bureau asks about “income,” it does not include things like increases in the value of stocks a person owns. Given that’s <em>where</em> most increases in wealth for people like Jeff Bezos and Elon Musk come from, that means we’re missing a lot of big earners. And second, this data comes from a 1% sample of all households in the US, which makes it poorly suited to characterizing extreme values in data distributed like this—there’s only one Elon Musk and one Jeff Bezos, so even if their income were to be calculated properly, the odds they were included in this survey is very low).</p>
+<p>Indeed, we can study these high earners in more detail by subsetting our data to only include observations for households that earn more than $1,000,000. We’ll discuss all the nuances of how to do this in the second half of the week, but so that you can see that there are in fact observations on the far right, I’ll do a histogram of just high earners here:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Subset our vector, keeping only the observations for </span>
+<span class="c1"># households earning more than a million dollars a year.</span>
+<span class="c1"># I haven&#39;t shown you had to do this yet,</span>
+<span class="c1"># but I will before the week is over!</span>
+<span class="n">just_high_earners</span> <span class="o">=</span> <span class="n">income</span><span class="p">[</span><span class="n">income</span> <span class="o">&gt;</span> <span class="mi">1_000_000</span><span class="p">]</span>
+
+<span class="c1"># Now plot a histogram for these high earners</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">just_high_earners</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([234.,  82.,  68.,  24.,   8.,   8.,   1.,   3.,   1.,   1.]),
+ array([1002000. , 1142890.3, 1283780.6, 1424670.9, 1565561.2, 1706451.5,
+        1847341.8, 1988232.1, 2129122.4, 2270012.7, 2410903. ]),
+ &lt;BarContainer object of 10 artists&gt;)
+</pre></div>
+</div>
+<img alt="../../../_images/2cac8b35a55dc7ea654c96b97f99de957e1e5e6e8ccad46e158f44ddbef00dd6.png" src="../../../_images/2cac8b35a55dc7ea654c96b97f99de957e1e5e6e8ccad46e158f44ddbef00dd6.png" />
+</div>
+</div>
+<p>As we can see, where our previous histogram had a y-axis that extended above 800,000—because there was a single bin with that many observations—here the largest bin contains less than 250 people, and so the y-axis is effectively “zoomed in”, allowing us to see that there <em>are</em> observations at the very high incomes, we just couldn’t see them before because the number of observations was very, very small (e.g. less than 10).</p>
+</section>
+<section id="bins">
+<h2>Bins<a class="headerlink" href="#bins" title="Permalink to this headline">#</a></h2>
+<p>In the histogram above, the first bar basically covers everything from <span class="math notranslate nohighlight">\(0 to \)</span>250,000, which we can also see is where most households’ incomes occur. So what if we want the bars to be more skinny so we can see more of the distribution on the left?</p>
+<p>The ranges that bars cover are called “bins”, and we can change the number of bins in a histogram with the <code class="docutils literal notranslate"><span class="pre">bins</span></code> keyword. So to get smaller bins, we just need to ask <code class="docutils literal notranslate"><span class="pre">plt.hist</span></code> to split our data into a larger number (and thus smaller) of bins:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([1.68165e+05, 3.08149e+05, 2.00715e+05, 1.11283e+05, 5.85780e+04,
+        3.06520e+04, 1.65090e+04, 9.72000e+03, 5.95700e+03, 4.29400e+03,
+        3.68900e+03, 3.33400e+03, 2.94300e+03, 2.51700e+03, 1.73700e+03,
+        1.13600e+03, 1.02800e+03, 8.10000e+02, 6.05000e+02, 3.88000e+02,
+        3.22000e+02, 2.45000e+02, 2.23000e+02, 1.38000e+02, 1.13000e+02,
+        9.70000e+01, 5.50000e+01, 5.60000e+01, 5.60000e+01, 2.10000e+01,
+        1.80000e+01, 2.30000e+01, 1.50000e+01, 3.20000e+01, 1.90000e+01,
+        1.00000e+01, 1.00000e+01, 6.00000e+00, 5.00000e+00, 3.00000e+00,
+        3.00000e+00, 2.00000e+00, 2.00000e+00, 1.00000e+00, 2.00000e+00,
+        3.00000e+00, 0.00000e+00, 0.00000e+00, 1.00000e+00, 0.00000e+00,
+        2.00000e+00, 0.00000e+00, 1.00000e+00, 0.00000e+00, 0.00000e+00,
+        1.00000e+00, 0.00000e+00, 0.00000e+00, 0.00000e+00, 1.00000e+00]),
+ array([ -16942.        ,   23522.08333333,   63986.16666667,
+         104450.25      ,  144914.33333333,  185378.41666667,
+         225842.5       ,  266306.58333333,  306770.66666667,
+         347234.75      ,  387698.83333333,  428162.91666667,
+         468627.        ,  509091.08333333,  549555.16666667,
+         590019.25      ,  630483.33333333,  670947.41666667,
+         711411.5       ,  751875.58333333,  792339.66666667,
+         832803.75      ,  873267.83333333,  913731.91666667,
+         954196.        ,  994660.08333333, 1035124.16666667,
+        1075588.25      , 1116052.33333333, 1156516.41666667,
+        1196980.5       , 1237444.58333333, 1277908.66666667,
+        1318372.75      , 1358836.83333333, 1399300.91666667,
+        1439765.        , 1480229.08333333, 1520693.16666667,
+        1561157.25      , 1601621.33333333, 1642085.41666667,
+        1682549.5       , 1723013.58333333, 1763477.66666667,
+        1803941.75      , 1844405.83333333, 1884869.91666667,
+        1925334.        , 1965798.08333333, 2006262.16666667,
+        2046726.25      , 2087190.33333333, 2127654.41666667,
+        2168118.5       , 2208582.58333333, 2249046.66666667,
+        2289510.75      , 2329974.83333333, 2370438.91666667,
+        2410903.        ]),
+ &lt;BarContainer object of 60 artists&gt;)
+</pre></div>
+</div>
+<img alt="../../../_images/49ff4774170441b0b9eb3803b692fc80d109067ee9208b91c2a7754b74535db2.png" src="../../../_images/49ff4774170441b0b9eb3803b692fc80d109067ee9208b91c2a7754b74535db2.png" />
+</div>
+</div>
+<p>That’s a little better, though obviously, the main problem is that most of the figure is being taken up by those extremely high-income individuals. So maybe in a future exercise we’ll subset our data and just look at household incomes below 1 million dollars… :)</p>
+<p>For the moment, though, I hope this has done a good job of illustrating for you the value of histograms for getting a “feel” for your data!</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_2/week_2"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-bigger-dataset">Plotting a Bigger Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bins">Bins</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Nick Eubank and Kyle Bradbury
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

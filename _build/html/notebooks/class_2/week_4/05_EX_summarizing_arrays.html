@@ -1,0 +1,808 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title> &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_2/week_4/05_EX_summarizing_arrays';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_2/10_why_numpy.html">Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_2/30_subsetting_vectors.html">Subsetting Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/10_views_and_copies.html">Views and Copies</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/00_welcome_to_week_3.html">Matrices</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/40_nd_arrays.html">Arrays</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">Working with tabular data</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">Ways To Store and Read Data</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Ways To Store and Read Data: Binary Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Identifying Data Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Combining, grouping, and querying data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_2/week_4/05_EX_summarizing_arrays.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/class_2/week_4/05_EX_summarizing_arrays.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-replacing-the-outliers-to-save-your-data">Exercise 1: Replacing the outliers to save your data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-changes-in-extreme-poverty">Exercise 2: Changes in extreme poverty</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-1-replacing-the-outliers-to-save-your-data">
+<h1>Exercise 1: Replacing the outliers to save your data<a class="headerlink" href="#exercise-1-replacing-the-outliers-to-save-your-data" title="Permalink to this headline">#</a></h1>
+<p>Missing or erroneous data come in a wide variety of forms. Sometimes you may encounter a dataset that has blanks where numbers should appear. Depending on how the dataset was created or if it was digitized, the blanks could be in the form of a null string (e.g. “”), a not applicable string (e.g. “N/A” or “NAN”), or sometimes a unique value (e.g. “missing”, “unavailable”). In some cases, when the data need to be in certain forms, such as when the data must be numerical, the data may be entered as unique codes corresponding to missing or erroneous values. The assigned value is generally something outside of the realm of expected values (much higher or lower) so that it is clear to whoever reads the data that the entry was not meant as actual data. For example, if we had a dataset listing the number of children in each household in a village, we would likely raise an eyebrow if we saw the number 88888; it’s probably missing or erroneous data. For data that is typically large sometimes 0 is used&amp;emdash;if we had a dataset of personal weight in kilograms and we saw a 0 value, that would likely raise a red flag. Erroneous data can sometimes be a bit trickier to identify because it could be due to an unintentional mistake and may fail silently: e.g. hitting an extra keystroke on data entry or missing one.</p>
+<p>Let’s see if we can clean up some missing data. Imagine you are the record keeper for a local municipality that has 500 citizens aged 55 and over. The town is known for its longevity and you’ve been asked by a team of researchers to identify the oldest citizen in town. The problem is, the records are occasionally in error and in those cases, an age of 999 is entered instead of the correct age. Remove the erroneous data from the array and determine the age of the oldest citizen.</p>
+<p>The data are provided for you below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">ages</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">92</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span>
+                 <span class="mi">98</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span>
+                 <span class="mi">90</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span>
+                 <span class="mi">95</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span>
+                 <span class="mi">63</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span>
+                 <span class="mi">58</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span>
+                 <span class="mi">77</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span>
+                 <span class="mi">90</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span>
+                 <span class="mi">74</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span>
+                 <span class="mi">97</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span>
+                 <span class="mi">82</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span>
+                 <span class="mi">84</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span>
+                 <span class="mi">84</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span>
+                 <span class="mi">92</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span>
+                 <span class="mi">79</span><span class="p">,</span> <span class="mi">82</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span>
+                 <span class="mi">62</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">82</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span>
+                 <span class="mi">87</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span>
+                 <span class="mi">63</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span>
+                 <span class="mi">81</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span>
+                 <span class="mi">63</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span>
+                 <span class="mi">55</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span>
+                 <span class="mi">77</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span>
+                 <span class="mi">68</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">82</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span>
+                 <span class="mi">108</span><span class="p">,</span>  <span class="mi">58</span><span class="p">,</span>  <span class="mi">95</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span>  <span class="mi">83</span><span class="p">,</span>  <span class="mi">79</span><span class="p">,</span>  <span class="mi">67</span><span class="p">,</span>  <span class="mi">59</span><span class="p">,</span>  <span class="mi">96</span><span class="p">,</span>  <span class="mi">90</span><span class="p">,</span>  <span class="mi">55</span><span class="p">,</span>  <span class="mi">55</span><span class="p">,</span>  <span class="mi">96</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span>  <span class="mi">82</span><span class="p">,</span>  <span class="mi">55</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span>  <span class="mi">58</span><span class="p">,</span>
+                 <span class="mi">97</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span>
+                 <span class="mi">93</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span>
+                 <span class="mi">97</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span>
+                 <span class="mi">66</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">59</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple">
+<li><p>First, replace or eliminate the erroneous values. In this case, since we’re only interested in the true maximum age, they can be replaced with the value of 0.</p></li>
+<li><p>Calculate the maximum age</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ages</span><span class="p">[</span><span class="n">ages</span> <span class="o">==</span> <span class="mi">999</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">age_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">ages</span><span class="p">)</span>
+<span class="n">age_max</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>112
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-2-changes-in-extreme-poverty">
+<h1>Exercise 2: Changes in extreme poverty<a class="headerlink" href="#exercise-2-changes-in-extreme-poverty" title="Permalink to this headline">#</a></h1>
+<p>Extreme poverty is often defined as living on less than $1.90 per day and the trend of those living in extreme poverty globally may surprise you. Let’s explore how the distribution of those living in extreme poverty has changed globally in just the past 30 years, since 1990.</p>
+<p><em>Note: the data used in this exercise are from Our World in Data and can be found at <a class="reference external" href="https://ourworldindata.org/extreme-poverty">https://ourworldindata.org/extreme-poverty</a>; their sources include World Bank and PovcalNet. All data are under a CC-BY license.</em></p>
+<p><strong>Our goal is to answer the following question: which region of the world saw the most significant change in poverty over the period of 1990 through the present?</strong></p>
+<p>We’ll walk through this step by step.</p>
+<ol class="arabic simple">
+<li><p>Let’s start by getting our data. We’ll explain how to load data in an upcoming lesson, but for now, you can use the following code to load the data. Each column in the data represents a different region of the world with column 0 representing “East Asia and Pacific” through column 5 representing “Sub-Saharan Africa”. The rows represent a year and range from 1990 to 2018 (29 years in total). All values are in percent.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+
+<span class="n">poverty_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;data/poverty.csv&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+<span class="n">regions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;East Asia and Pacific&#39;</span><span class="p">,</span>	
+           <span class="s1">&#39;Europe and Central Asia&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Latin America and the Caribbean&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Middle East and North Africa&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Other high income countries&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Sub-Saharan Africa&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Before we analyze data, we should always start by making sure our data match what we expect. What is the shape of the <code class="docutils literal notranslate"><span class="pre">property_data</span></code> matrix that you expect? Write that down. Now run <code class="docutils literal notranslate"><span class="pre">poverty_data.shape</span></code>. Does it match?</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poverty_data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(29, 6)
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Do you expect that extreme poverty has increased or decreased over the past 29 years? Note your prediction.</p></li>
+<li><p>Qualitatively investigate the data. Print your data and look at the trend. Time is increasing as the index of the row increases (down the page). Is extreme poverty trending upwards or downwards? How does it vary geographically?</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poverty_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[60.88034  ,  2.484886 , 15.22133  ,  6.491277 ,  0.4497752,
+        55.14735  ],
+       [58.89213  ,  2.979665 , 14.44992  , 10.19888  ,  0.4445933,
+        56.92398  ],
+       [56.1552   ,  4.409188 , 14.64882  ,  8.122025 ,  0.4610697,
+        58.92711  ],
+       [53.25093  ,  5.450625 , 14.475    ,  6.701275 ,  0.5010409,
+        60.09269  ],
+       [49.73015  ,  7.411693 , 13.47163  ,  6.2599   ,  0.4827007,
+        60.83462  ],
+       [44.5956   ,  6.817168 , 13.55845  ,  6.431939 ,  0.5301973,
+        60.46438  ],
+       [40.24122  ,  7.021449 , 15.33013  ,  5.996308 ,  0.5020602,
+        59.23421  ],
+       [40.17251  ,  5.938616 , 14.45707  ,  5.206807 ,  0.5654052,
+        58.69071  ],
+       [41.46121  ,  5.845733 , 13.71804  ,  4.108811 ,  0.5485073,
+        58.89175  ],
+       [37.89267  ,  7.838558 , 13.89229  ,  3.723531 ,  0.5092776,
+        58.71608  ],
+       [34.80593  ,  7.302634 , 12.73917  ,  3.532596 ,  0.4820404,
+        58.35836  ],
+       [32.76773  ,  6.566446 , 12.54185  ,  3.315875 ,  0.4821932,
+        57.15887  ],
+       [29.12035  ,  5.699777 , 11.9008   ,  3.358201 ,  0.4770654,
+        55.91608  ],
+       [25.91514  ,  5.798549 , 11.41865  ,  4.381464 ,  0.5720483,
+        55.84193  ],
+       [22.52806  ,  4.828877 , 10.35802  ,  3.401964 ,  0.5317222,
+        53.27199  ],
+       [18.35988  ,  4.699799 ,  9.793728 ,  3.124751 ,  0.5424558,
+        51.8592   ],
+       [17.87799  ,  3.964267 ,  7.971292 ,  2.911972 ,  0.5119291,
+        50.82357  ],
+       [15.73439  ,  3.319486 ,  7.474632 ,  2.852757 ,  0.5016243,
+        49.87577  ],
+       [14.77752  ,  2.719987 ,  7.005906 ,  2.752723 ,  0.529484 ,
+        48.83116  ],
+       [12.88433  ,  2.501057 ,  6.637292 ,  2.44456  ,  0.5143061,
+        48.88968  ],
+       [10.78918  ,  2.372822 ,  6.031175 ,  2.041483 ,  0.5022394,
+        47.4658   ],
+       [ 8.161552 ,  2.035938 ,  5.584178 ,  2.297006 ,  0.5625356,
+        45.48766  ],
+       [ 6.884913 ,  1.882299 ,  4.645762 ,  2.225858 ,  0.5738927,
+        43.8982   ],
+       [ 3.283568 ,  1.605898 ,  4.162317 ,  2.144877 ,  0.6343247,
+        43.46425  ],
+       [ 2.660742 ,  1.795678 ,  3.875646 ,  2.504394 ,  0.6787609,
+        42.28868  ],
+       [ 2.064447 ,  1.510588 ,  3.715105 ,  4.27522  ,  0.7298894,
+        41.9502   ],
+       [ 1.724642 ,  1.279116 ,  3.77002  ,  5.243514 ,  0.6336935,
+        41.85471  ],
+       [ 1.409494 ,  1.296676 ,  3.765012 ,  6.336534 ,  0.6798601,
+        41.18475  ],
+       [ 1.182303 ,  1.067427 ,  3.684688 ,  7.031782 ,  0.6046659,
+        40.39311  ]])
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Not let’s work towards quantifying those changes. Which regions started with the highest/lowest percentage of the population in extreme poverty in 1990? Which regions had the highest/lowest as of 2018? In what direction was the percentage of people in extreme poverty trending for most parts of the world?</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poverty_1990</span> <span class="o">=</span> <span class="n">poverty_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">poverty_1990</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([60.88034  ,  2.484886 , 15.22133  ,  6.491277 ,  0.4497752,
+       55.14735  ])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poverty_2018</span> <span class="o">=</span> <span class="n">poverty_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">poverty_2018</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 1.182303 ,  1.067427 ,  3.684688 ,  7.031782 ,  0.6046659,
+       40.39311  ])
+</pre></div>
+</div>
+</div>
+</div>
+<p>East Asia and the Pacific had the highest extreme poverty rate in 1990 (60.9%) and high-income countries had the lowest (0.4%). In 2018, high-income countries still had the lowest incidence of extreme poverty at 0.60% and the highest was Sub-Saharan Africa at 40.39%. In most places, extreme poverty was decreasing except for the Middle East and high-income countries.</p>
+<ol class="arabic simple" start="5">
+<li><p>Compute the minimum and the maximum percentage of people in extreme poverty across all years for each region. You can do this with 2 lines of code.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poverty_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">poverty_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">poverty_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">poverty_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">poverty_max</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([60.88034  ,  7.838558 , 15.33013  , 10.19888  ,  0.7298894,
+       60.83462  ])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poverty_min</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 1.182303 ,  1.067427 ,  3.684688 ,  2.041483 ,  0.4445933,
+       40.39311  ])
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>We often want to monitor and understand regional changes in poverty so we can learn from their experiences. It’s useful to understand regions that have reduced the prevalence of poverty and those in which poverty has increased, in both cases to learn from what drove those changes and to work towards remediating extreme poverty wherever possible. To that end, we want to know which parts of the world experienced the largest change in the percentage of its population in extreme poverty. Since we’ve already explored the trends in poverty, calculate the change in the percentage of those in extreme poverty by computing the difference between the maximum and minimum percentages. Which region experienced the largest change? Which experienced the smallest change? Were those trends increasing or decreasing (how do you know based on what you’ve investigated so far)?</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poverty_change</span> <span class="o">=</span> <span class="n">poverty_max</span> <span class="o">-</span> <span class="n">poverty_min</span>
+<span class="n">poverty_change</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([59.698037 ,  6.771131 , 11.645442 ,  8.157397 ,  0.2852961,
+       20.44151  ])
+</pre></div>
+</div>
+</div>
+</div>
+<p>The largest change was experienced in the East Asia and Pacific region falling from 60.9% to 1.2% and the smallest change occurred among high-income countries (which increased a bit over those years). We know the increase or decrease based on the reference values from 1990 and 2018.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_2/week_4"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-replacing-the-outliers-to-save-your-data">Exercise 1: Replacing the outliers to save your data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-changes-in-extreme-poverty">Exercise 2: Changes in extreme poverty</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Nick Eubank and Kyle Bradbury
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
