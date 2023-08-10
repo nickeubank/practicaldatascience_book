@@ -1,0 +1,1319 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>The Iceberg Principle &#8212; Practical Data Science with Python</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Workflow Management" href="workflow.html" />
+    <link rel="prev" title="Defensive Programming" href="defensive_programming.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Practical Data Science with Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Setting Up Your Environment
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../00_setup_env/setup_python.html">
+   Setup Python, VS Code, and Jupyter
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/setup_vscode.html">
+     Setting Up Visual Studio Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/setup_augmented_commandline.html">
+     Set Up an Augmented Command Line
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/jupyter_in_vscode.html">
+     The Jupyter Project
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/jupyter_r_notebooks.html">
+     Running R Jupyter Notebooks in VS Code
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Command Line
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../10_commandline/commandline_part1.html">
+   Command Line Basics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../10_commandline/commandline_part2.html">
+     Advanced Command Line Tutorial
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Numpy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">
+   Vectors
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">
+     Working with Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">
+     Doing Math With Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">
+     Type Promotion in numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">
+     The Python Ease of Use / Speed Tradeoff
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/11_vectorization.html">
+     Vectorization in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">
+     Vector Recap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">
+   Subsetting Vectors
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">
+     Modifying Subsets of Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">
+     Recap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">
+   Views and Copies
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">
+     When Do I Get a View and When Do I Get a Copy?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">
+     Variables are pointers to objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">
+     Review of Views and Copies
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">
+   Matrices
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/20_matrices.html">
+     Intro to Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">
+     Folding and Reshaping Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">
+     Matrices as Images
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">
+     Subsetting Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">
+     Editing Subsets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">
+     Review of Matrices
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">
+   Arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">
+     Broadcasting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">
+     Review of ND-Arrays
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">
+     Summarizing Arrays
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">
+     Practical Example: comparing weather by counting like-values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">
+     Color Images as Arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">
+   Random numbers
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Pandas
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">
+   Working with tabular data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">
+     Pandas Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">
+     Subsetting and Indexing Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">
+     (OPTIONAL) Subsetting and Indexing with Single Square Brackets (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       []
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">
+     Working with tabular data through Dataframes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">
+     Subsetting DataFrame Tricks and Gotchas
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">
+   Ways To Store and Read Data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/05_binary_files.html">
+     Ways To Store and Read Data: Binary Files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">
+     Views and Copies
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">
+     Views and Copies in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">
+     The View/Copy Headache in pandas without Copy on Write
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">
+     Identifying Data Problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">
+     Fixing Data Value Problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">
+     Editing Specific Locations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">
+     Cleaning Data Types
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">
+     Missing Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">
+   Combining, grouping, and querying data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">
+     Concatenating
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">
+     Merging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/20_grouping.html">
+     Grouping
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/30_queries.html">
+     Querying
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Miscellaneous
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">
+   Running Python in the VS Code Interactive Window
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">
+   Understanding and Managing Python Packages
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../other/fstrings.html">
+   Combining numbers and text into strings: f-strings
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Practical Skills and Concepts
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="10_debugging_principles.html">
+   Debugging
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="20_debugging_in_vscode.html">
+     Debugging Python in VS Code
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="defensive_programming.html">
+   Defensive Programming
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     The Iceberg Principle
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="workflow.html">
+   Workflow Management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_help.html">
+   Getting Help Online
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="vars_v_objects.html">
+   Python: Variables vs. Objects
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="python_v_r.html">
+     Python vs. R: Important Differences To Be Aware Of
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="backwards_design.html">
+   Backwards Design
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ints_and_floats.html">
+   Numbers in Computers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="writing_good_jupyter_notebooks.html">
+   Writing Good Jupyter Notebooks
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nickeubank/practicaldatascience_book/main?urlpath=tree/docs/notebooks/PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/nickeubank/practicaldatascience_book/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/nickeubank/practicaldatascience_book//issues/new?title=Issue%20on%20page%20%2Fnotebooks/PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/notebooks/PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>The Iceberg Principle</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="the-iceberg-principle">
+<h1>The Iceberg Principle<a class="headerlink" href="#the-iceberg-principle" title="Permalink to this headline">#</a></h1>
+<p>An important principle in data cleaning is the iceberg principle: if you see <em>anything</em> in your data that doesn’t make sense to you, even if it doesn’t seem like a major problem, you <strong>absolutely must</strong> figure out why it’s happening, because small things that don’t make sense are often signals of big, underlying problems that are hard to detect.</p>
+<p>To illustrate, suppose we’re interested in understanding how the composition of arrests in California have been changing over time. In particular, we’re interested in the share of arrests that are felonies (serious crimes), as opposed to misdomeaners (minor crimes). We start with data on total felony and misdomeaner arrests in California from 2001 to 2010:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">felonies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../Example_Data/ca_felonies_2001_2010.csv&quot;</span><span class="p">)</span>
+<span class="n">felonies</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>felony_arrests</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2001</td>
+      <td>472677</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2002</td>
+      <td>487364</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2003</td>
+      <td>507081</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2004</td>
+      <td>522781</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2005</td>
+      <td>538166</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2006</td>
+      <td>534460</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2007</td>
+      <td>523276</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2008</td>
+      <td>499628</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2009</td>
+      <td>466441</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2010</td>
+      <td>448552</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">misdomeaners</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../Example_Data/ca_misdomeaners_2001_2010.csv&quot;</span><span class="p">)</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">felonies</span><span class="p">,</span> <span class="n">misdomeaners</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;1:1&quot;</span><span class="p">)</span>
+<span class="n">merged</span><span class="p">[</span><span class="s1">&#39;share_felonies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;felony_arrests&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="s1">&#39;felony_arrests&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;misdomeaner_arrests&#39;</span><span class="p">])</span>
+
+<span class="kn">from</span> <span class="nn">plotnine</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="p">(</span>
+    <span class="n">ggplot</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;share_felonies&#39;</span><span class="p">))</span> <span class="o">+</span>
+           <span class="n">geom_point</span><span class="p">()</span> <span class="o">+</span> <span class="n">geom_smooth</span><span class="p">()</span> <span class="o">+</span> 
+           <span class="n">scale_x_continuous</span><span class="p">(</span><span class="nb">range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">2010</span><span class="p">],</span>
+                      <span class="n">breaks</span> <span class="o">=</span>  <span class="nb">range</span><span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                      <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/Nick/miniconda3/lib/python3.7/site-packages/plotnine/layer.py:467: PlotnineWarning: geom_point : Removed 1 rows containing missing values.
+</pre></div>
+</div>
+<img alt="../../../_images/iceberg_principle_2_1.png" src="../../../_images/iceberg_principle_2_1.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ggplot: (8766523976497)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Cool! The share of arrests that were felonies were about flat in the early 2000s, then fall sharply in the late 2000s. Everything looks great, right?! Let’s publish a paper!</p>
+<p>But wait… didn’t we say our data was form 2001 to 2010? Then why isn’t there a point being plotted for 2001? And what’s that Plotnine warning about removing 1 row with missing values? Something seems…🐟 🐠 🐡. (Fishy, get it?!)</p>
+<p>Let’s look more closely at our data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>felony_arrests</th>
+      <th>misdomeaner_arrests</th>
+      <th>share_felonies</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2001</td>
+      <td>472677</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2002</td>
+      <td>487364</td>
+      <td>907990.0</td>
+      <td>0.349276</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2003</td>
+      <td>507081</td>
+      <td>903249.0</td>
+      <td>0.359548</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2004</td>
+      <td>522781</td>
+      <td>931782.0</td>
+      <td>0.359408</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2005</td>
+      <td>538166</td>
+      <td>945562.0</td>
+      <td>0.362712</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2006</td>
+      <td>534460</td>
+      <td>939046.0</td>
+      <td>0.362713</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2007</td>
+      <td>523276</td>
+      <td>968408.0</td>
+      <td>0.350795</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2008</td>
+      <td>499628</td>
+      <td>992588.0</td>
+      <td>0.334823</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2009</td>
+      <td>466441</td>
+      <td>1010038.0</td>
+      <td>0.315914</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2010</td>
+      <td>448552</td>
+      <td>970221.0</td>
+      <td>0.316155</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Huh… ok weird. Missing data for 2001 in <code class="docutils literal notranslate"><span class="pre">misdomeaner_arrests</span></code>. Was that in the original data?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">misdomeaners</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>misdomeaner_arrests</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2001.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2002.0</td>
+      <td>907990.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2003.0</td>
+      <td>903249.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2004.0</td>
+      <td>931782.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2005.0</td>
+      <td>945562.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2006.0</td>
+      <td>939046.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2007.0</td>
+      <td>968408.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2008.0</td>
+      <td>992588.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2009.0</td>
+      <td>1010038.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2010.0</td>
+      <td>970221.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>NaN</td>
+      <td>918279.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Uh… well that’s bad. Not only is there no data for 2001, but there’s data for a row with no year?! That <em>clearly</em> can’t be right.</p>
+<p>We better go check the source data for this table. Here’s what I see when I go back to the CA Bureau of Justice Crime Statistics:</p>
+<p><img alt="images/source_crime_data.png" src="notebooks/PDS_not_yet_in_coursera/20_programming_concepts/images/source_crime_data.png" /></p>
+<p>Hmmm… so the original data says 907,990 is the entry for 2001, but in our table it says that’s the value for 2002. You know what I think happened? When the data was transcribed, it was offset one row by accident:</p>
+<p><img alt="misdomeaner_spreadsheet" src="notebooks/PDS_not_yet_in_coursera/20_programming_concepts/images/misdomeaner_spreadsheet.png" /></p>
+<p>Which means… the problem isn’t just that I’m missing data from 2001. It means that <strong>all</strong> of my data is wrong, not just 2001! The real result is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">misdomeaners</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">misdomeaners</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">misdomeaners</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">misdomeaners</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2010</span>
+<span class="n">misdomeaners</span> <span class="o">=</span> <span class="n">misdomeaners</span><span class="p">[</span><span class="n">misdomeaners</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">2000</span><span class="p">]</span>
+<span class="n">misdomeaners</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>misdomeaner_arrests</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2001.0</td>
+      <td>907990.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2002.0</td>
+      <td>903249.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2003.0</td>
+      <td>931782.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2004.0</td>
+      <td>945562.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2005.0</td>
+      <td>939046.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2006.0</td>
+      <td>968408.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2007.0</td>
+      <td>992588.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2008.0</td>
+      <td>1010038.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2009.0</td>
+      <td>970221.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2010.0</td>
+      <td>918279.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This time I&#39;ll do an outer merge and check it!</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">felonies</span><span class="p">,</span> <span class="n">misdomeaners</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;1:1&quot;</span><span class="p">,</span> 
+                  <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">merged</span><span class="o">.</span><span class="n">_merge</span> <span class="o">==</span> <span class="s2">&quot;both&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="n">merged</span><span class="p">[</span><span class="s1">&#39;share_felonies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;felony_arrests&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="s1">&#39;felony_arrests&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;misdomeaner_arrests&#39;</span><span class="p">])</span>
+
+<span class="kn">from</span> <span class="nn">plotnine</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="p">(</span>
+    <span class="n">ggplot</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;share_felonies&#39;</span><span class="p">))</span> <span class="o">+</span>
+           <span class="n">geom_point</span><span class="p">()</span> <span class="o">+</span> <span class="n">geom_smooth</span><span class="p">()</span> <span class="o">+</span> 
+           <span class="n">scale_x_continuous</span><span class="p">(</span><span class="nb">range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">2010</span><span class="p">],</span>
+                      <span class="n">breaks</span> <span class="o">=</span>  <span class="nb">range</span><span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                      <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/iceberg_principle_11_0.png" src="../../../_images/iceberg_principle_11_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ggplot: (8766506697893)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Phew. OK, so the real answer is that there was a big increase in felonies as a share of total arrests in the early 2000s, then an even steeper decline than we saw before.</p>
+<p>And that, my friends, is the iceberg principle: often times very small anomylies in your data are the only warning you will get about much bigger problems, so you always want to keep an eye out for things you don’t expect, and if you see something weird, <em>make sure you figure out why it’s happening</em>, because while sometimes small problems are just small problems, other times your just seeing the tip of an iceberg:</p>
+<p><img alt="iceberg" src="../../../_images/iceberg.jpg" /></p>
+<p>And lest you think this is a contrived example: it’s not. It is a simplified verison of a problem I encountered in my own research just 2 months ago, in which a single outlier observation lead me to realize that our data entry team had made an off-by-one error during data entry that had corrupted several years of data. I cannot tell you how many times over the years I’ve had this kind of thing occur – I was one observation short in a regression, or I had one outlier, and when I dug into I discovered a much, much bigger problem. So <em>please</em> heed my warning: if you see something that seems off, no matter how small, figure out what’s causing it!</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks/PDS_not_yet_in_coursera/20_programming_concepts"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="defensive_programming.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Defensive Programming</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="workflow.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Workflow Management</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Nick Eubank and Kyle Bradbury<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,997 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Workflow Management &#8212; Practical Data Science with Python</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Getting Help Online" href="getting_help.html" />
+    <link rel="prev" title="The Iceberg Principle" href="iceberg_principle.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Practical Data Science with Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Setting Up Your Environment
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../00_setup_env/setup_python.html">
+   Setup Python, VS Code, and Jupyter
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/setup_vscode.html">
+     Setting Up Visual Studio Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/setup_augmented_commandline.html">
+     Set Up an Augmented Command Line
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/jupyter_in_vscode.html">
+     The Jupyter Project
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/jupyter_r_notebooks.html">
+     Running R Jupyter Notebooks in VS Code
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Command Line
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../10_commandline/commandline_part1.html">
+   Command Line Basics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../10_commandline/commandline_part2.html">
+     Advanced Command Line Tutorial
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Numpy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">
+   Vectors
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">
+     Working with Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">
+     Doing Math With Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">
+     Type Promotion in numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">
+     The Python Ease of Use / Speed Tradeoff
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/11_vectorization.html">
+     Vectorization in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">
+     Vector Recap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">
+   Subsetting Vectors
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">
+     Modifying Subsets of Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">
+     Recap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">
+   Views and Copies
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">
+     When Do I Get a View and When Do I Get a Copy?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">
+     Variables are pointers to objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">
+     Review of Views and Copies
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">
+   Matrices
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/20_matrices.html">
+     Intro to Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">
+     Folding and Reshaping Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">
+     Matrices as Images
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">
+     Subsetting Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">
+     Editing Subsets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">
+     Review of Matrices
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">
+   Arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">
+     Broadcasting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">
+     Review of ND-Arrays
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">
+     Summarizing Arrays
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">
+     Practical Example: comparing weather by counting like-values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">
+     Color Images as Arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">
+   Random numbers
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Pandas
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">
+   Working with tabular data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">
+     Pandas Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">
+     Subsetting and Indexing Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">
+     (OPTIONAL) Subsetting and Indexing with Single Square Brackets (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       []
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">
+     Working with tabular data through Dataframes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">
+     Subsetting DataFrame Tricks and Gotchas
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">
+   Ways To Store and Read Data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/05_binary_files.html">
+     Ways To Store and Read Data: Binary Files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">
+     Views and Copies
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">
+     Views and Copies in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">
+     The View/Copy Headache in pandas without Copy on Write
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">
+     Identifying Data Problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">
+     Fixing Data Value Problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">
+     Editing Specific Locations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">
+     Cleaning Data Types
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">
+     Missing Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">
+   Combining, grouping, and querying data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">
+     Concatenating
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">
+     Merging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/20_grouping.html">
+     Grouping
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/30_queries.html">
+     Querying
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Miscellaneous
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">
+   Running Python in the VS Code Interactive Window
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">
+   Understanding and Managing Python Packages
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../other/fstrings.html">
+   Combining numbers and text into strings: f-strings
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Practical Skills and Concepts
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="10_debugging_principles.html">
+   Debugging
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="20_debugging_in_vscode.html">
+     Debugging Python in VS Code
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="defensive_programming.html">
+   Defensive Programming
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="iceberg_principle.html">
+     The Iceberg Principle
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Workflow Management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_help.html">
+   Getting Help Online
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="vars_v_objects.html">
+   Python: Variables vs. Objects
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="python_v_r.html">
+     Python vs. R: Important Differences To Be Aware Of
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="backwards_design.html">
+   Backwards Design
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ints_and_floats.html">
+   Numbers in Computers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="writing_good_jupyter_notebooks.html">
+   Writing Good Jupyter Notebooks
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nickeubank/practicaldatascience_book/main?urlpath=tree/docs/notebooks/PDS_not_yet_in_coursera/20_programming_concepts/workflow.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/nickeubank/practicaldatascience_book/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/nickeubank/practicaldatascience_book//issues/new?title=Issue%20on%20page%20%2Fnotebooks/PDS_not_yet_in_coursera/20_programming_concepts/workflow.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/notebooks/PDS_not_yet_in_coursera/20_programming_concepts/workflow.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#file-numbering">
+   File Numbering
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#use-lots-of-small-files">
+   Use lots of small files
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#carefully-manage-your-source-data">
+   Carefully manage your source data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#folder-strutures">
+   Folder Strutures
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Workflow Management</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#file-numbering">
+   File Numbering
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#use-lots-of-small-files">
+   Use lots of small files
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#carefully-manage-your-source-data">
+   Carefully manage your source data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#folder-strutures">
+   Folder Strutures
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="workflow-management">
+<h1>Workflow Management<a class="headerlink" href="#workflow-management" title="Permalink to this headline">#</a></h1>
+<p>A key part of being a successful data scientist is keep track of all the data that goes into a project, the various manipulations that are performed on that data, and final results. In this tutorial, I outline some principles and pratices that I have found exceedingly useful in managing my workflows over the years. Workflow management can be very personal, so feel free to take from this what you will.</p>
+<section id="file-numbering">
+<h2>File Numbering<a class="headerlink" href="#file-numbering" title="Permalink to this headline">#</a></h2>
+<p>A key feature of data science workflows is that they are often sequential: code for importing data is meant to be run before code for cleaning data, and code for cleaning is meant to be run before analysis. With that in mind, I am an advocate of pre-fixing all files with a number. For example, a small project might have three files of the following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span><span class="n">_import_data</span><span class="o">.</span><span class="n">py</span>
+<span class="mi">20</span><span class="n">_clean_data</span><span class="o">.</span><span class="n">py</span>
+<span class="mi">30</span><span class="n">_analyze_data</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Why 10, 20, 30 and not 1, 2, 3? Because another key feature of data science is that projects never quite end up looking the way we expect them to when we start, and numbering by tens makes it easy to add files between existing files without having to re-number everything.</p>
+<p>For example, suppose I realize that before cleaning my data, I need to export some summary statistics about cleanliness issues. With this file structure, I can easily add a new file in the middle of the existing files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span><span class="n">_import_data</span><span class="o">.</span><span class="n">py</span>
+<span class="mi">15</span><span class="n">_export_cleanliness_report</span><span class="o">.</span><span class="n">py</span>
+<span class="mi">20</span><span class="n">_clean_data</span><span class="o">.</span><span class="n">py</span>
+<span class="mi">30</span><span class="n">_analyze_data</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
+<section id="use-lots-of-small-files">
+<h2>Use lots of small files<a class="headerlink" href="#use-lots-of-small-files" title="Permalink to this headline">#</a></h2>
+<p>OK, you might ask, but why do I need lots of files at all? Why not just one big “project” file? The answer is twofold.</p>
+<p>The first is that it’s easier to debug small files. The only way to <em>really</em> know if your code works is to run it from start to finish in a clean session of whatever program you’re using (R, Stata, Python, Julia). That way you know that if the code works, it works because everything you need is in the file, and that the code isn’t running because you manually created an important variable that’s not in the code, but is already in memory. But if you’re entire project is in one many-thousand-line file, running that file takes forever. Moreover, when a problem occurs in that giant file, it could have lots of sources. Working with smaller files (a couple hundred lines at most) makes it much easier to test the file quickly, and makes it easier to find the source of problems when they occur. Moreover, small files with descriptive titles make it easier to navigate your project. That means if at some point you realize there’s a problem with your data imports (wait, why am I missing three days of data??), it’s very clear where you need to make changes.</p>
+<p>The second reason is perhaps even more important. In my experience, we aren’t really smart enough to work with files that do more than one or two things. Your computer is more than happy to save thousands of lines of code in a single file called <code class="docutils literal notranslate"><span class="pre">my_data_science_project.py</span></code>. The problem is that it’s very hard for <em>you</em> to look at a file with thousands of lines of code and answer the question “is the code in this file accomplishing what I want this file to accomplish?”. If, by contrast, you have a smaller file that does one thing in much less code, it’s easier to evaluate that small chunk of code and decide if it accomplishes the goal set-out by the file’s title (importing your data).</p>
+</section>
+<section id="carefully-manage-your-source-data">
+<h2>Carefully manage your source data<a class="headerlink" href="#carefully-manage-your-source-data" title="Permalink to this headline">#</a></h2>
+<p><strong>Every</strong> data science project should have a folder called something like <code class="docutils literal notranslate"><span class="pre">source_data</span></code> (or, if you’re also numbering folders, <code class="docutils literal notranslate"><span class="pre">00_source_data</span></code>). This is the folder where you keep the input data for your project, the data you got from somewhere else you wish to analyze. This may be the raw results from a survey, data you downloaded from a government source, or data provided to you from another department.</p>
+<p><strong>YOU SHOULD NEVER, EVER, EVER MODIFY THE FILES IN THIS FOLDER</strong></p>
+<p>Files in this folder are sacrosanct. You can <em>read</em> them into your programs (obviously, you have to), but you should never <em>re-save</em> them. After you read them in, if you need to save anything, <em>you save it somewhere else</em>.</p>
+<p>The reason is that you never want to risk corrupting your source data. If you have raw survey data, you never want to, say, modify those results directly, because what if you make a mistake? Your survey data is now corrupted, and (a) there’s no record of that corruption, and (b) if you didn’t keep backups of your raw data (which you should!) you’ve lost irreplaceable data.</p>
+</section>
+<section id="folder-strutures">
+<h2>Folder Strutures<a class="headerlink" href="#folder-strutures" title="Permalink to this headline">#</a></h2>
+<p>With that mind, I usually work with the following top-level folder structure in my projects:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">00_source_data</span></code>: Raw inputs to this project, taken from other sources. Data in this folder should never be modified by code in this project.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">10_code</span></code>: All code for analysis</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">20_intermediate_files</span></code>: data files created by code in this repository (presumably code that processes data found in <code class="docutils literal notranslate"><span class="pre">00_source_data</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">30_results</span></code>: tables, figures, maps, etc. that will later be used in papers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">40_docs</span></code>: Paper write-ups</p></li>
+</ul>
+<p>One nice thing about this structure is it makes easy to test the reproducibility of your project: if you’ve done everything right, then you should be able to:</p>
+<ol class="simple">
+<li><p>Delete everything your <code class="docutils literal notranslate"><span class="pre">20_intermediate_files</span></code> folder and everything in your <code class="docutils literal notranslate"><span class="pre">30_results</span></code> folder,</p></li>
+<li><p>Re-run all the code in your <code class="docutils literal notranslate"><span class="pre">10_code</span></code> (which starts by reading in data from <code class="docutils literal notranslate"><span class="pre">00_source_data</span></code>)</p></li>
+</ol>
+<p>And have all the results you want for your paper re-appear in your <code class="docutils literal notranslate"><span class="pre">30_results</span></code> folder. And if not all your results reappear (i.e. aren’t generated when you run your code), you know that you have some files in there that aren’t actually being created by code you currently have in the project (meaning those results aren’t reproducible).</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks/PDS_not_yet_in_coursera/20_programming_concepts"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="iceberg_principle.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">The Iceberg Principle</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="getting_help.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Getting Help Online</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Nick Eubank and Kyle Bradbury<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

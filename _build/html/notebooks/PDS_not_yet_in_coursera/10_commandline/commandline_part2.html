@@ -1,0 +1,1313 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Advanced Command Line Tutorial &#8212; Practical Data Science with Python</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Numpy Arrays: The Workhorse of Data Science" href="../../class_2/week_2/10_why_numpy.html" />
+    <link rel="prev" title="The Command Line, Basics" href="commandline_part1.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Practical Data Science with Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Setting Up Your Environment
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../00_setup_env/setup_python.html">
+   Setup Python, VS Code, and Jupyter
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/setup_vscode.html">
+     Setting Up Visual Studio Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/setup_augmented_commandline.html">
+     Set Up an Augmented Command Line
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/jupyter_in_vscode.html">
+     The Jupyter Project
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/jupyter_r_notebooks.html">
+     Running R Jupyter Notebooks in VS Code
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Command Line
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="commandline_part1.html">
+   Command Line Basics
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Advanced Command Line Tutorial
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Numpy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">
+   Vectors
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">
+     Working with Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">
+     Doing Math With Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">
+     Type Promotion in numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">
+     The Python Ease of Use / Speed Tradeoff
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/11_vectorization.html">
+     Vectorization in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">
+     Vector Recap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">
+   Subsetting Vectors
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">
+     Modifying Subsets of Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">
+     Recap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">
+   Views and Copies
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">
+     When Do I Get a View and When Do I Get a Copy?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">
+     Variables are pointers to objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">
+     Review of Views and Copies
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">
+   Matrices
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/20_matrices.html">
+     Intro to Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">
+     Folding and Reshaping Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">
+     Matrices as Images
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">
+     Subsetting Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">
+     Editing Subsets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">
+     Review of Matrices
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">
+   Arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">
+     Broadcasting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">
+     Review of ND-Arrays
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">
+     Summarizing Arrays
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">
+     Practical Example: comparing weather by counting like-values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">
+     Color Images as Arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">
+   Random numbers
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Pandas
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">
+   Working with tabular data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">
+     Pandas Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">
+     Subsetting and Indexing Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">
+     (OPTIONAL) Subsetting and Indexing with Single Square Brackets (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       []
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">
+     Working with tabular data through Dataframes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">
+     Subsetting DataFrame Tricks and Gotchas
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">
+   Ways To Store and Read Data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/05_binary_files.html">
+     Ways To Store and Read Data: Binary Files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">
+     Views and Copies
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">
+     Views and Copies in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">
+     The View/Copy Headache in pandas without Copy on Write
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">
+     Identifying Data Problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">
+     Fixing Data Value Problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">
+     Editing Specific Locations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">
+     Cleaning Data Types
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">
+     Missing Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">
+   Combining, grouping, and querying data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">
+     Concatenating
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">
+     Merging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/20_grouping.html">
+     Grouping
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/30_queries.html">
+     Querying
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Miscellaneous
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">
+   Running Python in the VS Code Interactive Window
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">
+   Understanding and Managing Python Packages
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../other/fstrings.html">
+   Combining numbers and text into strings: f-strings
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Practical Skills and Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../20_programming_concepts/10_debugging_principles.html">
+   Debugging
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../20_programming_concepts/20_debugging_in_vscode.html">
+     Debugging Python in VS Code
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../20_programming_concepts/defensive_programming.html">
+   Defensive Programming
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../20_programming_concepts/iceberg_principle.html">
+     The Iceberg Principle
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../20_programming_concepts/workflow.html">
+   Workflow Management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../20_programming_concepts/getting_help.html">
+   Getting Help Online
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../20_programming_concepts/vars_v_objects.html">
+   Python: Variables vs. Objects
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../20_programming_concepts/python_v_r.html">
+     Python vs. R: Important Differences To Be Aware Of
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../20_programming_concepts/backwards_design.html">
+   Backwards Design
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../20_programming_concepts/ints_and_floats.html">
+   Numbers in Computers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../20_programming_concepts/writing_good_jupyter_notebooks.html">
+   Writing Good Jupyter Notebooks
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nickeubank/practicaldatascience_book/main?urlpath=tree/docs/notebooks/PDS_not_yet_in_coursera/10_commandline/commandline_part2.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/nickeubank/practicaldatascience_book/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/nickeubank/practicaldatascience_book//issues/new?title=Issue%20on%20page%20%2Fnotebooks/PDS_not_yet_in_coursera/10_commandline/commandline_part2.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/notebooks/PDS_not_yet_in_coursera/10_commandline/commandline_part2.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#command-line-syntax-general-principles">
+   Command Line Syntax: General Principles
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-help">
+   Getting Help
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-recursive-flag">
+   The “Recursive” Flag
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#invisible-files">
+   Invisible Files
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wildcards">
+   Wildcards
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-the-outputs-of-commands">
+   Using the Outputs of Commands
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#saving-to-disk">
+     Saving to Disk
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#piping">
+     Piping
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-nano-editor">
+   The
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     nano
+    </span>
+   </code>
+   Editor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-path-variable">
+   The PATH Variable
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-this-is-useful-to-know">
+     Why This Is Useful to Know
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modifying-your-path-variable">
+     Modifying Your PATH Variable
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#command-line-exercises">
+   Command Line Exercises
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Advanced Command Line Tutorial</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#command-line-syntax-general-principles">
+   Command Line Syntax: General Principles
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-help">
+   Getting Help
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-recursive-flag">
+   The “Recursive” Flag
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#invisible-files">
+   Invisible Files
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wildcards">
+   Wildcards
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-the-outputs-of-commands">
+   Using the Outputs of Commands
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#saving-to-disk">
+     Saving to Disk
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#piping">
+     Piping
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-nano-editor">
+   The
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     nano
+    </span>
+   </code>
+   Editor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-path-variable">
+   The PATH Variable
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-this-is-useful-to-know">
+     Why This Is Useful to Know
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modifying-your-path-variable">
+     Modifying Your PATH Variable
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#command-line-exercises">
+   Command Line Exercises
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="advanced-command-line-tutorial">
+<h1>Advanced Command Line Tutorial<a class="headerlink" href="#advanced-command-line-tutorial" title="Permalink to this headline">#</a></h1>
+<p>In the last section, we practiced using a few tools and introduced the idea that the command line is just a way of talking to your operating system using text commands rather than by clicking on icons. In this section, we’ll introduce some more advanced tools, and discuss general principles that will help you during your data science career.</p>
+<p>Like everything in this course, this section will focus on the tools that are most relevant for an applied data scientist. We will not try to cover advanced bash programming (loops, function definitions, etc.), because anything you can do that way you will also be able to do in Python, for which you are receiving lots of additional training. If you want to learn the advanced bash skills, there are lots of great tutorials out there (e.g., the full <a class="reference external" href="https://www.datacamp.com/courses/introduction-to-shell-for-data-science">DataCamp tutorial</a>). Instead, the focus here is on skills you’re likely to need when using Git, managing packages in Python, or getting stuff set up on remote servers so you can run your R or Python scripts.</p>
+<p>In the examples below, we’ll be working with the example data in the <a class="reference external" href="https://github.com/nickeubank/practicaldatascience/tree/master/Example_Data">Example_Data/command_line</a> folder in this repository, which you can download if you wish to follow along.</p>
+<section id="command-line-syntax-general-principles">
+<h2>Command Line Syntax: General Principles<a class="headerlink" href="#command-line-syntax-general-principles" title="Permalink to this headline">#</a></h2>
+<p>You may have noticed that there are some patterns to how the command line tools we’ve covered so far operate. In this section we’ll introduce some general principles that are used by most command line programs (like <code class="docutils literal notranslate"><span class="pre">git</span></code>, <code class="docutils literal notranslate"><span class="pre">python</span></code>, <code class="docutils literal notranslate"><span class="pre">julia</span></code>, <code class="docutils literal notranslate"><span class="pre">conda</span></code>, <code class="docutils literal notranslate"><span class="pre">zip</span></code>, <code class="docutils literal notranslate"><span class="pre">ssh</span></code>, etc.):</p>
+<p>1:  <strong>The first thing you type into the shell is actually just the name of a program.</strong> This may not be obvious, but when you type <code class="docutils literal notranslate"><span class="pre">cd</span></code> and <code class="docutils literal notranslate"><span class="pre">ls</span></code>, you’re actually asking your operating system to find and execute programs with those names. If you wanted to, you could actually find individual files called <code class="docutils literal notranslate"><span class="pre">cd</span></code> and <code class="docutils literal notranslate"><span class="pre">ls</span></code> that the operating system is running when you use those commands. And later on, you’ll spend a lot of time using the commands <code class="docutils literal notranslate"><span class="pre">python</span></code> or <code class="docutils literal notranslate"><span class="pre">git</span></code>, which are just ways of asking the operating system to execute those programs.</p>
+<p>2: <strong>The things that come after the program being called are called “arguments,” and they are passed to the program being called.</strong> For example, if you were to run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">my_file.py</span></code>, you are calling the program <code class="docutils literal notranslate"><span class="pre">python</span></code> and passing it the name of a file as an argument (which it will then execute). What arguments a function accepts or requires depends on the program.</p>
+<p>3: <strong>The shell is very sensitive to spaces.</strong> If you have file names with spaces, you’ll need to use quotes or escape the spaces in the file names by preceding them with a <code class="docutils literal notranslate"><span class="pre">\</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">less</span> <span class="pre">this\</span> <span class="pre">is\</span> <span class="pre">my\</span> <span class="pre">file.txt</span></code>).</p>
+<p>4: <strong>Many programs have options that are activated with “flags.”</strong> A flag is usually a single dash followed by a single letter. For example, you can ask the <code class="docutils literal notranslate"><span class="pre">ls</span></code> function to display the contents of a directory in a list format using the flag <code class="docutils literal notranslate"><span class="pre">-l</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normal `ls` display:</span>
+<span class="nb">cd</span><span class="w"> </span>~/github/practicaldatascience/Example_Data/command_line
+ls
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># With the `-l` flag, it also shows file sizes, when last modified, and all sorts of operating</span>
+<span class="c1"># system information that you don&#39;t need to worry about. </span>
+ls<span class="w"> </span>-l
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>One Dash Versus Two Dashes</strong></p>
+<p>Many flags also have a longer (easier to read) version that you call with <strong>two dashes</strong>. Basically, if a shell command sees one dash, it knows that <em>each letter</em> immediately afterwards is a different flag. If it sees two dashes, it knows that <em>everything after the dash before the first space</em> is a single flag name.</p>
+<p>(Two-dash options are common in modern commands, but they aren’t always available in older commands like <code class="docutils literal notranslate"><span class="pre">cd</span></code> and <code class="docutils literal notranslate"><span class="pre">ls</span></code>. In the early days of programming, people didn’t see being “user friendly” as a priority.)</p>
+<p>To illustrate, consider the <code class="docutils literal notranslate"><span class="pre">less</span></code> (move) command. If you want it to report the currently installed version, you can <em>either</em> type <code class="docutils literal notranslate"><span class="pre">less</span> <span class="pre">-V</span></code> (single dash followed by a single letter) <em>or</em> <code class="docutils literal notranslate"><span class="pre">less</span> <span class="pre">--version</span></code> (double dash followed by a full word).</p>
+<p>Note that because a single dash tells the shell that what follows is a single-letter flag, you can actually pile up flags after a single dash. For example, we already know that <code class="docutils literal notranslate"><span class="pre">-l</span></code> tells <code class="docutils literal notranslate"><span class="pre">ls</span></code> to show files in a list. <code class="docutils literal notranslate"><span class="pre">-h</span></code> says to include a (human-readable) file size. Since each flag after a single dash is only one letter, if we squish them together, the command line knows that it’s a series of one-letter flags (since <code class="docutils literal notranslate"><span class="pre">lh</span></code> itself is two letters, it wouldn’t be a valid single-letter flag).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can use these separately </span>
+ls<span class="w"> </span>-l<span class="w"> </span>-h
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Or together!</span>
+ls<span class="w"> </span>-lh
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Permalink to this headline">#</a></h2>
+<p>Now that you know that many commands have options, the obvious next question is: how do I learn what options are available?</p>
+<p>The answer is that most commands have help files you can get either by typing <code class="docutils literal notranslate"><span class="pre">NAMEOFCOMMAND</span> <span class="pre">-h</span></code> or <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">NAMEOFCOMMAND</span></code>.</p>
+<p><strong>-h</strong></p>
+<p>For most commands, <code class="docutils literal notranslate"><span class="pre">NAMEOFCOMMAND</span> <span class="pre">-h</span></code> or <code class="docutils literal notranslate"><span class="pre">NAMEOFCOMMAND</span> <span class="pre">--help</span></code> will bring up a small guide to command options. For example, <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-h</span></code> or <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">--help</span></code> bring up:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">python</span> <span class="p">[</span><span class="n">option</span><span class="p">]</span> <span class="o">...</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span> <span class="n">cmd</span> <span class="o">|</span> <span class="o">-</span><span class="n">m</span> <span class="n">mod</span> <span class="o">|</span> <span class="n">file</span> <span class="o">|</span> <span class="o">-</span><span class="p">]</span> <span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">...</span>
+<span class="n">Options</span> <span class="ow">and</span> <span class="n">arguments</span> <span class="p">(</span><span class="ow">and</span> <span class="n">corresponding</span> <span class="n">environment</span> <span class="n">variables</span><span class="p">):</span>
+<span class="o">-</span><span class="n">b</span>     <span class="p">:</span> <span class="n">issue</span> <span class="n">warnings</span> <span class="n">about</span> <span class="nb">str</span><span class="p">(</span><span class="n">bytes_instance</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">bytearray_instance</span><span class="p">)</span>
+         <span class="ow">and</span> <span class="n">comparing</span> <span class="nb">bytes</span><span class="o">/</span><span class="nb">bytearray</span> <span class="k">with</span> <span class="nb">str</span><span class="o">.</span> <span class="p">(</span><span class="o">-</span><span class="n">bb</span><span class="p">:</span> <span class="n">issue</span> <span class="n">errors</span><span class="p">)</span>
+<span class="o">-</span><span class="n">B</span>     <span class="p">:</span> <span class="n">don</span><span class="s1">&#39;t write .pyc files on import; also PYTHONDONTWRITEBYTECODE=x</span>
+<span class="o">-</span><span class="n">c</span> <span class="n">cmd</span> <span class="p">:</span> <span class="n">program</span> <span class="n">passed</span> <span class="ow">in</span> <span class="k">as</span> <span class="n">string</span> <span class="p">(</span><span class="n">terminates</span> <span class="n">option</span> <span class="nb">list</span><span class="p">)</span>
+<span class="o">-</span><span class="n">d</span>     <span class="p">:</span> <span class="n">debug</span> <span class="n">output</span> <span class="kn">from</span> <span class="nn">parser</span><span class="p">;</span> <span class="n">also</span> <span class="n">PYTHONDEBUG</span><span class="o">=</span><span class="n">x</span>
+<span class="o">-</span><span class="n">E</span>     <span class="p">:</span> <span class="n">ignore</span> <span class="n">PYTHON</span><span class="o">*</span> <span class="n">environment</span> <span class="n">variables</span> <span class="p">(</span><span class="n">such</span> <span class="k">as</span> <span class="n">PYTHONPATH</span><span class="p">)</span>
+<span class="o">-</span><span class="n">h</span>     <span class="p">:</span> <span class="nb">print</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span> <span class="p">(</span><span class="n">also</span> <span class="o">--</span><span class="n">help</span><span class="p">)</span>
+<span class="o">-</span><span class="n">i</span>     <span class="p">:</span> <span class="n">inspect</span> <span class="n">interactively</span> <span class="n">after</span> <span class="n">running</span> <span class="n">script</span><span class="p">;</span> <span class="n">forces</span> <span class="n">a</span> <span class="n">prompt</span> <span class="n">even</span>
+         <span class="k">if</span> <span class="n">stdin</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">appear</span> <span class="n">to</span> <span class="n">be</span> <span class="n">a</span> <span class="n">terminal</span><span class="p">;</span> <span class="n">also</span> <span class="n">PYTHONINSPECT</span><span class="o">=</span><span class="n">x</span>
+</pre></div>
+</div>
+<p><strong>man</strong></p>
+<p>While <code class="docutils literal notranslate"><span class="pre">NAMEOFCOMMAND</span> <span class="pre">-h</span></code> works for most modern commands, for very old commands (those that have been around since the early days of computing like <code class="docutils literal notranslate"><span class="pre">ls</span></code> or <code class="docutils literal notranslate"><span class="pre">cd</span></code>), you often need to use <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">NAMEOFCOMMAND</span></code> (<code class="docutils literal notranslate"><span class="pre">man</span></code> is short for manual). To illustrate, <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">ls</span></code> brings up:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                     <span class="n">BSD</span> <span class="n">General</span> <span class="n">Commands</span> <span class="n">Manual</span>                    <span class="n">LS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">NAME</span>
+     <span class="n">ls</span> <span class="o">--</span> <span class="nb">list</span> <span class="n">directory</span> <span class="n">contents</span>
+
+<span class="n">SYNOPSIS</span>
+     <span class="n">ls</span> <span class="p">[</span><span class="o">-</span><span class="n">ABCFGHLOPRSTUW</span><span class="nd">@abcdefghiklmnopqrstuwx1</span><span class="p">]</span> <span class="p">[</span><span class="n">file</span> <span class="o">...</span><span class="p">]</span>
+
+<span class="n">DESCRIPTION</span>
+     <span class="n">For</span> <span class="n">each</span> <span class="n">operand</span> <span class="n">that</span> <span class="n">names</span> <span class="n">a</span> <span class="n">file</span> <span class="n">of</span> <span class="n">a</span> <span class="nb">type</span> <span class="n">other</span> <span class="n">than</span> <span class="n">directory</span><span class="p">,</span> <span class="n">ls</span>
+     <span class="n">displays</span> <span class="n">its</span> <span class="n">name</span> <span class="k">as</span> <span class="n">well</span> <span class="k">as</span> <span class="nb">any</span> <span class="n">requested</span><span class="p">,</span> <span class="n">associated</span> <span class="n">information</span><span class="o">.</span>  <span class="n">For</span>
+     <span class="n">each</span> <span class="n">operand</span> <span class="n">that</span> <span class="n">names</span> <span class="n">a</span> <span class="n">file</span> <span class="n">of</span> <span class="nb">type</span> <span class="n">directory</span><span class="p">,</span> <span class="n">ls</span> <span class="n">displays</span> <span class="n">the</span> <span class="n">names</span>
+     <span class="n">of</span> <span class="n">files</span> <span class="n">contained</span> <span class="n">within</span> <span class="n">that</span> <span class="n">directory</span><span class="p">,</span> <span class="k">as</span> <span class="n">well</span> <span class="k">as</span> <span class="nb">any</span> <span class="n">requested</span><span class="p">,</span> <span class="n">asso</span><span class="o">-</span>
+     <span class="n">ciated</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p><strong>NOTE:</strong> Windows bash clients (like <code class="docutils literal notranslate"><span class="pre">Cmder</span></code> and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">bash</span></code> often don’t support <code class="docutils literal notranslate"><span class="pre">man</span></code>. To get help for old commands, try typing what you would type if <code class="docutils literal notranslate"><span class="pre">man</span></code> actually worked, but into Google (e.g., Google <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">rmdir</span></code>).</p>
+</section>
+<section id="the-recursive-flag">
+<h2>The “Recursive” Flag<a class="headerlink" href="#the-recursive-flag" title="Permalink to this headline">#</a></h2>
+<p>Now that you’re familiar with the idea of using flags to modify the behavior of commands, there’s one kinda weird flag that’s worth discussing in detail: <code class="docutils literal notranslate"><span class="pre">-r</span></code>, or occassionally <code class="docutils literal notranslate"><span class="pre">-R</span></code>.</p>
+<p>Many command line tools are designed to operate on <em>files</em>, and by default they won’t work if you try to use them on folders (directories). For example, if you try to copy a folder with <code class="docutils literal notranslate"><span class="pre">cp</span></code>, you’ll get the following error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>➜  cp a_folder ~/desktop
+cp: a_folder is a directory (not copied).
+</pre></div>
+</div>
+<p>To get tools that only work on files to work on folders, we use the <code class="docutils literal notranslate"><span class="pre">-r</span></code>. <code class="docutils literal notranslate"><span class="pre">r</span></code> stands for “recursive,” and basically it says “do what I’m asking you to do to this directory to every file in this directory.”</p>
+<p>Places this comes up a lot:</p>
+<ul class="simple">
+<li><p>Deleting folders requires <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-r</span></code></p></li>
+<li><p>Copying folders requires <code class="docutils literal notranslate"><span class="pre">cp</span> <span class="pre">-r</span></code></p></li>
+<li><p>Compressing a folder with zip requires <code class="docutils literal notranslate"><span class="pre">zip</span> <span class="pre">-r</span></code></p></li>
+</ul>
+</section>
+<section id="invisible-files">
+<h2>Invisible Files<a class="headerlink" href="#invisible-files" title="Permalink to this headline">#</a></h2>
+<p>Now that you’re comfortable with options, it’s time to introduce you to a dark secret of modern operating systems: there are invisible files <em>everywhere</em>. When a programmer needs to have a file or folder, but doesn’t want to show it to the user, (s)he prefixes the file name with a single period (<code class="docutils literal notranslate"><span class="pre">.</span></code>). The operating sytem then hides this files from the user.</p>
+<p>But now you can see these invisible files using the command line. Just use the <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag (short for “all”) for the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command to have it show you all the files that are there:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># You thought you knew what was in this folder:</span>
+ls<span class="w"> </span>-l
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># But there was another file hiding! Notice that `.this_file_is_invisible.txt` and `.DS_Store` were hidden before? </span>
+ls<span class="w"> </span>-la
+</pre></div>
+</div>
+</div>
+</div>
+<p>Yup! <code class="docutils literal notranslate"><span class="pre">.this_file_is_invisible.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">.DS_Store</span></code> were there all along! These are normal files — you can move them, rename them, or open them like any other — they are just hidden by default. However, be careful about modifying these so-called “dotfiles” — they are often hidden for a reason. Dotfiles are used by programs to store configuration or settings data, and they’re usually hidden because casual users can easily screw them up.</p>
+<p>In this case, <code class="docutils literal notranslate"><span class="pre">.this_file_is_invisible.txt</span></code> is just a plain text document I created for this exercise. <code class="docutils literal notranslate"><span class="pre">.DS_Store</span></code>, by contrast, is a file created by the macOS operating system to store information, like how this folder should be displayed when opened. This is sufficently unimportant that playing with it won’t ruin your computer, but there’s not really anything in there you’re meant to change.</p>
+<p>This trick is useful to know, because some programs (like Git) rely on settings hidden in dotfiles. In fact, you should try to memorize this command (<code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-la</span></code>) — many people use it more than plain old <code class="docutils literal notranslate"><span class="pre">ls</span></code>.</p>
+<p>How common are dotfiles? Extremely. See for yourself: if you go to your home directory, you’ll find that all sorts of programs have been storing their settings and installed packages in dotfiles. Just run <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code> (remember that <code class="docutils literal notranslate"><span class="pre">~</span></code> is just a short hand for your home folder, which on most systems is <code class="docutils literal notranslate"><span class="pre">/users/YOURUSERNAME</span></code>), then <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-la</span></code>.</p>
+<p>Feel free to explore these files and folders if you want, but I would strongly suggest against editing anything unless you know what you’re doing — unlike <code class="docutils literal notranslate"><span class="pre">.DS_Store</span></code> files, changing some of these can really screw up some applications.</p>
+</section>
+<section id="wildcards">
+<h2>Wildcards<a class="headerlink" href="#wildcards" title="Permalink to this headline">#</a></h2>
+<p>As we saw in the last set of exercises, one of the most powerful command line tricks (and one of the places where using the command line can be <em>much</em> easier than trying to do things with your mouse) is the use of wildcards. Any time you are listing files, you can use an asterick (<code class="docutils literal notranslate"><span class="pre">*</span></code>) to allow any pattern to appear in part of a filename. For example, to list all the CSV files in a folder (but only the CSVs), you can type:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>example_csvs
+ls<span class="w"> </span>*.csv
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or, if you only wanted to see the CSVs that have data from the month of February (in this case, the files with <code class="docutils literal notranslate"><span class="pre">2018_2_</span></code> in the middle of the file name), you could type:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>*2018_2*
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is an extremely powerful tool, and one you’ll use a lot. Just be careful — wildcards can also get you in trouble. For example, suppose you wanted to erase all the CSVs from January. You might be inclined to type <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">*2018_1*</span></code>. But that pattern will catch much more than just January…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>*2018_1*
+</pre></div>
+</div>
+</div>
+</div>
+<p>It will also catch (and if you were to use <code class="docutils literal notranslate"><span class="pre">rm</span></code>, delete) November (<code class="docutils literal notranslate"><span class="pre">2018_11_</span></code>) and December (<code class="docutils literal notranslate"><span class="pre">2019_12_</span></code>)! To <em>only</em> catch January, you’d have to be more specific and use <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">*2018_1_</span></code> (with the trailing underscore).</p>
+</section>
+<section id="using-the-outputs-of-commands">
+<h2>Using the Outputs of Commands<a class="headerlink" href="#using-the-outputs-of-commands" title="Permalink to this headline">#</a></h2>
+<p>We’ve noted that there are several commands that will print information to the terminal for you to see. But sometimes we want to <em>do</em> something with the information that programs return. For example, it’s nice that <code class="docutils literal notranslate"><span class="pre">ls</span></code> shows us the contents of a folder, but what if we wanted to save that to disk so we could open it and use it in a different program?</p>
+<section id="saving-to-disk">
+<h3>Saving to Disk<a class="headerlink" href="#saving-to-disk" title="Permalink to this headline">#</a></h3>
+<p>You can re-direct the output of any program that prints something to the screen to a file with the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> commands. For example, to save the output of the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command to a file on your desktop, you would type <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">&gt;</span> <span class="pre">ls_output.txt</span></code>.</p>
+<p>Note that this will only work for commands that print something directly to the screen (like <code class="docutils literal notranslate"><span class="pre">ls</span></code>, or <code class="docutils literal notranslate"><span class="pre">cat</span></code>). It won’t work for programs that just open up an interactive session (like <code class="docutils literal notranslate"><span class="pre">less</span></code>).</p>
+<p><strong>WARNING:</strong> A single <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> will overwrite the old file and create a new one, but there is also a <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> command that will <em>append</em> to an existing file, not overwrite.</p>
+</section>
+<section id="piping">
+<h3>Piping<a class="headerlink" href="#piping" title="Permalink to this headline">#</a></h3>
+<p>Sometimes, instead of saving the output of a program to disk, you want to pass it to another program to analyze. This practice — using the output of one program as input to another — is called “piping,” and it can be very powerful (and is actually used in many programming languages, not just <code class="docutils literal notranslate"><span class="pre">bash</span></code>).</p>
+<p>For example, suppose we wanted to count the number of <code class="docutils literal notranslate"><span class="pre">.csv</span></code> files in a folder. One way to do this would be to use <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">*.csv</span></code> to save the names of all the files in a directory to disk, then use the <code class="docutils literal notranslate"><span class="pre">wc</span></code> command (short for “word count”) to count the number of lines in that file. To do so, we save the output of <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-1</span> <span class="pre">*.csv</span></code> to disk (the <code class="docutils literal notranslate"><span class="pre">-1</span></code> option forces <code class="docutils literal notranslate"><span class="pre">ls</span></code> to put one file name on each line), then point <code class="docutils literal notranslate"><span class="pre">wc</span></code> at the file using the <code class="docutils literal notranslate"><span class="pre">-l</span></code> option (which counts total lines, since if a file name has a space it would be counted as multiple words. See <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">wc</span></code> for more information on how <code class="docutils literal notranslate"><span class="pre">wc</span></code> works):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-1<span class="w"> </span>*.csv
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-1<span class="w"> </span>*.csv<span class="w"> </span>&gt;<span class="w"> </span>~/files_in_folder.txt
+wc<span class="w"> </span>-l<span class="w"> </span>~/files_in_folder.txt
+</pre></div>
+</div>
+</div>
+</div>
+<p>But obviously that seems wasteful. Why do we have to save to disk just to move the data from one file to another?</p>
+<p>The answer is we don’t! Instead we can use the pipe operator: <code class="docutils literal notranslate"><span class="pre">|</span></code>. The pipe operator says “just pass the output of the first command as an argument to the second command.” And now we can do:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="the-nano-editor">
+<h2>The <code class="docutils literal notranslate"><span class="pre">nano</span></code> Editor<a class="headerlink" href="#the-nano-editor" title="Permalink to this headline">#</a></h2>
+<p>It is often the case when working at the command line that one wants to actually edit a file, not just look at it or move it around. For small, quick edits, <code class="docutils literal notranslate"><span class="pre">bash</span></code> comes with an extremely useful tool for this purpose: <code class="docutils literal notranslate"><span class="pre">nano</span></code>. Just type <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">FILENAME</span></code> on almost any system, and you can edit your file without opening or installing additional programs.</p>
+<p>(Note for MIDS Students: you can also use Emacs for the same purpose, since you’ve already gone through the pain of learning it!)</p>
+</section>
+<section id="the-path-variable">
+<h2>The PATH Variable<a class="headerlink" href="#the-path-variable" title="Permalink to this headline">#</a></h2>
+<p>The last feature of the command line that is important to understand is the PATH variable. We won’t get into all the intricacies of the PATH variable here, but having a basic understanding of its purpose and function will likely prove useful to you if you ever have to troubleshoot problems in the future.</p>
+<p>Have you ever wondered how the command line knows what to do when you type a command like <code class="docutils literal notranslate"><span class="pre">python</span></code> or <code class="docutils literal notranslate"><span class="pre">ls</span></code>? How does it know what program to run, especially on a computer that might have multiple installations of a program like Python?</p>
+<p>The answer is that your system has a list of folders stored in an “environment variable” called <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, and when you run a command (like <code class="docutils literal notranslate"><span class="pre">python</span></code>), it goes through those folders in order until it finds an executable file with the name of the command you typed. Then, when it finds that file, it executes that program and stops looking.</p>
+<p>You can see the value of the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable on your computer by typing <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">$PATH</span></code> (<code class="docutils literal notranslate"><span class="pre">echo</span></code> says “please evaluate and print what follows,” and the dollar sign in <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> says “please fill in the value of the environment variable named <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.” On my system, the PATH variable looks like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That means that when I type <code class="docutils literal notranslate"><span class="pre">python</span></code>, my computer will first look in the folder <code class="docutils literal notranslate"><span class="pre">/users/nick/opt/miniconda/bin</span></code> to see if there’s a file named <code class="docutils literal notranslate"><span class="pre">python</span></code> it can run. If it can’t find one there, it moves on to <code class="docutils literal notranslate"><span class="pre">/users/nick/opt/miniconda/condabin</span></code>, etc.</p>
+<p>(You’ll see that <code class="docutils literal notranslate"><span class="pre">/Users/Nick/opt/miniconda/bin</span></code> appears twice in my <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. That’s because the program I’m working with adds <code class="docutils literal notranslate"><span class="pre">/Users/Nick/opt/miniconda/bin</span></code> to my PATH when it starts up, leading to duplication. Thankfully, duplication doesn’t really matter — the time it takes the computer to check that folder twice is miniscule).</p>
+<section id="why-this-is-useful-to-know">
+<h3>Why This Is Useful to Know<a class="headerlink" href="#why-this-is-useful-to-know" title="Permalink to this headline">#</a></h3>
+<p>In a perfect world, you’ll never have to worry about your PATH variable, but there are a couple situations where knowing about your PATH variable can be helpful. In particular:</p>
+<ul class="simple">
+<li><p>If you downloaded a program, but you can’t run it from the command line, that probably means that its location isn’t in the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable.</p></li>
+<li><p>If you find that when you type a command like <code class="docutils literal notranslate"><span class="pre">python</span></code>, the command line isn’t running the <strong>version</strong> of python you want it to run, that’s probably because a different version of python appears <strong>earlier</strong> in the PATH variable (since the command line will stop looking through these folders as soon as it finds a match). Note that you can diagnose this problem by typing <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">COMMANDNAME</span></code>, which will tell you the folder from which COMMANDNAME is being run.</p></li>
+</ul>
+</section>
+<section id="modifying-your-path-variable">
+<h3>Modifying Your PATH Variable<a class="headerlink" href="#modifying-your-path-variable" title="Permalink to this headline">#</a></h3>
+<p>How you modify your PATH variable depends a little on your operating system.</p>
+<p><strong>Configuration File on macOS and Linux</strong></p>
+<p>In Linux or macOS, the easiest way to modify your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable is through your command line configuration file. This is a small script that runs in the background whenever you open a new command line window. If you add a modification to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable here, that modification will always be loaded when you open a new command line session.</p>
+<p>The exact name of your configuration file will depend a little on what command line tool you’re using. If you haven’t changed your default terminal program (i.e., haven’t installed oh-my-zsh, as suggested in the <a class="reference internal" href="commandline_part1.html"><span class="doc std std-doc">last tutorial</span></a>), your configuration file will be located in your home directory (<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code>) and is named either <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> or <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>. Note that the name starts with a <code class="docutils literal notranslate"><span class="pre">.</span></code> so it’s invisible by default! You’ll have to use your <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-la</span></code> trick to see and open it.</p>
+<p>If you installed <code class="docutils literal notranslate"><span class="pre">oh-my-zsh</span></code>, then the file will still be located in your home directory but will now be called <code class="docutils literal notranslate"><span class="pre">.zshrc</span></code>.</p>
+<p><strong>Configuration File on Windows</strong></p>
+<p>If you’re using Windows, you should have created a file called <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> when you installed Cmder (instructions <span class="xref myst">here</span>). That’s where you will change your PATH variable for using Bash in Cmder.</p>
+<p><strong>Actually Changing Your PATH Variable</strong></p>
+<p>When modifying your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable, you really don’t want to remove anything already in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable (because who knows what program may need one of those obscure directories). Instead, the best practice is to just prefix the folders you want searched first. If your program isn’t on your PATH, this will add the program; if the wrong version of a program is being used, because you’re adding to the <em>front</em> of the PATH variable, the folder you add will have higher priority.</p>
+<p>So to add a folder to the front of your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable while keeping the old folders at the back, we type:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/NEW/FOLDER/ON/PATH:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="command-line-exercises">
+<h2>Command Line Exercises<a class="headerlink" href="#command-line-exercises" title="Permalink to this headline">#</a></h2>
+<p>Let’s do some exercises! Unless you’re in my Duke class, in which case <strong>please do not do these before class</strong> as we’ll be working on them together.</p>
+<p><span class="xref myst">Advanced Command Line Exercises</span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "bash"
+        },
+        kernelOptions: {
+            kernelName: "bash",
+            path: "./notebooks/PDS_not_yet_in_coursera/10_commandline"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'bash'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="commandline_part1.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">The Command Line, Basics</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../../class_2/week_2/10_why_numpy.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Numpy Arrays: The Workhorse of Data Science</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Nick Eubank and Kyle Bradbury<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

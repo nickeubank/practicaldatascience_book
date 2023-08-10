@@ -1,0 +1,1489 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Defensive Programming &#8212; Practical Data Science with Python</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="The Iceberg Principle" href="iceberg_principle.html" />
+    <link rel="prev" title="Debugging Python in VS Code" href="20_debugging_in_vscode.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Practical Data Science with Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Setting Up Your Environment
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../00_setup_env/setup_python.html">
+   Setup Python, VS Code, and Jupyter
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/setup_vscode.html">
+     Setting Up Visual Studio Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/setup_augmented_commandline.html">
+     Set Up an Augmented Command Line
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/jupyter_in_vscode.html">
+     The Jupyter Project
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../00_setup_env/jupyter_r_notebooks.html">
+     Running R Jupyter Notebooks in VS Code
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Command Line
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../10_commandline/commandline_part1.html">
+   Command Line Basics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../10_commandline/commandline_part2.html">
+     Advanced Command Line Tutorial
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Numpy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">
+   Vectors
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">
+     Working with Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">
+     Doing Math With Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">
+     Type Promotion in numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">
+     The Python Ease of Use / Speed Tradeoff
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/11_vectorization.html">
+     Vectorization in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">
+     Vector Recap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">
+   Subsetting Vectors
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">
+     Modifying Subsets of Vectors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">
+     Recap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">
+   Views and Copies
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">
+     When Do I Get a View and When Do I Get a Copy?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">
+     Variables are pointers to objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">
+     Review of Views and Copies
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">
+   Matrices
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/20_matrices.html">
+     Intro to Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">
+     Folding and Reshaping Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">
+     Matrices as Images
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">
+     Subsetting Matrices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">
+     Editing Subsets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">
+     Review of Matrices
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">
+   Arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">
+     Broadcasting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">
+     Review of ND-Arrays
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">
+     Summarizing Arrays
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">
+     Practical Example: comparing weather by counting like-values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">
+     Color Images as Arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">
+   Random numbers
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Pandas
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">
+   Working with tabular data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">
+     Pandas Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">
+     Subsetting and Indexing Series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">
+     (OPTIONAL) Subsetting and Indexing with Single Square Brackets (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       []
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">
+     Working with tabular data through Dataframes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">
+     Subsetting DataFrame Tricks and Gotchas
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">
+   Ways To Store and Read Data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/05_binary_files.html">
+     Ways To Store and Read Data: Binary Files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">
+     Views and Copies
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">
+     Views and Copies in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">
+     The View/Copy Headache in pandas without Copy on Write
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">
+     Identifying Data Problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">
+     Fixing Data Value Problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">
+     Editing Specific Locations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">
+     Cleaning Data Types
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">
+     Missing Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">
+   Combining, grouping, and querying data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">
+     Concatenating
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">
+     Merging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/20_grouping.html">
+     Grouping
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../class_3/week_4/30_queries.html">
+     Querying
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Miscellaneous
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">
+   Running Python in the VS Code Interactive Window
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">
+   Understanding and Managing Python Packages
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../other/fstrings.html">
+   Combining numbers and text into strings: f-strings
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Practical Skills and Concepts
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="10_debugging_principles.html">
+   Debugging
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="20_debugging_in_vscode.html">
+     Debugging Python in VS Code
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   Defensive Programming
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="iceberg_principle.html">
+     The Iceberg Principle
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="workflow.html">
+   Workflow Management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_help.html">
+   Getting Help Online
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="vars_v_objects.html">
+   Python: Variables vs. Objects
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="python_v_r.html">
+     Python vs. R: Important Differences To Be Aware Of
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="backwards_design.html">
+   Backwards Design
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ints_and_floats.html">
+   Numbers in Computers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="writing_good_jupyter_notebooks.html">
+   Writing Good Jupyter Notebooks
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nickeubank/practicaldatascience_book/main?urlpath=tree/docs/notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/nickeubank/practicaldatascience_book/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/nickeubank/practicaldatascience_book//issues/new?title=Issue%20on%20page%20%2Fnotebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-tests">
+   Adding Tests
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#writing-tests">
+     Writing Tests
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#when-should-i-write-tests">
+     When should I write tests?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#never-transcribe">
+   Never Transcribe
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#style-matters">
+   Style Matters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#don-t-duplicate-information">
+   Don’t Duplicate Information
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#collaboration">
+   Collaboration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   When Should I Write Tests?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#common-test-examples">
+     Common Test Examples
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Defensive Programming</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-tests">
+   Adding Tests
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#writing-tests">
+     Writing Tests
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#when-should-i-write-tests">
+     When should I write tests?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#never-transcribe">
+   Never Transcribe
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#style-matters">
+   Style Matters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#don-t-duplicate-information">
+   Don’t Duplicate Information
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#collaboration">
+   Collaboration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   When Should I Write Tests?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#common-test-examples">
+     Common Test Examples
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="defensive-programming">
+<h1>Defensive Programming<a class="headerlink" href="#defensive-programming" title="Permalink to this headline">#</a></h1>
+<p>In recent years, the social sciences have been struggling with a wave of papers that have turned out to have problems not because of problems of theory, or choice of statistical models, but rather because of simple programming errors. In perhaps the most embarassing, Steven Levitt (co-author of the acclaimed Freakonomics, and winner of one of the most prestigious awards in economics) had a paper about the political explosive (at least in the US) topic of abortion and crime that turned out to be wrong <a class="reference external" href="https://www.economist.com/finance-and-economics/2005/12/01/oops-onomics">because he hadn’t put a set of controls into a regression he thought he had (may require sign-in, though I think you can see without paying).</a> Moreover, as some of <a class="reference external" href="https://thepoliticalmethodologist.com/2014/12/09/a-decade-of-replications-lessons-from-the-quarterly-journal-of-political-science/">my own work has shown</a>, the replication packages that come with a substantial number of political science papers have problems, often generating results that do not match those in the published paper.</p>
+<p>In reading this, it’s natural to think that the reason we find problems in the code behind published papers is carelessness or inattention on behalf of authors, and that the key to minimizing problems in our code is to be more careful. The truth, I have come to believe, is more subtle: humans are effectively incapable of writing error-free code, and that if we wish to improve the quality of the code we write, we must start learning and teaching coding skills that help maximize the probability our mistakes will be found and corrected.</p>
+<p>I myself once firmly believed the fallacy that the key to preventing errors was “to be more careful.” Indeed, I fear this belief may have colored the tone of of my past work on this subject in unproductive ways. Over the last several years, however, my research has brought me into close contact with computer scientists, and I discovered that computer scientists’ mentality about programming is fundamentally different from the mental model I had been carrying around as a social scientist. Computer scientists <em>assume</em> programmers will make mistakes, and instead of chiding people to “just be careful,” they have developed a battery of practices to address the problem. These practices – often referred to as “defensive programming” skills – are designed to (a) minimize the probability mistakes occur and (b) maximize the probability that mistakes that do occur are caught.</p>
+<p>In this tutorial, we’ll cover a number of these defensive programming practices with an eye towards their application in the context of applied data science. I did not invent any of these practices, but you will likely find that the way I present them (and the use-cases I emphasize) will differ from most other presentations you will find online. That is because in this tutorial, I will focus on the type of applied data analysis common in the social sciences, natural science, or business analysis, rather than the type of “software engineering” applications where these methods are most commonly applied.</p>
+<section id="adding-tests">
+<h2>Adding Tests<a class="headerlink" href="#adding-tests" title="Permalink to this headline">#</a></h2>
+<p>If we could only adopt one practice to improve the quality of our code, my vote would be for the addition of tests. Tests are simple true-false statements users place in their code. A test checks for a certain condition (like whether the sample size in a regression is what you expect), and if the condition is not met, stops your code and alerts you to the problem. Right now, many users may say “Yeah, I always check that kind of stuff by hand when I’m writing my code. Why do I need to add tests?” The answer is four-fold:</p>
+<ol class="simple">
+<li><p><strong>Tests are executed <em>every time your code is run</em>.</strong> Most of us check things the first time we write a piece of code. But days, weeks, or months later, we may come back, modify code the occurs earlier in our code stream, and then just re-run the code. If those changes lead to problems in later files, we don’t know about them. If you have tests in place, then those early changes will result in an error in the later files, and you can track down the problem.</p></li>
+<li><p><strong>It gets you in the habit of always checking.</strong> Most of us only stop to check aspects of our data when we suspect problems. But if you become accustomed to writing a handful of tests at the bottom of every file – or after ever execution of a certain operation (I’m trying to always including them after a merge), we get into the habit of <em>always</em> stopping to think about what our data should look like.</p></li>
+<li><p><strong>Catch your problems faster.</strong> This is less about code integrity than sanity, but a great upside to tests is that they ensure that if a mistake slips into your code, you become aware of it quickly, making it easier to identify and fix the changes that caused the problem.</p></li>
+<li><p><strong>Tests catch more than anticipated problems.</strong> When problems emerge in code, they often manifest in lots of different ways. Duplicate observations, for example, will not only lead to inaccurate observation counts, but may also give rise to bizarre summary statistics, bad subsequent merges, etc. Thus adding tests not only guards against errors we’ve thought of, but may also guard against errors we don’t anticipate during the test writing process.</p></li>
+</ol>
+<section id="writing-tests">
+<h3>Writing Tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">#</a></h3>
+<p>Tests are easy to write in any language, but given this courses’ focus on Python, will discuss it here. For examples of tests in Stata and R, you can see <a class="reference external" href="http://www.nickeubank.com/replication">some resources I created towards the bottom of this site</a>.</p>
+<p>In Python, tests are written using the <code class="docutils literal notranslate"><span class="pre">assert</span></code> keyword:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Make sure that x is greater than y</span>
+<span class="k">assert</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make sure that x is odd</span>
+<span class="k">assert</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">assert</span></code> can also be used with vectors, though doing so requires one additional step. Since logical tests applied to vectors return vectors of Booleans, we have to specify how to evaluate that whole vector using <code class="docutils literal notranslate"><span class="pre">.any()</span></code> (returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if any entries in the vector are <code class="docutils literal notranslate"><span class="pre">True</span></code>) and <code class="docutils literal notranslate"><span class="pre">all()</span></code> (only returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if <em>all</em> the entries are <code class="docutils literal notranslate"><span class="pre">True</span></code>). For example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load some country-level national statistics</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/nickeubank/practicaldatascience/master/Example_Data/world-small.csv&#39;</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>region</th>
+      <th>gdppcap08</th>
+      <th>polityIV</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>75</th>
+      <td>Lesotho</td>
+      <td>Africa</td>
+      <td>1588</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Equatorial Guinea</td>
+      <td>Africa</td>
+      <td>33873</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>India</td>
+      <td>Asia-Pacific</td>
+      <td>2972</td>
+      <td>19.0</td>
+    </tr>
+    <tr>
+      <th>142</th>
+      <td>Yemen</td>
+      <td>Middle East</td>
+      <td>2400</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>91</th>
+      <td>Namibia</td>
+      <td>Africa</td>
+      <td>6343</td>
+      <td>16.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make sure everyone&#39;s GDP per capita estimates are positive:</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;gdppcap08&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If you don&#39;t use `.all()` or `.any()`, you will get this error</span>
+<span class="c1"># saying &quot;the truth value of a Series is ambiguous,&quot; meaning </span>
+<span class="c1"># &quot;how do you want me to go from a vector of Trues and Falses to a single</span>
+<span class="c1"># True or False?&quot;</span>
+
+<span class="k">assert</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;gdppcap08&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_51318/1328044753.py</span> in <span class="ni">?</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># saying &quot;the truth value of a Series is ambiguous,&quot; meaning</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># &quot;how do you want me to go from a vector of Trues and Falses to a single</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># True or False?&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> 
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="k">assert</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;gdppcap08&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+<span class="nn">~/opt/miniconda3/lib/python3.10/site-packages/pandas/core/generic.py</span> in <span class="ni">?</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1464</span>     <span class="nd">@final</span>
+<span class="g g-Whitespace">   </span><span class="mi">1465</span>     <span class="k">def</span> <span class="nf">__nonzero__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1466</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1467</span>             <span class="sa">f</span><span class="s2">&quot;The truth value of a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> is ambiguous. &quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1468</span>             <span class="s2">&quot;Use a.empty, a.bool(), a.item(), a.any() or a.all().&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1469</span>         <span class="p">)</span>
+
+<span class="ne">ValueError</span>: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="when-should-i-write-tests">
+<h3>When should I write tests?<a class="headerlink" href="#when-should-i-write-tests" title="Permalink to this headline">#</a></h3>
+<p>Great question! More on that in the last section of this tutorial (let’s focus on principles before we get too far into specific implementation questions).</p>
+</section>
+</section>
+<section id="never-transcribe">
+<h2>Never Transcribe<a class="headerlink" href="#never-transcribe" title="Permalink to this headline">#</a></h2>
+<p>We’ve already covered tricks to maximize the probability we catch our mistakes, but how do we minimize the probability they will occur? If there is anything I learned working as the Replication Assistant at the <em>Quarterly Journal of Political Science</em> testing people’s replication packages, it is that authors should <strong>never</strong> transcribe numbers from their statistical software into their papers by hand. This was <em>easily</em> the largest source of replication issues we encountered, as doing so introduced two types of errors:</p>
+<ul class="simple">
+<li><p><strong>Mis-transcriptions:</strong> Humans just aren’t built to transcribe dozens of numbers by hand reliably. If the error is in the last decimal place, it doesn’t mean much, but when a decimal point drifts or a negative sign is dropped, the results are often quite substantively important.</p></li>
+<li><p><strong>Failures to Update:</strong> We are constantly updating our code, and authors who hand transcribe their results often update their code and forget to update all of their results, leaving old results in their paper.</p></li>
+</ul>
+<p>So, how do you avoid this problem? Use tools that will directly export your results into plain text or formatted tables you can use in the program where you are working. For example, <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> in Python <a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.iolib.table.SimpleTable.html#statsmodels.iolib.table.SimpleTable">can export regression tables to lots of formats</a>, <a class="reference external" href="https://www.rdocumentation.org/packages/stargazer/versions/5.2.2/topics/stargazer">R has stargazer</a>, and Stata has <a class="reference external" href="http://repec.org/bocode/e/estout/esttab.html">estout</a>.</p>
+<p>I also suggest users not only do this for tables - which is increasingly common - but also statistics that appear in text. For example, to put a single number into <span class="math notranslate nohighlight">\(\LaTeX\)</span>, you just generate the number you want to put in your paper, convert it to a string, and save it to disk as a <code class="docutils literal notranslate"><span class="pre">.tex</span></code> file (e.g. <code class="docutils literal notranslate"><span class="pre">exported_statistic.tex</span></code>). Then in your paper, simply add a <code class="docutils literal notranslate"><span class="pre">\input{exported_statistic.tex}</span></code>call, and LaTeX will insert the contents of that <code class="docutils literal notranslate"><span class="pre">.tex</span></code> file verbatim into your paper.</p>
+<p>For example, here’s a way to save a single number to put into LaTeX:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here&#39;s a number I want in a paper</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span>
+
+<span class="c1"># Format it...</span>
+<span class="n">x</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span>
+
+<span class="c1"># Now write to disk!</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;/users/nce8/desktop&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;test_file.tex&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">text_file</span><span class="p">:</span>
+    <span class="n">text_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    
+<span class="c1"># Now I&#39;m gonna erase </span>
+<span class="c1"># the file so I don&#39;t clutter my desktop. :)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;test_file.tex&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>While this type of integration works best for LaTeX, it can still be accomplished with many other programs like Word. For example, most packages that generate<code class="docutils literal notranslate"><span class="pre">.tex</span></code> files that can be easily integrated into LaTeX also often have options to export to <code class="docutils literal notranslate"><span class="pre">.txt</span></code> or <code class="docutils literal notranslate"><span class="pre">.rtf</span></code> files that you can easily use in Word. These tools can be used to generate tables can either be (a) copied whole-cloth into Word by hand (minimizing the risk of mis-transcriptions that may occur when typing individual values), or (b) using Word’s <a class="reference external" href="https://support.office.com/en-us/article/Insert-an-object-in-Word-or-Outlook-8fc1ea53-0e01-4603-a4cf-98c49b6ea3f5">Link to Existing File</a> feature to connect your Word document to the output of your code in a way that ensures the Word doc loads the most recent version of the table every time Word is opened. Some great tips for combining R with Word <a class="reference external" href="http://stanford.edu/~ejdemyr/r-tutorials/tables-in-r/">can be found here</a>.</p>
+</section>
+<section id="style-matters">
+<h2>Style Matters<a class="headerlink" href="#style-matters" title="Permalink to this headline">#</a></h2>
+<p>Formatting isn’t just about aesthetics, it also makes it easier to read your code and thus recognize potential problems. Here are a few tips:</p>
+<ul class="simple">
+<li><p><strong>Use informative variable names.</strong> Don’t call something <code class="docutils literal notranslate"><span class="pre">var212</span></code> if you can call it <code class="docutils literal notranslate"><span class="pre">unemployment_percentage</span></code>. Informative names require more typing, but they make your code so much easier to read. Moreover, including units in your variables names (<code class="docutils literal notranslate"><span class="pre">percentage</span></code>, <code class="docutils literal notranslate"><span class="pre">km</span></code>, etc.) can also help avoid confusion.</p></li>
+<li><p><strong>Comment!</strong> Comments help in two ways. First, and most obviously, they make it easy to figure out what’s going on when you come back to code days, weeks, or months after it was originally written. And second, it forces you to think about what you’re doing in <em>substantive</em> terms (“This section calculates the share of people within each occupation who have college degrees”) rather than just in programming logic, which can help you catch <em>substantive</em> problems with code that may run without problems but will not actually generate the quantity of interest.</p></li>
+<li><p><strong>Use indentation.</strong> Indentation is a way of visually representing the logical structure of code – use it to your advantage!</p></li>
+<li><p><strong>Let your code breathe.</strong> In general, you should put a space between every operator in your code, and feel free to use empty lines. Space makes your code more readable, as illustrated in the following examples:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bad</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">/</span><span class="mi">12</span><span class="o">+</span><span class="n">b</span>
+
+<span class="c1"># Good</span>
+<span class="k">def</span> <span class="nf">convert_feet_and_inches_to_inches</span><span class="p">(</span><span class="n">feet</span><span class="p">,</span> <span class="n">inches</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">feet</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">inches</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can find a great Python style <a class="reference external" href="https://docs.python-guide.org/writing/style/">guide here</a>. Also, be aware that Python style is generally guided by the “bible” of Python style, a document known as “PEP8” you’ll hear talked about everywhere.  <a class="reference external" href="http://adv-r.had.co.nz/Style.html">A full style guide for R can be found here</a>, and a <a class="reference external" href="https://michaelshill.net/2015/07/31/in-stata-coding-style-is-the-essential/">Stata style guide can be found here</a>.</p>
+</section>
+<section id="don-t-duplicate-information">
+<h2>Don’t Duplicate Information<a class="headerlink" href="#don-t-duplicate-information" title="Permalink to this headline">#</a></h2>
+<p>Tricks to minimize the probability of errors often require a little more sophisticated programming, so they won’t be for everyone (tests, I feel, are more accessible to everyone). Nevertheless, here’s another valuable practice: <strong>Never replicate information.</strong></p>
+<p>Information should only be expressed once in a file. For example, say you want to drop observations from a dataset if a person’s income has ever dropped below 20,000. You <em>could</em> do this like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;income_2019&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">],</span>
+                   <span class="s1">&#39;income_2018&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span>
+                   <span class="s1">&#39;income_2017&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">]})</span>
+                   
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2019&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20000</span><span class="p">)</span> <span class="o">|</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2018&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20000</span><span class="p">)</span> <span class="o">|</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2017&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20000</span><span class="p">)]</span>
+                   
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>income_2019</th>
+      <th>income_2018</th>
+      <th>income_2017</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10000</td>
+      <td>50000</td>
+      <td>50000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>50000</td>
+      <td>10000</td>
+      <td>50000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>And indeed, this would work. But suppose you decided to change that cutoff from 20,000 to 30,000. The way this is written, you’ve opened yourself up to the possibility that in trying to change these cutoffs, you may change two of these but forget the third (something especially likely if the uses of the cutoff aren’t all in exactly the same place in your code). A better way of expressing this that avoids this possibility is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;income_2019&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">],</span>
+                   <span class="s1">&#39;income_2018&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span>
+                   <span class="s1">&#39;income_2017&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">]})</span>
+    
+<span class="n">income_threshold</span> <span class="o">=</span> <span class="mi">20000</span>    
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2019&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">income_threshold</span><span class="p">)</span> <span class="o">|</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2018&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">income_threshold</span><span class="p">)</span> <span class="o">|</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2017&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">income_threshold</span><span class="p">)]</span>
+                   
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>income_2019</th>
+      <th>income_2018</th>
+      <th>income_2017</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10000</td>
+      <td>50000</td>
+      <td>50000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>50000</td>
+      <td>10000</td>
+      <td>50000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Written like this, if you ever decide to go back and change the common cutoff, you only have to make <em>in one place</em>, and there’s no way to make the change in some cases but forget others.</p>
+</section>
+<section id="collaboration">
+<h2>Collaboration<a class="headerlink" href="#collaboration" title="Permalink to this headline">#</a></h2>
+<p>Until now, the focus of this piece has been on <em>individual</em> coding practices that minimize the risk of errors. But as social science becomes increasingly collaborative, we also need to think about how to avoid errors in collaborative projects. In my experience, the way most social scientists collaborate on code (myself included, historically) is to place their code in a shared folder (like Dropbox or Box) and have co-authors work on the same files. There are a number of problems with this strategy, however:</p>
+<ul class="simple">
+<li><p>Participants can ever be certain about the changes the other author has made. Changes may be obvious when an author adds a new file or large block of code, but if one participant makes a small change in an existing file, the other authors are unlikely to notice. If the other authors then write their code assuming the prior coding was still in place, problems can easily emerge.</p></li>
+<li><p>There is no clear mechanism for review built into the workflow. Edits occur silently, and immediately become part of the files used in a project.</p></li>
+</ul>
+<p>I am aware of three strategies for avoiding these types of problems:</p>
+<p>The first and most conservative solution to this is <strong>full replication</strong>, where each team member conducts the full analysis independently and members then compare results. If results match, authors can feel confident there are no problems in their code. But this strategy requires a massive duplication of effort – offsetting many of the benefits of working on teams – and requires both authors be <em>able</em> to conduct the entire analysis, which is not always the case.</p>
+<p>The second strategy is <strong>compartmentalization</strong>, in which each author is assigned responsibility for coding specific parts of the analysis. Author A, for example, may be responsible for importing, cleaning, and formatting data from an outside source while Author B is responsible for subsequent analysis. In this system, if Author B finds she need an additional variable for the analysis, she ask Author A to modify Author A’s code rather than making modifications herself. This ensures responsibility for each block of code is clearly delimited, and changes are unlikely to sneak into an Author’s code without their knowledge. In addition, authors can also then review one another’s code prior to project finalization. But there is no process for continuous review of code, and if Author A modifies a variable that later gets passed to Author B and somehow the communication about what is being passed from person to person break down… bad things can happen.</p>
+<p>The final strategy is to <strong>use version control</strong> (i.e. git and github), which is by far the most robust solution and the one most used by computer scientists, but also the one that requires the most upfront investment in learning a new skill.</p>
+<p>Version control does several things for preventing errors. First, as the name implies, it keeps track of <em>every</em> version of your code that has ever existed and makes it easy to go back to old versions. This service is often provided by services like Dropbox, it is much easier to review old versions and identifying differences between old and new versions in <code class="docutils literal notranslate"><span class="pre">git</span></code> than through a service like Dropbox, whose interface is sufficiently cumbersome and most of us never use it unless we accidentally delete an important file.</p>
+<p>But what really makes version control exceptional is that it makes it easy to (a) keep track of what differs between any two versions, and to (b) “propose” changes to code in a way that other authors can easily review before those changes are fully integrated. If Author A wants to modify code in version control, she first creates a “branch” – a kind of working version of the project. She then makes her changes on that branch and propose the branch be re-integrated into the main code. Version control is then able to present this proposed change in a very clear way, highlighting every change that the new branch would make to the code base to ensure no changes – no matter how small – go unnoticed. The author that made the proposed changes can then ask their co-author to review the changes before they are integrated into the code base. To illustrate, Figure 1 shows an example of what a simple proposed change to code looks like on <em>GitHub</em>, a popular site for managing <code class="docutils literal notranslate"><span class="pre">git</span></code> projects online:</p>
+<p><img alt="git_example1" src="notebooks/PDS_not_yet_in_coursera/20_programming_concepts/images/git_example1.png" /></p>
+<p>The Figure shows an example of a small proposed change to the code for a project on  <em>GitHub</em>. Several aspects of the interface are worth noting. First, the interface displays <em>all</em> changes and the lines just above and below the changes across all documents in the project. This ensures no changes are overlooked. (Authors can click to “unfold” the code around a change if they need more context.) Second, the interface shows the prior contents of the project (on the left) and new content (on the right). In the upper pane, content has been changed, so old content is shown in red and new content in green. In the lower pane, new content has just been added, so simple grey space is shown on the left. Third, authors can easily comment (and discuss) individual lines of code, as shown here. (If you’ve somehow gotten to this page without learning git and github, just see the tutorial on <span class="xref myst">that topic here</span>!</p>
+</section>
+<section id="id1">
+<h2>When Should I Write Tests?<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<p>The best way to get into writing tests is to think about how you check your data interactively to make stuff work. After a <code class="docutils literal notranslate"><span class="pre">merge</span></code> or a <code class="docutils literal notranslate"><span class="pre">groupby</span></code> command, most people pause to browse the data and/or watch the code step by step, or do a set of quick tabs or plots.  But these are not systematic, and you generally only do them once (when you’re first writing the code).</p>
+<p>A great way to write tests is to think about what you’re looking for when you do these interactive tests and convert the logic of those interactive interrogations into systematic assert statements. That way they’ll be baked into your code, and will be executed every time your code runs!1</p>
+<ul class="simple">
+<li><p>After <code class="docutils literal notranslate"><span class="pre">merge</span></code>: No where are problems with data made more clear then in a merge. ALWAYS add tests after a merge! More on that below.</p></li>
+<li><p>After complicated manipulations: If you have to think more than a little about how to get Python or Pandas to do something, there’s a chance you missed something. Add a test or two to make sure you did it right! Personally, for example, I almost never use <code class="docutils literal notranslate"><span class="pre">groupby</span></code> commands without adding tests — it’s just not a natural way to think about things, so I know I may have screwed up (and often have!).</p></li>
+<li><p>Before dropping observations: Dropping observations masks problems. Before you drop variables, add a test to, say, count the number of observations you expect to drop.</p></li>
+</ul>
+<section id="common-test-examples">
+<h3>Common Test Examples<a class="headerlink" href="#common-test-examples" title="Permalink to this headline">#</a></h3>
+<p>Test number of observations is right:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We&#39;ll use `world` again:</span>
+
+<span class="n">world</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>region</th>
+      <th>gdppcap08</th>
+      <th>polityIV</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>74</th>
+      <td>Latvia</td>
+      <td>C&amp;E Europe</td>
+      <td>17100</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>73</th>
+      <td>Laos</td>
+      <td>Asia-Pacific</td>
+      <td>2134</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>China</td>
+      <td>Asia-Pacific</td>
+      <td>5962</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Croatia</td>
+      <td>C&amp;E Europe</td>
+      <td>19084</td>
+      <td>18.4</td>
+    </tr>
+    <tr>
+      <th>91</th>
+      <td>Namibia</td>
+      <td>Africa</td>
+      <td>6343</td>
+      <td>16.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">145</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Check var that should have no missing has no missing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Or, the same test written with any instead of all</span>
+<span class="k">assert</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Check my unique identifier is actually unique.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Make sure values of GDP Per Capita have a reasonable value. Note this is a “reasonableness” test, not an absolute test. It’s possible this would fail and the data is ok, but this way if there’s a problem your attention will be flagged so you can check.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">((</span><span class="mi">100</span> <span class="o">&lt;</span> <span class="n">world</span><span class="o">.</span><span class="n">gdppcap08</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">gdppcap08</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks/PDS_not_yet_in_coursera/20_programming_concepts"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="20_debugging_in_vscode.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Debugging Python in VS Code</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="iceberg_principle.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Iceberg Principle</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Nick Eubank and Kyle Bradbury<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
