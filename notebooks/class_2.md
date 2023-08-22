@@ -1,6 +1,7 @@
 # Class Two: Representing Data: Objects, collections, and their uses for computation (Numpy)
 
-## Overall learning objectives (mapped to specialization learning objectives):
+## Overall learning objectives (mapped to specialization learning objectives)
+
 - Introduce data structures for representing data
 - Learn programming practices (vectorization, subsetting) for matrices
 - Describe the components and packages of the Python ecosystem
@@ -12,8 +13,8 @@
 ## WEEK TWO @nickeubank
 
 - Theme: Welcome to arrays and matrices, the foundational data structures for computation
-- Learning objectives: 
-  - Understand why arrays are key to data science; 
+- Learning objectives:
+  - Understand why arrays are key to data science;
   - Arrays/matrices and the basic idea of 0, 1, 2, or 3+ dimensional collections
   - learn basics of subsetting and manipulating arrays
 
@@ -36,7 +37,7 @@
   - Aliases
 
 - **Vectors**
-  - Why vectors? 
+  - Why vectors?
     - For science, need multiple measurements of any outcome!
     - Timeseries data (you've seen before with heartrates, but here's as arrays not lists)
     - Collections of attributes representing a sample
@@ -51,7 +52,7 @@
   - What is a view vs a copy
   - Shallow vs deep copies
   - When does a function return a view and when does it return a copy
- 
+
 - **Matrices**
   - Why matrices?
     - Often we want to measure different outcomes for the same units of analysis, so we can stack vectors to make a matrix
