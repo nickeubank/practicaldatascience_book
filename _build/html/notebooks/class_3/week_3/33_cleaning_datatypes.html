@@ -496,6 +496,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
 <span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/world-very-small-type-errors.csv&quot;</span><span class="p">)</span>
 <span class="n">world</span>
 </pre></div>
@@ -623,13 +624,14 @@ dtype: object
 <p>So this kind of phenomenon is such a common problem that pandas has a tool to deal with it: <code class="docutils literal notranslate"><span class="pre">.str.isnumeric()</span></code>. This method returns <code class="docutils literal notranslate"><span class="pre">True</span></code> is an observation can be converted to a number without issues, and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise, so by using its logical negation, we can find all observations that aren’t convertible (which we may then need to fix):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span> <span class="n">world</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">(),</span> <span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">(),</span> <span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>na    1
-Name: gdppcap08, dtype: int64
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gdppcap08
+na    1
+Name: count, dtype: int64
 </pre></div>
 </div>
 </div>
