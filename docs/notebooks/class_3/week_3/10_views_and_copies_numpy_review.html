@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Views and Copies &#8212; Practical Data Science with Python</title>
+    <title>Views and Copies in Pandas &#8212; Practical Data Science with Python</title>
   
   
   
@@ -64,8 +64,6 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Views and Copies in pandas" href="15_views_and_copies_in_pandas.html" />
-    <link rel="prev" title="Ways To Store and Read Data: Binary Files" href="05_binary_files.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
   </head>
@@ -214,8 +212,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">Random numbers</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../week_2/00_intro_to_pandas.html">Working with tabular data</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_2/00_intro_to_pandas.html">Welcome to Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../week_2/10_pandas_series.html">Pandas Series</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="../week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
@@ -224,11 +222,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="00_plaintext_files.html">Ways To Store and Read Data</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="00_plaintext_files.html">Ways To Store and Read Data</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="05_binary_files.html">Ways To Store and Read Data: Binary Files</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Views and Copies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 <li class="toctree-l2"><a class="reference internal" href="20_cleaning_identifying.html">Identifying Data Problems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
@@ -459,7 +454,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Views and Copies</h1>
+    <h1>Views and Copies in Pandas</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -485,10 +480,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="views-and-copies">
-<h1>Views and Copies<a class="headerlink" href="#views-and-copies" title="Permalink to this headline">#</a></h1>
-<p>In our discussion of numpy in Course 2 of this specialization, we discussed detail how, when one subsets an array, what numpy returns is often not an entirely new array, but rather a <em>view</em> of the original array. These views share the underlying data of the array from which they were spawned, meaning changes to either the original array or the view have the potential to impact one another.</p>
-<p>Since pandas Series and DataFrames are backed by numpy arrays, it will probably come as no surprise that something similar sometimes happens in pandas. In this reading, we’ll first quickly review how views work in numpy before turning to how this behavior looks in pandas in the next reading.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="views-and-copies-in-pandas">
+<h1>Views and Copies in Pandas<a class="headerlink" href="#views-and-copies-in-pandas" title="Permalink to this headline">#</a></h1>
+<p>In our readings on numpy, <a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html"><span class="doc std std-doc">we discussed in detail how</span></a>, when one subsets an array, what numpy returns is often not an entirely new array, but rather a <em>view</em> of the original array. These views share the underlying data of the array from which they were spawned, meaning changes to either the original array or the view have the potential to impact one another.</p>
+<p>Since pandas Series and DataFrames are backed by numpy arrays, it will probably come as no surprise that something <em>similar</em> sometimes happens in pandas. As of pandas 2.0, however, I’m delighted to report the behavior of pandas is much more intuitive than numpy.</p>
+<p>In this reading, we’ll first quickly review how views work in numpy before turning to how this behavior looks in pandas in the next reading.</p>
 <section id="a-review-of-views-in-numpy">
 <h2>A Review of Views in numpy<a class="headerlink" href="#a-review-of-views-in-numpy" title="Permalink to this headline">#</a></h2>
 <p>As a reminder of how views work in numpy, let’s create a simple array, subset it with slicing, and then diagram what’s going on.</p>
@@ -606,24 +602,6 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="05_binary_files.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Ways To Store and Read Data: Binary Files</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="15_views_and_copies_in_pandas.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Views and Copies in pandas</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div></div>
   
 </div>
