@@ -504,11 +504,23 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;employee&#39;</span><span class="p">:[</span><span class="s1">&#39;Katrina&#39;</span><span class="p">,</span><span class="s1">&#39;Guanyu&#39;</span><span class="p">,</span><span class="s1">&#39;Jan&#39;</span><span class="p">,</span><span class="s1">&#39;Roman&#39;</span><span class="p">,</span><span class="s1">&#39;Jacqueline&#39;</span><span class="p">,</span><span class="s1">&#39;Paola&#39;</span><span class="p">,</span><span class="s1">&#39;Esperanza&#39;</span><span class="p">,</span><span class="s1">&#39;Alaina&#39;</span><span class="p">,</span><span class="s1">&#39;Egweyn&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;sales&#39;</span><span class="p">:[</span><span class="mi">14</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
-    <span class="s1">&#39;year&#39;</span><span class="p">:[</span><span class="mi">2018</span><span class="p">,</span><span class="mi">2019</span><span class="p">,</span><span class="mi">2020</span><span class="p">,</span><span class="mi">2018</span><span class="p">,</span><span class="mi">2020</span><span class="p">,</span><span class="mi">2019</span><span class="p">,</span><span class="mi">2019</span><span class="p">,</span><span class="mi">2020</span><span class="p">,</span><span class="mi">2020</span><span class="p">]</span>
-<span class="p">})</span>
+<span class="n">sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;employee&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Katrina&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Guanyu&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Jan&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Roman&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Jacqueline&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Paola&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Esperanza&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Alaina&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Egweyn&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;sales&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">2019</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">2018</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">2019</span><span class="p">,</span> <span class="mi">2019</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">2020</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 <span class="n">sales</span>
 </pre></div>
 </div>
@@ -645,7 +657,7 @@ Name: employee, dtype: int64
 <p>Now let’s combine these into a single DataFram. You don’t <em>have</em> to do this (in fact, programmatically there are often many ways of accomplishing your objective), but it will make the data easier to probe, especially if you had a larger dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">question_2_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sales_by_year</span><span class="p">,</span><span class="n">employees_by_year</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">question_2_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sales_by_year</span><span class="p">,</span> <span class="n">employees_by_year</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
 <span class="n">question_2_data</span>
 </pre></div>
 </div>
@@ -701,7 +713,9 @@ Name: employee, dtype: int64
 <p>Now let’s compute the number of sales by employee:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">question_2_data</span><span class="p">[</span><span class="s1">&#39;sales_per_employee&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">question_2_data</span><span class="p">[</span><span class="s1">&#39;sales&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">question_2_data</span><span class="p">[</span><span class="s1">&#39;employee&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">question_2_data</span><span class="p">[</span><span class="s2">&quot;sales_per_employee&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">question_2_data</span><span class="p">[</span><span class="s2">&quot;sales&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">question_2_data</span><span class="p">[</span><span class="s2">&quot;employee&quot;</span><span class="p">]</span>
+<span class="p">)</span>
 <span class="n">question_2_data</span>
 </pre></div>
 </div>
@@ -766,12 +780,24 @@ Name: employee, dtype: int64
 <p>Using the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method, we were able to group data in the above examples according to year, and calculate some aggregate measure of the examples in each group. In our example, we calculated the total sales in each year. But what if we wanted to break it down further? Let’s consider if our <code class="docutils literal notranslate"><span class="pre">sales</span></code> data had an extra column, called ‘expertise’ as shown below. The new column represents the level of expertise of a sales representative as either “high” or “low” according to the judgement of their colleagues to see if sales were random or if their skill was correlated with their sales.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;employee&#39;</span><span class="p">:[</span><span class="s1">&#39;Katrina&#39;</span><span class="p">,</span><span class="s1">&#39;Guanyu&#39;</span><span class="p">,</span><span class="s1">&#39;Jan&#39;</span><span class="p">,</span><span class="s1">&#39;Roman&#39;</span><span class="p">,</span><span class="s1">&#39;Jacqueline&#39;</span><span class="p">,</span><span class="s1">&#39;Paola&#39;</span><span class="p">,</span><span class="s1">&#39;Esperanza&#39;</span><span class="p">,</span><span class="s1">&#39;Alaina&#39;</span><span class="p">,</span><span class="s1">&#39;Egweyn&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;sales&#39;</span><span class="p">:[</span><span class="mi">14</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
-    <span class="s1">&#39;expertise&#39;</span><span class="p">:[</span><span class="s1">&#39;high&#39;</span><span class="p">,</span><span class="s1">&#39;high&#39;</span><span class="p">,</span><span class="s1">&#39;low&#39;</span><span class="p">,</span><span class="s1">&#39;low&#39;</span><span class="p">,</span><span class="s1">&#39;low&#39;</span><span class="p">,</span><span class="s1">&#39;low&#39;</span><span class="p">,</span><span class="s1">&#39;low&#39;</span><span class="p">,</span><span class="s1">&#39;high&#39;</span><span class="p">,</span><span class="s1">&#39;low&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;year&#39;</span><span class="p">:[</span><span class="mi">2018</span><span class="p">,</span><span class="mi">2019</span><span class="p">,</span><span class="mi">2020</span><span class="p">,</span><span class="mi">2018</span><span class="p">,</span><span class="mi">2020</span><span class="p">,</span><span class="mi">2019</span><span class="p">,</span><span class="mi">2019</span><span class="p">,</span><span class="mi">2020</span><span class="p">,</span><span class="mi">2020</span><span class="p">]</span>
-<span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;employee&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Katrina&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Guanyu&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Jan&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Roman&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Jacqueline&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Paola&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Esperanza&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Alaina&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Egweyn&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;sales&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="s2">&quot;expertise&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="s2">&quot;low&quot;</span><span class="p">,</span> <span class="s2">&quot;low&quot;</span><span class="p">,</span> <span class="s2">&quot;low&quot;</span><span class="p">,</span> <span class="s2">&quot;low&quot;</span><span class="p">,</span> <span class="s2">&quot;low&quot;</span><span class="p">,</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="s2">&quot;low&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">2019</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">2018</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">2019</span><span class="p">,</span> <span class="mi">2019</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">2020</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 <span class="n">sales</span>
 </pre></div>
 </div>
@@ -874,7 +900,9 @@ Name: employee, dtype: int64
 <p>Now lets try that for ourselves:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">avg_sales</span> <span class="o">=</span> <span class="n">sales</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="s2">&quot;sales&quot;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;expertise&quot;</span><span class="p">,</span><span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">avg_sales</span> <span class="o">=</span> <span class="n">sales</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+    <span class="n">values</span><span class="o">=</span><span class="s2">&quot;sales&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;expertise&quot;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span>
+<span class="p">)</span>
 <span class="n">avg_sales</span>
 </pre></div>
 </div>
