@@ -514,10 +514,14 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">dfa</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;animals&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;bird&#39;</span><span class="p">,</span> <span class="s1">&#39;fish&#39;</span><span class="p">],</span> 
-                   <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;land&#39;</span><span class="p">,</span> <span class="s1">&#39;land&#39;</span><span class="p">,</span> <span class="s1">&#39;air&#39;</span><span class="p">,</span> <span class="s1">&#39;water&#39;</span><span class="p">],</span>
-                   <span class="s1">&#39;has_fur&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
-                   <span class="p">})</span>
+
+<span class="n">dfa</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;animals&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;bird&quot;</span><span class="p">,</span> <span class="s2">&quot;fish&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;land&quot;</span><span class="p">,</span> <span class="s2">&quot;land&quot;</span><span class="p">,</span> <span class="s2">&quot;air&quot;</span><span class="p">,</span> <span class="s2">&quot;water&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;has_fur&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 <span class="n">dfa</span>
 </pre></div>
 </div>
@@ -577,9 +581,9 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfb</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;animals&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;fish&#39;</span><span class="p">,</span> <span class="s1">&#39;elephant&#39;</span><span class="p">,</span> <span class="s1">&#39;blue whale&#39;</span><span class="p">],</span> 
-                   <span class="s1">&#39;avg_weight&#39;</span><span class="p">:[</span><span class="mi">4</span><span class="p">,</span><span class="mi">12000</span><span class="p">,</span><span class="mi">300000</span><span class="p">]</span>
-                   <span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfb</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;animals&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;fish&quot;</span><span class="p">,</span> <span class="s2">&quot;elephant&quot;</span><span class="p">,</span> <span class="s2">&quot;blue whale&quot;</span><span class="p">],</span> <span class="s2">&quot;avg_weight&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">]}</span>
+<span class="p">)</span>
 <span class="n">dfb</span>
 </pre></div>
 </div>
@@ -638,10 +642,12 @@ document.write(`
 <p>The above examples each work exactly as written. You’ll notice two parameters, “how” and “on”. The parameter “on” specifies which column to compare in each of the two DataFrames, assuming they are named the same in both (if not, you can use “left_on” and “right_on” to specify them separately). The parameter “how” specifies how the merge is to be performed, but we will discuss that more later in this lesson; for now, we use the “left” join, and just know this means we’re always using the left DataFrame as out point of reference for comparing columns. Let’s verify that each of the above merges work as expected. First, the one-to-one:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;name&#39;</span><span class="p">:[</span><span class="s1">&#39;Mia&#39;</span><span class="p">,</span><span class="s1">&#39;Lucas&#39;</span><span class="p">,</span><span class="s1">&#39;Ang&#39;</span><span class="p">,</span><span class="s1">&#39;Jia&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;course&#39;</span><span class="p">:[</span><span class="s1">&#39;math&#39;</span><span class="p">,</span><span class="s1">&#39;chem&#39;</span><span class="p">,</span><span class="s1">&#39;econ&#39;</span><span class="p">,</span><span class="s1">&#39;chem&#39;</span><span class="p">]</span>
-<span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Mia&quot;</span><span class="p">,</span> <span class="s2">&quot;Lucas&quot;</span><span class="p">,</span> <span class="s2">&quot;Ang&quot;</span><span class="p">,</span> <span class="s2">&quot;Jia&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;course&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;math&quot;</span><span class="p">,</span> <span class="s2">&quot;chem&quot;</span><span class="p">,</span> <span class="s2">&quot;econ&quot;</span><span class="p">,</span> <span class="s2">&quot;chem&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 <span class="n">a</span>
 </pre></div>
 </div>
@@ -696,10 +702,9 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;name&#39;</span><span class="p">:[</span><span class="s1">&#39;Lucas&#39;</span><span class="p">,</span><span class="s1">&#39;Ang&#39;</span><span class="p">,</span><span class="s1">&#39;Jia&#39;</span><span class="p">,</span><span class="s1">&#39;Mia&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;grade&#39;</span><span class="p">:[</span><span class="s1">&#39;B-&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A-&#39;</span><span class="p">,</span><span class="s1">&#39;B+&#39;</span><span class="p">]</span>
-<span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Lucas&quot;</span><span class="p">,</span> <span class="s2">&quot;Ang&quot;</span><span class="p">,</span> <span class="s2">&quot;Jia&quot;</span><span class="p">,</span> <span class="s2">&quot;Mia&quot;</span><span class="p">],</span> <span class="s2">&quot;grade&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;B-&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;A-&quot;</span><span class="p">,</span> <span class="s2">&quot;B+&quot;</span><span class="p">]}</span>
+<span class="p">)</span>
 <span class="n">b</span>
 </pre></div>
 </div>
@@ -754,7 +759,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
 <span class="n">merged</span>
 </pre></div>
 </div>
@@ -815,10 +820,7 @@ document.write(`
 <p>Next the one-to-many:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;course&#39;</span><span class="p">:[</span><span class="s1">&#39;chem&#39;</span><span class="p">,</span><span class="s1">&#39;econ&#39;</span><span class="p">,</span><span class="s1">&#39;math&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;credits&#39;</span><span class="p">:[</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">1.5</span><span class="p">]</span>
-<span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;course&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;chem&quot;</span><span class="p">,</span> <span class="s2">&quot;econ&quot;</span><span class="p">,</span> <span class="s2">&quot;math&quot;</span><span class="p">],</span> <span class="s2">&quot;credits&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]})</span>
 <span class="n">c</span>
 </pre></div>
 </div>
@@ -868,7 +870,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;course&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;course&quot;</span><span class="p">)</span>
 <span class="n">merged</span>
 </pre></div>
 </div>
@@ -929,10 +931,12 @@ document.write(`
 <p>And finally, the many-to-many:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;course&#39;</span><span class="p">:[</span><span class="s1">&#39;chem&#39;</span><span class="p">,</span><span class="s1">&#39;chem&#39;</span><span class="p">,</span><span class="s1">&#39;econ&#39;</span><span class="p">,</span><span class="s1">&#39;math&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;topic&#39;</span><span class="p">:[</span><span class="s1">&#39;atoms&#39;</span><span class="p">,</span><span class="s1">&#39;lab&#39;</span><span class="p">,</span><span class="s1">&#39;trade&#39;</span><span class="p">,</span><span class="s1">&#39;calc.&#39;</span><span class="p">]</span>
-<span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;course&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;chem&quot;</span><span class="p">,</span> <span class="s2">&quot;chem&quot;</span><span class="p">,</span> <span class="s2">&quot;econ&quot;</span><span class="p">,</span> <span class="s2">&quot;math&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">,</span> <span class="s2">&quot;lab&quot;</span><span class="p">,</span> <span class="s2">&quot;trade&quot;</span><span class="p">,</span> <span class="s2">&quot;calc.&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 <span class="n">d</span>
 </pre></div>
 </div>
@@ -987,7 +991,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;course&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;course&quot;</span><span class="p">)</span>
 <span class="n">merged</span>
 </pre></div>
 </div>
@@ -1074,10 +1078,7 @@ document.write(`
 <p>Go ahead and try the above examples - create the DataFrames and perform the above merges. Make sure your results look the same as the above.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;C1&#39;</span><span class="p">:[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;C2&#39;</span><span class="p">:[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">]</span>
-<span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;C1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="s2">&quot;C2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]})</span>
 <span class="n">a</span>
 </pre></div>
 </div>
@@ -1127,10 +1128,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;C1&#39;</span><span class="p">:[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;D&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;C3&#39;</span><span class="p">:[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">]</span>
-<span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;C1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">],</span> <span class="s2">&quot;C3&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">]})</span>
 <span class="n">b</span>
 </pre></div>
 </div>
@@ -1180,7 +1178,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>  <span class="n">on</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
 <span class="n">merged</span>
 </pre></div>
 </div>
@@ -1234,7 +1232,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>  <span class="n">on</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
 <span class="n">merged</span>
 </pre></div>
 </div>
@@ -1288,7 +1286,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span>  <span class="n">on</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
 <span class="n">merged</span>
 </pre></div>
 </div>
@@ -1336,7 +1334,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span>  <span class="n">on</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
 <span class="n">merged</span>
 </pre></div>
 </div>
@@ -1402,7 +1400,7 @@ document.write(`
 <p><em>Note: we’ve removed some extraneous columns to make the example clearer</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">population</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/population.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">population</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/population.csv&quot;</span><span class="p">)</span>
 <span class="n">population</span>
 </pre></div>
 </div>
@@ -1722,7 +1720,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/homicides.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/homicides.csv&quot;</span><span class="p">)</span>
 <span class="n">homicides</span>
 </pre></div>
 </div>
@@ -2010,7 +2008,7 @@ document.write(`
 <p>To add in the state names for each state, let’s load in a dataset that contains the 50 states and their abbreviations:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/state_codes.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/state_codes.csv&quot;</span><span class="p">)</span>
 <span class="n">names</span>
 </pre></div>
 </div>
@@ -2301,7 +2299,9 @@ document.write(`
 <p>We see another issue here, though: there are 51 states listed with abbreviations (remember, Python starts counting at 0) since the District of Columbia is included while there are 50 states listed in the <code class="docutils literal notranslate"><span class="pre">homicides</span></code> DataFrame. Let’s left-merge the data so we only keep the 50 states for which we have data. Since the column in <code class="docutils literal notranslate"><span class="pre">homicides</span></code> that has the labels is labeled ‘STATE’ and the column in <code class="docutils literal notranslate"><span class="pre">names</span></code> with the state labels is called ‘Code’, we’ll use the ‘left_on’ and ‘right_on’ parameters to specify those columns:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides_with_states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">homicides</span><span class="p">,</span><span class="n">names</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;STATE&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Code&#39;</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides_with_states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">homicides</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;STATE&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;Code&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+<span class="p">)</span>
 <span class="n">homicides_with_states</span>
 </pre></div>
 </div>
@@ -2691,7 +2691,7 @@ document.write(`
 <p>which leads to a proliferation of variables each time we want to do a new operation (<code class="docutils literal notranslate"><span class="pre">homicide3</span></code>, <code class="docutils literal notranslate"><span class="pre">homicide4</span></code>, etc.); instead we can perform the operation directly on the data using the <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> keyword.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides_with_states</span> <span class="o">=</span> <span class="n">homicides_with_states</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;STATE&#39;</span><span class="p">,</span><span class="s1">&#39;Code&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides_with_states</span> <span class="o">=</span> <span class="n">homicides_with_states</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;STATE&quot;</span><span class="p">,</span> <span class="s2">&quot;Code&quot;</span><span class="p">])</span>
 <span class="n">homicides_with_states</span>
 </pre></div>
 </div>
@@ -2977,7 +2977,9 @@ document.write(`
 <p>And just because it’s easier to reference cleaned and ordered labels, let’s rename ‘DEATHS’ to ‘homicides’ using <code class="docutils literal notranslate"><span class="pre">rename</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides_with_states</span> <span class="o">=</span> <span class="n">homicides_with_states</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;DEATHS&#39;</span><span class="p">:</span><span class="s1">&#39;homicides&#39;</span><span class="p">,</span><span class="s1">&#39;State&#39;</span><span class="p">:</span><span class="s1">&#39;state&#39;</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides_with_states</span> <span class="o">=</span> <span class="n">homicides_with_states</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;DEATHS&quot;</span><span class="p">:</span> <span class="s2">&quot;homicides&quot;</span><span class="p">,</span> <span class="s2">&quot;State&quot;</span><span class="p">:</span> <span class="s2">&quot;state&quot;</span><span class="p">}</span>
+<span class="p">)</span>
 <span class="n">homicides_with_states</span>
 </pre></div>
 </div>
@@ -3263,7 +3265,9 @@ document.write(`
 <p>Great - now we’re ready to merge in our population data. Let’s perform an outer merge so that we keep all our data, then we can check what’s missing and remove it as appropriate.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">homicides_with_states</span><span class="p">,</span><span class="n">population</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;NAME&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">homicides_with_states</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;NAME&quot;</span>
+<span class="p">)</span>
 <span class="n">combined</span>
 </pre></div>
 </div>
@@ -4765,8 +4769,8 @@ dtype: bool
 <p>Now that we have our data let’s take one more step to clean the formatting of our data. Let’s drop the extra column with state names and rename ‘POPESTIMATE2020’ to ‘population’:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">])</span>
-<span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;POPESTIMATE2020&#39;</span><span class="p">:</span><span class="s1">&#39;population&#39;</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">])</span>
+<span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;POPESTIMATE2020&quot;</span><span class="p">:</span> <span class="s2">&quot;population&quot;</span><span class="p">})</span>
 <span class="n">combined</span>
 </pre></div>
 </div>
@@ -5103,7 +5107,7 @@ dtype: bool
 <p>How we’re ready to conduct our analysis. Let’s create a new column called ‘homicide_rate’ and it will be the number of homicides divided by the state population. Since this number is typically a small value, this is often reported as the number of homicides per 100,000 people, so we just multiply the result by 100,000.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span><span class="p">[</span><span class="s1">&#39;homicide_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">combined</span><span class="p">[</span><span class="s1">&#39;homicides&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">combined</span><span class="p">[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100000</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span><span class="p">[</span><span class="s2">&quot;homicide_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">combined</span><span class="p">[</span><span class="s2">&quot;homicides&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">combined</span><span class="p">[</span><span class="s2">&quot;population&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100000</span>
 <span class="n">combined</span>
 </pre></div>
 </div>
@@ -5491,7 +5495,7 @@ dtype: bool
 <p>Lastly, let’s sort the data by ‘homicide_rate’ to see what the states are with the highest and lowest rates:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;homicide_rate&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;homicide_rate&quot;</span><span class="p">)</span>
 <span class="n">combined</span>
 </pre></div>
 </div>
