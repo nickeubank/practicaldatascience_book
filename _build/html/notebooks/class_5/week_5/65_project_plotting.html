@@ -252,7 +252,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week_2/10_plotting_in_python.html">Plotting in Python</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../week_2/20_plotting_with_seaborn.html">seaborn and the Grammar of Graphics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_2/30_matplotlib.html">Matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="45_plotting_with_matplotlib.html">Plotting with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="46_making_plots_pretty.html">Making Pretty Plots</a></li>
 </ul>
 </li>
 </ul>
@@ -458,9 +459,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -476,16 +475,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Project: Plotting</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#making-the-plot-interactive-through-altair">Making the plot interactive through <code class="docutils literal notranslate"><span class="pre">altair</span></code></a></li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -498,6 +487,9 @@ document.write(`
   <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Not for inclusion - just to load contents from previous notebook</span>
+<span class="c1"># For displaying Jupyter notebooks on Retina displays</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">pickle_path</span> <span class="o">=</span> <span class="s1">&#39;data/pickle/&#39;</span>
 
@@ -643,12 +635,11 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Let’s start with the simplest possible plot we could make here and we will take it, one step at a time, to make a progressively more complex plot. We’ll start with using the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> plotting tools, which are our standard go-to tools for plotting and will layer on complexity towards a fully interactive <code class="docutils literal notranslate"><span class="pre">altair</span></code>-based plot.</p>
+<p>Let’s start with the simplest possible plot we could make here and we will take it, one step at a time, to make a progressively more complex plot.</p>
 <p>For our first step, let’s create a simple scatter plot from the data using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -659,10 +650,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x178cd24c3a0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x158289190&gt;
 </pre></div>
 </div>
-<img alt="../../../_images/bb0fff1ffc4a7dede3b78e4609660bf940351f5dbb87bfb1580ade482d2ab9ad.png" src="../../../_images/bb0fff1ffc4a7dede3b78e4609660bf940351f5dbb87bfb1580ade482d2ab9ad.png" />
+<img alt="../../../_images/1b3cc84249fd83c5f11bc2a592f9ba6141ba7f8c60aac5a8325436c4695eff20.png" src="../../../_images/1b3cc84249fd83c5f11bc2a592f9ba6141ba7f8c60aac5a8325436c4695eff20.png" />
 </div>
 </div>
 <p>Let’s make sure we label our axes so that we know what we’re plotting (this is always good visualization hygene):</p>
@@ -685,7 +676,7 @@ document.write(`
  Text(0, 0.5, &#39;Carbon Dioxide Emissions per person (metric tonnes)&#39;)]
 </pre></div>
 </div>
-<img alt="../../../_images/2c0ddd074a5a6ee8f44f765020182df1589804b42921838d3ff3ac3c51aa2a02.png" src="../../../_images/2c0ddd074a5a6ee8f44f765020182df1589804b42921838d3ff3ac3c51aa2a02.png" />
+<img alt="../../../_images/716dd03cd9d38adde2daf6489c7600bd8393282902e3d74ea49e7733ff4f1d5c.png" src="../../../_images/716dd03cd9d38adde2daf6489c7600bd8393282902e3d74ea49e7733ff4f1d5c.png" />
 </div>
 </div>
 <p>Next, a lot of the markers are overlapping one another in the lower left of the plot, so it’s hard to see how many countries are represented there. Let’s add transparency there using the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> plotting keyword to make those points semi-transparent so we can read this more clearly</p>
@@ -709,7 +700,7 @@ document.write(`
  Text(0, 0.5, &#39;Carbon Dioxide Emissions per person (metric tonnes)&#39;)]
 </pre></div>
 </div>
-<img alt="../../../_images/02440e87677111af576d2631f6a0bef3bfc50ed38ad8de814904ca05b19200a8.png" src="../../../_images/02440e87677111af576d2631f6a0bef3bfc50ed38ad8de814904ca05b19200a8.png" />
+<img alt="../../../_images/f1aafa2a7b2ff829868639f3c73f10f94628ad0a726ff30ef3f6ba9be1636dfb.png" src="../../../_images/f1aafa2a7b2ff829868639f3c73f10f94628ad0a726ff30ef3f6ba9be1636dfb.png" />
 </div>
 </div>
 <p>What’s clear here is that many of the values are clumped together in the lower left. This makes this plot more difficult to read since one or two outliers in the data dominate the scale of the axes. Instead, lets set the scale to a logarithmic scale. With a log scale, instead of incrementing each tick as one unit at a time (1, 2, 3, 4, 5, …) each tick of the plot jumps (typically) by a power of 10 (1, 10, 100, 1000, 10000, …). This will help us see both the very small and the very large values more clearly.</p>
@@ -737,7 +728,7 @@ document.write(`
  None]
 </pre></div>
 </div>
-<img alt="../../../_images/765c8654820e92a1674d48b05abfbe389caf85c1c62b6eb1a5e147906cad7047.png" src="../../../_images/765c8654820e92a1674d48b05abfbe389caf85c1c62b6eb1a5e147906cad7047.png" />
+<img alt="../../../_images/3148bf6fa7da06747b9ddbe1e20de315fc857cadbb52653bfd67fb2a7f16333e.png" src="../../../_images/3148bf6fa7da06747b9ddbe1e20de315fc857cadbb52653bfd67fb2a7f16333e.png" />
 </div>
 </div>
 <p>That is much easier to see the individual points in the plot, now. However, we haven’t encoded the population of each country into the plot, yet. To do so, let’s set the size based on the population. We can do this with the <code class="docutils literal notranslate"><span class="pre">s</span></code> keyword in the <code class="docutils literal notranslate"><span class="pre">scatter</span></code> method. However, we can’t use raw population since that would create circles with a size in the billions - far too big to fit on the screen! However, if we scale that down by a factor of 500,000, that generally brings the values of the largest countries like China to less than 20. In practice, you often have to tweak the scales of these values to make it work for your data; in this case, dividing by 500,000 will do the trick.</p>
@@ -766,7 +757,7 @@ document.write(`
  None]
 </pre></div>
 </div>
-<img alt="../../../_images/1d120111bcc549e1ebf9666516dccad08a6c3e0e2c5fa7df03385e8fdaf46fa0.png" src="../../../_images/1d120111bcc549e1ebf9666516dccad08a6c3e0e2c5fa7df03385e8fdaf46fa0.png" />
+<img alt="../../../_images/284c1e13310ba7bcc5269062b32ee3fae521ce210a19a0c51a012477813e11d8.png" src="../../../_images/284c1e13310ba7bcc5269062b32ee3fae521ce210a19a0c51a012477813e11d8.png" />
 </div>
 </div>
 <p>We still have one more significant difference from this plot to the GapMinder plot; that is coloring the markers by the region of the world where each country/territory is located. Assigning those colors is a little tricky since</p>
@@ -810,7 +801,7 @@ document.write(`
  None]
 </pre></div>
 </div>
-<img alt="../../../_images/90fc1ab956de903323c55b7ace57e5c6018e58c5b05c43724f75c2b317d7bd69.png" src="../../../_images/90fc1ab956de903323c55b7ace57e5c6018e58c5b05c43724f75c2b317d7bd69.png" />
+<img alt="../../../_images/d0908438424fc58e0e11518e44ea5e6708e61f360f03fbfc6097feb666318bee.png" src="../../../_images/d0908438424fc58e0e11518e44ea5e6708e61f360f03fbfc6097feb666318bee.png" />
 </div>
 </div>
 <p>Now lets add a black boundary to the marker. We can do this with the <code class="docutils literal notranslate"><span class="pre">edgecolors</span></code> property. We could feed in a color for each of the markers separately, but instead, we’ll provide one color for all markers and make the edges black.</p>
@@ -841,7 +832,7 @@ document.write(`
  None]
 </pre></div>
 </div>
-<img alt="../../../_images/ab68279da1aecfff6bc193bb3fa4d0baedd987ec5f3dec6ef8f122fa03487d46.png" src="../../../_images/ab68279da1aecfff6bc193bb3fa4d0baedd987ec5f3dec6ef8f122fa03487d46.png" />
+<img alt="../../../_images/eaf91c60b8753687b35dd2cf52382ad664c4e3b4ce75e415bd6c3ffec73c22a0.png" src="../../../_images/eaf91c60b8753687b35dd2cf52382ad664c4e3b4ce75e415bd6c3ffec73c22a0.png" />
 </div>
 </div>
 <p>This plot is a bit too small at this point to really read well, so let’s make it a bit larger. Let’s set the figure size to be 10 inches by 10 inches using the <code class="docutils literal notranslate"><span class="pre">figsize</span></code> property of <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code></p>
@@ -872,7 +863,7 @@ document.write(`
  None]
 </pre></div>
 </div>
-<img alt="../../../_images/772be3f62e2c74c0e86602dd11f7dc7eeedf41e9ef9eedc3467daf7aef8ac008.png" src="../../../_images/772be3f62e2c74c0e86602dd11f7dc7eeedf41e9ef9eedc3467daf7aef8ac008.png" />
+<img alt="../../../_images/ae685cd21aff54fa1e0acd7c2a26812fe1401777f8cb0c0bb8f2fd4e2f3bae3e.png" src="../../../_images/ae685cd21aff54fa1e0acd7c2a26812fe1401777f8cb0c0bb8f2fd4e2f3bae3e.png" />
 </div>
 </div>
 <p>Now this is quite close to what we want, but now that the plot is much bigger, the scale of the markers can be larger, so lets increase their size by changing how the <code class="docutils literal notranslate"><span class="pre">s</span></code> value is set, dividing it by 100,000 instead of 500,000. Let’s also add in grid lines to make this plot easier to read - this can be done with the <code class="docutils literal notranslate"><span class="pre">ax.grid()</span></code> method, which adds the gridlines to the plot.</p>
@@ -898,7 +889,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/be6d244e5b6d2cce3bafdb8c8a86201909690a72794027c6f91d93245a07b097.png" src="../../../_images/be6d244e5b6d2cce3bafdb8c8a86201909690a72794027c6f91d93245a07b097.png" />
+<img alt="../../../_images/4b887add4f9a28347d23148db5f659a8d3aba67f6a67edbc6420968c65333872.png" src="../../../_images/4b887add4f9a28347d23148db5f659a8d3aba67f6a67edbc6420968c65333872.png" />
 </div>
 </div>
 <p>But we’re still no quite there yet - the gridlines are only for the powers of 10: 100, 1,000, and 10,000 on the x-axis, for example. We can fix this by telling the grid method to not only use the major gridlines, but also the minor gridlines using hte <code class="docutils literal notranslate"><span class="pre">which='both'</span></code> property</p>
@@ -924,7 +915,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/ac97f017dc48892324a080c7cc6f761fa7578e18d235678f97958e37825cd4ae.png" src="../../../_images/ac97f017dc48892324a080c7cc6f761fa7578e18d235678f97958e37825cd4ae.png" />
+<img alt="../../../_images/59127491fdcae499fa1dd0dca68e15e047593a2538d8bf648a1448058781e1ae.png" src="../../../_images/59127491fdcae499fa1dd0dca68e15e047593a2538d8bf648a1448058781e1ae.png" />
 </div>
 </div>
 <p>The grid lines are plotted in FRONT of our markers, though - this makes it harder to read. Let’s move those back with <code class="docutils literal notranslate"><span class="pre">ax.set_axisbelow(True)</span></code>, which plots the axes and gridlines behind the markers</p>
@@ -951,7 +942,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/f7d930fa3536676616334c8615bce2c02f2ed9e3ea066224cbf4937f5ef1ef4f.png" src="../../../_images/f7d930fa3536676616334c8615bce2c02f2ed9e3ea066224cbf4937f5ef1ef4f.png" />
+<img alt="../../../_images/732432b8147a33b3f1ce70163c16ab031d4016aae69274d26a3b12c94a91b2c0.png" src="../../../_images/732432b8147a33b3f1ce70163c16ab031d4016aae69274d26a3b12c94a91b2c0.png" />
 </div>
 </div>
 <p>This is looking great, but we want this plot to be readily understood by a wide audience, so we really want all markings on the plot to be crystal clear to read. That leads to two more tweaks. First is that we need a legend for this plot, but using <code class="docutils literal notranslate"><span class="pre">ax.legend()</span></code> doesn’t produce anything since we only used one set of scatterplot markers. Typically if we called the <code class="docutils literal notranslate"><span class="pre">scatter()</span></code> method on multiple datasets and plotted them each on the same set of axes, the <code class="docutils literal notranslate"><span class="pre">legend()</span></code> method would produce a nice legend entry for each time we called the <code class="docutils literal notranslate"><span class="pre">scatter()</span></code> method. In this case, since we only called <code class="docutils literal notranslate"><span class="pre">scatter()</span></code> once, we can’t use this standard approach to create our legend. Fortunately, though, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> is quite a versatile tool that allows you to create a custom legend.</p>
@@ -984,10 +975,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x178ce62f4f0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x15e7173d0&gt;
 </pre></div>
 </div>
-<img alt="../../../_images/4a49bf691912ada607abcf4680652c7bf01f2aca1f077608c459b2f99bc20c09.png" src="../../../_images/4a49bf691912ada607abcf4680652c7bf01f2aca1f077608c459b2f99bc20c09.png" />
+<img alt="../../../_images/955f416bb6ae48ea5b99314e4a24075a82b54b40e7f3ffec819bb1ea843c6bea.png" src="../../../_images/955f416bb6ae48ea5b99314e4a24075a82b54b40e7f3ffec819bb1ea843c6bea.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1014,115 +1005,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x178d623a950&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x158e5fd10&gt;
 </pre></div>
 </div>
-<img alt="../../../_images/ac459489afb1bf34f183dc6ae9bb73f4e46b077d568751603a171b662b98a86f.png" src="../../../_images/ac459489afb1bf34f183dc6ae9bb73f4e46b077d568751603a171b662b98a86f.png" />
+<img alt="../../../_images/4640832cf1fdc093ba558f0a8d4932dbeee26a8cf9e75c982da2f4bf3624955a.png" src="../../../_images/4640832cf1fdc093ba558f0a8d4932dbeee26a8cf9e75c982da2f4bf3624955a.png" />
 </div>
 </div>
-<p>The other issue here is that exponential notation on the labels may not be that easy for all readers to understand</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="making-the-plot-interactive-through-altair">
-<h1>Making the plot interactive through <code class="docutils literal notranslate"><span class="pre">altair</span></code><a class="headerlink" href="#making-the-plot-interactive-through-altair" title="Permalink to this headline">#</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># MAIN PLOT</span>
-<span class="c1"># Create the plot with Altair</span>
-<span class="n">domain</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Africa&#39;</span><span class="p">,</span> <span class="s1">&#39;Asia&#39;</span><span class="p">,</span> <span class="s1">&#39;Europe&#39;</span><span class="p">,</span> <span class="s1">&#39;Americas&#39;</span><span class="p">]</span>
-<span class="n">range_</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#00d5e9&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff5872&#39;</span><span class="p">,</span> <span class="s1">&#39;#ffe700&#39;</span><span class="p">,</span> <span class="s1">&#39;#84ec04&#39;</span><span class="p">]</span>
-
-<span class="n">chart</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span>
-    <span class="n">size</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-    <span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
-    <span class="n">strokeWidth</span><span class="o">=</span><span class="mi">1</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;income&#39;</span><span class="p">,</span>
-            <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">),</span>
-            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Income Per Capita (GDP per person in USD)&#39;</span><span class="p">),</span>
-    <span class="n">y</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;co2&#39;</span><span class="p">,</span>
-            <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">),</span>
-            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Carbon Dioxide Emissions per person (metric tonnes)&#39;</span><span class="p">),</span>
-    <span class="n">color</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;continent&#39;</span><span class="p">,</span> 
-                    <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">domain</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="n">range_</span><span class="p">),</span>
-                    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Region&#39;</span><span class="p">),</span>
-    <span class="n">size</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Size</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">,</span> 
-                  <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">8000</span><span class="p">]),</span>
-                  <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Population&#39;</span><span class="p">),</span>
-    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Territory&#39;</span><span class="p">),</span> 
-             <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;income&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP per capita ($)&#39;</span><span class="p">),</span>
-             <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;co2&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;CO2 per capita (tonnes)&#39;</span><span class="p">),</span>
-             <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;continent&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Region&#39;</span><span class="p">)]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">configure_mark</span><span class="p">(</span>
-    <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">500</span>
-<span class="p">)</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
-
-<span class="n">chart</span><span class="o">.</span><span class="n">configure_legend</span><span class="p">(</span>
-    <span class="n">tickCount</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">symbolFillColor</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<div id="altair-viz-d3d658b0fe8e44f49aeed5ce510007b5"></div>
-<script type="text/javascript">
-  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
-  (function(spec, embedOpt){
-    let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d3d658b0fe8e44f49aeed5ce510007b5") {
-      outputDiv = document.getElementById("altair-viz-d3d658b0fe8e44f49aeed5ce510007b5");
-    }
-    const paths = {
-      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
-      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
-      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
-    };
-
-    function maybeLoadScript(lib, version) {
-      var key = `${lib.replace("-", "")}_version`;
-      return (VEGA_DEBUG[key] == version) ?
-        Promise.resolve(paths[lib]) :
-        new Promise(function(resolve, reject) {
-          var s = document.createElement('script');
-          document.getElementsByTagName("head")[0].appendChild(s);
-          s.async = true;
-          s.onload = () => {
-            VEGA_DEBUG[key] = version;
-            return resolve(paths[lib]);
-          };
-          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-          s.src = paths[lib];
-        });
-    }
-
-    function showError(err) {
-      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
-      throw err;
-    }
-
-    function displayChart(vegaEmbed) {
-      vegaEmbed(outputDiv, spec, embedOpt)
-        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
-    }
-
-    if(typeof define === "function" && define.amd) {
-      requirejs.config({paths});
-      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else {
-      maybeLoadScript("vega", "5")
-        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
-        .then(() => maybeLoadScript("vega-embed", "6"))
-        .catch(showError)
-        .then(() => displayChart(vegaEmbed));
-    }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}, "legend": {"symbolFillColor": "lightgrey", "tickCount": 3}, "mark": {"opacity": 0.7}}, "data": {"name": "data-548295f963b9602f50f7af757b55d55f"}, "mark": {"type": "circle", "size": 60, "stroke": "black", "strokeWidth": 1}, "encoding": {"color": {"field": "continent", "scale": {"domain": ["Africa", "Asia", "Europe", "Americas"], "range": ["#00d5e9", "#ff5872", "#ffe700", "#84ec04"]}, "title": "Region", "type": "nominal"}, "size": {"field": "population", "scale": {"range": [50, 8000]}, "title": "Population", "type": "quantitative"}, "tooltip": [{"field": "country", "title": "Territory", "type": "nominal"}, {"field": "income", "title": "GDP per capita ($)", "type": "quantitative"}, {"field": "co2", "title": "CO2 per capita (tonnes)", "type": "quantitative"}, {"field": "continent", "title": "Region", "type": "nominal"}], "x": {"field": "income", "scale": {"type": "log"}, "title": "Income Per Capita (GDP per person in USD)", "type": "quantitative"}, "y": {"field": "co2", "scale": {"type": "log"}, "title": "Carbon Dioxide Emissions per person (metric tonnes)", "type": "quantitative"}}, "height": 500, "selection": {"selector006": {"type": "interval", "bind": "scales", "encodings": ["x", "y"]}}, "width": 500, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-548295f963b9602f50f7af757b55d55f": [{"country": "Afghanistan", "co2": 0.254, "income": 2030.0, "population": 37200000.0, "continent": "Asia"}, {"country": "Angola", "co2": 1.12, "income": 6930.0, "population": 30800000.0, "continent": "Africa"}, {"country": "Albania", "co2": 1.59, "income": 13300.0, "population": 2880000.0, "continent": "Europe"}, {"country": "Andorra", "co2": 6.12, "income": 58300.0, "population": 77000.0, "continent": "Europe"}, {"country": "United Arab Emirates", "co2": 21.4, "income": 67000.0, "population": 9630000.0, "continent": "Asia"}, {"country": "Argentina", "co2": 4.41, "income": 22700.0, "population": 44400000.0, "continent": "Americas"}, {"country": "Armenia", "co2": 1.89, "income": 12700.0, "population": 2950000.0, "continent": "Asia"}, {"country": "Antigua and Barbuda", "co2": 5.88, "income": 21000.0, "population": 96300.0, "continent": "Americas"}, {"country": "Australia", "co2": 16.9, "income": 49000.0, "population": 24900000.0, "continent": "Asia"}, {"country": "Austria", "co2": 7.75, "income": 55300.0, "population": 8890000.0, "continent": "Europe"}, {"country": "Azerbaijan", "co2": 3.7, "income": 14200.0, "population": 9950000.0, "continent": "Asia"}, {"country": "Burundi", "co2": 0.0467, "income": 762.0, "population": 11200000.0, "continent": "Africa"}, {"country": "Belgium", "co2": 8.69, "income": 51100.0, "population": 11500000.0, "continent": "Europe"}, {"country": "Benin", "co2": 0.623, "income": 3160.0, "population": 11500000.0, "continent": "Africa"}, {"country": "Burkina Faso", "co2": 0.198, "income": 2120.0, "population": 19800000.0, "continent": "Africa"}, {"country": "Bangladesh", "co2": 0.531, "income": 4440.0, "population": 161000000.0, "continent": "Asia"}, {"country": "Bulgaria", "co2": 6.32, "income": 22200.0, "population": 7050000.0, "continent": "Europe"}, {"country": "Bahrain", "co2": 19.8, "income": 46400.0, "population": 1570000.0, "continent": "Asia"}, {"country": "Bahamas", "co2": 4.7, "income": 36500.0, "population": 386000.0, "continent": "Americas"}, {"country": "Bosnia and Herzegovina", "co2": 6.53, "income": 14400.0, "population": 3320000.0, "continent": "Europe"}, {"country": "Belarus", "co2": 6.93, "income": 19000.0, "population": 9450000.0, "continent": "Europe"}, {"country": "Belize", "co2": 1.5, "income": 7260.0, "population": 383000.0, "continent": "Americas"}, {"country": "Bolivia", "co2": 1.96, "income": 8660.0, "population": 11400000.0, "continent": "Americas"}, {"country": "Brazil", "co2": 2.18, "income": 14700.0, "population": 209000000.0, "continent": "Americas"}, {"country": "Barbados", "co2": 4.48, "income": 15700.0, "population": 287000.0, "continent": "Americas"}, {"country": "Brunei", "co2": 18.5, "income": 60400.0, "population": 429000.0, "continent": "Asia"}, {"country": "Bhutan", "co2": 1.61, "income": 11300.0, "population": 754000.0, "continent": "Asia"}, {"country": "Botswana", "co2": 2.96, "income": 16200.0, "population": 2250000.0, "continent": "Africa"}, {"country": "Central African Republic", "co2": 0.0651, "income": 933.0, "population": 4670000.0, "continent": "Africa"}, {"country": "Canada", "co2": 15.3, "income": 49000.0, "population": 37100000.0, "continent": "Americas"}, {"country": "Switzerland", "co2": 4.33, "income": 70600.0, "population": 8530000.0, "continent": "Europe"}, {"country": "Chile", "co2": 4.59, "income": 25000.0, "population": 18700000.0, "continent": "Americas"}, {"country": "China", "co2": 7.06, "income": 15100.0, "population": 1430000000.0, "continent": "Asia"}, {"country": "Cote d'Ivoire", "co2": 0.335, "income": 4850.0, "population": 25100000.0, "continent": "Africa"}, {"country": "Cameroon", "co2": 0.323, "income": 3710.0, "population": 25200000.0, "continent": "Africa"}, {"country": "Congo, Dem. Rep.", "co2": 0.0243, "income": 1090.0, "population": 84100000.0, "continent": "Africa"}, {"country": "Congo, Rep.", "co2": 0.617, "income": 3930.0, "population": 5240000.0, "continent": "Africa"}, {"country": "Colombia", "co2": 1.96, "income": 14300.0, "population": 49700000.0, "continent": "Americas"}, {"country": "Comoros", "co2": 0.263, "income": 3070.0, "population": 832000.0, "continent": "Africa"}, {"country": "Cape Verde", "co2": 1.16, "income": 6860.0, "population": 544000.0, "continent": "Africa"}, {"country": "Costa Rica", "co2": 1.61, "income": 20700.0, "population": 5000000.0, "continent": "Americas"}, {"country": "Cuba", "co2": 2.53, "income": 9680.0, "population": 11300000.0, "continent": "Americas"}, {"country": "Cyprus", "co2": 6.3, "income": 40000.0, "population": 1190000.0, "continent": "Asia"}, {"country": "Czech Republic", "co2": 9.94, "income": 39900.0, "population": 10700000.0, "continent": "Europe"}, {"country": "Germany", "co2": 9.14, "income": 53500.0, "population": 83100000.0, "continent": "Europe"}, {"country": "Djibouti", "co2": 0.672, "income": 5210.0, "population": 959000.0, "continent": "Africa"}, {"country": "Dominica", "co2": 2.55, "income": 11500.0, "population": 71600.0, "continent": "Americas"}, {"country": "Denmark", "co2": 6.06, "income": 56200.0, "population": 5750000.0, "continent": "Europe"}, {"country": "Dominican Republic", "co2": 2.34, "income": 17700.0, "population": 10600000.0, "continent": "Americas"}, {"country": "Algeria", "co2": 3.69, "income": 11600.0, "population": 42200000.0, "continent": "Africa"}, {"country": "Ecuador", "co2": 2.46, "income": 11600.0, "population": 17100000.0, "continent": "Americas"}, {"country": "Egypt", "co2": 2.43, "income": 11400.0, "population": 98400000.0, "continent": "Africa"}, {"country": "Eritrea", "co2": 0.215, "income": 1560.0, "population": 3450000.0, "continent": "Africa"}, {"country": "Spain", "co2": 5.75, "income": 40300.0, "population": 46700000.0, "continent": "Europe"}, {"country": "Estonia", "co2": 14.8, "income": 35100.0, "population": 1320000.0, "continent": "Europe"}, {"country": "Ethiopia", "co2": 0.137, "income": 2100.0, "population": 109000000.0, "continent": "Africa"}, {"country": "Finland", "co2": 8.52, "income": 48000.0, "population": 5520000.0, "continent": "Europe"}, {"country": "Fiji", "co2": 2.41, "income": 13800.0, "population": 883000.0, "continent": "Asia"}, {"country": "France", "co2": 5.2, "income": 45300.0, "population": 65000000.0, "continent": "Europe"}, {"country": "Micronesia, Fed. Sts.", "co2": 1.34, "income": 3460.0, "population": 113000.0, "continent": "Asia"}, {"country": "Gabon", "co2": 2.53, "income": 14700.0, "population": 2120000.0, "continent": "Africa"}, {"country": "United Kingdom", "co2": 5.65, "income": 46900.0, "population": 67099999.99999999, "continent": "Europe"}, {"country": "Georgia", "co2": 2.64, "income": 14300.0, "population": 4000000.0, "continent": "Asia"}, {"country": "Ghana", "co2": 0.615, "income": 5320.0, "population": 29800000.0, "continent": "Africa"}, {"country": "Guinea", "co2": 0.256, "income": 2500.0, "population": 12400000.0, "continent": "Africa"}, {"country": "Gambia", "co2": 0.268, "income": 2160.0, "population": 2280000.0, "continent": "Africa"}, {"country": "Guinea-Bissau", "co2": 0.181, "income": 1900.0, "population": 1870000.0, "continent": "Africa"}, {"country": "Equatorial Guinea", "co2": 4.35, "income": 20400.0, "population": 1310000.0, "continent": "Africa"}, {"country": "Greece", "co2": 7.03, "income": 29100.0, "population": 10500000.0, "continent": "Europe"}, {"country": "Grenada", "co2": 2.43, "income": 16800.0, "population": 111000.0, "continent": "Americas"}, {"country": "Guatemala", "co2": 1.07, "income": 8460.0, "population": 17200000.0, "continent": "Americas"}, {"country": "Guyana", "co2": 3.12, "income": 12500.0, "population": 779000.0, "continent": "Americas"}, {"country": "Hong Kong, China", "co2": 5.86, "income": 61100.0, "population": 7370000.0, "continent": "Asia"}, {"country": "Honduras", "co2": 1.04, "income": 5680.0, "population": 9590000.0, "continent": "Americas"}, {"country": "Croatia", "co2": 4.48, "income": 28200.0, "population": 4160000.0, "continent": "Europe"}, {"country": "Haiti", "co2": 0.27, "income": 3170.0, "population": 11100000.0, "continent": "Americas"}, {"country": "Hungary", "co2": 5.14, "income": 31100.0, "population": 9710000.0, "continent": "Europe"}, {"country": "Indonesia", "co2": 2.3, "income": 11400.0, "population": 268000000.0, "continent": "Asia"}, {"country": "India", "co2": 1.96, "income": 6520.0, "population": 1350000000.0, "continent": "Asia"}, {"country": "Ireland", "co2": 8.09, "income": 83700.0, "population": 4820000.0, "continent": "Europe"}, {"country": "Iran", "co2": 8.81, "income": 13500.0, "population": 81800000.0, "continent": "Asia"}, {"country": "Iraq", "co2": 5.32, "income": 10600.0, "population": 38400000.0, "continent": "Asia"}, {"country": "Iceland", "co2": 10.8, "income": 56800.0, "population": 337000.0, "continent": "Europe"}, {"country": "Israel", "co2": 7.67, "income": 39900.0, "population": 8380000.000000001, "continent": "Asia"}, {"country": "Italy", "co2": 5.58, "income": 42000.0, "population": 60600000.0, "continent": "Europe"}, {"country": "Jamaica", "co2": 2.79, "income": 9740.0, "population": 2930000.0, "continent": "Americas"}, {"country": "Jordan", "co2": 2.42, "income": 10000.0, "population": 9970000.0, "continent": "Asia"}, {"country": "Japan", "co2": 9.14, "income": 41800.0, "population": 127000000.0, "continent": "Asia"}, {"country": "Kazakhstan", "co2": 17.6, "income": 25500.0, "population": 18300000.0, "continent": "Asia"}, {"country": "Kenya", "co2": 0.36, "income": 4340.0, "population": 51400000.0, "continent": "Africa"}, {"country": "Kyrgyz Republic", "co2": 1.6, "income": 5130.0, "population": 6300000.0, "continent": "Asia"}, {"country": "Cambodia", "co2": 0.64, "income": 4160.0, "population": 16200000.0, "continent": "Asia"}, {"country": "Kiribati", "co2": 0.601, "income": 2290.0, "population": 116000.0, "continent": "Asia"}, {"country": "St. Kitts and Nevis", "co2": 4.62, "income": 27500.0, "population": 52400.0, "continent": "Americas"}, {"country": "South Korea", "co2": 12.9, "income": 42000.0, "population": 51200000.0, "continent": "Asia"}, {"country": "Kuwait", "co2": 23.7, "income": 50500.0, "population": 4139999.9999999995, "continent": "Asia"}, {"country": "Lao", "co2": 2.74, "income": 7590.0, "population": 7060000.0, "continent": "Asia"}, {"country": "Lebanon", "co2": 3.53, "income": 15700.0, "population": 6860000.0, "continent": "Asia"}, {"country": "Liberia", "co2": 0.324, "income": 1540.0, "population": 4820000.0, "continent": "Africa"}, {"country": "Libya", "co2": 8.09, "income": 15000.0, "population": 6680000.0, "continent": "Africa"}, {"country": "St. Lucia", "co2": 2.31, "income": 15300.0, "population": 182000.0, "continent": "Americas"}, {"country": "Sri Lanka", "co2": 1.1, "income": 12900.0, "population": 21200000.0, "continent": "Asia"}, {"country": "Lesotho", "co2": 1.26, "income": 2620.0, "population": 2110000.0, "continent": "Africa"}, {"country": "Lithuania", "co2": 4.84, "income": 35400.0, "population": 2800000.0, "continent": "Europe"}, {"country": "Luxembourg", "co2": 15.9, "income": 115000.0, "population": 604000.0, "continent": "Europe"}, {"country": "Latvia", "co2": 3.73, "income": 30100.0, "population": 1930000.0, "continent": "Europe"}, {"country": "Morocco", "co2": 1.84, "income": 7450.0, "population": 36000000.0, "continent": "Africa"}, {"country": "Moldova", "co2": 1.27, "income": 12400.0, "population": 4050000.0, "continent": "Europe"}, {"country": "Madagascar", "co2": 0.163, "income": 1590.0, "population": 26300000.0, "continent": "Africa"}, {"country": "Maldives", "co2": 2.96, "income": 18800.0, "population": 516000.0, "continent": "Asia"}, {"country": "Mexico", "co2": 3.79, "income": 19900.0, "population": 126000000.0, "continent": "Americas"}, {"country": "Marshall Islands", "co2": 2.58, "income": 3820.0, "population": 58400.0, "continent": "Asia"}, {"country": "North Macedonia", "co2": 3.49, "income": 16100.000000000002, "population": 2080000.0, "continent": "Europe"}, {"country": "Mali", "co2": 0.187, "income": 2280.0, "population": 19100000.0, "continent": "Africa"}, {"country": "Malta", "co2": 3.61, "income": 43300.0, "population": 439000.0, "continent": "Europe"}, {"country": "Myanmar", "co2": 0.491, "income": 4470.0, "population": 53700000.0, "continent": "Asia"}, {"country": "Montenegro", "co2": 3.2, "income": 20700.0, "population": 628000.0, "continent": "Europe"}, {"country": "Mongolia", "co2": 8.88, "income": 12000.0, "population": 3170000.0, "continent": "Asia"}, {"country": "Mozambique", "co2": 0.281, "income": 1290.0, "population": 29500000.0, "continent": "Africa"}, {"country": "Mauritania", "co2": 0.605, "income": 5190.0, "population": 4400000.0, "continent": "Africa"}, {"country": "Mauritius", "co2": 3.83, "income": 22200.0, "population": 1270000.0, "continent": "Africa"}, {"country": "Malawi", "co2": 0.0762, "income": 1500.0, "population": 18100000.0, "continent": "Africa"}, {"country": "Malaysia", "co2": 8.08, "income": 27600.0, "population": 31500000.0, "continent": "Asia"}, {"country": "Namibia", "co2": 1.75, "income": 10100.0, "population": 2450000.0, "continent": "Africa"}, {"country": "Niger", "co2": 0.103, "income": 1200.0, "population": 22400000.0, "continent": "Africa"}, {"country": "Nigeria", "co2": 0.65, "income": 5160.0, "population": 196000000.0, "continent": "Africa"}, {"country": "Nicaragua", "co2": 0.862, "income": 5730.0, "population": 6470000.0, "continent": "Americas"}, {"country": "Netherlands", "co2": 9.48, "income": 56100.0, "population": 17100000.0, "continent": "Europe"}, {"country": "Norway", "co2": 8.31, "income": 64300.0, "population": 5340000.0, "continent": "Europe"}, {"country": "Nepal", "co2": 0.337, "income": 3770.0, "population": 28100000.0, "continent": "Asia"}, {"country": "Nauru", "co2": 4.71, "income": 13600.0, "population": 10700.0, "continent": "Asia"}, {"country": "New Zealand", "co2": 7.34, "income": 42900.0, "population": 4740000.0, "continent": "Asia"}, {"country": "Oman", "co2": 13.9, "income": 32600.0, "population": 4830000.0, "continent": "Asia"}, {"country": "Pakistan", "co2": 1.05, "income": 4740.0, "population": 212000000.0, "continent": "Asia"}, {"country": "Panama", "co2": 2.62, "income": 31000.0, "population": 4179999.9999999995, "continent": "Americas"}, {"country": "Peru", "co2": 1.74, "income": 12800.0, "population": 32000000.0, "continent": "Americas"}, {"country": "Philippines", "co2": 1.27, "income": 8520.0, "population": 107000000.0, "continent": "Asia"}, {"country": "Palau", "co2": 13.2, "income": 17600.0, "population": 17900.0, "continent": "Asia"}, {"country": "Papua New Guinea", "co2": 0.911, "income": 4190.0, "population": 8610000.0, "continent": "Asia"}, {"country": "Poland", "co2": 9.07, "income": 31700.0, "population": 37900000.0, "continent": "Europe"}, {"country": "North Korea", "co2": 1.18, "income": 1860.0, "population": 25500000.0, "continent": "Asia"}, {"country": "Portugal", "co2": 4.97, "income": 34000.0, "population": 10300000.0, "continent": "Europe"}, {"country": "Paraguay", "co2": 1.07, "income": 12800.0, "population": 6960000.0, "continent": "Americas"}, {"country": "Palestine", "co2": 0.661, "income": 6320.0, "population": 4860000.0, "continent": "Asia"}, {"country": "Qatar", "co2": 38.0, "income": 91000.0, "population": 2780000.0, "continent": "Asia"}, {"country": "Romania", "co2": 3.8, "income": 28500.0, "population": 19500000.0, "continent": "Europe"}, {"country": "Russia", "co2": 11.7, "income": 26700.0, "population": 146000000.0, "continent": "Europe"}, {"country": "Rwanda", "co2": 0.0913, "income": 2090.0, "population": 12300000.0, "continent": "Africa"}, {"country": "Saudi Arabia", "co2": 18.4, "income": 47600.0, "population": 33700000.0, "continent": "Asia"}, {"country": "Sudan", "co2": 0.504, "income": 4370.0, "population": 41800000.0, "continent": "Africa"}, {"country": "Senegal", "co2": 0.739, "income": 3310.0, "population": 15900000.0, "continent": "Africa"}, {"country": "Singapore", "co2": 7.1, "income": 98200.0, "population": 5760000.0, "continent": "Asia"}, {"country": "Solomon Islands", "co2": 0.273, "income": 2700.0, "population": 653000.0, "continent": "Asia"}, {"country": "Sierra Leone", "co2": 0.141, "income": 1660.0, "population": 7650000.0, "continent": "Africa"}, {"country": "El Salvador", "co2": 1.11, "income": 8620.0, "population": 6420000.0, "continent": "Americas"}, {"country": "Somalia", "co2": 0.0466, "income": 1130.0, "population": 15000000.0, "continent": "Africa"}, {"country": "Serbia", "co2": 5.17, "income": 17500.0, "population": 8800000.0, "continent": "Europe"}, {"country": "South Sudan", "co2": 0.171, "income": 2010.0, "population": 11000000.0, "continent": "Africa"}, {"country": "Sao Tome and Principe", "co2": 0.587, "income": 3990.0, "population": 211000.0, "continent": "Africa"}, {"country": "Suriname", "co2": 3.1, "income": 19000.0, "population": 576000.0, "continent": "Americas"}, {"country": "Slovak Republic", "co2": 6.61, "income": 31200.0, "population": 5450000.0, "continent": "Europe"}, {"country": "Slovenia", "co2": 6.95, "income": 38000.0, "population": 2080000.0, "continent": "Europe"}, {"country": "Sweden", "co2": 4.12, "income": 52300.0, "population": 9970000.0, "continent": "Europe"}, {"country": "Eswatini", "co2": 1.06, "income": 8520.0, "population": 1140000.0, "continent": "Africa"}, {"country": "Seychelles", "co2": 6.75, "income": 27500.0, "population": 97100.0, "continent": "Africa"}, {"country": "Syria", "co2": 1.67, "income": 3890.0, "population": 16900000.0, "continent": "Asia"}, {"country": "Chad", "co2": 0.0656, "income": 1580.0, "population": 15500000.0, "continent": "Africa"}, {"country": "Togo", "co2": 0.434, "income": 2060.0, "population": 7890000.0, "continent": "Africa"}, {"country": "Thailand", "co2": 4.15, "income": 18100.0, "population": 69400000.0, "continent": "Asia"}, {"country": "Tajikistan", "co2": 0.603, "income": 3420.0, "population": 9100000.0, "continent": "Asia"}, {"country": "Turkmenistan", "co2": 13.7, "income": 14800.0, "population": 5850000.0, "continent": "Asia"}, {"country": "Timor-Leste", "co2": 0.412, "income": 3090.0, "population": 1270000.0, "continent": "Asia"}, {"country": "Tonga", "co2": 1.31, "income": 6410.0, "population": 103000.0, "continent": "Asia"}, {"country": "Trinidad and Tobago", "co2": 31.3, "income": 26300.0, "population": 1390000.0, "continent": "Americas"}, {"country": "Tunisia", "co2": 2.73, "income": 11400.0, "population": 11600000.0, "continent": "Africa"}, {"country": "Turkey", "co2": 5.2, "income": 28300.0, "population": 82300000.0, "continent": "Asia"}, {"country": "Tuvalu", "co2": 1.01, "income": 3950.0, "population": 11500.0, "continent": "Asia"}, {"country": "Taiwan", "co2": 11.6, "income": 51900.0, "population": 23700000.0, "continent": "Asia"}, {"country": "Tanzania", "co2": 0.222, "income": 2590.0, "population": 56300000.0, "continent": "Africa"}, {"country": "Uganda", "co2": 0.135, "income": 2130.0, "population": 42700000.0, "continent": "Africa"}, {"country": "Ukraine", "co2": 5.09, "income": 12300.0, "population": 44200000.0, "continent": "Europe"}, {"country": "Uruguay", "co2": 2.01, "income": 23000.0, "population": 3450000.0, "continent": "Americas"}, {"country": "United States", "co2": 16.6, "income": 61600.0, "population": 327000000.0, "continent": "Americas"}, {"country": "Uzbekistan", "co2": 2.81, "income": 7080.0, "population": 32500000.0, "continent": "Asia"}, {"country": "St. Vincent and the Grenadines", "co2": 2.03, "income": 12500.0, "population": 110000.0, "continent": "Americas"}, {"country": "Venezuela", "co2": 4.81, "income": 12400.0, "population": 28900000.0, "continent": "Americas"}, {"country": "Vietnam", "co2": 2.16, "income": 7590.0, "population": 95500000.0, "continent": "Asia"}, {"country": "Vanuatu", "co2": 0.529, "income": 3090.0, "population": 293000.0, "continent": "Asia"}, {"country": "Samoa", "co2": 1.32, "income": 6390.0, "population": 196000.0, "continent": "Asia"}, {"country": "Yemen", "co2": 0.356, "income": 2660.0, "population": 28500000.0, "continent": "Asia"}, {"country": "South Africa", "co2": 8.1, "income": 13900.0, "population": 57800000.0, "continent": "Africa"}, {"country": "Zambia", "co2": 0.302, "income": 3520.0, "population": 17400000.0, "continent": "Africa"}, {"country": "Zimbabwe", "co2": 0.85, "income": 3920.0, "population": 14400000.0, "continent": "Africa"}]}}, {"mode": "vega-lite"});
-</script></div></div>
-</div>
+<p>And there we go - a beautiful, publication-quality plot that shows the clear relationship between per capita income and per capita carbon dioxide emissions. This also demonstrates the versatility and customization potential of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1165,22 +1054,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Project: Plotting</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#making-the-plot-interactive-through-altair">Making the plot interactive through <code class="docutils literal notranslate"><span class="pre">altair</span></code></a></li>
-</ul>
-
-  </nav></div>
-
-</div></div>
               
             
           </div>
