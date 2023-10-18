@@ -526,32 +526,6 @@ document.write(`
 <h2>Regression with Confidence Intervals<a class="headerlink" href="#regression-with-confidence-intervals" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_reg_with_ci</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">yvar</span><span class="p">,</span> <span class="n">xvar</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
-    <span class="c1"># Build a grid into which predicted values can be placed.</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">yvar</span><span class="p">]),</span> <span class="n">xvar</span><span class="p">]</span>
-    <span class="n">xmin</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-    <span class="n">xmax</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-    <span class="n">step</span> <span class="o">=</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
-    <span class="n">predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">xvar</span><span class="p">:</span> <span class="n">grid</span><span class="p">})</span>
-
-    <span class="c1"># Fit model, get predictions</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">yvar</span><span class="si">}</span><span class="s2"> ~ </span><span class="si">{</span><span class="n">xvar</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    <span class="n">model_predict</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="n">xvar</span><span class="p">])</span>
-    <span class="n">predictions</span><span class="p">[</span><span class="n">yvar</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_predict</span><span class="o">.</span><span class="n">summary_frame</span><span class="p">()[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span>
-    <span class="n">predictions</span><span class="p">[[</span><span class="s2">&quot;ci_low&quot;</span><span class="p">,</span> <span class="s2">&quot;ci_high&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">model_predict</span><span class="o">.</span><span class="n">conf_int</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">predictions</span>
-
-
-<span class="n">y_hats</span> <span class="o">=</span> <span class="n">get_reg_with_ci</span><span class="p">(</span>
-    <span class="n">penguins</span><span class="p">[</span><span class="n">penguins</span><span class="o">.</span><span class="n">species</span> <span class="o">==</span> <span class="s2">&quot;Adelie&quot;</span><span class="p">],</span> <span class="n">xvar</span><span class="o">=</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span> <span class="n">yvar</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_regression_w_ci</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">yvar</span><span class="p">,</span> <span class="n">xvar</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a seaborn.objects scatter plot with Dots and a linear</span>
@@ -604,259 +578,48 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>so.Plot<span class="o">?</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Init signature:</span>
-so<span class=" -Color -Color-Blue">.</span>Plot<span class=" -Color -Color-Blue">(</span>
-    <span class=" -Color -Color-Blue">*</span>args<span class=" -Color -Color-Blue">,</span>
-    data<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    x<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    y<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    color<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    alpha<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    fill<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    marker<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    pointsize<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    stroke<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    linewidth<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    linestyle<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    fillcolor<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    fillalpha<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    edgewidth<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    edgestyle<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    edgecolor<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    edgealpha<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    text<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    halign<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    valign<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    offset<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    fontsize<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    xmin<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    xmax<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    ymin<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    ymax<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    group<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-<span class=" -Color -Color-Blue">)</span>
-<span class=" -Color -Color-Red">Docstring:</span>     
-An interface for declaratively specifying statistical graphics.
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">seaborn._stats.base</span> <span class="kn">import</span> <span class="n">Stat</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 
-Plots are constructed by initializing this class and adding one or more
-layers, comprising a `Mark` and optional `Stat` or `Move`.  Additionally,
-faceting variables or variable pairings may be defined to divide the space
-into multiple subplots. The mappings from data values to visual properties
-can be parametrized using scales, although the plot will try to infer good
-defaults when scales are not explicitly defined.
 
-The constructor accepts a data source (a :class:`pandas.DataFrame` or
-dictionary with columnar values) and variable assignments. Variables can be
-passed as keys to the data source or directly as data vectors.  If multiple
-data-containing objects are provided, they will be index-aligned.
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Lowess</span><span class="p">(</span><span class="n">Stat</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fit a locally-weighted regression to smooth the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-The data source and variables defined in the constructor will be used for
-all layers in the plot, unless overridden or disabled when adding a layer.
+    <span class="n">frac</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c1"># Fraction of data to use when estimating each y-value</span>
+    <span class="n">gridsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># How fine-grained to plot the curve. Increase if jagged.</span>
 
-The following variables can be defined in the constructor:
-    |x|, |y|, |color|, |alpha|, |fill|, |marker|, |pointsize|, |stroke|,
-    |linewidth|, |linestyle|, |fillcolor|, |fillalpha|, |edgewidth|,
-    |edgestyle|, |edgecolor|, |edgealpha|, |text|, |halign|, |valign|,
-    |offset|, |fontsize|, |xmin|, |xmax|, |ymin|, |ymax|, |group|
+    <span class="k">def</span> <span class="nf">_fit_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+        <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">gridsize</span><span class="p">)</span>
+        <span class="c1"># https://www.statsmodels.org/devel/generated/statsmodels.nonparametric.smoothers_lowess.lowess.html</span>
+        <span class="n">yy</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">nonparametric</span><span class="o">.</span><span class="n">lowess</span><span class="p">(</span><span class="n">exog</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">endog</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">xvals</span><span class="o">=</span><span class="n">xx</span><span class="p">,</span> <span class="n">frac</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frac</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xx</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">yy</span><span class="p">))</span>
 
-The `data`, `x`, and `y` variables can be passed as positional arguments or
-using keywords. Whether the first positional argument is interpreted as a
-data source or `x` variable depends on its type.
-
-The methods of this class return a copy of the instance; use chaining to
-build up a plot through multiple calls. Methods can be called in any order.
-
-Most methods only add information to the plot spec; no actual processing
-happens until the plot is shown or saved. It is also possible to compile
-the plot without rendering it to access the lower-level representation.
-<span class=" -Color -Color-Red">File:</span>           ~/opt/miniconda3/lib/python3.11/site-packages/seaborn/_core/plot.py
-<span class=" -Color -Color-Red">Type:</span>           type
-<span class=" -Color -Color-Red">Subclasses:</span>     
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">groupby</span><span class="p">,</span> <span class="n">orient</span><span class="p">,</span> <span class="n">scales</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">groupby</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_predict</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span>
-    <span class="n">y_hats</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="n">penguins</span><span class="o">.</span><span class="n">species</span> <span class="o">==</span> <span class="s2">&quot;Adelie&quot;</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Dots</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Line</span><span class="p">(),</span> <span class="n">Lowess</span><span class="p">())</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># Build chart</span>
-    <span class="n">reg</span> <span class="o">=</span> <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Lines</span><span class="p">())</span>
-    <span class="n">ci</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">mark_errorband</span><span class="p">()</span>
-        <span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-            <span class="n">x</span><span class="o">=</span><span class="n">xvar</span><span class="p">,</span>
-            <span class="n">y</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s2">&quot;ci_low&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">yvar</span><span class="p">),</span>
-            <span class="n">y2</span><span class="o">=</span><span class="s2">&quot;ci_high&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">chart</span> <span class="o">=</span> <span class="n">ci</span> <span class="o">+</span> <span class="n">reg</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">penguins</span>
-</pre></div>
-</div>
-</div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>species</th>
-      <th>island</th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-      <th>flipper_length_mm</th>
-      <th>body_mass_g</th>
-      <th>sex</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>39.1</td>
-      <td>18.7</td>
-      <td>181.0</td>
-      <td>3750.0</td>
-      <td>Male</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>39.5</td>
-      <td>17.4</td>
-      <td>186.0</td>
-      <td>3800.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>40.3</td>
-      <td>18.0</td>
-      <td>195.0</td>
-      <td>3250.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>36.7</td>
-      <td>19.3</td>
-      <td>193.0</td>
-      <td>3450.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>339</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>340</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>46.8</td>
-      <td>14.3</td>
-      <td>215.0</td>
-      <td>4850.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>341</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>50.4</td>
-      <td>15.7</td>
-      <td>222.0</td>
-      <td>5750.0</td>
-      <td>Male</td>
-    </tr>
-    <tr>
-      <th>342</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>45.2</td>
-      <td>14.8</td>
-      <td>212.0</td>
-      <td>5200.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>343</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>49.9</td>
-      <td>16.1</td>
-      <td>213.0</td>
-      <td>5400.0</td>
-      <td>Male</td>
-    </tr>
-  </tbody>
-</table>
-<p>344 rows × 7 columns</p>
-</div></div></div>
+<img alt="../../../_images/73da467fb170f1ba5b2692c024711bb38ce79e7048fda0bcde56b0ec52c65ae3.png" src="../../../_images/73da467fb170f1ba5b2692c024711bb38ce79e7048fda0bcde56b0ec52c65ae3.png" />
+</div>
 </div>
 </section>
 </section>
