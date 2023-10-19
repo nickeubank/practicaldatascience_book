@@ -233,8 +233,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">Binary Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Ways To Store and Read Data: Binary Files</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">Reading Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -561,7 +561,11 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load some country-level national statistics</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/nickeubank/practicaldatascience/master/Example_Data/world-small.csv&#39;</span><span class="p">)</span>
+
+<span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;https://raw.githubusercontent.com/nickeubank/&quot;</span>
+    <span class="s2">&quot;practicaldatascience/master/Example_Data/world-small.csv&quot;</span>
+<span class="p">)</span>
 <span class="n">world</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -593,39 +597,39 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>75</th>
-      <td>Lesotho</td>
-      <td>Africa</td>
-      <td>1588</td>
-      <td>18.0</td>
-    </tr>
-    <tr>
-      <th>39</th>
-      <td>Equatorial Guinea</td>
-      <td>Africa</td>
-      <td>33873</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>58</th>
-      <td>India</td>
-      <td>Asia-Pacific</td>
-      <td>2972</td>
-      <td>19.0</td>
-    </tr>
-    <tr>
-      <th>142</th>
-      <td>Yemen</td>
+      <th>60</th>
+      <td>Iran</td>
       <td>Middle East</td>
-      <td>2400</td>
-      <td>8.0</td>
+      <td>11666</td>
+      <td>10.000000</td>
     </tr>
     <tr>
-      <th>91</th>
-      <td>Namibia</td>
-      <td>Africa</td>
-      <td>6343</td>
-      <td>16.0</td>
+      <th>82</th>
+      <td>Malaysia</td>
+      <td>Asia-Pacific</td>
+      <td>14215</td>
+      <td>13.000000</td>
+    </tr>
+    <tr>
+      <th>77</th>
+      <td>Libya</td>
+      <td>Middle East</td>
+      <td>15402</td>
+      <td>3.000000</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>China</td>
+      <td>Asia-Pacific</td>
+      <td>5962</td>
+      <td>3.000000</td>
+    </tr>
+    <tr>
+      <th>120</th>
+      <td>Sri Lanka</td>
+      <td>Asia-Pacific</td>
+      <td>4560</td>
+      <td>15.333333</td>
     </tr>
   </tbody>
 </table>
@@ -634,44 +638,33 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make sure everyone&#39;s GDP per capita estimates are positive:</span>
-<span class="k">assert</span> <span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;gdppcap08&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If you don&#39;t use `.all()` or `.any()`, you will get this error</span>
-<span class="c1"># saying &quot;the truth value of a Series is ambiguous,&quot; meaning </span>
-<span class="c1"># &quot;how do you want me to go from a vector of Trues and Falses to a single</span>
-<span class="c1"># True or False?&quot;</span>
+<p>If you don’t use <code class="docutils literal notranslate"><span class="pre">.all()</span></code> or <code class="docutils literal notranslate"><span class="pre">.any()</span></code>, you will get this error saying “the truth value of a Series is ambiguous,” meaning “how do you want me to go from a vector of <code class="docutils literal notranslate"><span class="pre">True</span></code>s and <code class="docutils literal notranslate"><span class="pre">False</span></code>s to a single <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>?”</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>assert world[&quot;gdppcap08&quot;] &gt; 0
 
-<span class="k">assert</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;gdppcap08&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_51318/1328044753.py in ?()
+      2 # saying &quot;the truth value of a Series is ambiguous,&quot; meaning
+      3 # &quot;how do you want me to go from a vector of Trues and Falses to a single
+      4 # True or False?&quot;
+      5 
+----&gt; 6 assert world[&#39;gdppcap08&#39;] &gt; 0
+
+~/opt/miniconda3/lib/python3.10/site-packages/pandas/core/generic.py in ?(self)
+   1464     @final
+   1465     def __nonzero__(self) -&gt; NoReturn:
+-&gt; 1466         raise ValueError(
+   1467             f&quot;The truth value of a {type(self).__name__} is ambiguous. &quot;
+   1468             &quot;Use a.empty, a.bool(), a.item(), a.any() or a.all().&quot;
+   1469         )
+
+ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_51318/1328044753.py</span> in <span class="ni">?</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># saying &quot;the truth value of a Series is ambiguous,&quot; meaning</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># &quot;how do you want me to go from a vector of Trues and Falses to a single</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># True or False?&quot;</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="k">assert</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;gdppcap08&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
-
-<span class="nn">~/opt/miniconda3/lib/python3.10/site-packages/pandas/core/generic.py</span> in <span class="ni">?</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1464</span>     <span class="nd">@final</span>
-<span class="g g-Whitespace">   </span><span class="mi">1465</span>     <span class="k">def</span> <span class="nf">__nonzero__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1466</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1467</span>             <span class="sa">f</span><span class="s2">&quot;The truth value of a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> is ambiguous. &quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1468</span>             <span class="s2">&quot;Use a.empty, a.bool(), a.item(), a.any() or a.all().&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1469</span>         <span class="p">)</span>
-
-<span class="ne">ValueError</span>: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="when-should-i-write-tests">
@@ -692,21 +685,22 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here&#39;s a number I want in a paper</span>
-<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span>
 
 <span class="c1"># Format it...</span>
-<span class="n">x</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
 
 <span class="c1"># Now write to disk!</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;/users/nce8/desktop&#39;</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/users/nce8/desktop&quot;</span><span class="p">)</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;test_file.tex&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">text_file</span><span class="p">:</span>
     <span class="n">text_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    
-<span class="c1"># Now I&#39;m gonna erase </span>
+
+<span class="c1"># Now I&#39;m gonna erase</span>
 <span class="c1"># the file so I don&#39;t clutter my desktop. :)</span>
 
-<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;test_file.tex&#39;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;test_file.tex&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -726,7 +720,8 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bad</span>
 <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">a</span><span class="o">/</span><span class="mi">12</span><span class="o">+</span><span class="n">b</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">b</span>
+
 
 <span class="c1"># Good</span>
 <span class="k">def</span> <span class="nf">convert_feet_and_inches_to_inches</span><span class="p">(</span><span class="n">feet</span><span class="p">,</span> <span class="n">inches</span><span class="p">):</span>
@@ -743,14 +738,20 @@ document.write(`
 <p>Information should only be expressed once in a file. For example, say you want to drop observations from a dataset if a person’s income has ever dropped below 20,000. You <em>could</em> do this like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;income_2019&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">],</span>
-                   <span class="s1">&#39;income_2018&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span>
-                   <span class="s1">&#39;income_2017&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">]})</span>
-                   
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2019&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20000</span><span class="p">)</span> <span class="o">|</span>
-        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2018&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20000</span><span class="p">)</span> <span class="o">|</span>
-        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2017&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20000</span><span class="p">)]</span>
-                   
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;income_2019&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">],</span>
+        <span class="s2">&quot;income_2018&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span>
+        <span class="s2">&quot;income_2017&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;income_2019&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20000</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;income_2018&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20000</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;income_2017&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20000</span><span class="p">)</span>
+<span class="p">]</span>
+
 <span class="n">df</span>
 </pre></div>
 </div>
@@ -799,16 +800,22 @@ document.write(`
 <p>And indeed, this would work. But suppose you decided to change that cutoff from 20,000 to 30,000. The way this is written, you’ve opened yourself up to the possibility that in trying to change these cutoffs, you may change two of these but forget the third (something especially likely if the uses of the cutoff aren’t all in exactly the same place in your code). A better way of expressing this that avoids this possibility is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;income_2019&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">],</span>
-                   <span class="s1">&#39;income_2018&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span>
-                   <span class="s1">&#39;income_2017&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">]})</span>
-    
-<span class="n">income_threshold</span> <span class="o">=</span> <span class="mi">20000</span>    
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;income_2019&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">],</span>
+        <span class="s2">&quot;income_2018&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span>
+        <span class="s2">&quot;income_2017&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2019&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">income_threshold</span><span class="p">)</span> <span class="o">|</span>
-        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2018&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">income_threshold</span><span class="p">)</span> <span class="o">|</span>
-        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_2017&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">income_threshold</span><span class="p">)]</span>
-                   
+<span class="n">income_threshold</span> <span class="o">=</span> <span class="mi">20000</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;income_2019&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">income_threshold</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;income_2018&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">income_threshold</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;income_2017&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">income_threshold</span><span class="p">)</span>
+<span class="p">]</span>
+
 <span class="n">df</span>
 </pre></div>
 </div>
@@ -869,7 +876,7 @@ document.write(`
 <p>The final strategy is to <strong>use version control</strong> (i.e. git and github), which is by far the most robust solution and the one most used by computer scientists, but also the one that requires the most upfront investment in learning a new skill.</p>
 <p>Version control does several things for preventing errors. First, as the name implies, it keeps track of <em>every</em> version of your code that has ever existed and makes it easy to go back to old versions. This service is often provided by services like Dropbox, it is much easier to review old versions and identifying differences between old and new versions in <code class="docutils literal notranslate"><span class="pre">git</span></code> than through a service like Dropbox, whose interface is sufficiently cumbersome and most of us never use it unless we accidentally delete an important file.</p>
 <p>But what really makes version control exceptional is that it makes it easy to (a) keep track of what differs between any two versions, and to (b) “propose” changes to code in a way that other authors can easily review before those changes are fully integrated. If Author A wants to modify code in version control, she first creates a “branch” – a kind of working version of the project. She then makes her changes on that branch and propose the branch be re-integrated into the main code. Version control is then able to present this proposed change in a very clear way, highlighting every change that the new branch would make to the code base to ensure no changes – no matter how small – go unnoticed. The author that made the proposed changes can then ask their co-author to review the changes before they are integrated into the code base. To illustrate, Figure 1 shows an example of what a simple proposed change to code looks like on <em>GitHub</em>, a popular site for managing <code class="docutils literal notranslate"><span class="pre">git</span></code> projects online:</p>
-<p><img alt="git_example1" src="notebooks/PDS_not_yet_in_coursera/20_programming_concepts/images/git_example1.png" /></p>
+<p><img alt="git_example1" src="../../../_images/git_example1.png" /></p>
 <p>The Figure shows an example of a small proposed change to the code for a project on  <em>GitHub</em>. Several aspects of the interface are worth noting. First, the interface displays <em>all</em> changes and the lines just above and below the changes across all documents in the project. This ensures no changes are overlooked. (Authors can click to “unfold” the code around a change if they need more context.) Second, the interface shows the prior contents of the project (on the left) and new content (on the right). In the upper pane, content has been changed, so old content is shown in red and new content in green. In the lower pane, new content has just been added, so simple grey space is shown on the left. Third, authors can easily comment (and discuss) individual lines of code, as shown here. (If you’ve somehow gotten to this page without learning git and github, just see the tutorial on <span class="xref myst">that topic here</span>!</p>
 </section>
 <section id="id1">
@@ -919,39 +926,39 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>74</th>
-      <td>Latvia</td>
-      <td>C&amp;E Europe</td>
-      <td>17100</td>
-      <td>18.0</td>
-    </tr>
-    <tr>
-      <th>73</th>
-      <td>Laos</td>
-      <td>Asia-Pacific</td>
-      <td>2134</td>
-      <td>3.0</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>China</td>
-      <td>Asia-Pacific</td>
-      <td>5962</td>
-      <td>3.0</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>Croatia</td>
-      <td>C&amp;E Europe</td>
-      <td>19084</td>
-      <td>18.4</td>
-    </tr>
-    <tr>
-      <th>91</th>
-      <td>Namibia</td>
+      <th>18</th>
+      <td>Burkina Faso</td>
       <td>Africa</td>
-      <td>6343</td>
-      <td>16.0</td>
+      <td>1161</td>
+      <td>10.0</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>Egypt</td>
+      <td>Middle East</td>
+      <td>5416</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Bhutan</td>
+      <td>Asia-Pacific</td>
+      <td>4755</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>101</th>
+      <td>Papua New Guinea</td>
+      <td>Asia-Pacific</td>
+      <td>2208</td>
+      <td>20.0</td>
+    </tr>
+    <tr>
+      <th>133</th>
+      <td>UAE</td>
+      <td>Middle East</td>
+      <td>38830</td>
+      <td>2.0</td>
     </tr>
   </tbody>
 </table>
@@ -967,7 +974,7 @@ document.write(`
 <p>Check var that should have no missing has no missing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -975,7 +982,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Or, the same test written with any instead of all</span>
-<span class="k">assert</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+<span class="k">assert</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -983,7 +990,7 @@ document.write(`
 <p>Check my unique identifier is actually unique.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">world</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

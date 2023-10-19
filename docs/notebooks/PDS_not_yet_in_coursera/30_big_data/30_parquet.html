@@ -231,8 +231,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">Binary Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Ways To Store and Read Data: Binary Files</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">Reading Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -507,7 +507,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="parquet">
 <h1>Parquet<a class="headerlink" href="#parquet" title="Permalink to this headline">#</a></h1>
-<p>When it comes to storing tabular data in Python, there are a lot of choices, many of which we’ve talked about before (HDF5, CSV, dta, etc.). However, the strorage format I think it best today (October 2020) is <code class="docutils literal notranslate"><span class="pre">parquet</span></code>.</p>
+<p>When it comes to storing tabular data in Python, there are a lot of choices, many of which we’ve talked about before (HDF5, CSV, dta, etc.). However, the storage format I think it best today (October 2023) is <code class="docutils literal notranslate"><span class="pre">parquet</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">parquet</span></code> has a number of strengths:</p>
 <ul class="simple">
 <li><p><strong>It preserves type information</strong>: Unlike a CSV, <code class="docutils literal notranslate"><span class="pre">parquet</span></code> files remember what columns are numeric, which are categorical, etc. etc., so when you re-load your data you can be assured it will look the same as it did when you saved it.</p></li>
@@ -516,7 +516,7 @@ document.write(`
 <li><p><strong>It’s portable:</strong> <code class="docutils literal notranslate"><span class="pre">parquet</span></code> is not a Python-specific format – it’s an Apache Software Foundation standard.</p></li>
 <li><p><strong>It’s built for distributed computing:</strong> <code class="docutils literal notranslate"><span class="pre">parquet</span></code> was actually invented to support Hadoop distributed computing.</p></li>
 </ul>
-<p>To use it, install <code class="docutils literal notranslate"><span class="pre">fastparquet</span></code> with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">fastparquet</span></code>. (Note there’s a second engine out there, <code class="docutils literal notranslate"><span class="pre">pyarrow</span></code>, but I’ve found people have fewer problems with <code class="docutils literal notranslate"><span class="pre">fastparquet</span></code>).</p>
+<p>And as of pandas 2.1, one of the libraries that powers it (<code class="docutils literal notranslate"><span class="pre">pyarrow</span></code>) comes bundled with pandas!</p>
 <section id="using-parquet">
 <h2>Using parquet<a class="headerlink" href="#using-parquet" title="Permalink to this headline">#</a></h2>
 <p>Here’s some code examples for saving and loading <code class="docutils literal notranslate"><span class="pre">parquet</span></code> files:</p>
@@ -531,9 +531,14 @@ document.write(`
 
 <span class="n">size</span> <span class="o">=</span> <span class="mi">100000</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">npr</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">),</span> 
-                   <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
-                         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)]}</span> <span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="n">npr</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">),</span>
+        <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -570,28 +575,28 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
-      <td>6740</td>
-      <td>EWCSKOLHUV</td>
+      <td>3576</td>
+      <td>CYPFOXEUOK</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>7301</td>
-      <td>VFGZSHNCKL</td>
+      <td>8934</td>
+      <td>MTBQBRTSNG</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>7981</td>
-      <td>TAOQCCNKHH</td>
+      <td>7428</td>
+      <td>HDOTAHEISG</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>739</td>
-      <td>QWFDEASRUM</td>
+      <td>2046</td>
+      <td>DZVSMYDWBP</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>3250</td>
-      <td>DQCFYWCFMX</td>
+      <td>7052</td>
+      <td>TBXYGKMYIP</td>
     </tr>
   </tbody>
 </table>
@@ -599,10 +604,10 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can store &quot;b&quot; as a categorical (analogous to Factors in R). </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can store &quot;b&quot; as a categorical (analogous to Factors in R).</span>
 <span class="c1"># This is helpful, for reasons we&#39;ll discuss on Tuesday,</span>
-<span class="c1"># but categoricals are only preserved by fastparquet. </span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">])</span>
+<span class="c1"># but categoricals are only preserved by fastparquet.</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">])</span>
 <span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
 </pre></div>
 </div>
@@ -618,7 +623,13 @@ dtype: object
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;/users/nick/desktop/test.parquet&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;fastparquet&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/nce8/opt/miniconda3/lib/python3.11/site-packages/pyarrow/pandas_compat.py:373: FutureWarning: is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+  if _pandas_api.is_sparse(col):
 </pre></div>
 </div>
 </div>
@@ -626,7 +637,7 @@ dtype: object
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reload</span>
-<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;/users/nick/desktop/test.parquet&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;fastparquet&#39;</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">)</span>
 <span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -657,28 +668,28 @@ dtype: object
   <tbody>
     <tr>
       <th>0</th>
-      <td>6740</td>
-      <td>EWCSKOLHUV</td>
+      <td>3576</td>
+      <td>CYPFOXEUOK</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>7301</td>
-      <td>VFGZSHNCKL</td>
+      <td>8934</td>
+      <td>MTBQBRTSNG</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>7981</td>
-      <td>TAOQCCNKHH</td>
+      <td>7428</td>
+      <td>HDOTAHEISG</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>739</td>
-      <td>QWFDEASRUM</td>
+      <td>2046</td>
+      <td>DZVSMYDWBP</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>3250</td>
-      <td>DQCFYWCFMX</td>
+      <td>7052</td>
+      <td>TBXYGKMYIP</td>
     </tr>
   </tbody>
 </table>
@@ -686,7 +697,8 @@ dtype: object
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note that column b is still a categorical. </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note that column b is still a categorical.</span>
+
 <span class="n">df2</span><span class="o">.</span><span class="n">dtypes</span>
 </pre></div>
 </div>
@@ -702,9 +714,7 @@ dtype: object
 <p>You can also easily load subsets of columns:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;/users/nick/desktop/test.parquet&#39;</span><span class="p">,</span> 
-                      <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;fastparquet&#39;</span><span class="p">,</span>
-                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">])</span>
 <span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -734,23 +744,23 @@ dtype: object
   <tbody>
     <tr>
       <th>0</th>
-      <td>EWCSKOLHUV</td>
+      <td>CYPFOXEUOK</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>VFGZSHNCKL</td>
+      <td>MTBQBRTSNG</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>TAOQCCNKHH</td>
+      <td>HDOTAHEISG</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>QWFDEASRUM</td>
+      <td>DZVSMYDWBP</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>DQCFYWCFMX</td>
+      <td>TBXYGKMYIP</td>
     </tr>
   </tbody>
 </table>
@@ -763,24 +773,29 @@ dtype: object
 <p>First, you have to save your file into chunks of a size you want. Parquet always saves rows as chunks, but by default each chunk has 50,000,000 rows, which (if you’re chunking) may be too many:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save into 50,000 row chunks, </span>
-<span class="c1"># so we should get file saved into two chunks. </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save into 50,000 row chunks,</span>
+<span class="c1"># so we should get file saved into two chunks.</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;/users/nick/desktop/test.parquet&#39;</span><span class="p">,</span> 
-              <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;fastparquet&#39;</span><span class="p">,</span> 
-              <span class="n">row_group_offsets</span><span class="o">=</span><span class="mi">50000</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">,</span> <span class="n">row_group_size</span><span class="o">=</span><span class="mi">50_000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/nce8/opt/miniconda3/lib/python3.11/site-packages/pyarrow/pandas_compat.py:373: FutureWarning: is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+  if _pandas_api.is_sparse(col):
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Then we have to read it in using the `fastparquet` </span>
-<span class="c1"># library itself (there&#39;s no way to do this directly from </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Then we have to read it in using the `fastparquet`</span>
+<span class="c1"># library itself (there&#39;s no way to do this directly from</span>
 <span class="c1"># pandas I&#39;m afraid):</span>
 
 <span class="kn">from</span> <span class="nn">fastparquet</span> <span class="kn">import</span> <span class="n">ParquetFile</span>
-<span class="n">pf</span> <span class="o">=</span> <span class="n">ParquetFile</span><span class="p">(</span><span class="s1">&#39;/users/nick/desktop/test.parquet&#39;</span><span class="p">)</span>
+
+<span class="n">pf</span> <span class="o">=</span> <span class="n">ParquetFile</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">)</span>
 
 <span class="c1"># Iterates over row groups</span>
 <span class="k">for</span> <span class="n">rg</span> <span class="ow">in</span> <span class="n">pf</span><span class="o">.</span><span class="n">iter_row_groups</span><span class="p">():</span>
@@ -790,31 +805,31 @@ dtype: object
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          a           b
-0      6740  EWCSKOLHUV
-1      7301  VFGZSHNCKL
-2      7981  TAOQCCNKHH
-3       739  QWFDEASRUM
-4      3250  DQCFYWCFMX
+0      3576  CYPFOXEUOK
+1      8934  MTBQBRTSNG
+2      7428  HDOTAHEISG
+3      2046  DZVSMYDWBP
+4      7052  TBXYGKMYIP
 ...     ...         ...
-49995  9232  FDRSPGYWQK
-49996  3512  ZTVPEYODWM
-49997  3604  JNCMXHQTDB
-49998  3119  LDHOQVNKZP
-49999  6682  PDQAPAIHLV
+49995  2048  TQAKZQYDAW
+49996  2461  LAQXYKGFDK
+49997  9509  BHVESYGUML
+49998  3626  WGONPSEPYT
+49999   681  HKIDHJBLZQ
 
 [50000 rows x 2 columns]
           a           b
-0      1922  ZOGCWFRWHZ
-1      8675  NRZMUNYKZO
-2      4979  MCWILQYNYX
-3      2481  FPEEHRFGKA
-4      2829  AQYRGYKOOC
+0      6435  XFOYVSEBHR
+1      3175  UNHTHMZUNA
+2      1083  EPVGFGZTSE
+3      7424  KWAHGCUPYJ
+4       296  RONMJTKGEA
 ...     ...         ...
-49995  4896  LWCZOQLANI
-49996  7124  ARRWJCYPCO
-49997   459  YELIRSTLGV
-49998  5169  PBRGOPUJXJ
-49999  8696  GAWEGKTKXI
+49995  8489  BDWRLTZLSM
+49996  3943  WPRFOWTWLQ
+49997  9784  LUBQICKYQA
+49998  6256  EUITUAVZQE
+49999  9411  RPGOEHYMLW
 
 [50000 rows x 2 columns]
 </pre></div>
@@ -826,7 +841,7 @@ dtype: object
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># So you can filter and work with each group if you want:</span>
 <span class="n">all_rows_w_even_a</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">rg</span> <span class="ow">in</span> <span class="n">pf</span><span class="o">.</span><span class="n">iter_row_groups</span><span class="p">():</span>
-    <span class="n">rg</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">rg</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">rg</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">rg</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
     <span class="n">all_rows_w_even_a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rg</span><span class="p">)</span>
 
 <span class="n">even_rows</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_rows_w_even_a</span><span class="p">)</span>
@@ -859,58 +874,68 @@ dtype: object
   </thead>
   <tbody>
     <tr>
-      <th>16717</th>
-      <td>1704</td>
-      <td>OBREANGVDA</td>
+      <th>643</th>
+      <td>6558</td>
+      <td>EZLQUOMYBN</td>
     </tr>
     <tr>
-      <th>10232</th>
-      <td>3898</td>
-      <td>FTLOBLTJAA</td>
+      <th>31920</th>
+      <td>1278</td>
+      <td>CBGUFGTRKI</td>
     </tr>
     <tr>
-      <th>5049</th>
-      <td>6750</td>
-      <td>SFVMHGQEYN</td>
+      <th>44151</th>
+      <td>7382</td>
+      <td>QEEXGJDDHX</td>
     </tr>
     <tr>
-      <th>24924</th>
-      <td>6396</td>
-      <td>JKLIAJOLZZ</td>
+      <th>35662</th>
+      <td>5396</td>
+      <td>JPSGFWQHTU</td>
     </tr>
     <tr>
-      <th>24333</th>
-      <td>4622</td>
-      <td>PEVOFCIOXP</td>
+      <th>15697</th>
+      <td>7468</td>
+      <td>GTTSBHPKLM</td>
     </tr>
     <tr>
-      <th>45816</th>
-      <td>2446</td>
-      <td>MXYZROVFIV</td>
+      <th>25991</th>
+      <td>6310</td>
+      <td>GLTBRLPEKU</td>
     </tr>
     <tr>
-      <th>12347</th>
-      <td>7040</td>
-      <td>XVQUNBQDEK</td>
+      <th>7456</th>
+      <td>5502</td>
+      <td>KNBMNVMWWA</td>
     </tr>
     <tr>
-      <th>42041</th>
-      <td>6730</td>
-      <td>HMAOJWGSTH</td>
+      <th>49984</th>
+      <td>5758</td>
+      <td>BNTBTKXBDQ</td>
     </tr>
     <tr>
-      <th>13623</th>
-      <td>8652</td>
-      <td>USBEMPWYAH</td>
+      <th>41328</th>
+      <td>8714</td>
+      <td>AVCGRMQVIN</td>
     </tr>
     <tr>
-      <th>44521</th>
-      <td>250</td>
-      <td>WTWFZMRKRJ</td>
+      <th>43772</th>
+      <td>8390</td>
+      <td>WPQYXPULAH</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clean up</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 </section>

@@ -231,8 +231,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">Binary Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Ways To Store and Read Data: Binary Files</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">Reading Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -501,7 +501,12 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">felonies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../Example_Data/ca_felonies_2001_2010.csv&quot;</span><span class="p">)</span>
+
+<span class="n">felonies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;https://raw.githubusercontent.com/nickeubank&quot;</span>
+    <span class="s2">&quot;/practicaldatascience/dbc2199fcf7e6302cdd1ea2955dc378605b52659&quot;</span>
+    <span class="s2">&quot;/Example_Data/ca_felonies_2001_2010.csv&quot;</span>
+<span class="p">)</span>
 <span class="n">felonies</span>
 </pre></div>
 </div>
@@ -586,33 +591,39 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">misdomeaners</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../Example_Data/ca_misdomeaners_2001_2010.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">misdomeaners</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;https://github.com/nickeubank/practicaldatascience/raw&quot;</span>
+    <span class="s2">&quot;/dbc2199fcf7e6302cdd1ea2955dc378605b52659/Example_Data&quot;</span>
+    <span class="s2">&quot;/ca_misdomeaners_2001_2010.csv&quot;</span>
+<span class="p">)</span>
 <span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">felonies</span><span class="p">,</span> <span class="n">misdomeaners</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;1:1&quot;</span><span class="p">)</span>
-<span class="n">merged</span><span class="p">[</span><span class="s1">&#39;share_felonies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;felony_arrests&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="s1">&#39;felony_arrests&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;misdomeaner_arrests&#39;</span><span class="p">])</span>
+<span class="n">merged</span><span class="p">[</span><span class="s2">&quot;share_felonies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="s2">&quot;felony_arrests&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span>
+    <span class="n">merged</span><span class="p">[</span><span class="s2">&quot;felony_arrests&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">merged</span><span class="p">[</span><span class="s2">&quot;misdomeaner_arrests&quot;</span><span class="p">]</span>
+<span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">plotnine</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">seaborn.objects</span> <span class="k">as</span> <span class="nn">so</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">style</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+
 <span class="p">(</span>
-    <span class="n">ggplot</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;share_felonies&#39;</span><span class="p">))</span> <span class="o">+</span>
-           <span class="n">geom_point</span><span class="p">()</span> <span class="o">+</span> <span class="n">geom_smooth</span><span class="p">()</span> <span class="o">+</span> 
-           <span class="n">scale_x_continuous</span><span class="p">(</span><span class="nb">range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">2010</span><span class="p">],</span>
-                      <span class="n">breaks</span> <span class="o">=</span>  <span class="nb">range</span><span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                      <span class="p">)</span>
+    <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;share_felonies&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Dots</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Lines</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Felonies as a Share of Arrests&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">theme</span><span class="p">({</span><span class="o">**</span><span class="n">style</span><span class="o">.</span><span class="n">library</span><span class="p">[</span><span class="s2">&quot;seaborn-v0_8-whitegrid&quot;</span><span class="p">]})</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/Nick/miniconda3/lib/python3.7/site-packages/plotnine/layer.py:467: PlotnineWarning: geom_point : Removed 1 rows containing missing values.
-</pre></div>
-</div>
-<img alt="../../../_images/119664b249b60316111d389482d605d765ef0ef93faabad216a8af299cf4ed9b.png" src="../../../_images/119664b249b60316111d389482d605d765ef0ef93faabad216a8af299cf4ed9b.png" />
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ggplot: (8766523976497)&gt;
-</pre></div>
-</div>
+<img alt="../../../_images/e18d264bc2311bce79828303067ba861491fbae4d4747dd4a7ee2d5fa8f960cc.png" src="../../../_images/e18d264bc2311bce79828303067ba861491fbae4d4747dd4a7ee2d5fa8f960cc.png" />
 </div>
 </div>
 <p>Cool! The share of arrests that were felonies were about flat in the early 2000s, then fall sharply in the late 2000s. Everything looks great, right?! Let’s publish a paper!</p>
-<p>But wait… didn’t we say our data was form 2001 to 2010? Then why isn’t there a point being plotted for 2001? And what’s that Plotnine warning about removing 1 row with missing values? Something seems…🐟 🐠 🐡. (Fishy, get it?!)</p>
+<p>But wait… didn’t we say our data was form 2001 to 2010? Then why isn’t there a point being plotted for 2001? Something seems…🐟 🐠 🐡. (Fishy, get it?!)</p>
 <p>Let’s look more closely at our data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -812,15 +823,15 @@ document.write(`
 </div>
 <p>Uh… well that’s bad. Not only is there no data for 2001, but there’s data for a row with no year?! That <em>clearly</em> can’t be right.</p>
 <p>We better go check the source data for this table. Here’s what I see when I go back to the CA Bureau of Justice Crime Statistics:</p>
-<p><img alt="images/source_crime_data.png" src="notebooks/PDS_not_yet_in_coursera/20_programming_concepts/images/source_crime_data.png" /></p>
+<p><img alt="Crime source data" src="../../../_images/source_crime_data.png" /></p>
 <p>Hmmm… so the original data says 907,990 is the entry for 2001, but in our table it says that’s the value for 2002. You know what I think happened? When the data was transcribed, it was offset one row by accident:</p>
-<p><img alt="misdomeaner_spreadsheet" src="notebooks/PDS_not_yet_in_coursera/20_programming_concepts/images/misdomeaner_spreadsheet.png" /></p>
+<p><img alt="data spreadsheet" src="../../../_images/misdomeaner_spreadsheet.png" /></p>
 <p>Which means… the problem isn’t just that I’m missing data from 2001. It means that <strong>all</strong> of my data is wrong, not just 2001! The real result is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">misdomeaners</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">misdomeaners</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
-<span class="n">misdomeaners</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">misdomeaners</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2010</span>
-<span class="n">misdomeaners</span> <span class="o">=</span> <span class="n">misdomeaners</span><span class="p">[</span><span class="n">misdomeaners</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">2000</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">misdomeaners</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">misdomeaners</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">misdomeaners</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">misdomeaners</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2010</span>
+<span class="n">misdomeaners</span> <span class="o">=</span> <span class="n">misdomeaners</span><span class="p">[</span><span class="n">misdomeaners</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">2000</span><span class="p">]</span>
 <span class="n">misdomeaners</span>
 </pre></div>
 </div>
@@ -906,27 +917,26 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This time I&#39;ll do an outer merge and check it!</span>
-<span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">felonies</span><span class="p">,</span> <span class="n">misdomeaners</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;1:1&quot;</span><span class="p">,</span> 
-                  <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">felonies</span><span class="p">,</span> <span class="n">misdomeaners</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;1:1&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
 <span class="k">assert</span> <span class="p">(</span><span class="n">merged</span><span class="o">.</span><span class="n">_merge</span> <span class="o">==</span> <span class="s2">&quot;both&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-<span class="n">merged</span><span class="p">[</span><span class="s1">&#39;share_felonies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;felony_arrests&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="s1">&#39;felony_arrests&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;misdomeaner_arrests&#39;</span><span class="p">])</span>
+<span class="n">merged</span><span class="p">[</span><span class="s2">&quot;share_felonies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="s2">&quot;felony_arrests&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span>
+    <span class="n">merged</span><span class="p">[</span><span class="s2">&quot;felony_arrests&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">merged</span><span class="p">[</span><span class="s2">&quot;misdomeaner_arrests&quot;</span><span class="p">]</span>
+<span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">plotnine</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="p">(</span>
-    <span class="n">ggplot</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;share_felonies&#39;</span><span class="p">))</span> <span class="o">+</span>
-           <span class="n">geom_point</span><span class="p">()</span> <span class="o">+</span> <span class="n">geom_smooth</span><span class="p">()</span> <span class="o">+</span> 
-           <span class="n">scale_x_continuous</span><span class="p">(</span><span class="nb">range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">2010</span><span class="p">],</span>
-                      <span class="n">breaks</span> <span class="o">=</span>  <span class="nb">range</span><span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                      <span class="p">)</span>
+    <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;share_felonies&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Dots</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Lines</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Felonies as a Share of Arrests&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">theme</span><span class="p">({</span><span class="o">**</span><span class="n">style</span><span class="o">.</span><span class="n">library</span><span class="p">[</span><span class="s2">&quot;seaborn-v0_8-whitegrid&quot;</span><span class="p">]})</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/440d417dbf6b8d0b204db1bfa18ca5bbbc031db8499ad2240af16c899046d98d.png" src="../../../_images/440d417dbf6b8d0b204db1bfa18ca5bbbc031db8499ad2240af16c899046d98d.png" />
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ggplot: (8766506697893)&gt;
-</pre></div>
-</div>
+<img alt="../../../_images/9187b709a6ed00def952962ee22dccab4ecc99c5ab68f57981abddeaa8a7dd7f.png" src="../../../_images/9187b709a6ed00def952962ee22dccab4ecc99c5ab68f57981abddeaa8a7dd7f.png" />
 </div>
 </div>
 <p>Phew. OK, so the real answer is that there was a big increase in felonies as a share of total arrests in the early 2000s, then an even steeper decline than we saw before.</p>
