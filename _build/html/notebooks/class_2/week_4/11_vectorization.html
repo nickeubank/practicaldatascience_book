@@ -266,8 +266,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/40_performance_understanding.html">Speed in Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/object_vectors.html">The Object dtype and Performance</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
 <ul class="nav bd-sidenav">
@@ -529,11 +528,11 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># nonvectorized approach</span>
-<span class="n">c</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Start with an empty array that we will populate in the loop</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Start with an empty array that we will populate in the loop</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
     <span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nonvectorized approach -&gt;&#39;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nonvectorized approach -&gt;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -549,7 +548,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># vectorized approach</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Vectorized approach -&gt;&#39;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Vectorized approach -&gt;&quot;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -587,9 +586,9 @@ document.write(`
 <p>Again, note how comparatively simple this version is. Now let’s verify they produce the same, correct output:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nonvectorized = &#39;</span><span class="p">,</span><span class="n">double_nonvectorized</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Vectorized    = &#39;</span><span class="p">,</span><span class="n">double_vectorized</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nonvectorized = &quot;</span><span class="p">,</span> <span class="n">double_nonvectorized</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Vectorized    = &quot;</span><span class="p">,</span> <span class="n">double_vectorized</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -606,15 +605,16 @@ Vectorized    =  [2 4 6 8]
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 
-<span class="k">def</span> <span class="nf">timer</span><span class="p">(</span><span class="n">function</span><span class="p">,</span><span class="n">argument</span><span class="p">,</span><span class="n">num_runs</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">timer</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">argument</span><span class="p">,</span> <span class="n">num_runs</span><span class="p">):</span>
     <span class="n">total_time</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="c1"># Rerun the code num_runs times</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_runs</span><span class="p">):</span> 
-        <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="c1"># Capture the initial time</span>
-        <span class="n">function</span><span class="p">(</span><span class="n">argument</span><span class="p">)</span> <span class="c1"># Run the function we&#39;re timing</span>
-        <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="c1"># Capture the final time</span>
-        <span class="n">total_time</span> <span class="o">+=</span> <span class="n">t1</span><span class="o">-</span><span class="n">t0</span>
-    <span class="k">return</span> <span class="n">total_time</span> <span class="o">/</span> <span class="n">num_runs</span> <span class="c1"># Return the average across the runs</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_runs</span><span class="p">):</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Capture the initial time</span>
+        <span class="n">function</span><span class="p">(</span><span class="n">argument</span><span class="p">)</span>  <span class="c1"># Run the function we&#39;re timing</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Capture the final time</span>
+        <span class="n">total_time</span> <span class="o">+=</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span>
+    <span class="k">return</span> <span class="n">total_time</span> <span class="o">/</span> <span class="n">num_runs</span>  <span class="c1"># Return the average across the runs</span>
 </pre></div>
 </div>
 </div>
@@ -625,12 +625,12 @@ Vectorized    =  [2 4 6 8]
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">big_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
 <span class="n">num_runs</span> <span class="o">=</span> <span class="mi">5</span>
 
-<span class="n">time_nonvectorized</span> <span class="o">=</span> <span class="n">timer</span><span class="p">(</span><span class="n">double_nonvectorized</span><span class="p">,</span><span class="n">big_array</span><span class="p">,</span><span class="n">num_runs</span><span class="p">)</span>
-<span class="n">time_vectorized</span> <span class="o">=</span> <span class="n">timer</span><span class="p">(</span><span class="n">double_vectorized</span><span class="p">,</span><span class="n">big_array</span><span class="p">,</span><span class="n">num_runs</span><span class="p">)</span>
+<span class="n">time_nonvectorized</span> <span class="o">=</span> <span class="n">timer</span><span class="p">(</span><span class="n">double_nonvectorized</span><span class="p">,</span> <span class="n">big_array</span><span class="p">,</span> <span class="n">num_runs</span><span class="p">)</span>
+<span class="n">time_vectorized</span> <span class="o">=</span> <span class="n">timer</span><span class="p">(</span><span class="n">double_vectorized</span><span class="p">,</span> <span class="n">big_array</span><span class="p">,</span> <span class="n">num_runs</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nonvectorized code took &#39;</span><span class="p">,</span><span class="n">time_nonvectorized</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Vectorized code took    &#39;</span><span class="p">,</span><span class="n">time_vectorized</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Vectorized code was &#39;</span><span class="p">,</span> <span class="n">time_nonvectorized</span><span class="o">/</span><span class="n">time_vectorized</span> <span class="p">,</span><span class="s1">&#39; times faster&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nonvectorized code took &quot;</span><span class="p">,</span> <span class="n">time_nonvectorized</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Vectorized code took    &quot;</span><span class="p">,</span> <span class="n">time_vectorized</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Vectorized code was &quot;</span><span class="p">,</span> <span class="n">time_nonvectorized</span> <span class="o">/</span> <span class="n">time_vectorized</span><span class="p">,</span> <span class="s2">&quot; times faster&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
