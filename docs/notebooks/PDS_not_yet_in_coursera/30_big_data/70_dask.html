@@ -1,0 +1,1952 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Distributed Computing with dask &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/PDS_not_yet_in_coursera/30_big_data/70_dask';</script>
+    <link rel="shortcut icon" href="../../../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Principles and Tools for Debugging" href="../20_programming_concepts/10_debugging_principles.html" />
+    <link rel="prev" title="Parallel Computing" href="60_parallelism.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">Views and Copies</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">Matrices</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">Arrays</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">Reading Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_5/week_2/10_plotting_in_python.html">Plotting in Python</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_2/20_plotting_with_seaborn.html">seaborn and the Grammar of Graphics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_5/45_plotting_with_matplotlib.html">Plotting with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_5/46_making_plots_pretty.html">Making pretty plots in Python: customizing plots in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../20_programming_concepts/10_debugging_principles.html">Debugging</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../20_programming_concepts/defensive_programming.html">Defensive Programming</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/PDS_not_yet_in_coursera/30_big_data/70_dask.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/PDS_not_yet_in_coursera/30_big_data/70_dask.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Distributed Computing with dask</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-dask-do-for-me">What can dask do for me?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#um-why-didn-t-you-tell-us-about-this-before-i-hear-you-say">“Um… why didn’t you tell us about this before?” I hear you say…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vocabulary">Vocabulary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-learn-more-dask">Let’s Learn More dask!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#there-is-no-magic-here">There is no magic here</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-evaluation">Lazy Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-task-graphs">Visualizing Task Graphs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-versus-spark-pyspark">dask versus Spark / PySpark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-else-can-dask-do">What else can dask do?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-t-dask-do">What can’t dask do?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-really-want-to-get-into-dask">If you really want to get into dask…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="distributed-computing-with-dask">
+<h1>Distributed Computing with dask<a class="headerlink" href="#distributed-computing-with-dask" title="Permalink to this headline">#</a></h1>
+<p>In this portion of the course, we’ll explore distributed computing with a Python library called <code class="docutils literal notranslate"><span class="pre">dask</span></code>.</p>
+<p>Dask is a library designed to help facilitate (a) the manipulation of very large datasets, and (b) the distribution of computation across lots of cores or physical computers. It is very similar to Apache Spark in the functionality it provides, but it is tightly integrated into <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, making it <em>much</em> easier to learn than spark for users of those libraries.</p>
+<section id="what-can-dask-do-for-me">
+<h2>What can dask do for me?<a class="headerlink" href="#what-can-dask-do-for-me" title="Permalink to this headline">#</a></h2>
+<p>To get a sense of why dask is so nice, let’s begin with a demonstration. Suppose I have a pretty big dataset (say, <a class="reference external" href="https://www.dropbox.com/s/oiv3k3sfwiviup5/all_prescriptions.csv?dl=0">an 100GB CSV of all drug shipments in the United States from 2006 to 2014</a>). This data is too large for me to load into ram on my laptop directly, so if I were to work with it on my own, I’d do so by <a class="reference internal" href="20_big_data_strategies.html"><span class="doc std std-doc">chunking the data by hand</span></a>. But using dask, I can do the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard setups</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/users/nce8/dropbox/MIDS/MIDS_Data_Prep/arcos&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load Dask</span>
+<span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ARCOS Data on all drug shipments in US from 2006 to 2014</span>
+<span class="c1"># I was unable to get this data</span>
+<span class="c1"># into my repo, but you can download it here:</span>
+<span class="c1"># https://www.dropbox.com/s/oiv3k3sfwiviup5/all_prescriptions.csv?dl=0</span>
+
+<span class="c1"># Note that while pandas can read compressed files like this .tsv.gz,</span>
+<span class="c1"># file, dask cannot. So if you want to do this at home,</span>
+<span class="c1"># you have to decompress the data.</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;all_prescriptions.csv&quot;</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;ACTION_INDICATOR&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ORDER_FORM_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;REPORTER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;REPORTER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BUYER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BUYER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NDC_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNIT&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;STRENGTH&quot;</span><span class="p">:</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BUYER_ZIP&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DRUG_CODE&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">:</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;QUANTITY&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TRANSACTION_DATE&quot;</span><span class="p">:</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TRANSACTION_ID&quot;</span><span class="p">:</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dos_str&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract year</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">TRANSACTION_DATE</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%m</span><span class="si">%d</span><span class="s2">%Y&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+
+<span class="c1"># Make an estimate of total morphine equivalent shipments</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;morphine_equivalent_g&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;CALC_BASE_WT_IN_GM&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">]</span>
+
+<span class="c1"># Drop extra vars</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;morphine_equivalent_g&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_STATE&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_COUNTY&quot;</span><span class="p">]]</span>
+
+<span class="c1"># Collapse to total shipments to each county in each year.</span>
+<span class="n">collapsed</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_STATE&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_COUNTY&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">morphine_equivalent_g</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">collapsed</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dask Series Structure:
+npartitions=1
+    float64
+        ...
+Name: morphine_equivalent_g, dtype: float64
+Dask Name: series-groupby-sum-agg, 16 graph layers
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">final</span> <span class="o">=</span> <span class="n">collapsed</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="n">final</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Voila! I get back my thinned-out dataset with the new variable I wanted, all while never using more than about 2GB of RAM at any point.</p>
+<p>So let’s discuss what just happened.</p>
+<ol class="arabic simple">
+<li><p>dask collected all the instructions I gave it for reading in the file, generating a new column, deleting extra columns, and grouping. <strong>But it didn’t actually execute any code</strong>. That’s why when I typed <code class="docutils literal notranslate"><span class="pre">collapsed</span></code>, what I got back was a dataframe with structure but no data—dask had figured out roughly what the result of my commands would look like, but hadn’t actually computed the result.</p></li>
+<li><p>Then, when I ran <code class="docutils literal notranslate"><span class="pre">collapsed.compute()</span></code>, dask came up with a set of assignments it could give to its workers to get me what I wanted and it started to actually compute the table I requested. In particular:</p>
+<ul class="simple">
+<li><p>each thread loaded a chunk of the data, did the observation-level manipulations I wanted, and dropped extra columns.</p></li>
+<li><p>then to execute the groupby, it then collapses the data in each chunk, passes those collapsed chunks to a common worker who then re-collapses them further, then gathers them again under (potentially) another worker and collapses further until all the data had been collapsed.</p></li>
+<li><p>Finally, after all the data had been collapsed, the data was passed back to me (the client session) as the variable <code class="docutils literal notranslate"><span class="pre">final</span></code>.</p></li>
+</ul>
+</li>
+</ol>
+<p>And it did it all in under 5 minutes!</p>
+</section>
+<section id="um-why-didn-t-you-tell-us-about-this-before-i-hear-you-say">
+<h2>“Um… why didn’t you tell us about this before?” I hear you say…<a class="headerlink" href="#um-why-didn-t-you-tell-us-about-this-before-i-hear-you-say" title="Permalink to this headline">#</a></h2>
+<p>“This sure seems like this is easier than <a class="reference internal" href="20_big_data_strategies.html"><span class="doc std std-doc">chunking by hand</span></a>!!!!”</p>
+<p>The answer is that these distributed computing tools are often very fragile and opaque, and it’s easy to get in trouble using them, and hard to figure out why if you don’t understand the underlying principles that govern their operation.</p>
+<p>This example was carefully chosen. I used only manipulations that dask is really good at, and I have the experience to implement them in a way that works. But do what I did above in slightly different ways, and chaos would ensue. Ok, not chaos. But your computer would probably crash.</p>
+<p>The biggest challenge in using a tool like dask or spark (they operate on the same principles – more on that below) is that to prevent crashes, you have to understand how and why dask is chunking your data. And the best way to do that is to get experience chunking by hand.</p>
+<p>For example, one of the key features of distributed computing is that they don’t run code as soon as you type it. Instead, they just keep track of what you want and wait until you run <code class="docutils literal notranslate"><span class="pre">.compute()</span></code> to actually execute your code. Why? Because if dask had run each command as I entered it and passed the result back to me, it would have crashed my computer.</p>
+<p>Recall that the whole reason we’re using dask is precisely because we knew that loading the whole dataset at once would take up more memory than I have available. It’s only because we only loaded a few chunks of the data at a time, thinned out those chunks by dropping variables, and then collapsed by county-state-year that we ended up with a dataset that was small enough that it would fit in memory.</p>
+<p>In other words, this only worked because I knew that the steps after the initial load would reduce the size of the dataset enough that when I ran <code class="docutils literal notranslate"><span class="pre">.compute()</span></code>, the result I got back would be small enough to fit in memory. Had I just run:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;arcos_all_washpost_2006_2012.tsv&quot;</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;ACTION_INDICATOR&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ORDER_FORM_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;REPORTER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;REPORTER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BUYER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BUYER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NDC_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNIT&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>dask would have tried to hand the full dataset back to me, and my computer would have crashed, just as it would have had I tried to read the full dataset with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<p>So understanding the <em>intuition</em> of chunking is a prerequisite to using these tools effectively.</p>
+</section>
+<section id="vocabulary">
+<h2>Vocabulary<a class="headerlink" href="#vocabulary" title="Permalink to this headline">#</a></h2>
+<p>Now that we’ve seen this example, let’s formally introduce some distributed computing vocabulary:</p>
+<ul class="simple">
+<li><p><strong>Lazy Evaluation</strong> (also sometimes called “delayed execution”): The practice of not executing code as soon as you type it, but rather accumulating a set of requests, then executing them when instructed. This allows distributing computing systems to optimize how they move around data and get things done, and ensures that you don’t end up with the system trying to shove a massive dataset into ram that’s too small.</p></li>
+<li><p><strong>Client</strong>: The central process (here, Python process) where code is being entered.</p></li>
+<li><p><strong>Workers</strong>: Other processes that are assigned work, and which eventually pass results back to the client.</p></li>
+<li><p><strong>Scheduler</strong>: The part of the system that manages the assignment of tasks to different workers.</p></li>
+<li><p><strong>map-reduce</strong>: The name for the process of distributing sub-problems to workers (<code class="docutils literal notranslate"><span class="pre">map</span></code>), then processing them in a way that allows the results to be recombined (<code class="docutils literal notranslate"><span class="pre">reduce</span></code>). <code class="docutils literal notranslate"><span class="pre">map</span></code>s and <code class="docutils literal notranslate"><span class="pre">reduce</span></code>s are kind of the building blocks of distributed systems, though when working with dask you won’t usually have to manage the assignment or recombination of tasks yourself (they’re happening behind the scenes).</p></li>
+</ul>
+</section>
+<section id="let-s-learn-more-dask">
+<h2>Let’s Learn More dask!<a class="headerlink" href="#let-s-learn-more-dask" title="Permalink to this headline">#</a></h2>
+<p>OK, now that we have the basic idea of dask in hand, please watch the following set of seven short videos on dask, then come back here and we can talk some more!</p>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=z18qjLu-Mw4&amp;list=PLeDTMczuyDQ8S73cdc0PrnTO80kfzpgz2">Dask Tutorial from Coiled—7 videos, about 1 hour in total</a></p>
+</section>
+<section id="there-is-no-magic-here">
+<h2>There is no magic here<a class="headerlink" href="#there-is-no-magic-here" title="Permalink to this headline">#</a></h2>
+<p>As noted in that video, one of the very nice things about dask (and one of the reasons it’s been able to offer so much functionality so quickly) is that it really is just an extension of <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. There is no magic here.</p>
+<p>For example, suppose we wanted to find the largest number of pills in a single shipment in our ARCOS dataset, but we don’t have the memory to load the whole dataset into memory at once. How would we get that number? Probably by doing something like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/users/nce8/dropbox/MIDS_Data_Prep/arcos&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create an interator of the data so</span>
+<span class="c1"># it doesn&#39;t all load at once</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;arcos_all_washpost_2006_2012.tsv&quot;</span><span class="p">,</span>
+    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">iterator</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">chunksize</span><span class="o">=</span><span class="mi">100_000</span><span class="p">,</span>
+    <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DOSAGE_UNIT&quot;</span><span class="p">,</span> <span class="s2">&quot;Measure&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+
+<span class="c1"># Find the max from each chunk</span>
+<span class="n">max_candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
+    <span class="c1"># Subset for pill shipments</span>
+    <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;Measure&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TAB&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Find largest in this chunk</span>
+    <span class="n">max_candidates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;DOSAGE_UNIT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+
+<span class="c1"># Now gather those candidates together and</span>
+<span class="c1"># find the maximum of all the chunk maximums.</span>
+<span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">max_candidates</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3115000.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Wow… that is a LOT of pills!</p>
+<p>Now suppose we asked dask to do the same thing:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;arcos_all_washpost_2006_2012.tsv&quot;</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;ACTION_INDICATOR&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ORDER_FORM_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;REPORTER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;REPORTER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BUYER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BUYER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NDC_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNIT&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Measure&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TAB&quot;</span><span class="p">]</span>
+<span class="n">max_shipment</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;DOSAGE_UNIT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">max_shipment</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3115000.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>What dask is actually doing is exactly what you just did! It reads in chunks of the dataset, calculates <code class="docutils literal notranslate"><span class="pre">morphine_equivalent_g</span></code> for each chunk, then calculates the maximum value for that chunk. Then it gathers all those maximium values, and finds the maximum of all those chunk maximums. The only difference is that it loads and evaluations chunks in parallel, and it’s parallel workers then have to pass their maximum value candidates to a central node for the final evaluation.</p>
+<p>Moreover, when I said that’s exactly what dask did, I don’t just mean that you and dask are doing the same thing <em>in principle</em>—dask is built on pandas, so it really is calling <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code>, and the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">.max()</span></code> method, just like you.</p>
+<p>Dask’s developers were smart, and didn’t want to reinvent the wheel—they just created a package full or recipes for using numpy/pandas to (a) divide tasks into smaller pieces it can distribute to different workers  (map), and to (b) recombine the results of sub-problems to give you a single answer (reduce).</p>
+<p>But those recipes are just made of the pandas and numpy code you know and love. Or at least tolerate begrudingly.</p>
+</section>
+<section id="lazy-evaluation">
+<h2>Lazy Evaluation<a class="headerlink" href="#lazy-evaluation" title="Permalink to this headline">#</a></h2>
+<p>You’ve already seen this above, but I think this is THE concept that is central to understanding not just dask, but <strong>any</strong> distributed computing platform (e.g. Spark, Hadoop, etc.), so I really want to drive home the importance of this concept.</p>
+<p>The fact that you can give dask a handful of commands <em>and then</em> tell it to execute them is at the absolute core of what makes it effective. The more commands you can give dask up front, the more it can optimize how it distributes that work—and how it moves data between different computers. Moving data between processes and between computers is <em>by far</em> the slowest part of distributed computing, so the more dask can minimize those transfers, the faster it will be.</p>
+<p>Moreover, lazy evaluation is how you protect yourself from crashing your computer. Consider the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;arcos_all_washpost_2006_2012.tsv&quot;</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;ACTION_INDICATOR&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ORDER_FORM_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;REPORTER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;REPORTER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BUYER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BUYER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NDC_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNIT&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Measure&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TAB&quot;</span><span class="p">]</span> 
+<span class="n">df</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">dd.read_csv()</span></code> executed immediately and tried to load all the data and pass it back to you before subsetting, it’d crash your computer! After all, if you could load it all at once, we probably wouldn’t be using dask, would we? It’s only because dask knows you want to load each chunk then subset it before collecting all those pieces that this code works.</p>
+<section id="visualizing-task-graphs">
+<h3>Visualizing Task Graphs<a class="headerlink" href="#visualizing-task-graphs" title="Permalink to this headline">#</a></h3>
+<p>You can actually see how your computer is developing a plan with the <code class="docutils literal notranslate"><span class="pre">.dask</span></code> method, which you can run on any dask object before you’ve run <code class="docutils literal notranslate"><span class="pre">.compute()</span></code>. Let’s see this in practice with our code from the top of this notebook (You get an HTML object you can manipulate and explore):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;arcos_all_washpost_2006_2012.tsv&quot;</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;ACTION_INDICATOR&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ORDER_FORM_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;REPORTER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;REPORTER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BUYER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BUYER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NDC_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNIT&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="c1"># Extract year</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">TRANSACTION_DATE</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%m</span><span class="si">%d</span><span class="s2">%Y&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+
+<span class="c1"># Make an estimate of total morphine equivalent shipments</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;morphine_equivalent_g&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;CALC_BASE_WT_IN_GM&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">]</span>
+
+<span class="c1"># Drop extra vars</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;morphine_equivalent_g&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_STATE&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_COUNTY&quot;</span><span class="p">]]</span>
+
+<span class="c1"># Collapse to total shipments to each county in each year.</span>
+<span class="n">collapsed</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_STATE&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_COUNTY&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">morphine_equivalent_g</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">collapsed</span><span class="o">.</span><span class="n">dask</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+    <div>
+        <div style="width: 52px; height: 52px; position: absolute;">
+            <svg width="76" height="71" viewBox="0 0 76 71" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="61.5" cy="36.5" r="13.5" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2"/>
+                <circle cx="14.5" cy="14.5" r="13.5" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2"/>
+                <circle cx="14.5" cy="56.5" r="13.5" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2"/>
+                <path d="M28 16L30.5 16C33.2614 16 35.5 18.2386 35.5 21L35.5 32.0001C35.5 34.7615 37.7386 37.0001 40.5 37.0001L43 37.0001" style="stroke: var(--jp-ui-font-color2, #1D1D1D);" stroke-width="1.5"/>
+                <path d="M40.5 37L40.5 37.75L40.5 37.75L40.5 37ZM35.5 42L36.25 42L35.5 42ZM35.5 52L34.75 52L35.5 52ZM30.5 57L30.5 57.75L30.5 57ZM41.5001 36.25L40.5 36.25L40.5 37.75L41.5001 37.75L41.5001 36.25ZM34.75 42L34.75 52L36.25 52L36.25 42L34.75 42ZM30.5 56.25L28.0001 56.25L28.0001 57.75L30.5 57.75L30.5 56.25ZM34.75 52C34.75 54.3472 32.8472 56.25 30.5 56.25L30.5 57.75C33.6756 57.75 36.25 55.1756 36.25 52L34.75 52ZM40.5 36.25C37.3244 36.25 34.75 38.8243 34.75 42L36.25 42C36.25 39.6528 38.1528 37.75 40.5 37.75L40.5 36.25Z" style="fill: var(--jp-ui-font-color2, #1D1D1D);"/>
+                <circle cx="28" cy="16" r="2.25" fill="#E5E5E5" style="stroke: var(--jp-ui-font-color2, #1D1D1D);" stroke-width="1.5"/>
+                <circle cx="28" cy="57" r="2.25" fill="#E5E5E5" style="stroke: var(--jp-ui-font-color2, #1D1D1D);" stroke-width="1.5"/>
+                <path d="M45.25 36.567C45.5833 36.7594 45.5833 37.2406 45.25 37.433L42.25 39.1651C41.9167 39.3575 41.5 39.117 41.5 38.7321V35.2679C41.5 34.883 41.9167 34.6425 42.25 34.8349L45.25 36.567Z" style="fill: var(--jp-ui-font-color2, #1D1D1D);"/>
+            </svg>
+        </div>
+        <div style="margin-left: 64px;">
+            <h3 style="margin-bottom: 0px;">HighLevelGraph</h3>
+            <p style="color: var(--jp-ui-font-color2, #5D5851); margin-bottom:0px;">
+                HighLevelGraph with 14 layers and 16238 keys from all layers.
+            </p>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer1: read-csv</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            read-csv-98dc9420c2f021fb4e0bb3d80c72065d
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">DataFrameIOLayer</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">npartitions</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">columns</th>
+                        <td style="text-align: left;">[&#x27;REPORTER_DEA_NO&#x27;, &#x27;REPORTER_BUS_ACT&#x27;, &#x27;REPORTER_NAME&#x27;, &#x27;REPORTER_ADDL_CO_INFO&#x27;, &#x27;REPORTER_ADDRESS1&#x27;, &#x27;REPORTER_ADDRESS2&#x27;, &#x27;REPORTER_CITY&#x27;, &#x27;REPORTER_STATE&#x27;, &#x27;REPORTER_ZIP&#x27;, &#x27;REPORTER_COUNTY&#x27;, &#x27;BUYER_DEA_NO&#x27;, &#x27;BUYER_BUS_ACT&#x27;, &#x27;BUYER_NAME&#x27;, &#x27;BUYER_ADDL_CO_INFO&#x27;, &#x27;BUYER_ADDRESS1&#x27;, &#x27;BUYER_ADDRESS2&#x27;, &#x27;BUYER_CITY&#x27;, &#x27;BUYER_STATE&#x27;, &#x27;BUYER_ZIP&#x27;, &#x27;BUYER_COUNTY&#x27;, &#x27;TRANSACTION_CODE&#x27;, &#x27;DRUG_CODE&#x27;, &#x27;NDC_NO&#x27;, &#x27;DRUG_NAME&#x27;, &#x27;QUANTITY&#x27;, &#x27;UNIT&#x27;, &#x27;ACTION_INDICATOR&#x27;, &#x27;ORDER_FORM_NO&#x27;, &#x27;CORRECTION_NO&#x27;, &#x27;STRENGTH&#x27;, &#x27;TRANSACTION_DATE&#x27;, &#x27;CALC_BASE_WT_IN_GM&#x27;, &#x27;DOSAGE_UNIT&#x27;, &#x27;TRANSACTION_ID&#x27;, &#x27;Product_Name&#x27;, &#x27;Ingredient_Name&#x27;, &#x27;Measure&#x27;, &#x27;MME_Conversion_Factor&#x27;, &#x27;Combined_Labeler_Name&#x27;, &#x27;Revised_Company_Name&#x27;, &#x27;Reporter_family&#x27;, &#x27;dos_str&#x27;]</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">type</th>
+                        <td style="text-align: left;">dask.dataframe.core.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">dataframe_type</th>
+                        <td style="text-align: left;">pandas.core.frame.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">series_dtypes</th>
+                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;TRANSACTION_CODE&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: dtype(&#x27;O&#x27;), &#x27;ACTION_INDICATOR&#x27;: dtype(&#x27;O&#x27;), &#x27;ORDER_FORM_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Ingredient_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Measure&#x27;: dtype(&#x27;O&#x27;), &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Revised_Company_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Reporter_family&#x27;: dtype(&#x27;O&#x27;), &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;)}</td>
+                    </tr>
+                
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer2: getitem</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            getitem-b4fc17c18d2b87711188593a28c0412d
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">read-csv-98dc9420c2f021fb4e0bb3d80c72065d</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer3: to_datetime</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            to_datetime-52eca15982ab857959b3001545bb57fa
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">getitem-b4fc17c18d2b87711188593a28c0412d</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer4: assign</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            assign-df1f62c87a9d21a7c2e1959a33e7735a
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">npartitions</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">columns</th>
+                        <td style="text-align: left;">[&#x27;REPORTER_DEA_NO&#x27;, &#x27;REPORTER_BUS_ACT&#x27;, &#x27;REPORTER_NAME&#x27;, &#x27;REPORTER_ADDL_CO_INFO&#x27;, &#x27;REPORTER_ADDRESS1&#x27;, &#x27;REPORTER_ADDRESS2&#x27;, &#x27;REPORTER_CITY&#x27;, &#x27;REPORTER_STATE&#x27;, &#x27;REPORTER_ZIP&#x27;, &#x27;REPORTER_COUNTY&#x27;, &#x27;BUYER_DEA_NO&#x27;, &#x27;BUYER_BUS_ACT&#x27;, &#x27;BUYER_NAME&#x27;, &#x27;BUYER_ADDL_CO_INFO&#x27;, &#x27;BUYER_ADDRESS1&#x27;, &#x27;BUYER_ADDRESS2&#x27;, &#x27;BUYER_CITY&#x27;, &#x27;BUYER_STATE&#x27;, &#x27;BUYER_ZIP&#x27;, &#x27;BUYER_COUNTY&#x27;, &#x27;TRANSACTION_CODE&#x27;, &#x27;DRUG_CODE&#x27;, &#x27;NDC_NO&#x27;, &#x27;DRUG_NAME&#x27;, &#x27;QUANTITY&#x27;, &#x27;UNIT&#x27;, &#x27;ACTION_INDICATOR&#x27;, &#x27;ORDER_FORM_NO&#x27;, &#x27;CORRECTION_NO&#x27;, &#x27;STRENGTH&#x27;, &#x27;TRANSACTION_DATE&#x27;, &#x27;CALC_BASE_WT_IN_GM&#x27;, &#x27;DOSAGE_UNIT&#x27;, &#x27;TRANSACTION_ID&#x27;, &#x27;Product_Name&#x27;, &#x27;Ingredient_Name&#x27;, &#x27;Measure&#x27;, &#x27;MME_Conversion_Factor&#x27;, &#x27;Combined_Labeler_Name&#x27;, &#x27;Revised_Company_Name&#x27;, &#x27;Reporter_family&#x27;, &#x27;dos_str&#x27;, &#x27;date&#x27;]</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">type</th>
+                        <td style="text-align: left;">dask.dataframe.core.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">dataframe_type</th>
+                        <td style="text-align: left;">pandas.core.frame.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">series_dtypes</th>
+                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;TRANSACTION_CODE&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: dtype(&#x27;O&#x27;), &#x27;ACTION_INDICATOR&#x27;: dtype(&#x27;O&#x27;), &#x27;ORDER_FORM_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Ingredient_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Measure&#x27;: dtype(&#x27;O&#x27;), &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Revised_Company_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Reporter_family&#x27;: dtype(&#x27;O&#x27;), &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;), &#x27;date&#x27;: dtype(&#x27;&lt;M8[ns]&#x27;)}</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">read-csv-98dc9420c2f021fb4e0bb3d80c72065d</td>
+                        </tr>
+                    
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"></th>
+                            <td style="text-align: left;">to_datetime-52eca15982ab857959b3001545bb57fa</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer5: getitem</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            getitem-06023399ad03ddb0261ddd8d1b79d5e3
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">assign-df1f62c87a9d21a7c2e1959a33e7735a</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer6: dt-year</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            dt-year-a9efa4ff5a9d6612f62c70f567177170
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">getitem-06023399ad03ddb0261ddd8d1b79d5e3</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer7: assign</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            assign-f485e25f94f5664c192e73df6d42002d
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">npartitions</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">columns</th>
+                        <td style="text-align: left;">[&#x27;REPORTER_DEA_NO&#x27;, &#x27;REPORTER_BUS_ACT&#x27;, &#x27;REPORTER_NAME&#x27;, &#x27;REPORTER_ADDL_CO_INFO&#x27;, &#x27;REPORTER_ADDRESS1&#x27;, &#x27;REPORTER_ADDRESS2&#x27;, &#x27;REPORTER_CITY&#x27;, &#x27;REPORTER_STATE&#x27;, &#x27;REPORTER_ZIP&#x27;, &#x27;REPORTER_COUNTY&#x27;, &#x27;BUYER_DEA_NO&#x27;, &#x27;BUYER_BUS_ACT&#x27;, &#x27;BUYER_NAME&#x27;, &#x27;BUYER_ADDL_CO_INFO&#x27;, &#x27;BUYER_ADDRESS1&#x27;, &#x27;BUYER_ADDRESS2&#x27;, &#x27;BUYER_CITY&#x27;, &#x27;BUYER_STATE&#x27;, &#x27;BUYER_ZIP&#x27;, &#x27;BUYER_COUNTY&#x27;, &#x27;TRANSACTION_CODE&#x27;, &#x27;DRUG_CODE&#x27;, &#x27;NDC_NO&#x27;, &#x27;DRUG_NAME&#x27;, &#x27;QUANTITY&#x27;, &#x27;UNIT&#x27;, &#x27;ACTION_INDICATOR&#x27;, &#x27;ORDER_FORM_NO&#x27;, &#x27;CORRECTION_NO&#x27;, &#x27;STRENGTH&#x27;, &#x27;TRANSACTION_DATE&#x27;, &#x27;CALC_BASE_WT_IN_GM&#x27;, &#x27;DOSAGE_UNIT&#x27;, &#x27;TRANSACTION_ID&#x27;, &#x27;Product_Name&#x27;, &#x27;Ingredient_Name&#x27;, &#x27;Measure&#x27;, &#x27;MME_Conversion_Factor&#x27;, &#x27;Combined_Labeler_Name&#x27;, &#x27;Revised_Company_Name&#x27;, &#x27;Reporter_family&#x27;, &#x27;dos_str&#x27;, &#x27;date&#x27;, &#x27;year&#x27;]</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">type</th>
+                        <td style="text-align: left;">dask.dataframe.core.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">dataframe_type</th>
+                        <td style="text-align: left;">pandas.core.frame.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">series_dtypes</th>
+                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;TRANSACTION_CODE&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: dtype(&#x27;O&#x27;), &#x27;ACTION_INDICATOR&#x27;: dtype(&#x27;O&#x27;), &#x27;ORDER_FORM_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Ingredient_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Measure&#x27;: dtype(&#x27;O&#x27;), &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Revised_Company_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Reporter_family&#x27;: dtype(&#x27;O&#x27;), &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;), &#x27;date&#x27;: dtype(&#x27;&lt;M8[ns]&#x27;), &#x27;year&#x27;: dtype(&#x27;int64&#x27;)}</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">assign-df1f62c87a9d21a7c2e1959a33e7735a</td>
+                        </tr>
+                    
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"></th>
+                            <td style="text-align: left;">dt-year-a9efa4ff5a9d6612f62c70f567177170</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer8: getitem</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            getitem-65b082a7179bbd179d42b1f248add400
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">assign-f485e25f94f5664c192e73df6d42002d</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer9: getitem</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            getitem-9b67ae1a2bd7fb1817a63efa1994d7b4
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">assign-f485e25f94f5664c192e73df6d42002d</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer10: mul</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            mul-9ab4fa814864c801e2cba6374dc6a7ac
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">getitem-9b67ae1a2bd7fb1817a63efa1994d7b4</td>
+                        </tr>
+                    
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"></th>
+                            <td style="text-align: left;">getitem-65b082a7179bbd179d42b1f248add400</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer11: assign</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            assign-499e0f8d8a2531f815b06b72dcbc9adc
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">npartitions</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">columns</th>
+                        <td style="text-align: left;">[&#x27;REPORTER_DEA_NO&#x27;, &#x27;REPORTER_BUS_ACT&#x27;, &#x27;REPORTER_NAME&#x27;, &#x27;REPORTER_ADDL_CO_INFO&#x27;, &#x27;REPORTER_ADDRESS1&#x27;, &#x27;REPORTER_ADDRESS2&#x27;, &#x27;REPORTER_CITY&#x27;, &#x27;REPORTER_STATE&#x27;, &#x27;REPORTER_ZIP&#x27;, &#x27;REPORTER_COUNTY&#x27;, &#x27;BUYER_DEA_NO&#x27;, &#x27;BUYER_BUS_ACT&#x27;, &#x27;BUYER_NAME&#x27;, &#x27;BUYER_ADDL_CO_INFO&#x27;, &#x27;BUYER_ADDRESS1&#x27;, &#x27;BUYER_ADDRESS2&#x27;, &#x27;BUYER_CITY&#x27;, &#x27;BUYER_STATE&#x27;, &#x27;BUYER_ZIP&#x27;, &#x27;BUYER_COUNTY&#x27;, &#x27;TRANSACTION_CODE&#x27;, &#x27;DRUG_CODE&#x27;, &#x27;NDC_NO&#x27;, &#x27;DRUG_NAME&#x27;, &#x27;QUANTITY&#x27;, &#x27;UNIT&#x27;, &#x27;ACTION_INDICATOR&#x27;, &#x27;ORDER_FORM_NO&#x27;, &#x27;CORRECTION_NO&#x27;, &#x27;STRENGTH&#x27;, &#x27;TRANSACTION_DATE&#x27;, &#x27;CALC_BASE_WT_IN_GM&#x27;, &#x27;DOSAGE_UNIT&#x27;, &#x27;TRANSACTION_ID&#x27;, &#x27;Product_Name&#x27;, &#x27;Ingredient_Name&#x27;, &#x27;Measure&#x27;, &#x27;MME_Conversion_Factor&#x27;, &#x27;Combined_Labeler_Name&#x27;, &#x27;Revised_Company_Name&#x27;, &#x27;Reporter_family&#x27;, &#x27;dos_str&#x27;, &#x27;date&#x27;, &#x27;year&#x27;, &#x27;morphine_equivalent_g&#x27;]</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">type</th>
+                        <td style="text-align: left;">dask.dataframe.core.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">dataframe_type</th>
+                        <td style="text-align: left;">pandas.core.frame.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">series_dtypes</th>
+                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;TRANSACTION_CODE&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: dtype(&#x27;O&#x27;), &#x27;ACTION_INDICATOR&#x27;: dtype(&#x27;O&#x27;), &#x27;ORDER_FORM_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Ingredient_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Measure&#x27;: dtype(&#x27;O&#x27;), &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Revised_Company_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Reporter_family&#x27;: dtype(&#x27;O&#x27;), &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;), &#x27;date&#x27;: dtype(&#x27;&lt;M8[ns]&#x27;), &#x27;year&#x27;: dtype(&#x27;int64&#x27;), &#x27;morphine_equivalent_g&#x27;: dtype(&#x27;float64&#x27;)}</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">mul-9ab4fa814864c801e2cba6374dc6a7ac</td>
+                        </tr>
+                    
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"></th>
+                            <td style="text-align: left;">assign-f485e25f94f5664c192e73df6d42002d</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer12: getitem</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            getitem-9b6041b75a79c3e71d6d7acd7239fd91
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">npartitions</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">columns</th>
+                        <td style="text-align: left;">[&#x27;year&#x27;, &#x27;morphine_equivalent_g&#x27;, &#x27;BUYER_STATE&#x27;, &#x27;BUYER_COUNTY&#x27;]</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">type</th>
+                        <td style="text-align: left;">dask.dataframe.core.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">dataframe_type</th>
+                        <td style="text-align: left;">pandas.core.frame.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">series_dtypes</th>
+                        <td style="text-align: left;">{&#x27;year&#x27;: dtype(&#x27;int64&#x27;), &#x27;morphine_equivalent_g&#x27;: dtype(&#x27;float64&#x27;), &#x27;BUYER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_COUNTY&#x27;: dtype(&#x27;O&#x27;)}</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">assign-499e0f8d8a2531f815b06b72dcbc9adc</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer13: series-groupby-sum-chunk</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            series-groupby-sum-chunk-3fbadc183a38ae4572bc0a532c474cd5-d5a6d15d0b1463d80fbfbb777dc826f7
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">getitem-9b6041b75a79c3e71d6d7acd7239fd91</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer14: series-groupby-sum-agg</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            series-groupby-sum-agg-3fbadc183a38ae4572bc0a532c474cd5
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">DataFrameTreeReduction</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">series-groupby-sum-chunk-3fbadc183a38ae4572bc0a532c474cd5-d5a6d15d0b1463d80fbfbb777dc826f7</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+        </div>
+    </div>
+</div></div></div>
+</div>
+<p>Or you can plot out a task graph. You can do this at a high level with <code class="docutils literal notranslate"><span class="pre">.dask.visualize()</span></code>, or in <em>excruciating</em> detail for a task this big with just <code class="docutils literal notranslate"><span class="pre">.visualize()</span></code>. Note <code class="docutils literal notranslate"><span class="pre">visualize()</span></code> does require you install additional libraries, so install <code class="docutils literal notranslate"><span class="pre">ipycytoscape</span></code> and <code class="docutils literal notranslate"><span class="pre">python-graphviz</span></code> with conda first. But these get so big I’m not gonna include one here—you can find examples <a class="reference external" href="https://docs.dask.org/en/stable/graphviz.html">here if you’d like to see more.</a></p>
+</section>
+</section>
+<section id="dask-versus-spark-pyspark">
+<h2>dask versus Spark / PySpark<a class="headerlink" href="#dask-versus-spark-pyspark" title="Permalink to this headline">#</a></h2>
+<p>Dask is something of a late-comer to the distributed computing game. Before its rise, the most popular platforms were Hadoop and Spark (spark is basically “Hadoop v2.0”). So… how does dask compare to these? Or more specifically, how does dask compare to Spark (since no one uses Hadoop anymore) and the various Python libraries for using Spark (e.g. PySpark and koalas)?</p>
+<p>In terms of functionality, dask and Spark basically do the same things. Both are tools for distributed computing across many computers, and conceptually they work in basically the same ways:</p>
+<ul class="simple">
+<li><p>Both offer both low-level tools (things like <code class="docutils literal notranslate"><span class="pre">map</span></code>/<code class="docutils literal notranslate"><span class="pre">filter</span></code> in pyspark, and <code class="docutils literal notranslate"><span class="pre">delayed</span></code> in dask) as well as higher-level data structures (<code class="docutils literal notranslate"><span class="pre">spark</span></code> has <code class="docutils literal notranslate"><span class="pre">spark</span> <span class="pre">dataframes</span></code>, dask has <code class="docutils literal notranslate"><span class="pre">dask</span> <span class="pre">arrays</span></code>; <code class="docutils literal notranslate"><span class="pre">spark</span></code> has RDDs, dask has <code class="docutils literal notranslate"><span class="pre">dask</span> <span class="pre">arrays</span></code>).</p></li>
+<li><p>Both are fault tolerant (if one machine in your cluster dies, the system knows what the machine that died was doing and can assign it to another cluster).</p></li>
+<li><p>Both make use of delayed execution / lazy evaluation to allow the system to develop efficient plans for completing a computation efficiently.</p></li>
+<li><p>Both can be run on your own computer, or on a cluster of lots of computers.</p></li>
+</ul>
+<p><strong>The huge difference, though, is that dask lets you write code with the pandas syntax you already know.</strong> Seriously. There are lots of little “under the hood” things, but from the perspective of an applied Data Scientist, that’s the big one: it’s just a version of pandas.</p>
+<p>Moreover, as we’ll see in <span class="xref myst">later lessons</span>, dask is also insanely easy to setup on a distributed cluster, making it not only easier to use than Spark for a pandas user, but generally also much easier to get up and running (at least in my experience).</p>
+<p>Spark, by contrast, is a stand-alone system. It’s built to run on Java virtual machines, and Spark itself is written in a language called Scala. It is not a tool for pandas users per se, and so it has its own syntax for manipulating datasets that is distinct from that of <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<p><strong>A Note on Koalas:</strong> in the last year or so, there have been inroads in implementing the pandas API on top of spark—check out <a class="reference external" href="https://koalas.readthedocs.io/en/latest/getting_started/10min.html">koalas</a> project if you’re at a place that uses spark!</p>
+<p>As for which is more popular, as is so often the case with software, it depends on where you’re working. In this class, I’ve decided to teach dask because you don’t have to learn a new syntax, so you can instead just focus on learning how distributed computing works. But if you get a job someday that requires you to work with Spark, don’t panic – you’ll find that all the concepts you’ve learned for using dask also apply to Spark—you’ll just have to learn some new syntax.</p>
+<p>And as for performance, it probably depends on the workload, but I’ve yet to see anything that suggests dask compute times are slower than Spark compute times. Case studies are always tricky since performance depends on the exact work being done, but here’s one <a class="reference external" href="https://arxiv.org/abs/1907.13030">case study comparison of performance</a> that puts dask just a little ahead. And I’ve heard reports of dask beating Spark by 40x in another project. So personally, I think dask is a no-brainer if you aren’t working at a company that it is already using spark: it will take <strong>much</strong> less of your time setup and use, and it should at least run about even with Spark.</p>
+<p>The only exceptions are some specific use cases, like network analysis, where Spark has some libraries that dask does not. For more on these types of issues, check out this <a class="reference external" href="https://docs.dask.org/en/latest/spark.html">conceptual comparison to Spark</a>.</p>
+</section>
+<section id="what-else-can-dask-do">
+<h2>What else can dask do?<a class="headerlink" href="#what-else-can-dask-do" title="Permalink to this headline">#</a></h2>
+<p>At this point, we’ve mostly emphasized what dask can do in terms of the data wrangling of dataframes. However, dask has a number of additional functionalities to be aware of:</p>
+<ul class="simple">
+<li><p>Working with dask arrays: dask has a parallelized version of numpy arrays</p></li>
+<li><p>Parallelizing arbitrary functions: you can write your own parallelized functions with <code class="docutils literal notranslate"><span class="pre">delayed</span></code></p></li>
+<li><p>Distributed machine learning: dask has parallelized SOME machine learning methods in <a class="reference external" href="https://dask-ml.readthedocs.io/en/latest/">dask-ml</a></p></li>
+<li><p>dask can be used with different tools for parallelization other than <code class="docutils literal notranslate"><span class="pre">distributed</span></code> (for example, it can do some parallelism through multi-threading). However… it seems like everyone seems to agree at this point you should just use <code class="docutils literal notranslate"><span class="pre">distributed</span></code> all the time.</p></li>
+</ul>
+</section>
+<section id="what-can-t-dask-do">
+<h2>What can’t dask do?<a class="headerlink" href="#what-can-t-dask-do" title="Permalink to this headline">#</a></h2>
+<p>Because dask is basically a library full of little recipes for parallelizing common python, numpy, and pandas functions, you will occassionally find that there are some things that the authors of dask just haven’t implemented (usually because some operations are <em>really</em> hard to parallelize). Here are guides to what you can expect to work and what is unlikely to work with dask:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.dask.org/en/latest/dataframe.html#scope">When using dask dataframes</a></p></li>
+<li><p><a class="reference external" href="https://docs.dask.org/en/latest/array.html#scope">When using dask arrays</a></p></li>
+</ul>
+</section>
+<section id="if-you-really-want-to-get-into-dask">
+<h2>If you really want to get into dask…<a class="headerlink" href="#if-you-really-want-to-get-into-dask" title="Permalink to this headline">#</a></h2>
+<p>Then <em>after</em> doing the exercise below (which I think is actually the most accessible to those taking this class), here are some extensions and next steps:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dask-ml</span></code>: As a reminder, if you now want to do some machine learning, you can <a class="reference external" href="https://ml.dask.org/">use dask-ml on this system</a>, which does the same thing for <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> that regular dask does for <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p></li>
+<li><p>Check out <a class="reference external" href="https://docs.dask.org/en/latest/best-practices.html">dask best practices here</a>.</p></li>
+<li><p>Here’s a great blog post on the <a class="reference external" href="https://coiled.io/blog/history-dask/">history of dask</a> by one of its creaters.</p></li>
+<li><p>Interested in using dask in your company and want help? There’s a great new company created by the founders of dask to provide enterprise support for dask <a class="reference external" href="https://coiled.io/">called coiled</a> (No, I have no affiliation with them, I just think these companies that try to offer paid support services to businesses to help them move from closed source software to open source are a great way to help make open source software better). You can also hear a fun interview with the founders about <a class="reference external" href="https://talkpython.fm/episodes/show/285/dask-as-a-platform-service-with-coiled">both dask and coiled here</a>.</p></li>
+<li><p>The folks from coiled have also compiled a <a class="reference external" href="https://coiled.io/videos/">great collection of videos and tutorials about dask and Python at scale here</a></p></li>
+<li><p>Curious how dask compares to other tools for distributed computing? Here’s a <a class="reference external" href="https://docs.dask.org/en/latest/spark.html">conceptual comparison to Spark</a>, and here’s a <a class="reference external" href="https://arxiv.org/abs/1907.13030">case study comparison of performance</a>. Comparisons will usually depend a lot on the specifics of the work being done, but at least in this case, dask was a little faster than Spark.</p></li>
+<li><p>Working with GPUs? There’s a project to offer the kind of CPU parallelization we get from dask for GPUs called <a class="reference external" href="https://docs.rapids.ai/api/cudf/stable/dask-cudf.html">dask-cudf</a> (part of the <a class="reference external" href="https://rapids.ai/index.html">RAPIDS project</a>. The project is young but growing quickly. My guess, though, is that those libraries will become the infrastructure for updates to tools like <code class="docutils literal notranslate"><span class="pre">dask-ml</span></code> rather than something most applied people need to play with. But putting it here as an FYI!</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">#</a></h2>
+<p>If you want more, you can find tutorials written by the dask team <a class="reference external" href="https://github.com/dask/dask-tutorial">here</a>.</p>
+<p>(Note: all these tutorials are great, but as the focus of this class is on real world tabular data, we’re gonna focus on those exercises).</p>
+<p><span class="xref myst">When you’re done, you can find a dask cheatsheet here for future reference!</span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/PDS_not_yet_in_coursera/30_big_data"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="60_parallelism.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Parallel Computing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../20_programming_concepts/10_debugging_principles.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Principles and Tools for Debugging</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-dask-do-for-me">What can dask do for me?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#um-why-didn-t-you-tell-us-about-this-before-i-hear-you-say">“Um… why didn’t you tell us about this before?” I hear you say…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vocabulary">Vocabulary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-learn-more-dask">Let’s Learn More dask!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#there-is-no-magic-here">There is no magic here</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-evaluation">Lazy Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-task-graphs">Visualizing Task Graphs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-versus-spark-pyspark">dask versus Spark / PySpark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-else-can-dask-do">What else can dask do?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-t-dask-do">What can’t dask do?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-really-want-to-get-into-dask">If you really want to get into dask…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

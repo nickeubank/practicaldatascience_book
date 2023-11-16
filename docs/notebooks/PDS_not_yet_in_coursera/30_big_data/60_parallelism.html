@@ -1,0 +1,971 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Parallel Computing &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/PDS_not_yet_in_coursera/30_big_data/60_parallelism';</script>
+    <link rel="shortcut icon" href="../../../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Distributed Computing with dask" href="70_dask.html" />
+    <link rel="prev" title="Solving Performance Issues" href="50_performance_solutions.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">Views and Copies</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">Matrices</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">Arrays</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/00_plaintext_files.html">Reading Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_5/week_2/10_plotting_in_python.html">Plotting in Python</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_2/20_plotting_with_seaborn.html">seaborn and the Grammar of Graphics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_5/45_plotting_with_matplotlib.html">Plotting with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_5/46_making_plots_pretty.html">Making pretty plots in Python: customizing plots in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../20_programming_concepts/10_debugging_principles.html">Debugging</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../20_programming_concepts/defensive_programming.html">Defensive Programming</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/PDS_not_yet_in_coursera/30_big_data/60_parallelism.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/PDS_not_yet_in_coursera/30_big_data/60_parallelism.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Parallel Computing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-parallelism">What <em>is</em> Parallelism</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-paralleism-important">Why is Paralleism important?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-limits-of-parallelism">Theoretical Limits of Parallelism</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#amdahl-s-law">Amdahl’s Law</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vocabulary">Vocabulary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-parallel-processing-with-joblib">An Example: Parallel Processing with Joblib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-processing-versus-multi-threading">Multi-processing versus Multi-threading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-parallelism">GPU Parallelism</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelism-and-distributed-computing">Parallelism and Distributed Computing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#want-to-learn-more">Want to Learn More?</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="parallel-computing">
+<h1>Parallel Computing<a class="headerlink" href="#parallel-computing" title="Permalink to this headline">#</a></h1>
+<p>Before you dive into this, let me just tell you the punchline of this entire page right up front: parallelism is the <strong>last tool</strong> you want to turn to for speed. It is <strong>not</strong> a silver bullet, it will generally take you <em>significant</em> time to implement, the speed improvements from parallelism are generally <strong>much</strong> smaller than what you get from other performance improvement methods (see <a class="reference internal" href="40_performance_understanding.html"><span class="doc std std-doc">Understanding Performance</span></a> and <a class="reference internal" href="50_performance_solutions.html"><span class="doc std std-doc">Performance Solutions</span></a>), and the headaches of parallelizing code are many.</p>
+<section id="what-is-parallelism">
+<h2>What <em>is</em> Parallelism<a class="headerlink" href="#what-is-parallelism" title="Permalink to this headline">#</a></h2>
+<p>Parallelism is the process of:</p>
+<ol class="arabic simple">
+<li><p>taking a single problem,</p></li>
+<li><p>breaking it into lots of smaller problems,</p></li>
+<li><p>assigning those smaller problems to a number of processing cores that are able to operate independently, and</p></li>
+<li><p>recombining the results.</p></li>
+</ol>
+<p>As this list shows, parallelism is not easy, and so not only does it take substantial developer time (the time it takes you to implement it), but there are computer-time costs to breaking down problems, distributing them, and recombining them, often limiting the returns you will see to parallelism.</p>
+</section>
+<section id="why-is-paralleism-important">
+<h2>Why is Paralleism important?<a class="headerlink" href="#why-is-paralleism-important" title="Permalink to this headline">#</a></h2>
+<p>Given all that, why is parallelism all the rage?</p>
+<p>The simple answer is that, when it comes to running a serial program (a problem where you run your code in sequence, one step at a time), processors stop getting faster in about the mid-2000s.</p>
+<p>This might surprise you. Most of us have heard that Moore’s Law dictates that processors are doubling in performance every 18 months. The reality, however, is more complicated.</p>
+<p>Moore’s law used to apply to a number of aspect of processors: the size of transistors, the number of transisters, and the speed that a processor executed serial code. But as shown in the figure below, processor frequency and the speed of serial execution stopped this pattern of doubling in the mid-2000s (serial execution has still been making small gains since then, but even that is iffy – those improvements are due to little hacks that only work when programs work in just the right way).</p>
+<p><img alt="42-years-processor-trend" src="../../../_images/42-years-processor-trend.png" /></p>
+<p>Source: <a class="reference external" href="https://www.karlrupp.net/2018/02/42-years-of-microprocessor-trend-data/">karlrupp.net</a></p>
+<p>And so since chip makers have lost the ability to make their processors faster, they’ve turned to just giving us more and more processors in the form or more “cores”: components of chips that are capable of independent operation. And leveraging the availability of massive numbers of cores (either in single machines, or for huge datasets, across lots of computers) has become the only place left to go for performance!</p>
+</section>
+<section id="theoretical-limits-of-parallelism">
+<h2>Theoretical Limits of Parallelism<a class="headerlink" href="#theoretical-limits-of-parallelism" title="Permalink to this headline">#</a></h2>
+<p>OK, now let’s talk about the theoretical limits of parallelism.</p>
+<p>The biggest problem with parallelism is that it’s very hard to break some problems into smaller pieces you can work on simultaneously. Somethings you do on computers are fundamentally <em>serial</em> / <em>sequential</em>, and thus cannot be broken up.</p>
+<p>For example, suppose you want to simulate how weather evolves over time. The only way to simulate how weather will evolve on day 2 of your simulation is to wait till you’ve finished simulating day 1 so you can use those results as the starting point for your simulation in day 2. That means there’s no way to fully parallelize a weather simulation, since the results at time <span class="math notranslate nohighlight">\(t\)</span> will always depend on the results generated at time <span class="math notranslate nohighlight">\(t-1\)</span>.</p>
+<p>To be clear, this is not to say there are <em>no</em> opportunities to speed up weather simulations – since you generally run weather simulations over and over and then look at the <em>average</em> prediction, each separate simulation can be parallelized. But it does mean that <em>even if you had infinite processors</em>, you couldn’t bring the time it takes to simulate the weather down to zero because you’d have to finish simulating day 1 before you can simulate day 2.</p>
+<section id="amdahl-s-law">
+<h3>Amdahl’s Law<a class="headerlink" href="#amdahl-s-law" title="Permalink to this headline">#</a></h3>
+<p>The formalization of this idea is what’s called Amdahl’s Law, which gives the <em>theoretical</em> limits of parallelization. If <span class="math notranslate nohighlight">\(P\)</span> is the proportion of your algorithm that can be parallelized, and <span class="math notranslate nohighlight">\(N\)</span> is the number of cores available, the fundamental limit to the speed-up you can get from parallelization is given by:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{(1-P)+\frac{P}{N}}\]</div>
+<p>Which also means that even with infinite cores, you can’t get past the speedup limit of:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{(1-P)}\]</div>
+<p>Expressed graphically, this is:</p>
+<p><img alt="amdahlslaw" src="../../../_images/amdahlslaw.png" /></p>
+<p>Source: <a class="reference external" href="https://en.wikipedia.org/wiki/Amdahl%27s_law">Wikipedia</a></p>
+<p>As this figure shows, even for a task that is <em>95% parallelizable</em>, the biggest possible performance gain you will ever get (with infinite cores), even ignoring any real-world overheads required to execute that parallelization is 20x.</p>
+<p>Now, to be clear, that doesn’t mean there aren’t situations where the best strategy is parallelism. If you’ve exhausted all your other opportunities to speed up your code, parallelism may be all that’s left. And in data science, it’s not uncommon to have code that can be much more than 95% parallelizable – for example, if you need to run a simulation 1,000,000 times, and each run is relatively short, you can get close to 100% parallelizable. But the point is that parallelism is no silver bullet, and it’s important to think hard about whether your problem is suited to parallelizing before you invest in trying to parallelize your code!</p>
+</section>
+</section>
+<section id="vocabulary">
+<h2>Vocabulary<a class="headerlink" href="#vocabulary" title="Permalink to this headline">#</a></h2>
+<p>The terms processor and core are often used interchangeably among computer scientists to refer to “units capable of independent operation”. This can be confusing because most of us think of a “processor” as a single square piece of silicone material that is plugged into our motherboard (e.g. an Intel i9, or an Intel i7):</p>
+<p><img alt="intel_chip" src="../../../_images/intel_chip.jpg" /></p>
+<p>But what most of us think of as processors today often have many cores (the Intel i9 on my laptop has 8 cores, each capable of working relatively independently). Here’s a labeled image of the inside of a core i7 processor with four distinct “cores”:</p>
+<p><img alt="core_i7" src="../../../_images/core_i7.gif" /></p>
+<p>And while most of us refer to the chip as a processor, and these cores as… cores, computer scientists have a tendency to use the term “processors” and “core” interchangeable to refer to what most of us call “cores”.</p>
+<p>And the question of “how many processors / cores do I have” gets even more confusing for two reasons:</p>
+<p>First, many desktops have two separate chips (i.e. two Intel i7s, or two Intel i9s), leading some people to call these multi-processor machines. :/</p>
+<p>Second, many modern processors (especially Intel processors) have a feature called “hyperthreading”, which is where two tasks can be assigned to the same individual core. That core can’t do both tasks at the same time, but it can try and switch between them efficiently. For example, if the first task stalls out while it’s waiting to get more data from memory (remember how <span class="xref myst">slow memory is</span>), the core can switch to working on the second task instead of just sitting around. This <em>can</em> offer additional performance, but much less than actually having an actual additional independent core, and actual performance depends on the nature of the job being run (I’ve heard data science people say if two cores gets you 2x performance, then hyperthreading gets you about 1.25x performance, which seems roughly consistent with my experience. But again this depends <em>hugely</em> on the nature of the job you’re parallelizing).</p>
+</section>
+<section id="an-example-parallel-processing-with-joblib">
+<h2>An Example: Parallel Processing with Joblib<a class="headerlink" href="#an-example-parallel-processing-with-joblib" title="Permalink to this headline">#</a></h2>
+<p>We won’t get into really sophisticated parallel processing in this tuturial – writing parallelized code is a discipline unto itself – be we can do a little “embarassingly parallel” computing.</p>
+<p>An “embarassingly parallel” task is one where each component of your parallel job is entirely independent of every other part. For example, consider the weather simulation we discussed above – while Day 2 is not independent of Day 1, each attempt to simulate 7 days of weather <em>is</em> fully independent from every other run, making it embarassingly parallel.</p>
+<p>So let’s develop an embarassingly parallel simulation, and run it in parallel using the <code class="docutils literal notranslate"><span class="pre">Joblib</span></code> library (FYI: R has an analogous library called <a class="reference external" href="https://www.rdocumentation.org/packages/foreach/versions/1.4.7/topics/foreach">foreach</a>).</p>
+<p>First, let’s develop a dumb little weather simulation with a central tendency so the temperature tomorrow is the function of some anchor temperature (let’s say 72 degrees farenheit) and the realized temperature today (so if it’s hot today, it’s likely to be hot tomorrow, but if it’s above the long-term average of 72, it’s also likely to be closer to 72 than the temp today).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">npr</span>
+
+
+<span class="k">def</span> <span class="nf">weather_at_t_plus_one</span><span class="p">(</span><span class="n">temp_at_t</span><span class="p">,</span> <span class="n">std_dev</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">npr</span><span class="o">.</span><span class="n">normal</span><span class="p">((</span><span class="mi">72</span> <span class="o">+</span> <span class="n">temp_at_t</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">std_dev</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">simulate_weather</span><span class="p">(</span><span class="n">starting_temp</span><span class="p">,</span> <span class="n">weather_std_dev</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
+    <span class="n">weather_at_time_t</span> <span class="o">=</span> <span class="n">starting_temp</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+        <span class="n">weather_at_time_t</span> <span class="o">=</span> <span class="n">weather_at_t_plus_one</span><span class="p">(</span><span class="n">weather_at_time_t</span><span class="p">,</span> <span class="n">weather_std_dev</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">weather_at_time_t</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulate_weather</span><span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>70.61450161946645
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now suppose we want to see what the weather is likely to be like in 10 days. Even if this simulation were realistic, we wouldn’t be able to answer that question by just running it once, since every time we run the simulation we get different data. Instead, we want to run the simulation over and over and look at the distribution of outcomes.</p>
+<p>The simpliest way to do this would be with a little for-loop:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">):</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">simulate_weather</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 22.9 s, sys: 205 ms, total: 23.1 s
+Wall time: 23.1 s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>72.00268780953319
+</pre></div>
+</div>
+</div>
+</div>
+<p>But look how slow this is! If we want to run this 5,000,000 times, it takes a full 23 seconds on average!</p>
+<p>So let’s try parallelizing these simulations using <code class="docutils literal notranslate"><span class="pre">joblib</span></code>. (Make sure to install joblib if you haven’t yet with <code class="docutils literal notranslate"><span class="pre">conda</span></code> or <code class="docutils literal notranslate"><span class="pre">pip</span></code>!)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>  <span class="c1"># Import the relevant tools</span>
+
+<span class="c1"># Joblib wants a function that only takes a single argument.</span>
+<span class="c1"># Since we&#39;re not changing our parameters with each run, we just create a</span>
+<span class="c1"># &quot;little barrier function&quot; that takes one argument.</span>
+
+
+<span class="k">def</span> <span class="nf">run_simulation</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">simulate_weather</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">10</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">run_simulation</span><span class="p">)(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>72.00074577195855
+</pre></div>
+</div>
+</div>
+</div>
+<p>And that’s it!</p>
+<p>OK, so that line of code is kinda inscrutible, so let’s unpack it:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Parallel(n_jobs=10)</span></code>: this is where you specify how many processes you want to spin up. You don’t want to parallelize to more logical cores than are available on your computer (generally, two times the number of physical cores on your computer if you have an Intel chip). If you try and parallelize to 4 cores but your computer only has 2, then your operating system will just keep forcing your cores to stop and switch from running one pair of processes to running the other pair, back and forth, and that switching takes time. To see how many cores you have, run:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">delayed(run_simulation)(i)</span> <span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">range(1000000)</span></code>: This specifies what you want executed on all these parallel processes. In this case, we’re saying “we want to execute the function <code class="docutils literal notranslate"><span class="pre">run_simulation</span></code> with the argument <code class="docutils literal notranslate"><span class="pre">i</span></code> for all values of <code class="docutils literal notranslate"><span class="pre">i</span></code> from 0 to 5,000,000.</p>
+<p>So that’s all you have to type, but that kinda obscures what all is happening.</p>
+<p>When you run this code, here’s what happens:</p>
+<ol class="arabic simple">
+<li><p>Joblib starts up as many new Python sessions as you hnave specified in <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>. These are fully independent, just as though you had openned a bunch of new terminal windows and typed Python into each one.</p></li>
+<li><p>Joblib then passes each of these separate processes the function (in this case <code class="docutils literal notranslate"><span class="pre">run_simulation</span></code>) you want to run. Remember because each process is it’s own unique and beautiful snowflake, it doesn’t know what your current Python session knows! Joblib will also pass data to these processes if your job uses data. That means that if, instead of just an index like <code class="docutils literal notranslate"><span class="pre">i</span></code>, you were passing a dataframe in as an argument, Joblib would make a new copy of your dataframe in everyone one of these processes (which means if your dataframe takes up 30% of your RAM, and you try and parallelize over 8 processes, you’re run out of memory when joblib makes 8 copies!).</p></li>
+<li><p>Joblib then starts telling these processes to run your function (<code class="docutils literal notranslate"><span class="pre">run_simulation</span></code>) for different values of <code class="docutils literal notranslate"><span class="pre">i</span></code>. It takes care of making sure that all your <code class="docutils literal notranslate"><span class="pre">i</span></code> values run somewhere.</p></li>
+<li><p>Then when each process finishes running <code class="docutils literal notranslate"><span class="pre">run_simulation(i)</span></code>, it passes the results back to joblib in your primary process, and puts them in a list.</p></li>
+<li><p>Then when all values of <code class="docutils literal notranslate"><span class="pre">i</span></code> have been used, <code class="docutils literal notranslate"><span class="pre">joblib</span></code> closes all those processes.</p></li>
+</ol>
+<p>So, how much speed benefit does this get us? Previously we saw that running our simulation 1 million times took approximately 24 seconds to run. Let’s see how it looks with a 10 core parallelization (note my computer has 8 physical cores, so we’re using a little hyperthreading. I’m just doing 10 since the math is easy. :)).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">10</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">run_simulation</span><span class="p">)(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 9.83 s, sys: 397 ms, total: 10.2 s
+Wall time: 10.8 s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>72.00607146863169
+</pre></div>
+</div>
+</div>
+</div>
+<p>10 seconds!</p>
+<p>Yeah…</p>
+<p>So this is what I mean about parallel processing: there’s a lot of fixed costs to getting this independent processes running and passing things back and forth, as a result of which the benefits of parallelism are almost always sub-linear (i.e. using 10 processors instead of 1 will result in &lt;10x speedups).</p>
+<p>Now to be clear, the benefits won’t always be so small. Since the “cost” of setting up these processes is pretty constant, the longer each simulation runs, the larger the gains. For example, let’s compare performance if we simulate for 100 days instead of 10 (so there are more actual simulation steps taking place for each message passed back and forth between processes).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">):</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">simulate_weather</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 3min 38s, sys: 1.58 s, total: 3min 39s
+Wall time: 3min 40s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="k">def</span> <span class="nf">run_simulation</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">simulate_weather</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">10</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">run_simulation</span><span class="p">)(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 12.6 s, sys: 460 ms, total: 13.1 s
+Wall time: 32.7 s
+</pre></div>
+</div>
+</div>
+</div>
+<p>Much better. From 200 seconds to 32 seconds. But still that’s only a 5x speed up with 10 cores!</p>
+<p>By the way, if you want to see the parallelism in action, you can look at your Activity Monitor (mac) or Resource Monitor (Windows). Here’s mine while that is running:</p>
+<p><img alt="activity_monitor_parallelism" src="../../../_images/activity_monitor_parallelism.png" /></p>
+<p>But at the risk of beating a dead horse, we can get far better performance benefits just by using the tips in the <a class="reference internal" href="40_performance_understanding.html"><span class="doc std std-doc">performance section</span></a> like vectorizing:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">npr</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">sims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5_000_000</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">std_dev</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">sims</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">72</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+    <span class="n">sims</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">npr</span><span class="o">.</span><span class="n">normal</span><span class="p">((</span><span class="n">sims</span><span class="p">[:,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">72</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 14.4 s, sys: 745 ms, total: 15.2 s
+Wall time: 15.3 s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sims</span><span class="p">[:,</span> <span class="mi">99</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>71.99910598147939
+</pre></div>
+</div>
+</div>
+</div>
+<p>THAT only took 3 seconds…</p>
+</section>
+<section id="multi-processing-versus-multi-threading">
+<h2>Multi-processing versus Multi-threading<a class="headerlink" href="#multi-processing-versus-multi-threading" title="Permalink to this headline">#</a></h2>
+<p>This type of parallelism – where we create entirely new processes to run our code, and we have to copy over our data to each new process – is what’s called “multiprocessing”. Multiprocessing is nice because (a) you can use it on big server clusters where different processes may be running on different computers, and (b) it’s quite safe. As a result, <em>most</em> parallelism you’re like to encounter will be multi-processing.</p>
+<p>However, there is another type of parallelism to be aware of called multi-threading. In multi-threading, all the code being run (each sequence execution of which is called a “thread”) exists within a single process, meaning that all the different threads have access to the same objects in memory. This massively reduces duplication because you don’t have to copy your code and data and pass it around – all the threads can see the same parts of memory.</p>
+<p>But multi-threading has three major shortcomings:</p>
+<ul class="simple">
+<li><p>It is <em>very</em> easy to run into very subtle but profound problems that lead to corruption (the biggest of which is something called <a class="reference external" href="https://youtu.be/7ENFeb-J75k">Race Conditions</a>).</p></li>
+<li><p>Multi-threading can only distribute a job over the cores <em>on a single computer</em>, meaning it can’t be used to distribute a job over hundreds of cores in a large computing cluster.</p></li>
+<li><p>You generally can’t use multi-thread parallelism in Python because of a <a class="reference external" href="https://realpython.com/python-gil">fundamental component of its architecture (the GIL)</a>.</p></li>
+</ul>
+<p>So… multi-threading isn’t something you’re like likely to try and implement yourself. But if you <em>do</em> need to get into multi-threading, consider jumping to a language like Julia, which allows for <a class="reference external" href="https://julialang.org/blog/2019/07/multithreading">easy multi-threading, complete with security features.</a></p>
+<p>But that isn’t to say you may not <em>benefit</em> from multi-threading. More and more tools are implementing parallelism (even Python packages, by building in the multi-threading into the C code that underlies that package you use in Python), so you may just get some benefits for free!</p>
+</section>
+<section id="gpu-parallelism">
+<h2>GPU Parallelism<a class="headerlink" href="#gpu-parallelism" title="Permalink to this headline">#</a></h2>
+<p>Something related to general parallelism is GPU parallelism. GPU parallelism is the practice of using Graphical Processing Units (GPUs) to do <em>extremely</em> parallel computing.</p>
+<p>GPUs are basically computers onto themselves designed for the sole purpose of, as the name suggests, processing graphics. As it turns out, however, most of what one does when processing graphics is <em>lots</em> of matrix algebra. And so in recent years researchers, have started using GPUs for scientific research.</p>
+<p>GPU processors aren’t “general purpose” processors – they only do a few things, and as a result of that specialization, what they do they do <em>fast</em>. Moreover, they are massively parallel: while your CPU (your Intel chip) may have ~4-8 cores, a modern GPU has either hundreds or thousands of cores.</p>
+<p>But because GPUs are basically computers onto themselves, to use them you have to write special code to both manage all those cores and also manage the movement of data from your regular computer to the GPU. All of which is to say: you probably won’t write your own GPU parallel algorithm, but if you end up in an area that uses them a lot (i.e. training neural networks), the libraries you use will.</p>
+</section>
+<section id="parallelism-and-distributed-computing">
+<h2>Parallelism and Distributed Computing<a class="headerlink" href="#parallelism-and-distributed-computing" title="Permalink to this headline">#</a></h2>
+<p>In this reading, we’ve mostly focused on discussing the <em>principles</em> of parallelism – the goal, the fundamental problems, and some basic examples of parallelism.</p>
+<p>In a future class, we’ll discuss some packages that are designed to make parallelism as easy as possible in situations where you really need parallelism. In particular, we’ll focus on tools for <em>distributed computer</em>: situations where you don’t just want to parallelize across the cores in your computer, but across many computers (e.g. in the cloud). But when we get to these tools – like <code class="docutils literal notranslate"><span class="pre">pyspark</span></code> and <code class="docutils literal notranslate"><span class="pre">dask</span></code> – try to keep in mind the lessons we’ve learned here, because everything you’ve learned here applies to those packages as well!</p>
+</section>
+<section id="want-to-learn-more">
+<h2>Want to Learn More?<a class="headerlink" href="#want-to-learn-more" title="Permalink to this headline">#</a></h2>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=zX4ZNfvw1cw">Check out this terrific talk by Sophie Wilson!</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/PDS_not_yet_in_coursera/30_big_data"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="50_performance_solutions.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Solving Performance Issues</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="70_dask.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Distributed Computing with dask</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-parallelism">What <em>is</em> Parallelism</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-paralleism-important">Why is Paralleism important?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-limits-of-parallelism">Theoretical Limits of Parallelism</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#amdahl-s-law">Amdahl’s Law</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vocabulary">Vocabulary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-parallel-processing-with-joblib">An Example: Parallel Processing with Joblib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-processing-versus-multi-threading">Multi-processing versus Multi-threading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-parallelism">GPU Parallelism</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelism-and-distributed-computing">Parallelism and Distributed Computing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#want-to-learn-more">Want to Learn More?</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
