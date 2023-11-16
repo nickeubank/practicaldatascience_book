@@ -543,6 +543,387 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here we start up a dask cluster.</span>
+<span class="c1"># This creates a set of &quot;workers&quot;.</span>
+<span class="c1"># In this case, these workers are all on</span>
+<span class="c1"># my computer, but if we wanted to connect</span>
+<span class="c1"># to a cluster, we&#39;d just past an IP address</span>
+<span class="c1"># to `Client()`.</span>
+
+<span class="c1"># You can see how many cores your computer</span>
+<span class="c1"># has using `os.cpu_count()` in the `os` library.</span>
+
+<span class="c1"># Note you may get some warnings about</span>
+<span class="c1"># Python wanting to accept incoming</span>
+<span class="c1"># connections from your firewall.</span>
+<span class="c1"># You need to approve those</span>
+<span class="c1"># so workers can talk to one another.</span>
+
+<span class="c1"># DON&#39;T keep rerunning this line of code.</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;I have </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span><span class="si">}</span><span class="s2"> logical cores.&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="n">client</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I have 10 logical cores.
+</pre></div>
+</div>
+<div class="output text_html"><div>
+    <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
+    <div style="margin-left: 48px;">
+        <h3 style="margin-bottom: 0px;">Client</h3>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-56affad0-84c3-11ee-9b5e-f623161a15ec</p>
+        <table style="width: 100%; text-align: left;">
+
+        <tr>
+        
+            <td style="text-align: left;"><strong>Connection method:</strong> Cluster object</td>
+            <td style="text-align: left;"><strong>Cluster type:</strong> distributed.LocalCluster</td>
+        
+        </tr>
+
+        
+            <tr>
+                <td style="text-align: left;">
+                    <strong>Dashboard: </strong> <a href="http://127.0.0.1:8787/status" target="_blank">http://127.0.0.1:8787/status</a>
+                </td>
+                <td style="text-align: left;"></td>
+            </tr>
+        
+
+        </table>
+
+        
+
+        
+            <details>
+            <summary style="margin-bottom: 20px;"><h3 style="display: inline;">Cluster Info</h3></summary>
+            <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-mod-trusted jp-OutputArea-output">
+    <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;">
+    </div>
+    <div style="margin-left: 48px;">
+        <h3 style="margin-bottom: 0px; margin-top: 0px;">LocalCluster</h3>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">336b9126</p>
+        <table style="width: 100%; text-align: left;">
+            <tr>
+                <td style="text-align: left;">
+                    <strong>Dashboard:</strong> <a href="http://127.0.0.1:8787/status" target="_blank">http://127.0.0.1:8787/status</a>
+                </td>
+                <td style="text-align: left;">
+                    <strong>Workers:</strong> 5
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    <strong>Total threads:</strong> 10
+                </td>
+                <td style="text-align: left;">
+                    <strong>Total memory:</strong> 64.00 GiB
+                </td>
+            </tr>
+            
+            <tr>
+    <td style="text-align: left;"><strong>Status:</strong> running</td>
+    <td style="text-align: left;"><strong>Using processes:</strong> True</td>
+</tr>
+
+            
+        </table>
+
+        <details>
+            <summary style="margin-bottom: 20px;">
+                <h3 style="display: inline;">Scheduler Info</h3>
+            </summary>
+
+            <div style="">
+    <div>
+        <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
+        <div style="margin-left: 48px;">
+            <h3 style="margin-bottom: 0px;">Scheduler</h3>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-23977a31-a93c-4677-90ee-12d280191274</p>
+            <table style="width: 100%; text-align: left;">
+                <tr>
+                    <td style="text-align: left;">
+                        <strong>Comm:</strong> tcp://127.0.0.1:54209
+                    </td>
+                    <td style="text-align: left;">
+                        <strong>Workers:</strong> 5
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">
+                        <strong>Dashboard:</strong> <a href="http://127.0.0.1:8787/status" target="_blank">http://127.0.0.1:8787/status</a>
+                    </td>
+                    <td style="text-align: left;">
+                        <strong>Total threads:</strong> 10
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">
+                        <strong>Started:</strong> Just now
+                    </td>
+                    <td style="text-align: left;">
+                        <strong>Total memory:</strong> 64.00 GiB
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <details style="margin-left: 48px;">
+        <summary style="margin-bottom: 20px;">
+            <h3 style="display: inline;">Workers</h3>
+        </summary>
+
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;">Worker: 0</h4>
+                </summary>
+                <table style="width: 100%; text-align: left;">
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Comm: </strong> tcp://127.0.0.1:54223
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Total threads: </strong> 2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:54224/status" target="_blank">http://127.0.0.1:54224/status</a>
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Memory: </strong> 12.80 GiB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Nanny: </strong> tcp://127.0.0.1:54212
+                        </td>
+                        <td style="text-align: left;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-oqsctutk
+                        </td>
+                    </tr>
+
+                    
+
+                    
+
+                </table>
+            </details>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;">Worker: 1</h4>
+                </summary>
+                <table style="width: 100%; text-align: left;">
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Comm: </strong> tcp://127.0.0.1:54227
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Total threads: </strong> 2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:54230/status" target="_blank">http://127.0.0.1:54230/status</a>
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Memory: </strong> 12.80 GiB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Nanny: </strong> tcp://127.0.0.1:54214
+                        </td>
+                        <td style="text-align: left;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-368h31mi
+                        </td>
+                    </tr>
+
+                    
+
+                    
+
+                </table>
+            </details>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;">Worker: 2</h4>
+                </summary>
+                <table style="width: 100%; text-align: left;">
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Comm: </strong> tcp://127.0.0.1:54226
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Total threads: </strong> 2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:54228/status" target="_blank">http://127.0.0.1:54228/status</a>
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Memory: </strong> 12.80 GiB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Nanny: </strong> tcp://127.0.0.1:54216
+                        </td>
+                        <td style="text-align: left;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-fhd67vck
+                        </td>
+                    </tr>
+
+                    
+
+                    
+
+                </table>
+            </details>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;">Worker: 3</h4>
+                </summary>
+                <table style="width: 100%; text-align: left;">
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Comm: </strong> tcp://127.0.0.1:54232
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Total threads: </strong> 2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:54235/status" target="_blank">http://127.0.0.1:54235/status</a>
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Memory: </strong> 12.80 GiB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Nanny: </strong> tcp://127.0.0.1:54218
+                        </td>
+                        <td style="text-align: left;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-ihlc18_k
+                        </td>
+                    </tr>
+
+                    
+
+                    
+
+                </table>
+            </details>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;">Worker: 4</h4>
+                </summary>
+                <table style="width: 100%; text-align: left;">
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Comm: </strong> tcp://127.0.0.1:54233
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Total threads: </strong> 2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:54234/status" target="_blank">http://127.0.0.1:54234/status</a>
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Memory: </strong> 12.80 GiB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Nanny: </strong> tcp://127.0.0.1:54220
+                        </td>
+                        <td style="text-align: left;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-q_99xm5c
+                        </td>
+                    </tr>
+
+                    
+
+                    
+
+                </table>
+            </details>
+            </div>
+        </div>
+        
+
+    </details>
+</div>
+
+        </details>
+    </div>
+</div>
+            </details>
+        
+
+    </div>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load Dask</span>
 <span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
 </pre></div>
@@ -574,7 +955,7 @@ document.write(`
         <span class="s2">&quot;STRENGTH&quot;</span><span class="p">:</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span>
         <span class="s2">&quot;BUYER_ZIP&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
         <span class="s2">&quot;DRUG_CODE&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">:</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
         <span class="s2">&quot;QUANTITY&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
         <span class="s2">&quot;TRANSACTION_DATE&quot;</span><span class="p">:</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span>
         <span class="s2">&quot;TRANSACTION_ID&quot;</span><span class="p">:</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span>
@@ -590,7 +971,9 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract year</span>
 <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">TRANSACTION_DATE</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%m</span><span class="si">%d</span><span class="s2">%Y&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
-
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span>
+<span class="p">)</span>
 <span class="c1"># Make an estimate of total morphine equivalent shipments</span>
 <span class="n">df</span><span class="p">[</span><span class="s2">&quot;morphine_equivalent_g&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;CALC_BASE_WT_IN_GM&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">]</span>
 
@@ -608,10 +991,10 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dask Series Structure:
 npartitions=1
-    float64
+    Float64
         ...
-Name: morphine_equivalent_g, dtype: float64
-Dask Name: series-groupby-sum-agg, 16 graph layers
+Name: morphine_equivalent_g, dtype: Float64
+Dask Name: series-groupby-sum-agg, 19 graph layers
 </pre></div>
 </div>
 </div>
@@ -624,10 +1007,31 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 14 s, sys: 4.66 s, total: 18.6 s
+Wall time: 5min 27s
+</pre></div>
 </div>
-<p>Voila! I get back my thinned-out dataset with the new variable I wanted, all while never using more than about 2GB of RAM at any point.</p>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>year    BUYER_STATE  BUYER_COUNTY
+2007.0  FL           ORANGE          305170.616443
+2008.0  IN           DE KALB           7607.751622
+2010.0  CA           AMADOR           23677.360092
+2014.0  MS           LEAKE              6543.67023
+2010.0  IA           TAYLOR             416.504137
+2009.0  NE           YORK              3148.586955
+2007.0  KS           JOHNSON         164989.926079
+2012.0  AR           CARROLL          21691.979707
+2006.0  GA           MERIWETHER         3007.12792
+        NC           GRANVILLE        18004.727735
+Name: morphine_equivalent_g, dtype: Float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Voila! I get back my thinned-out dataset with the new variable I wanted. And it only took about five minutes.</p>
 <p>So let’s discuss what just happened.</p>
 <ol class="arabic simple">
+<li><p>First, when I ran Client(), dask started up a set of 5 new python processes on my computer (called “workers”) it could call on for help, each of which had access to two threads (so dask has access to 10 threads total). These processes fully independent agents that could be running on different machines in a true cluster (though in this case, they’re all on my laptop).</p></li>
 <li><p>dask collected all the instructions I gave it for reading in the file, generating a new column, deleting extra columns, and grouping. <strong>But it didn’t actually execute any code</strong>. That’s why when I typed <code class="docutils literal notranslate"><span class="pre">collapsed</span></code>, what I got back was a dataframe with structure but no data—dask had figured out roughly what the result of my commands would look like, but hadn’t actually computed the result.</p></li>
 <li><p>Then, when I ran <code class="docutils literal notranslate"><span class="pre">collapsed.compute()</span></code>, dask came up with a set of assignments it could give to its workers to get me what I wanted and it started to actually compute the table I requested. In particular:</p>
 <ul class="simple">
@@ -694,7 +1098,7 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/users/nce8/dropbox/MIDS_Data_Prep/arcos&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/users/nce8/dropbox/MIDS/MIDS_Data_Prep/arcos&quot;</span><span class="p">)</span>
 
 <span class="c1"># Create an interator of the data so</span>
 <span class="c1"># it doesn&#39;t all load at once</span>
@@ -846,7 +1250,7 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
         <div style="margin-left: 64px;">
             <h3 style="margin-bottom: 0px;">HighLevelGraph</h3>
             <p style="color: var(--jp-ui-font-color2, #5D5851); margin-bottom:0px;">
-                HighLevelGraph with 14 layers and 16238 keys from all layers.
+                HighLevelGraph with 16 layers and 18736 keys from all layers.
             </p>
             
             <div style="">
@@ -906,7 +1310,7 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                 
                     <tr>
                         <th style="text-align: left; width: 150px;">series_dtypes</th>
-                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;TRANSACTION_CODE&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: dtype(&#x27;O&#x27;), &#x27;ACTION_INDICATOR&#x27;: dtype(&#x27;O&#x27;), &#x27;ORDER_FORM_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Ingredient_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Measure&#x27;: dtype(&#x27;O&#x27;), &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Revised_Company_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Reporter_family&#x27;: dtype(&#x27;O&#x27;), &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;)}</td>
+                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: string[pyarrow], &#x27;REPORTER_BUS_ACT&#x27;: string[pyarrow], &#x27;REPORTER_NAME&#x27;: string[pyarrow], &#x27;REPORTER_ADDL_CO_INFO&#x27;: string[pyarrow], &#x27;REPORTER_ADDRESS1&#x27;: string[pyarrow], &#x27;REPORTER_ADDRESS2&#x27;: string[pyarrow], &#x27;REPORTER_CITY&#x27;: string[pyarrow], &#x27;REPORTER_STATE&#x27;: string[pyarrow], &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: string[pyarrow], &#x27;BUYER_DEA_NO&#x27;: string[pyarrow], &#x27;BUYER_BUS_ACT&#x27;: string[pyarrow], &#x27;BUYER_NAME&#x27;: string[pyarrow], &#x27;BUYER_ADDL_CO_INFO&#x27;: string[pyarrow], &#x27;BUYER_ADDRESS1&#x27;: string[pyarrow], &#x27;BUYER_ADDRESS2&#x27;: string[pyarrow], &#x27;BUYER_CITY&#x27;: string[pyarrow], &#x27;BUYER_STATE&#x27;: string[pyarrow], &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: string[pyarrow], &#x27;TRANSACTION_CODE&#x27;: string[pyarrow], &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: string[pyarrow], &#x27;DRUG_NAME&#x27;: string[pyarrow], &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: string[pyarrow], &#x27;ACTION_INDICATOR&#x27;: string[pyarrow], &#x27;ORDER_FORM_NO&#x27;: string[pyarrow], &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: string[pyarrow], &#x27;Ingredient_Name&#x27;: string[pyarrow], &#x27;Measure&#x27;: string[pyarrow], &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: string[pyarrow], &#x27;Revised_Company_Name&#x27;: string[pyarrow], &#x27;Reporter_family&#x27;: string[pyarrow], &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;)}</td>
                     </tr>
                 
                 
@@ -930,10 +1334,10 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 
     <details style="margin-left: 32px;">
         <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer2: getitem</h4>
+            <h4 style="display: inline;">Layer2: to_pyarrow_string</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            getitem-b4fc17c18d2b87711188593a28c0412d
+            to_pyarrow_string-4a4bc2999e5dcf17280e5cc275856fd9
         </p>
 
         <table>
@@ -954,6 +1358,31 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                     <tr>
                         <th style="text-align: left; width: 150px;">number of outputs</th>
                         <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">npartitions</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">columns</th>
+                        <td style="text-align: left;">[&#x27;REPORTER_DEA_NO&#x27;, &#x27;REPORTER_BUS_ACT&#x27;, &#x27;REPORTER_NAME&#x27;, &#x27;REPORTER_ADDL_CO_INFO&#x27;, &#x27;REPORTER_ADDRESS1&#x27;, &#x27;REPORTER_ADDRESS2&#x27;, &#x27;REPORTER_CITY&#x27;, &#x27;REPORTER_STATE&#x27;, &#x27;REPORTER_ZIP&#x27;, &#x27;REPORTER_COUNTY&#x27;, &#x27;BUYER_DEA_NO&#x27;, &#x27;BUYER_BUS_ACT&#x27;, &#x27;BUYER_NAME&#x27;, &#x27;BUYER_ADDL_CO_INFO&#x27;, &#x27;BUYER_ADDRESS1&#x27;, &#x27;BUYER_ADDRESS2&#x27;, &#x27;BUYER_CITY&#x27;, &#x27;BUYER_STATE&#x27;, &#x27;BUYER_ZIP&#x27;, &#x27;BUYER_COUNTY&#x27;, &#x27;TRANSACTION_CODE&#x27;, &#x27;DRUG_CODE&#x27;, &#x27;NDC_NO&#x27;, &#x27;DRUG_NAME&#x27;, &#x27;QUANTITY&#x27;, &#x27;UNIT&#x27;, &#x27;ACTION_INDICATOR&#x27;, &#x27;ORDER_FORM_NO&#x27;, &#x27;CORRECTION_NO&#x27;, &#x27;STRENGTH&#x27;, &#x27;TRANSACTION_DATE&#x27;, &#x27;CALC_BASE_WT_IN_GM&#x27;, &#x27;DOSAGE_UNIT&#x27;, &#x27;TRANSACTION_ID&#x27;, &#x27;Product_Name&#x27;, &#x27;Ingredient_Name&#x27;, &#x27;Measure&#x27;, &#x27;MME_Conversion_Factor&#x27;, &#x27;Combined_Labeler_Name&#x27;, &#x27;Revised_Company_Name&#x27;, &#x27;Reporter_family&#x27;, &#x27;dos_str&#x27;]</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">type</th>
+                        <td style="text-align: left;">dask.dataframe.core.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">dataframe_type</th>
+                        <td style="text-align: left;">pandas.core.frame.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">series_dtypes</th>
+                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: string[pyarrow], &#x27;REPORTER_BUS_ACT&#x27;: string[pyarrow], &#x27;REPORTER_NAME&#x27;: string[pyarrow], &#x27;REPORTER_ADDL_CO_INFO&#x27;: string[pyarrow], &#x27;REPORTER_ADDRESS1&#x27;: string[pyarrow], &#x27;REPORTER_ADDRESS2&#x27;: string[pyarrow], &#x27;REPORTER_CITY&#x27;: string[pyarrow], &#x27;REPORTER_STATE&#x27;: string[pyarrow], &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: string[pyarrow], &#x27;BUYER_DEA_NO&#x27;: string[pyarrow], &#x27;BUYER_BUS_ACT&#x27;: string[pyarrow], &#x27;BUYER_NAME&#x27;: string[pyarrow], &#x27;BUYER_ADDL_CO_INFO&#x27;: string[pyarrow], &#x27;BUYER_ADDRESS1&#x27;: string[pyarrow], &#x27;BUYER_ADDRESS2&#x27;: string[pyarrow], &#x27;BUYER_CITY&#x27;: string[pyarrow], &#x27;BUYER_STATE&#x27;: string[pyarrow], &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: string[pyarrow], &#x27;TRANSACTION_CODE&#x27;: string[pyarrow], &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: string[pyarrow], &#x27;DRUG_NAME&#x27;: string[pyarrow], &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: string[pyarrow], &#x27;ACTION_INDICATOR&#x27;: string[pyarrow], &#x27;ORDER_FORM_NO&#x27;: string[pyarrow], &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: string[pyarrow], &#x27;Ingredient_Name&#x27;: string[pyarrow], &#x27;Measure&#x27;: string[pyarrow], &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: string[pyarrow], &#x27;Revised_Company_Name&#x27;: string[pyarrow], &#x27;Reporter_family&#x27;: string[pyarrow], &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;)}</td>
                     </tr>
                 
                 
@@ -984,10 +1413,10 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 
     <details style="margin-left: 32px;">
         <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer3: to_datetime</h4>
+            <h4 style="display: inline;">Layer3: getitem</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            to_datetime-52eca15982ab857959b3001545bb57fa
+            getitem-0ec209945a4341f453b8c1641c076164
         </p>
 
         <table>
@@ -1014,7 +1443,7 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">getitem-b4fc17c18d2b87711188593a28c0412d</td>
+                            <td style="text-align: left;">to_pyarrow_string-4a4bc2999e5dcf17280e5cc275856fd9</td>
                         </tr>
                     
                 
@@ -1038,10 +1467,64 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 
     <details style="margin-left: 32px;">
         <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer4: assign</h4>
+            <h4 style="display: inline;">Layer4: to_datetime</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            assign-df1f62c87a9d21a7c2e1959a33e7735a
+            to_datetime-1bedefe780ce822bc9282ff10216dcac
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">getitem-0ec209945a4341f453b8c1641c076164</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer5: assign</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            assign-0f214f75abb8c49d6711c3ced46c1ebc
         </p>
 
         <table>
@@ -1086,21 +1569,21 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                 
                     <tr>
                         <th style="text-align: left; width: 150px;">series_dtypes</th>
-                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;TRANSACTION_CODE&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: dtype(&#x27;O&#x27;), &#x27;ACTION_INDICATOR&#x27;: dtype(&#x27;O&#x27;), &#x27;ORDER_FORM_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Ingredient_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Measure&#x27;: dtype(&#x27;O&#x27;), &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Revised_Company_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Reporter_family&#x27;: dtype(&#x27;O&#x27;), &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;), &#x27;date&#x27;: dtype(&#x27;&lt;M8[ns]&#x27;)}</td>
+                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: string[pyarrow], &#x27;REPORTER_BUS_ACT&#x27;: string[pyarrow], &#x27;REPORTER_NAME&#x27;: string[pyarrow], &#x27;REPORTER_ADDL_CO_INFO&#x27;: string[pyarrow], &#x27;REPORTER_ADDRESS1&#x27;: string[pyarrow], &#x27;REPORTER_ADDRESS2&#x27;: string[pyarrow], &#x27;REPORTER_CITY&#x27;: string[pyarrow], &#x27;REPORTER_STATE&#x27;: string[pyarrow], &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: string[pyarrow], &#x27;BUYER_DEA_NO&#x27;: string[pyarrow], &#x27;BUYER_BUS_ACT&#x27;: string[pyarrow], &#x27;BUYER_NAME&#x27;: string[pyarrow], &#x27;BUYER_ADDL_CO_INFO&#x27;: string[pyarrow], &#x27;BUYER_ADDRESS1&#x27;: string[pyarrow], &#x27;BUYER_ADDRESS2&#x27;: string[pyarrow], &#x27;BUYER_CITY&#x27;: string[pyarrow], &#x27;BUYER_STATE&#x27;: string[pyarrow], &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: string[pyarrow], &#x27;TRANSACTION_CODE&#x27;: string[pyarrow], &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: string[pyarrow], &#x27;DRUG_NAME&#x27;: string[pyarrow], &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: string[pyarrow], &#x27;ACTION_INDICATOR&#x27;: string[pyarrow], &#x27;ORDER_FORM_NO&#x27;: string[pyarrow], &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: string[pyarrow], &#x27;Ingredient_Name&#x27;: string[pyarrow], &#x27;Measure&#x27;: string[pyarrow], &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: string[pyarrow], &#x27;Revised_Company_Name&#x27;: string[pyarrow], &#x27;Reporter_family&#x27;: string[pyarrow], &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;), &#x27;date&#x27;: dtype(&#x27;&lt;M8[ns]&#x27;)}</td>
                     </tr>
                 
                 
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">read-csv-98dc9420c2f021fb4e0bb3d80c72065d</td>
+                            <td style="text-align: left;">to_pyarrow_string-4a4bc2999e5dcf17280e5cc275856fd9</td>
                         </tr>
                     
                 
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"></th>
-                            <td style="text-align: left;">to_datetime-52eca15982ab857959b3001545bb57fa</td>
+                            <td style="text-align: left;">to_datetime-1bedefe780ce822bc9282ff10216dcac</td>
                         </tr>
                     
                 
@@ -1124,10 +1607,10 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 
     <details style="margin-left: 32px;">
         <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer5: getitem</h4>
+            <h4 style="display: inline;">Layer6: getitem</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            getitem-06023399ad03ddb0261ddd8d1b79d5e3
+            getitem-fc3a2c9ab7feb263a194108392589967
         </p>
 
         <table>
@@ -1154,7 +1637,7 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">assign-df1f62c87a9d21a7c2e1959a33e7735a</td>
+                            <td style="text-align: left;">assign-0f214f75abb8c49d6711c3ced46c1ebc</td>
                         </tr>
                     
                 
@@ -1178,10 +1661,10 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 
     <details style="margin-left: 32px;">
         <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer6: dt-year</h4>
+            <h4 style="display: inline;">Layer7: dt-year</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            dt-year-a9efa4ff5a9d6612f62c70f567177170
+            dt-year-f2777b5ca39c9fe965d9e5058695203d
         </p>
 
         <table>
@@ -1208,7 +1691,7 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">getitem-06023399ad03ddb0261ddd8d1b79d5e3</td>
+                            <td style="text-align: left;">getitem-fc3a2c9ab7feb263a194108392589967</td>
                         </tr>
                     
                 
@@ -1232,10 +1715,10 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 
     <details style="margin-left: 32px;">
         <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer7: assign</h4>
+            <h4 style="display: inline;">Layer8: assign</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            assign-f485e25f94f5664c192e73df6d42002d
+            assign-892dbe04283e0ab698b266469da0673a
         </p>
 
         <table>
@@ -1280,75 +1763,21 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                 
                     <tr>
                         <th style="text-align: left; width: 150px;">series_dtypes</th>
-                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;TRANSACTION_CODE&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: dtype(&#x27;O&#x27;), &#x27;ACTION_INDICATOR&#x27;: dtype(&#x27;O&#x27;), &#x27;ORDER_FORM_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Ingredient_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Measure&#x27;: dtype(&#x27;O&#x27;), &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Revised_Company_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Reporter_family&#x27;: dtype(&#x27;O&#x27;), &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;), &#x27;date&#x27;: dtype(&#x27;&lt;M8[ns]&#x27;), &#x27;year&#x27;: dtype(&#x27;int64&#x27;)}</td>
+                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: string[pyarrow], &#x27;REPORTER_BUS_ACT&#x27;: string[pyarrow], &#x27;REPORTER_NAME&#x27;: string[pyarrow], &#x27;REPORTER_ADDL_CO_INFO&#x27;: string[pyarrow], &#x27;REPORTER_ADDRESS1&#x27;: string[pyarrow], &#x27;REPORTER_ADDRESS2&#x27;: string[pyarrow], &#x27;REPORTER_CITY&#x27;: string[pyarrow], &#x27;REPORTER_STATE&#x27;: string[pyarrow], &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: string[pyarrow], &#x27;BUYER_DEA_NO&#x27;: string[pyarrow], &#x27;BUYER_BUS_ACT&#x27;: string[pyarrow], &#x27;BUYER_NAME&#x27;: string[pyarrow], &#x27;BUYER_ADDL_CO_INFO&#x27;: string[pyarrow], &#x27;BUYER_ADDRESS1&#x27;: string[pyarrow], &#x27;BUYER_ADDRESS2&#x27;: string[pyarrow], &#x27;BUYER_CITY&#x27;: string[pyarrow], &#x27;BUYER_STATE&#x27;: string[pyarrow], &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: string[pyarrow], &#x27;TRANSACTION_CODE&#x27;: string[pyarrow], &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: string[pyarrow], &#x27;DRUG_NAME&#x27;: string[pyarrow], &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: string[pyarrow], &#x27;ACTION_INDICATOR&#x27;: string[pyarrow], &#x27;ORDER_FORM_NO&#x27;: string[pyarrow], &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: string[pyarrow], &#x27;Ingredient_Name&#x27;: string[pyarrow], &#x27;Measure&#x27;: string[pyarrow], &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: string[pyarrow], &#x27;Revised_Company_Name&#x27;: string[pyarrow], &#x27;Reporter_family&#x27;: string[pyarrow], &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;), &#x27;date&#x27;: dtype(&#x27;&lt;M8[ns]&#x27;), &#x27;year&#x27;: dtype(&#x27;int32&#x27;)}</td>
                     </tr>
                 
                 
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">assign-df1f62c87a9d21a7c2e1959a33e7735a</td>
+                            <td style="text-align: left;">assign-0f214f75abb8c49d6711c3ced46c1ebc</td>
                         </tr>
                     
                 
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"></th>
-                            <td style="text-align: left;">dt-year-a9efa4ff5a9d6612f62c70f567177170</td>
-                        </tr>
-                    
-                
-                </table>
-            </td>
-            <td>
-                
-            </td>
-        </tr>
-        </table>
-
-    </details>
-</div>
-            
-            <div style="">
-    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
-        
-        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
-        
-    </svg>
-
-    <details style="margin-left: 32px;">
-        <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer8: getitem</h4>
-        </summary>
-        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            getitem-65b082a7179bbd179d42b1f248add400
-        </p>
-
-        <table>
-        <tr>
-            <td>
-                <table>
-                
-                    <tr>
-                        <th style="text-align: left; width: 150px;">layer_type</th>
-                        <td style="text-align: left;">Blockwise</td>
-                    </tr>
-                
-                    <tr>
-                        <th style="text-align: left; width: 150px;">is_materialized</th>
-                        <td style="text-align: left;">False</td>
-                    </tr>
-                
-                    <tr>
-                        <th style="text-align: left; width: 150px;">number of outputs</th>
-                        <td style="text-align: left;">1249</td>
-                    </tr>
-                
-                
-                    
-                        <tr>
-                            <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">assign-f485e25f94f5664c192e73df6d42002d</td>
+                            <td style="text-align: left;">dt-year-f2777b5ca39c9fe965d9e5058695203d</td>
                         </tr>
                     
                 
@@ -1375,7 +1804,7 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
             <h4 style="display: inline;">Layer9: getitem</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            getitem-9b67ae1a2bd7fb1817a63efa1994d7b4
+            getitem-b7160ca9e7c30a95b4cb01467cc8707e
         </p>
 
         <table>
@@ -1402,7 +1831,7 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">assign-f485e25f94f5664c192e73df6d42002d</td>
+                            <td style="text-align: left;">assign-892dbe04283e0ab698b266469da0673a</td>
                         </tr>
                     
                 
@@ -1426,10 +1855,10 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 
     <details style="margin-left: 32px;">
         <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer10: mul</h4>
+            <h4 style="display: inline;">Layer10: getitem</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            mul-9ab4fa814864c801e2cba6374dc6a7ac
+            getitem-8ba27f02bffef1a257fd2ed47c664a62
         </p>
 
         <table>
@@ -1456,14 +1885,68 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">getitem-9b67ae1a2bd7fb1817a63efa1994d7b4</td>
+                            <td style="text-align: left;">assign-892dbe04283e0ab698b266469da0673a</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer11: mul</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            mul-3a4c98283742815451702819de129619
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">getitem-8ba27f02bffef1a257fd2ed47c664a62</td>
                         </tr>
                     
                 
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"></th>
-                            <td style="text-align: left;">getitem-65b082a7179bbd179d42b1f248add400</td>
+                            <td style="text-align: left;">getitem-b7160ca9e7c30a95b4cb01467cc8707e</td>
                         </tr>
                     
                 
@@ -1487,10 +1970,10 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 
     <details style="margin-left: 32px;">
         <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer11: assign</h4>
+            <h4 style="display: inline;">Layer12: assign</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            assign-499e0f8d8a2531f815b06b72dcbc9adc
+            assign-23f9707b043807f8d5ef69823edde144
         </p>
 
         <table>
@@ -1535,21 +2018,21 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                 
                     <tr>
                         <th style="text-align: left; width: 150px;">series_dtypes</th>
-                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_DEA_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_BUS_ACT&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDL_CO_INFO&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS1&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ADDRESS2&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_CITY&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: dtype(&#x27;O&#x27;), &#x27;TRANSACTION_CODE&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;DRUG_NAME&#x27;: dtype(&#x27;O&#x27;), &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: dtype(&#x27;O&#x27;), &#x27;ACTION_INDICATOR&#x27;: dtype(&#x27;O&#x27;), &#x27;ORDER_FORM_NO&#x27;: dtype(&#x27;O&#x27;), &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Ingredient_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Measure&#x27;: dtype(&#x27;O&#x27;), &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Revised_Company_Name&#x27;: dtype(&#x27;O&#x27;), &#x27;Reporter_family&#x27;: dtype(&#x27;O&#x27;), &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;), &#x27;date&#x27;: dtype(&#x27;&lt;M8[ns]&#x27;), &#x27;year&#x27;: dtype(&#x27;int64&#x27;), &#x27;morphine_equivalent_g&#x27;: dtype(&#x27;float64&#x27;)}</td>
+                        <td style="text-align: left;">{&#x27;REPORTER_DEA_NO&#x27;: string[pyarrow], &#x27;REPORTER_BUS_ACT&#x27;: string[pyarrow], &#x27;REPORTER_NAME&#x27;: string[pyarrow], &#x27;REPORTER_ADDL_CO_INFO&#x27;: string[pyarrow], &#x27;REPORTER_ADDRESS1&#x27;: string[pyarrow], &#x27;REPORTER_ADDRESS2&#x27;: string[pyarrow], &#x27;REPORTER_CITY&#x27;: string[pyarrow], &#x27;REPORTER_STATE&#x27;: string[pyarrow], &#x27;REPORTER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;REPORTER_COUNTY&#x27;: string[pyarrow], &#x27;BUYER_DEA_NO&#x27;: string[pyarrow], &#x27;BUYER_BUS_ACT&#x27;: string[pyarrow], &#x27;BUYER_NAME&#x27;: string[pyarrow], &#x27;BUYER_ADDL_CO_INFO&#x27;: string[pyarrow], &#x27;BUYER_ADDRESS1&#x27;: string[pyarrow], &#x27;BUYER_ADDRESS2&#x27;: string[pyarrow], &#x27;BUYER_CITY&#x27;: string[pyarrow], &#x27;BUYER_STATE&#x27;: string[pyarrow], &#x27;BUYER_ZIP&#x27;: dtype(&#x27;int64&#x27;), &#x27;BUYER_COUNTY&#x27;: string[pyarrow], &#x27;TRANSACTION_CODE&#x27;: string[pyarrow], &#x27;DRUG_CODE&#x27;: dtype(&#x27;int64&#x27;), &#x27;NDC_NO&#x27;: string[pyarrow], &#x27;DRUG_NAME&#x27;: string[pyarrow], &#x27;QUANTITY&#x27;: dtype(&#x27;float64&#x27;), &#x27;UNIT&#x27;: string[pyarrow], &#x27;ACTION_INDICATOR&#x27;: string[pyarrow], &#x27;ORDER_FORM_NO&#x27;: string[pyarrow], &#x27;CORRECTION_NO&#x27;: dtype(&#x27;float64&#x27;), &#x27;STRENGTH&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_DATE&#x27;: dtype(&#x27;int64&#x27;), &#x27;CALC_BASE_WT_IN_GM&#x27;: dtype(&#x27;float64&#x27;), &#x27;DOSAGE_UNIT&#x27;: dtype(&#x27;float64&#x27;), &#x27;TRANSACTION_ID&#x27;: dtype(&#x27;int64&#x27;), &#x27;Product_Name&#x27;: string[pyarrow], &#x27;Ingredient_Name&#x27;: string[pyarrow], &#x27;Measure&#x27;: string[pyarrow], &#x27;MME_Conversion_Factor&#x27;: dtype(&#x27;float64&#x27;), &#x27;Combined_Labeler_Name&#x27;: string[pyarrow], &#x27;Revised_Company_Name&#x27;: string[pyarrow], &#x27;Reporter_family&#x27;: string[pyarrow], &#x27;dos_str&#x27;: dtype(&#x27;float64&#x27;), &#x27;date&#x27;: dtype(&#x27;&lt;M8[ns]&#x27;), &#x27;year&#x27;: dtype(&#x27;int32&#x27;), &#x27;morphine_equivalent_g&#x27;: dtype(&#x27;float64&#x27;)}</td>
                     </tr>
                 
                 
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">mul-9ab4fa814864c801e2cba6374dc6a7ac</td>
+                            <td style="text-align: left;">assign-892dbe04283e0ab698b266469da0673a</td>
                         </tr>
                     
                 
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"></th>
-                            <td style="text-align: left;">assign-f485e25f94f5664c192e73df6d42002d</td>
+                            <td style="text-align: left;">mul-3a4c98283742815451702819de129619</td>
                         </tr>
                     
                 
@@ -1573,10 +2056,10 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 
     <details style="margin-left: 32px;">
         <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer12: getitem</h4>
+            <h4 style="display: inline;">Layer13: getitem</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            getitem-9b6041b75a79c3e71d6d7acd7239fd91
+            getitem-68aeb7b2771ccedf61e9d86616bd0aa2
         </p>
 
         <table>
@@ -1621,14 +2104,14 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                 
                     <tr>
                         <th style="text-align: left; width: 150px;">series_dtypes</th>
-                        <td style="text-align: left;">{&#x27;year&#x27;: dtype(&#x27;int64&#x27;), &#x27;morphine_equivalent_g&#x27;: dtype(&#x27;float64&#x27;), &#x27;BUYER_STATE&#x27;: dtype(&#x27;O&#x27;), &#x27;BUYER_COUNTY&#x27;: dtype(&#x27;O&#x27;)}</td>
+                        <td style="text-align: left;">{&#x27;year&#x27;: dtype(&#x27;int32&#x27;), &#x27;morphine_equivalent_g&#x27;: dtype(&#x27;float64&#x27;), &#x27;BUYER_STATE&#x27;: string[pyarrow], &#x27;BUYER_COUNTY&#x27;: string[pyarrow]}</td>
                     </tr>
                 
                 
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">assign-499e0f8d8a2531f815b06b72dcbc9adc</td>
+                            <td style="text-align: left;">assign-23f9707b043807f8d5ef69823edde144</td>
                         </tr>
                     
                 
@@ -1652,10 +2135,89 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 
     <details style="margin-left: 32px;">
         <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer13: series-groupby-sum-chunk</h4>
+            <h4 style="display: inline;">Layer14: getitem</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            series-groupby-sum-chunk-3fbadc183a38ae4572bc0a532c474cd5-d5a6d15d0b1463d80fbfbb777dc826f7
+            getitem-319d278e41a66ec778afd9d17991bd07
+        </p>
+
+        <table>
+        <tr>
+            <td>
+                <table>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">layer_type</th>
+                        <td style="text-align: left;">Blockwise</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">is_materialized</th>
+                        <td style="text-align: left;">False</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">number of outputs</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">npartitions</th>
+                        <td style="text-align: left;">1249</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">columns</th>
+                        <td style="text-align: left;">[&#x27;year&#x27;, &#x27;morphine_equivalent_g&#x27;, &#x27;BUYER_STATE&#x27;, &#x27;BUYER_COUNTY&#x27;]</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">type</th>
+                        <td style="text-align: left;">dask.dataframe.core.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">dataframe_type</th>
+                        <td style="text-align: left;">pandas.core.frame.DataFrame</td>
+                    </tr>
+                
+                    <tr>
+                        <th style="text-align: left; width: 150px;">series_dtypes</th>
+                        <td style="text-align: left;">{&#x27;year&#x27;: dtype(&#x27;int32&#x27;), &#x27;morphine_equivalent_g&#x27;: dtype(&#x27;float64&#x27;), &#x27;BUYER_STATE&#x27;: string[pyarrow], &#x27;BUYER_COUNTY&#x27;: string[pyarrow]}</td>
+                    </tr>
+                
+                
+                    
+                        <tr>
+                            <th style="text-align: left; width: 150px;"> depends on </th>
+                            <td style="text-align: left;">getitem-68aeb7b2771ccedf61e9d86616bd0aa2</td>
+                        </tr>
+                    
+                
+                </table>
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        </table>
+
+    </details>
+</div>
+            
+            <div style="">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+        
+        <circle cx="16" cy="16" r="14" style="stroke: var(--jp-ui-font-color2, #1D1D1D); fill: var(--jp-layout-color1, #F2F2F2);" stroke-width="2" />
+        
+    </svg>
+
+    <details style="margin-left: 32px;">
+        <summary style="margin-bottom: 10px; margin-top: 10px;">
+            <h4 style="display: inline;">Layer15: series-groupby-sum-chunk</h4>
+        </summary>
+        <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
+            series-groupby-sum-chunk-3950a7871cd040c745a552bdb9b099af-62ab14f3d096f9fdc480a7852c7ecf8d
         </p>
 
         <table>
@@ -1682,7 +2244,7 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">getitem-9b6041b75a79c3e71d6d7acd7239fd91</td>
+                            <td style="text-align: left;">getitem-319d278e41a66ec778afd9d17991bd07</td>
                         </tr>
                     
                 
@@ -1706,10 +2268,10 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 
     <details style="margin-left: 32px;">
         <summary style="margin-bottom: 10px; margin-top: 10px;">
-            <h4 style="display: inline;">Layer14: series-groupby-sum-agg</h4>
+            <h4 style="display: inline;">Layer16: series-groupby-sum-agg</h4>
         </summary>
         <p style="color: var(--jp-ui-font-color2, #5D5851); margin: -0.25em 0px 0px 0px;">
-            series-groupby-sum-agg-3fbadc183a38ae4572bc0a532c474cd5
+            series-groupby-sum-agg-3950a7871cd040c745a552bdb9b099af
         </p>
 
         <table>
@@ -1736,7 +2298,7 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
                     
                         <tr>
                             <th style="text-align: left; width: 150px;"> depends on </th>
-                            <td style="text-align: left;">series-groupby-sum-chunk-3fbadc183a38ae4572bc0a532c474cd5-d5a6d15d0b1463d80fbfbb777dc826f7</td>
+                            <td style="text-align: left;">series-groupby-sum-chunk-3950a7871cd040c745a552bdb9b099af-62ab14f3d096f9fdc480a7852c7ecf8d</td>
                         </tr>
                     
                 
@@ -1771,7 +2333,7 @@ Dask Name: series-groupby-sum-agg, 16 graph layers
 <p><strong>The huge difference, though, is that dask lets you write code with the pandas syntax you already know.</strong> Seriously. There are lots of little “under the hood” things, but from the perspective of an applied Data Scientist, that’s the big one: it’s just a version of pandas.</p>
 <p>Moreover, as we’ll see in <span class="xref myst">later lessons</span>, dask is also insanely easy to setup on a distributed cluster, making it not only easier to use than Spark for a pandas user, but generally also much easier to get up and running (at least in my experience).</p>
 <p>Spark, by contrast, is a stand-alone system. It’s built to run on Java virtual machines, and Spark itself is written in a language called Scala. It is not a tool for pandas users per se, and so it has its own syntax for manipulating datasets that is distinct from that of <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
-<p><strong>A Note on Koalas:</strong> in the last year or so, there have been inroads in implementing the pandas API on top of spark—check out <a class="reference external" href="https://koalas.readthedocs.io/en/latest/getting_started/10min.html">koalas</a> project if you’re at a place that uses spark!</p>
+<p><strong>A Note on Koalas:</strong> in the last couple years, there have been inroads in implementing the pandas API on top of spark—check out <a class="reference external" href="https://koalas.readthedocs.io/en/latest/getting_started/10min.html">koalas</a> project if you’re at a place that uses spark! But, as usual, my preference is to hew close to tried and trusted tools.</p>
 <p>As for which is more popular, as is so often the case with software, it depends on where you’re working. In this class, I’ve decided to teach dask because you don’t have to learn a new syntax, so you can instead just focus on learning how distributed computing works. But if you get a job someday that requires you to work with Spark, don’t panic – you’ll find that all the concepts you’ve learned for using dask also apply to Spark—you’ll just have to learn some new syntax.</p>
 <p>And as for performance, it probably depends on the workload, but I’ve yet to see anything that suggests dask compute times are slower than Spark compute times. Case studies are always tricky since performance depends on the exact work being done, but here’s one <a class="reference external" href="https://arxiv.org/abs/1907.13030">case study comparison of performance</a> that puts dask just a little ahead. And I’ve heard reports of dask beating Spark by 40x in another project. So personally, I think dask is a no-brainer if you aren’t working at a company that it is already using spark: it will take <strong>much</strong> less of your time setup and use, and it should at least run about even with Spark.</p>
 <p>The only exceptions are some specific use cases, like network analysis, where Spark has some libraries that dask does not. For more on these types of issues, check out this <a class="reference external" href="https://docs.dask.org/en/latest/spark.html">conceptual comparison to Spark</a>.</p>
