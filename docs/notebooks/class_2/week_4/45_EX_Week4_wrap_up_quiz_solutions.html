@@ -225,7 +225,6 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 </ul>
 </li>
@@ -238,6 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/37_object_and_categorical_dtypes.html">The Object and Categorical Data Types</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -691,11 +691,11 @@ document.write(`
 
 <span class="k">def</span> <span class="nf">remove_greater_than</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;remove entries in `array&#39; greater than `threshold&#39; &#39;&#39;&#39;</span>
-    <span class="k">return</span> <span class="n">array</span><span class="p">[</span><span class="n">array</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">[</span><span class="n">array</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">remove_less_than</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;remove entries in `array&#39; less than `threshold&#39; &#39;&#39;&#39;</span>        
-    <span class="k">return</span> <span class="n">array</span><span class="p">[</span><span class="n">array</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">[</span><span class="n">array</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">remove_if_equal</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">value_list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;remove entries in `array&#39; that equal any value in `value_list&#39; &#39;&#39;&#39;</span>
@@ -711,6 +711,7 @@ document.write(`
 <span class="n">data</span> <span class="o">=</span> <span class="n">remove_greater_than</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="mi">800</span><span class="p">)</span>
 <span class="n">even_integers_through_1000</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">remove_if_equal</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">even_integers_through_1000</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">remove_less_than</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="mi">25</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">remove_duplicates</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 <span class="n">filtered_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -728,8 +729,8 @@ document.write(`
  704 907  46 752  31 916 578  58 588 206 338 358 782 953 336 682 640 278
  526 324  62 331 751 442 463 605 239 957 522 335 389 179 657 486 565 258
  140 997 882 388 866  13 925 854 489 402]
-894.7222222222222
-894.0
+425.078431372549
+423.0
 </pre></div>
 </div>
 </div>
@@ -738,20 +739,60 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">)))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">remove_greater_than</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">remove_less_than</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">remove_if_equal</span><span class="p">(</span><span class="n">test</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">]))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">remove_duplicates</span><span class="p">(</span><span class="n">test</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19  0  1  2  3
   4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19]
-[11 12 13 14 15 16 17 18 19 11 12 13 14 15 16 17 18 19]
-[0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9]
-[ 0  4  5  6  7  8 16 17 18 19  0  4  5  6  7  8 16 17 18 19]
-[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">remove_greater_than</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0  1  2  3  4  5  6  7  8  9 10  0  1  2  3  4  5  6  7  8  9 10]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">remove_less_than</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[10 11 12 13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">remove_if_equal</span><span class="p">(</span><span class="n">test</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0  4  5  6  7  8 16 17 18 19  0  4  5  6  7  8 16 17 18 19]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">remove_duplicates</span><span class="p">(</span><span class="n">test</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19]
 </pre></div>
 </div>
 </div>

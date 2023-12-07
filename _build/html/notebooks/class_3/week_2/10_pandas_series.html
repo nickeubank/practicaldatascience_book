@@ -229,7 +229,6 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 </ul>
 </li>
@@ -242,6 +241,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/37_object_and_categorical_dtypes.html">The Object and Categorical Data Types</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -721,10 +721,11 @@ dtype: int64
 <section id="types-of-series">
 <h2>Types of Series<a class="headerlink" href="#types-of-series" title="Permalink to this headline">#</a></h2>
 <p>Before we dive too far into Series manipulations, it’s important to talk about datatypes. Every Series, as we will see, has a “dtype” (short for datatype). The <code class="docutils literal notranslate"><span class="pre">dtype</span></code> of a Series is important to understand because a Series’ <code class="docutils literal notranslate"><span class="pre">dtype</span></code> determines what manipulations you can apply to that series.</p>
-<p>There are, broadly, two types of Series:</p>
+<p>There are, broadly, three types of Series:</p>
 <ul class="simple">
 <li><p>Numeric: these hold numbers that <code class="docutils literal notranslate"><span class="pre">pandas</span></code> understands are numbers. Specific numeric datatypes include things like <code class="docutils literal notranslate"><span class="pre">int64</span></code>, and <code class="docutils literal notranslate"><span class="pre">int32</span></code> (integers), or <code class="docutils literal notranslate"><span class="pre">float64</span></code> and <code class="docutils literal notranslate"><span class="pre">float32</span></code> (floating point numbers).</p></li>
-<li><p>Object: these are Series that can hold any Python object, like strings, numbers, Sets, you name it. They have dtype <code class="docutils literal notranslate"><span class="pre">O</span></code> for “objects”. They are flexible, but also very slow and actually harder to work with.</p></li>
+<li><p>Object: these are Series that can hold any Python object, like strings, numbers, sets, you name it. They have dtype <code class="docutils literal notranslate"><span class="pre">O</span></code> for “objects”. They are flexible, but also very slow and actually harder to work with.</p></li>
+<li><p>Categorical: this is a special data type (analogous to factors in R, if that means anything to you) that we’ll discuss in a future reading. Don’t worry about them for now.</p></li>
 </ul>
 <p>Numeric Series are by far the easiest to work with and are generally either <em>integers</em> (<code class="docutils literal notranslate"><span class="pre">int64</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, etc.) or <em>floating point numbers</em> (<code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">float32</span></code>). <em>Integer</em> Series (datatypes that start with <code class="docutils literal notranslate"><span class="pre">int</span></code>) can <em>only</em> hold… well, integers (whole numbers), while <em>floating point numbers</em> Series (datatypes that start with <code class="docutils literal notranslate"><span class="pre">float</span></code>) can hold integers, numbers with decimal points, and even missing values.</p>
 <p>The numbers at the end of these types (<code class="docutils literal notranslate"><span class="pre">64</span></code>, <code class="docutils literal notranslate"><span class="pre">32</span></code>, etc.) have to do with how many actual bits of data are allocated to each number. For the moment, the differences between them don’t matter, and in general, you’ll likely always see (and should use) the <code class="docutils literal notranslate"><span class="pre">64</span></code> suffix.</p>

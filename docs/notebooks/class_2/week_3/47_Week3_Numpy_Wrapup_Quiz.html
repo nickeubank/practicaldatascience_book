@@ -227,7 +227,6 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 </ul>
 </li>
@@ -240,6 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/37_object_and_categorical_dtypes.html">The Object and Categorical Data Types</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -495,10 +495,31 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-summarizing-data">Part 1: Summarizing Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-editing-data">Part 2: Editing Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-measuring-income-inequality-with-real-data">Part 3: Measuring Income Inequality (with Real Data!)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-question">Bonus Question</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-summarizing-data">Part 1: Summarizing Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-1">Question 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2">Question 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3">Question 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-editing-data">Part 2: Editing Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-4">Question 4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-measuring-income-inequality-with-real-data">Part 3: Measuring Income Inequality (with Real Data!)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-5">Question 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-6">Question 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-7">Question 7</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-8">Question 8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-9">Question 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-10">Question 10</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-11">Question 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-12">Question 12</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-question">Bonus Question</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-13">Question 13</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -514,7 +535,7 @@ document.write(`
 <h1>Week 3 Quiz<a class="headerlink" href="#week-3-quiz" title="Permalink to this headline">#</a></h1>
 <p><strong>Note</strong>:</p>
 <blockquote>
-<div><p>This exercise has been written out in something called a Jupyter Notebook. We’ll discuss Jupyter Notebooks in more detail later in the course—they are a very powerful tool for data science communication!—but for the time being, the notebook is just a convenient way for us to write out the exercise. You don’t need to <em>do</em> anything with the notebook except read its contents—just use write your Python code in a regular <code class="docutils literal notranslate"><span class="pre">.py</span></code> file.</p>
+<div><p>This exercise has been written out in something called a Jupyter Notebook. We’ll discuss Jupyter Notebooks in more detail later in the course—they are very a powerful tool for data science communication!—but for the time being, the notebook is just a convenient way for us to write out the exercise. You don’t need to <em>do</em> anything with the notebook except read its contents—just use write your Python code in a regular <code class="docutils literal notranslate"><span class="pre">.py</span></code> file.</p>
 </div></blockquote>
 <p>As previously discussed, we frequently use matrices and data science because they are a natural format for representing data generated by collecting the same type of information from numerous entities. For example, below is a toy dataset that you could imagine was created by collecting information about employees at a company—each column is a different type of information being collected (income, age, years of education), and each row is the information about a different employee.</p>
 <p>In the following questions, you will be asked to answer a number of questions about this toy dataset. As with other exercises in this class, you will find the directions for this graded exercise here, but please submit your actual answers in the graded quiz.</p>
@@ -545,80 +566,101 @@ document.write(`
 </div>
 <section id="part-1-summarizing-data">
 <h2>Part 1: Summarizing Data<a class="headerlink" href="#part-1-summarizing-data" title="Permalink to this headline">#</a></h2>
-<ol class="arabic simple">
-<li><p>What is the average (mean) age of all employees (rounded to 1 decimal place)?</p></li>
-<li><p>What is the average (mean) income of employees over 30 (rounded to 1 decimal place)?</p></li>
-<li><p>What is the average (mean) number of years of education for employees with incomes above the average income of all employees (rounded to 1 decimal place)?</p></li>
-</ol>
+<section id="question-1">
+<h3>Question 1<a class="headerlink" href="#question-1" title="Permalink to this headline">#</a></h3>
+<p>What is the average (mean) age of all employees (rounded to 1 decimal place)?</p>
+</section>
+<section id="question-2">
+<h3>Question 2<a class="headerlink" href="#question-2" title="Permalink to this headline">#</a></h3>
+<p>What is the average (mean) income of employees over 30 (rounded to 1 decimal place)?</p>
+</section>
+<section id="question-3">
+<h3>Question 3<a class="headerlink" href="#question-3" title="Permalink to this headline">#</a></h3>
+<p>What is the average (mean) number of years of education for employees with incomes above the average income of all employees (rounded to 1 decimal place)?</p>
+</section>
 </section>
 <section id="part-2-editing-data">
 <h2>Part 2: Editing Data<a class="headerlink" href="#part-2-editing-data" title="Permalink to this headline">#</a></h2>
 <p>The US government is thinking about offering a 1,500 tax credit to anyone making less than 20,000 a year. You can think of this tax credit as effectively an additional $1,500 of income to each person receiving the credit.</p>
-<ol class="arabic simple" start="4">
-<li><p>Using the data from <code class="docutils literal notranslate"><span class="pre">survey</span></code>, modify income values to calculate a new estimate of the employees’ incomes after we take this credit into account. What will the average income be for all employees if those making less than 20,000 a year were to receive this credit (rounded to 1 decimal place)?</p>
-<ul class="simple">
-<li><p>Do so by subsetting and editing values programmatically, <em>not</em> just typing values by hand. (Yes, writing out a new vector by hand is easy to do in this example, but you couldn’t do it with a large, real dataset!)</p></li>
-</ul>
-</li>
-</ol>
+<section id="question-4">
+<h3>Question 4<a class="headerlink" href="#question-4" title="Permalink to this headline">#</a></h3>
+<p>Using the data from <code class="docutils literal notranslate"><span class="pre">survey</span></code>, modify income values to calculate a new estimate of the employees’ incomes after we take this credit into account. What will the average income be for all employees if those making less than 20,000 a year were to receive this credit (rounded to 1 decimal place)?
+- Do so by subsetting and editing values programmatically, <em>not</em> just typing values by hand. (Yes, writing out a new vector by hand is easy to do in this example, but you couldn’t do it with a large, real dataset!)</p>
+</section>
 </section>
 <section id="part-3-measuring-income-inequality-with-real-data">
 <h2>Part 3: Measuring Income Inequality (with Real Data!)<a class="headerlink" href="#part-3-measuring-income-inequality-with-real-data" title="Permalink to this headline">#</a></h2>
 <p>In this exercise, we’ll be working with data from the <a class="reference external" href="https://www.nber.org/research/data/current-population-survey-cps-merged-outgoing-rotation-group-earnings-data">US Current Population Survey, provided by the National Bureau of Economic Research (NBER)</a>. This is a regular survey conducted by the US Bureau of Labor to calculate the US employment rate.</p>
-<p>In this exercise, we’ll use these data to study gender and racial wage inequality in the US.</p>
+<p>In this exercise, we’ll use this data to study gender and racial wage inequality in the US.</p>
 <p>Load data from the 2018 CPS survey with the following command:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;data/cps.txt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This data are a <em>subset</em> of the full CPS survey and contains only data on <strong>employed respondents working at least 35 hours a week (e.g., full-time).</strong></p>
-<ol class="arabic simple" start="5">
-<li><p>How many rows does this matrix have?</p></li>
-<li><p>The five columns of this matrix correspond to:</p>
-<ul class="simple">
-<li><p>Column 1: Weekly income in dollars.</p></li>
-<li><p>Column 2: Usual hours respondent works per week.</p></li>
-<li><p>Column 3: Gender. 2 is “Female”, 1 is “Male”</p></li>
-<li><p>Column 4: Race. This can take on a lot of values for those who identify as mixed race, but for simplicity, in this exercise, we’ll just focus on a few values. For those interested, the full set of codes can be found on page 19 of the <a class="reference external" href="https://data.nber.org/morg/docs/cpsx.pdf">CPS codebook</a>.</p>
-<ul>
-<li><p>1: White</p></li>
-<li><p>2: Black</p></li>
-<li><p>3: American Indian</p></li>
-<li><p>4: Asian only</p></li>
-<li><p>5: Hawaiian/Pacific Islander only</p></li>
-</ul>
-</li>
-<li><p>Column 5: Survey weights.</p></li>
-</ul>
-</li>
-</ol>
+<p>This data is a <em>subset</em> of the full CPS survey and contains only data on <strong>employed respondents working at least 35 hours a week (e.g., full-time).</strong></p>
+<section id="question-5">
+<h3>Question 5<a class="headerlink" href="#question-5" title="Permalink to this headline">#</a></h3>
+<p>How many rows does this matrix have?</p>
+</section>
+<section id="question-6">
+<h3>Question 6<a class="headerlink" href="#question-6" title="Permalink to this headline">#</a></h3>
+<p>The five columns of this matrix correspond to:
+- Column 1: Weekly income in dollars.
+- Column 2: Usual hours respondent works per week.
+- Column 3: Gender. 2 is “Female”, 1 is “Male”
+- Column 4: Race. This can take on a lot of values for those who identify as mixed race, but for simplicity, in this exercise, we’ll just focus on a few values. For those interested, the full set of codes can be found on page 19 of the <a class="reference external" href="https://data.nber.org/morg/docs/cpsx.pdf">CPS codebook</a>.
+- 1: White
+- 2: Black
+- 3: American Indian
+- 4: Asian only
+- 5: Hawaiian/Pacific Islander only
+- Column 5: Survey weights.</p>
 <p>Note that race does not break out Hispanic / non-Hispanic identities. In US government surveys, Hispanic / non-Hispanic is usually recorded in a separate <code class="docutils literal notranslate"><span class="pre">ethnicity</span></code> variable, so many people who identify as Hispanic are identified as White or Black in the <code class="docutils literal notranslate"><span class="pre">race</span></code> variable.</p>
 <p>For the moment, let’s ignore survey weights—they don’t impact results here significantly.</p>
-<p><strong>What is the <em>average hourly wage</em> for all workers in this dataset (round it to one decimal place)?</strong></p>
+<p><strong>What is the <em>average hourly wage</em> for all workers in this data?</strong></p>
+<p>Please round your <em>final</em> answer to one decimal place, but <em>don’t round any intermediate results!</em> (if you round at each stage of the calculation, those roundings may compound in odd ways).</p>
 <p><strong>Hint:</strong> This will require more than just using <code class="docutils literal notranslate"><span class="pre">mean</span></code> on a single column!</p>
-<ol class="arabic simple" start="7">
-<li><p>What is the average hourly wage of working men (rounded to one decimal place)?</p></li>
-<li><p>What is the average hourly wage of working women (rounded to one decimal place)?</p></li>
-<li><p>What share (e.g., a value between 0 and 1) of men’s average hourly wage is women’s average hourly wage? (rounded to three decimal places). In other words, what is women’s average hourly wage divided by men’s average hourly wage? <em>Don’t round anything until you have your final answer!</em></p></li>
-</ol>
+</section>
+<section id="question-7">
+<h3>Question 7<a class="headerlink" href="#question-7" title="Permalink to this headline">#</a></h3>
+<p>What is the average hourly wage of working men? (Please round your <em>final</em> answer to one decimal place, but <em>don’t round any intermediate results!</em>)</p>
+</section>
+<section id="question-8">
+<h3>Question 8<a class="headerlink" href="#question-8" title="Permalink to this headline">#</a></h3>
+<p>What is the average hourly wage of working women? (Please round your <em>final</em> answer to one decimal place, but <em>don’t round any intermediate results!</em>)</p>
+</section>
+<section id="question-9">
+<h3>Question 9<a class="headerlink" href="#question-9" title="Permalink to this headline">#</a></h3>
+<p>What share (e.g., a value between 0 and 1) of men’s average hourly wage is women’s average hourly wage? (Please round your <em>final</em> answer to three decimal place, but <em>don’t round any intermediate results!</em>). In other words, what is women’s average hourly wage divided by men’s average hourly wage?</p>
 <p>Congratulations! You’ve just calculated the US gender wage gap, on your own, using real data! I mean… I guess “congratulations” is a weird thing to say after directly measuring one of the more egregious inequities in US society, but one of the reasons many of us study data science is so that we will have the ability to directly measure these types of phenomena in the hopes of being able to better understand and address them.</p>
-<ol class="arabic simple" start="10">
-<li><p>Now, speaking of egregious inequities, what is the average hourly wage for respondents who identify as Black (rounded to one decimal place)?</p></li>
-<li><p>What is the average hourly wage for respondents who identify as White (rounded to one decimal place)?</p></li>
-<li><p>What share (e.g., a value between 0 and 1) of respondents who identify as White’s average hourly wage is respondents who identify as Black’s average hourly wage? (rounded to three decimal places). In other words, what is the respondents who identify as Black’s average hourly wage divided by respondents who identify as White’s average hourly wage? <em>Don’t round anything until you have your final answer!</em></p></li>
-</ol>
+</section>
+<section id="question-10">
+<h3>Question 10<a class="headerlink" href="#question-10" title="Permalink to this headline">#</a></h3>
+<p>Now, speaking of egregious inequities, what is the average hourly wage for respondents who identify as Black (rounded to one decimal place)?</p>
+</section>
+<section id="question-11">
+<h3>Question 11<a class="headerlink" href="#question-11" title="Permalink to this headline">#</a></h3>
+<p>What is the average hourly wage for respondents who identify as White (rounded to one decimal place)?</p>
+</section>
+<section id="question-12">
+<h3>Question 12<a class="headerlink" href="#question-12" title="Permalink to this headline">#</a></h3>
+<p>What share (e.g., a value between 0 and 1) of respondents who identify as White’s average hourly wage is respondents who identify as Black’s average hourly wage? (rounded to three decimal places). In other words, what is the respondents who identify as Black’s average hourly wage divided by respondents who identify as White’s average hourly wage? <em>Don’t round anything until you have your final answer!</em></p>
 <p>Note that this will only be an approximation—one would normally also include all respondents of mixed-race into non-mutually exclusive categories like “Any Part Black” or “Any Part White”, and we would also break out Hispanic and non-Hispanic respondents. But as most respondents only pick on racial category, this will still give us a reasonable approximation.</p>
+</section>
 </section>
 <section id="bonus-question">
 <h2>Bonus Question<a class="headerlink" href="#bonus-question" title="Permalink to this headline">#</a></h2>
 <p>As noted above, the fifth column of our data contains something called “sampling weights.” That’s because when the government conducted this survey, they didn’t draw a random sample of respondents from the US population where everyone had the same probability of being interviewed. As a result, when we calculate the average hourly wage of the people in the survey, it isn’t <em>quite</em> the best estimate we have for the average hourly wage for everyone working in the United States. To calculate this number as accurately as possible, we have to take into account the fact that some respondents in the data were more likely to be included than others, and thus can be thought of as standing in for a smaller group of people in the US.</p>
-<p>Why would the government do this? The main reason is that if we want to make statements about a group in a survey like this, the accuracy of those statements will depend on the number of individuals who have actually ended up taking the survey. If we are interested in a big group—like White men—we are almost guaranteed to have enough of them in any reasonably sized survey to be able to make accurate statements about that subpopulation. But if we were interested in the life experiences of, say, people in their twenties who have a high school diploma but never attended college, and who live in rural communities, we may have to make a deliberate effort to ensure that there are more of those people in our survey than what we would get if we just took a random sample where everyone in the United States had the same probability of being included.</p>
+<p>Why would the government do this? The main reason is that if we want to make statements about a group in a survey like this, the accuracy of those statements will depend on the number of individuals who have actually ended up taking the survey. If we are interested in a big group—like White men—we are almost guaranteed to have enough of them in any reasonably sized survey to be able to make accurate statements about that subpopulation. But if we were interested in the life experiences of, say, people in their twenties who have a high school diploma but never attended college, and who live in rural communities, we may have to make a deliberate effort to ensure that there are more of those people in our survey than when we would get if we just took a random sample where everyone in the United States had the same probability of being included.</p>
 <p>As I mentioned above, for the questions above, the sampling weights don’t make a very big difference to our answers, but the way to get the <em>most accurate</em> estimates would be to take them into account. So let’s give that a try!</p>
 <p>When we calculate the average of a variable, we do so by multiplying all the values of the variable by <span class="math notranslate nohighlight">\(1/N\)</span> (where <span class="math notranslate nohighlight">\(N\)</span> is the number of observations we have) and then adding up those multiplied values.</p>
 <p>For a <em>weighted</em> average, we take the value for each observation <span class="math notranslate nohighlight">\(i\)</span> and multiply it by</p>
 <div class="math notranslate nohighlight">
-\[weight_i / \sum_{j=1}^N weight_j\]</div>
-<p>where <span class="math notranslate nohighlight">\(weight_i\)</span> is the observation’s weight, and <span class="math notranslate nohighlight">\(\sum_{j=1}^N weight_j\)</span> is the total of all the weights in the population being averaged. Then we just add up those values!</p>
+\[weight_i / \sum_{j=1}^N weights_j\]</div>
+<p>where <span class="math notranslate nohighlight">\(weight_i\)</span> is the observation’s weight, and <span class="math notranslate nohighlight">\(\sum_{j=1}^N weights_j\)</span> is the total of all the weights in the population being averaged. Then we just add up those values!</p>
+<section id="question-13">
+<h3>Question 13<a class="headerlink" href="#question-13" title="Permalink to this headline">#</a></h3>
 <p>Given that, what is the average hourly wage of Americans working full-time jobs (i.e., the group in this survey) taking into account survey weights (rounded to <strong>two</strong> decimal places)?</p>
+</section>
 </section>
 </section>
 
@@ -671,10 +713,31 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-summarizing-data">Part 1: Summarizing Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-editing-data">Part 2: Editing Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-measuring-income-inequality-with-real-data">Part 3: Measuring Income Inequality (with Real Data!)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-question">Bonus Question</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-summarizing-data">Part 1: Summarizing Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-1">Question 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-2">Question 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-3">Question 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-editing-data">Part 2: Editing Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-4">Question 4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-measuring-income-inequality-with-real-data">Part 3: Measuring Income Inequality (with Real Data!)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-5">Question 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-6">Question 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-7">Question 7</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-8">Question 8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-9">Question 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-10">Question 10</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-11">Question 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-12">Question 12</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-question">Bonus Question</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-13">Question 13</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

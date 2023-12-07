@@ -227,7 +227,6 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 </ul>
 </li>
@@ -240,6 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Cleaning Data Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="35_cleaning_missing_data.html">Missing Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="37_object_and_categorical_dtypes.html">The Object and Categorical Data Types</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -520,8 +520,10 @@ document.write(`
 <p>Because this is so common, let’s look at a quick example of this type of problem with our old friend <code class="docutils literal notranslate"><span class="pre">world-very-small</span></code>!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/world-very-small-type-errors.csv&quot;</span><span class="p">)</span>
 <span class="n">world</span>
@@ -647,7 +649,7 @@ dtype: object
 </div>
 </div>
 <p>Oops! Yup, there it is! Indeed, we can also see that <code class="docutils literal notranslate"><span class="pre">polityIV</span></code> is also an <code class="docutils literal notranslate"><span class="pre">object</span></code>, something we’ll deal with later.</p>
-<p>So this kind of phenomenon is such a common problem that pandas has a tool to deal with it: <code class="docutils literal notranslate"><span class="pre">.str.isnumeric()</span></code>. This method returns <code class="docutils literal notranslate"><span class="pre">True</span></code> is an observation can be converted to a number without issues, and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise, so by using its logical negation, we can find all observations that aren’t convertible (which we may then need to fix):</p>
+<p>So this kind of phenomenon is such a common problem that pandas has a tool to deal with it: <code class="docutils literal notranslate"><span class="pre">.str.isnumeric()</span></code>. This method returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if an observation can be converted to a number without issues, and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise, so by using its logical negation, we can find all observations that aren’t convertible (which we may then need to fix):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">(),</span> <span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -663,7 +665,7 @@ Name: count, dtype: int64
 </div>
 </div>
 <p>(Recall we have to use <code class="docutils literal notranslate"><span class="pre">~</span></code> instead of <code class="docutils literal notranslate"><span class="pre">not</span></code> to invert <code class="docutils literal notranslate"><span class="pre">True</span></code> values to <code class="docutils literal notranslate"><span class="pre">False</span></code> in a numpy array or pandas Series)</p>
-<p>There we are! One observation of <code class="docutils literal notranslate"><span class="pre">&quot;na&quot;</span></code> is the source of our problems. Note that you could also use <code class="docutils literal notranslate"><span class="pre">.unique()</span></code> instead of <code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code> if you don’t care about the number of observations are causing problems.</p>
+<p>There we are! One observation of <code class="docutils literal notranslate"><span class="pre">&quot;na&quot;</span></code> is the source of our problems. Note that you could also use <code class="docutils literal notranslate"><span class="pre">.unique()</span></code> instead of <code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code> if you don’t care about the number of observations that are causing problems.</p>
 <p>OK, so how do we fix this? In this case, it seems like <code class="docutils literal notranslate"><span class="pre">na</span></code> is probably just short for <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>, so we can replace it with <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>, which <em>is</em> a number:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -686,7 +688,7 @@ Name: count, dtype: int64
 </div>
 </div>
 </div>
-<p>Now, there’s one other option in these situations: if <code class="docutils literal notranslate"><span class="pre">na</span></code> is appearing in lots of places in your data as a representation for missing data, we can also communicate this fact to <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>. Remember when we said that <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> has more options than you could ever imagine? Well one is <code class="docutils literal notranslate"><span class="pre">na_values</span></code>, where you can specify how missing data is represented in a dataset. If we use that to tell <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> that <code class="docutils literal notranslate"><span class="pre">&quot;na&quot;</span></code> means data is missing, it’ll make this correction on the fly!</p>
+<p>Now, there’s one other option in these situations: if <code class="docutils literal notranslate"><span class="pre">na</span></code> is appearing in lots of places in your data as a representation for missing data, we can also communicate this fact to <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>. Remember when we said that <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> has more options than you could ever imagine? Well, one is <code class="docutils literal notranslate"><span class="pre">na_values</span></code>, where you can specify how missing data is represented in a dataset. If we use that to tell <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> that <code class="docutils literal notranslate"><span class="pre">&quot;na&quot;</span></code> means data is missing, it’ll make this correction on the fly!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/world-very-small-type-errors.csv&quot;</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="s2">&quot;na&quot;</span><span class="p">)</span>
@@ -798,7 +800,7 @@ dtype: object
 </section>
 <section id="deliberate-non-numerics">
 <h2>Deliberate Non-Numerics<a class="headerlink" href="#deliberate-non-numerics" title="Permalink to this headline">#</a></h2>
-<p>While in the example above <code class="docutils literal notranslate"><span class="pre">&quot;na&quot;</span></code> wasn’t really meant to be interpreted as a string, sometimes non-numeric values are inserted into datasets to communicate something important to the user. For example, in this toy example <code class="docutils literal notranslate"><span class="pre">polityIV</span></code> has a non-numeric value:</p>
+<p>While in the example above <code class="docutils literal notranslate"><span class="pre">&quot;na&quot;</span></code> wasn’t really meant to be interpreted as a string, sometimes non-numeric values are inserted into datasets to communicate something important to the user. For example, in this toy example, <code class="docutils literal notranslate"><span class="pre">polityIV</span></code> has a non-numeric value:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;polityIV&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">()]</span>
@@ -842,7 +844,7 @@ dtype: object
 </table>
 </div></div></div>
 </div>
-<p>Here, the value is to indicate that the value of policy could be 20 <em>or any value above 20</em>. Why might this occur? In this case I’ve made it up, but in many surveys there will be a maximum value allowed (e.g., some surveys have a top income value they can record). These are called “top-codes”, and they are different from the case above because it’s not immediately clear what value you should put into the field. You <em>could</em> put in 20, but… the value might not be 20, it could be 21!</p>
+<p>Here, the value is to indicate that the value of <code class="docutils literal notranslate"><span class="pre">polityIV</span></code> could be 20 <em>or any value above 20</em>. Why might this occur? In this case, I’ve made it up, but in many surveys, there will be a maximum value allowed (e.g., some surveys have a top income value they can record). These are called “top-codes”, and they are different from the case above because it’s not immediately clear what value you should put into the field. You <em>could</em> put in 20, but… the value might not be 20, it could be 21!</p>
 <p>So when you find a top-code like this, you need to think carefully about what to do with it, as the answer will depend on the type of analysis you want to do. But the answer will almost always lie not in the data, but in the documentation for the data.</p>
 </section>
 <section id="review">

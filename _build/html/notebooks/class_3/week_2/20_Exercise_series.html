@@ -227,7 +227,6 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 </ul>
 </li>
@@ -240,6 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/37_object_and_categorical_dtypes.html">The Object and Categorical Data Types</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -517,13 +517,22 @@ document.write(`
 <p>To get accustomed to Series, let’s explore some data on the wealth of 10 randomly selected countries. Data below presents the gross domestic product (GDP) per capita for these countries in 2008.</p>
 <p>Use the code below to get started:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">gdppercap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">34605</span><span class="p">,</span> <span class="mi">34493</span><span class="p">,</span> <span class="mi">12393</span><span class="p">,</span> <span class="mi">44200</span><span class="p">,</span> <span class="mi">10041</span><span class="p">,</span> 
-                       <span class="mi">58138</span><span class="p">,</span> <span class="mi">4709</span><span class="p">,</span> <span class="mi">49284</span><span class="p">,</span> <span class="mi">10109</span><span class="p">,</span> <span class="mi">42536</span><span class="p">],</span>
-                      <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Bahrain&#39;</span><span class="p">,</span> <span class="s1">&#39;Belgium&#39;</span><span class="p">,</span> <span class="s1">&#39;Bulgaria&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;Ireland&#39;</span><span class="p">,</span> <span class="s1">&#39;Macedonia&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">,</span> 
-                             <span class="s1">&#39;Paraguay&#39;</span><span class="p">,</span> <span class="s1">&#39;Singapore&#39;</span><span class="p">,</span> 
-                             <span class="s1">&#39;South Africa&#39;</span><span class="p">,</span> <span class="s1">&#39;Switzerland&#39;</span><span class="p">]</span>
-                      <span class="p">)</span>                   
+
+<span class="n">gdppercap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+    <span class="p">[</span><span class="mi">34605</span><span class="p">,</span> <span class="mi">34493</span><span class="p">,</span> <span class="mi">12393</span><span class="p">,</span> <span class="mi">44200</span><span class="p">,</span> <span class="mi">10041</span><span class="p">,</span> <span class="mi">58138</span><span class="p">,</span> <span class="mi">4709</span><span class="p">,</span> <span class="mi">49284</span><span class="p">,</span> <span class="mi">10109</span><span class="p">,</span> <span class="mi">42536</span><span class="p">],</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;Bahrain&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Belgium&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Bulgaria&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ireland&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Macedonia&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Norway&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Paraguay&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Singapore&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;South Africa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Switzerland&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <section id="exercise-1">
@@ -565,15 +574,32 @@ document.write(`
 <p>The result we just generated offers a snap-shot of inequality for this subset of countries. But what are the dynamics of inequality for these countries?</p>
 <p>There is an idea in economics called the “convergence hypothesis”, which argues that poorer countries are likely to grow faster, and as a result global inequality is likely to decline. Economists advocating for this hypothesis pointed out that while rich countries had to invent new technologies in order to grow, many poor countries simply had to take advantage of innovations already developed by rich countries.</p>
 <p>To test this hypothesis, let’s do a small analysis of the dynamics of income inequality in our sample. Create the following Series in your Python session, which provides the average growth rate of GDP per capita for all the countries in our sample from 2000 to 2018.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">avg_growth</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="o">-</span><span class="mf">0.29768835</span><span class="p">,</span> <span class="mf">0.980299584</span><span class="p">,</span> <span class="mf">4.52991925</span><span class="p">,</span> 
-                        <span class="mf">3.686556736</span><span class="p">,</span> <span class="mf">2.621416804</span><span class="p">,</span> <span class="mf">0.775132075</span><span class="p">,</span> 
-                        <span class="mf">2.015489468</span><span class="p">,</span> <span class="mf">3.345793635</span><span class="p">,</span> <span class="mf">1.349993318</span><span class="p">,</span> 
-                        <span class="mf">0.982775018</span><span class="p">],</span>
-                        <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Bahrain&#39;</span><span class="p">,</span> <span class="s1">&#39;Belgium&#39;</span><span class="p">,</span> <span class="s1">&#39;Bulgaria&#39;</span><span class="p">,</span> 
-                               <span class="s1">&#39;Ireland&#39;</span><span class="p">,</span> <span class="s1">&#39;Macedonia&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">,</span> 
-                               <span class="s1">&#39;Paraguay&#39;</span><span class="p">,</span> <span class="s1">&#39;Singapore&#39;</span><span class="p">,</span> 
-                               <span class="s1">&#39;South Africa&#39;</span><span class="p">,</span> <span class="s1">&#39;Switzerland&#39;</span><span class="p">]</span>
-                      <span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">avg_growth</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="o">-</span><span class="mf">0.29768835</span><span class="p">,</span>
+        <span class="mf">0.980299584</span><span class="p">,</span>
+        <span class="mf">4.52991925</span><span class="p">,</span>
+        <span class="mf">3.686556736</span><span class="p">,</span>
+        <span class="mf">2.621416804</span><span class="p">,</span>
+        <span class="mf">0.775132075</span><span class="p">,</span>
+        <span class="mf">2.015489468</span><span class="p">,</span>
+        <span class="mf">3.345793635</span><span class="p">,</span>
+        <span class="mf">1.349993318</span><span class="p">,</span>
+        <span class="mf">0.982775018</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;Bahrain&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Belgium&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Bulgaria&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ireland&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Macedonia&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Norway&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Paraguay&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Singapore&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;South Africa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Switzerland&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Using this data on average growth rates in GDP per capita, and assuming growth rates from 2000 to 2018 continue into the future, estimate what our Gini Coefficient may look like in 2025 (remembering that income in our data is from 2008, so we’re extrapolating ahead 17 years)?</p>

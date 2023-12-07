@@ -64,7 +64,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Combining, grouping, and querying data" href="../week_4/00_intro_to_querying_data.html" />
+    <link rel="next" title="The Object and Categorical Data Types" href="37_object_and_categorical_dtypes.html" />
     <link rel="prev" title="Cleaning Data Types" href="33_cleaning_datatypes.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
@@ -227,7 +227,6 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 </ul>
 </li>
@@ -240,6 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="33_cleaning_datatypes.html">Cleaning Data Types</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Missing Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="37_object_and_categorical_dtypes.html">The Object and Categorical Data Types</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -539,9 +539,9 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">smallworld</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;https://raw.githubusercontent.com/nickeubank/&quot;</span>
-    <span class="s2">&quot;practicaldatascience/master/Example_Data/world-very-small.csv&quot;</span>
+<span class="n">smallworld</span> <span class="o">=</span> <span class="n">smallworld</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;https://raw.githubusercontent.com/nickeubank/practicaldatascience_book&quot;</span>
+    <span class="s2">&quot;/main/notebooks/class_3/week_3/data/world-very-small.csv&quot;</span>
 <span class="p">)</span>
 <span class="n">smallworld</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smallworld</span><span class="o">.</span><span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;Mozambique&quot;</span><span class="p">,</span> <span class="s2">&quot;polityIV&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 <span class="n">smallworld</span>
@@ -855,11 +855,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>employed              148758
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>empstat
+employed              148758
 not in labor force    104676
 unemployed              7727
 n/a                        0
-Name: empstat, dtype: int64
+Name: count, dtype: int64
 </pre></div>
 </div>
 </div>
@@ -872,12 +873,13 @@ Name: empstat, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>employed              148758
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>empstat
+employed              148758
 not in labor force    104676
 NaN                    57843
 unemployed              7727
 n/a                        0
-Name: empstat, dtype: int64
+Name: count, dtype: int64
 </pre></div>
 </div>
 </div>
@@ -947,11 +949,11 @@ Name: empstat, dtype: int64
       </div>
     </a>
     <a class="right-next"
-       href="../week_4/00_intro_to_querying_data.html"
+       href="37_object_and_categorical_dtypes.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Combining, grouping, and querying data</p>
+        <p class="prev-next-title">The Object and Categorical Data Types</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

@@ -227,7 +227,6 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 </ul>
 </li>
@@ -240,6 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/37_object_and_categorical_dtypes.html">The Object and Categorical Data Types</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -643,12 +643,23 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_22245/1336667577.py:1: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  attendance[0]
+</pre></div>
+</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>132
 </pre></div>
 </div>
 </div>
 </div>
 <p>As a result, for someone reading your code to understand what <code class="docutils literal notranslate"><span class="pre">[]</span></code> is doing, they have to also be keeping track of the data type of the index of the pandas object being manipulated. And while you may think “yeah, but my code is just for me, so who cares?” let me let you in on a secret: that “other person” who may struggle to understand your code maybe you when you come back to your code in a week to fix something and no longer remember everything that feels obvious to you right now!</p>
+<p>Now, as you may have noticed from the <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> generated when we ran that code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>FutureWarning: Series.__getitem__ treating keys as positions is deprecated. 
+In a future version, integer keys will always be treated as labels (consistent 
+with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+</pre></div>
+</div>
+<p>the developers of pandas concur that this behavior is <em>very</em> weird, and at some point soon it will be depreciated (probably in <code class="docutils literal notranslate"><span class="pre">pandas</span> <span class="pre">3.0</span></code>). But for now, it remains a “gotcha” to be aware of!</p>
 </section>
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>

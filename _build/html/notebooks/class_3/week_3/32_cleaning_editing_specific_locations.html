@@ -227,7 +227,6 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
 </ul>
 </li>
@@ -240,6 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Editing Specific Locations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="33_cleaning_datatypes.html">Cleaning Data Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="35_cleaning_missing_data.html">Missing Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="37_object_and_categorical_dtypes.html">The Object and Categorical Data Types</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -545,7 +545,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>As we can see, when we write <code class="docutils literal notranslate"><span class="pre">my_list[2]</span></code> on the <em>left</em> side of the assignment operator (a single equals sign), then whatever we put on the right side of the assignment operator is being assigned <em>into the entry with index 2</em> of the list.</p>
+<p>As we can see, when we write <code class="docutils literal notranslate"><span class="pre">my_list[2]</span></code> on the <em>left</em> side of the assignment operator (a single equals sign), whatever we put on the right side of the assignment operator is assigned <em>into</em> the entry with index 2 of the list.</p>
 <p>As you may recall, this same logic can also be extended to two dimensions in <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays. Consider the following:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -590,6 +590,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]})</span>
 <span class="n">df</span>
@@ -701,7 +703,7 @@ document.write(`
 </table>
 </div></div></div>
 </div>
-<p>But this alone is only kinda useful. After all, our datasets are usually very large, and we rarely want to make modifications to cells whose row numbers we already know. But thankfully, in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> we can pass boolean vectors to <code class="docutils literal notranslate"><span class="pre">.loc</span></code> to identify all rows that meet certain conditions and assign values to those specific cells. For example, suppose we wanted to set column <code class="docutils literal notranslate"><span class="pre">b</span></code> to 0 for all rows where column <code class="docutils literal notranslate"><span class="pre">a</span></code> is even. We could do:</p>
+<p>But this alone is only kinda useful. After all, our datasets are usually very large, and we rarely want to make modifications to cells whose row numbers we already know. Thankfully, in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> we can pass boolean vectors to <code class="docutils literal notranslate"><span class="pre">.loc</span></code> to identify all rows that meet certain conditions and assign values to those specific cells. For example, suppose we wanted to set column <code class="docutils literal notranslate"><span class="pre">b</span></code> to 0 for all rows where column <code class="docutils literal notranslate"><span class="pre">a</span></code> is even. We could do:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Recall that x % 2 gives the remainder after</span>
@@ -760,8 +762,8 @@ document.write(`
 </table>
 </div></div></div>
 </div>
-<p>See how the boolean vector on the left subset for rows where <code class="docutils literal notranslate"><span class="pre">a</span></code> was even (the value of <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">%</span> <span class="pre">2</span></code> is zero), and the second entry (<code class="docutils literal notranslate"><span class="pre">b</span></code>) subset for the column <code class="docutils literal notranslate"><span class="pre">b</span></code>, then we assigned 0 into those cells? It’s just a generalization of the kinds of assignments we did above with lists and numpy arrays, just using boolean vectors and column labels instead of indices!</p>
-<p>Great! But now suppose we don’t just want to set certain values to a constant, but instead we wanted to, say, double all the values in odd rows. We can do that to by assigning values that “fit” into the cells on the left of the assignment operator (i.e. by making sure the values we assign have the same dimensions as the cells into which we’re trying to assign them):</p>
+<p>See how the boolean vector on the left subset for rows where <code class="docutils literal notranslate"><span class="pre">a</span></code> was even (the value of <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">%</span> <span class="pre">2</span></code> is zero), and the second entry (<code class="docutils literal notranslate"><span class="pre">b</span></code>) subset for column <code class="docutils literal notranslate"><span class="pre">b</span></code>, then we assigned 0 into those cells? It’s just a generalization of the kinds of assignments we did above with lists and numpy arrays, just using boolean vectors and column labels instead of indices!</p>
+<p>Great! But now suppose we don’t just want to set certain values to a constant, but instead we wanted to, say, double all the values in odd rows. We can do that too by assigning values that “fit” into the cells on the left of the assignment operator (i.e. by making sure the values we assign have the same dimensions as the cells into which we’re trying to assign them):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
@@ -823,10 +825,11 @@ document.write(`
 <p>OK, so let’s circle back to our desire to edit our Polity IV value for Mozambique. How would we use this technique here?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smallworld</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;https://raw.githubusercontent.com/nickeubank/&quot;</span>
-    <span class="s2">&quot;practicaldatascience/master/Example_Data/world-very-small.csv&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smallworld</span> <span class="o">=</span> <span class="n">smallworld</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;https://raw.githubusercontent.com/nickeubank/practicaldatascience_book&quot;</span>
+    <span class="s2">&quot;/main/notebooks/class_3/week_3/data/world-very-small.csv&quot;</span>
 <span class="p">)</span>
+
 <span class="n">smallworld</span>
 </pre></div>
 </div>
@@ -852,7 +855,8 @@ document.write(`
       <th></th>
       <th>country</th>
       <th>region</th>
-      <th>gdp_per_capita_2008</th>
+      <th>gdppcap08</th>
+      <th>polityIV</th>
     </tr>
   </thead>
   <tbody>
@@ -861,36 +865,42 @@ document.write(`
       <td>Brazil</td>
       <td>S. America</td>
       <td>10296</td>
+      <td>18</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Germany</td>
       <td>W. Europe</td>
       <td>35613</td>
+      <td>20</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Mexico</td>
       <td>N. America</td>
       <td>14495</td>
+      <td>18</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Mozambique</td>
       <td>Africa</td>
       <td>855</td>
+      <td>16</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Russia</td>
       <td>C&amp;E Europe</td>
       <td>16139</td>
+      <td>17</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Ukraine</td>
       <td>C&amp;E Europe</td>
       <td>7271</td>
+      <td>16</td>
     </tr>
   </tbody>
 </table>
@@ -923,7 +933,8 @@ document.write(`
       <th></th>
       <th>country</th>
       <th>region</th>
-      <th>gdp_per_capita_2008</th>
+      <th>gdppcap08</th>
+      <th>polityIV</th>
     </tr>
   </thead>
   <tbody>
@@ -932,36 +943,42 @@ document.write(`
       <td>Brazil</td>
       <td>S. America</td>
       <td>10296</td>
+      <td>18</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Germany</td>
       <td>W. Europe</td>
       <td>35613</td>
+      <td>20</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Mexico</td>
       <td>N. America</td>
       <td>14495</td>
+      <td>18</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Mozambique</td>
       <td>Africa</td>
       <td>855</td>
+      <td>16</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Russia</td>
       <td>C&amp;E Europe</td>
       <td>16139</td>
+      <td>17</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Ukraine</td>
       <td>C&amp;E Europe</td>
       <td>7271</td>
+      <td>16</td>
     </tr>
   </tbody>
 </table>
@@ -996,7 +1013,7 @@ document.write(`
       <th></th>
       <th>country</th>
       <th>region</th>
-      <th>gdp_per_capita_2008</th>
+      <th>gdppcap08</th>
       <th>polityIV</th>
     </tr>
   </thead>
@@ -1006,42 +1023,42 @@ document.write(`
       <td>Brazil</td>
       <td>S. America</td>
       <td>10296</td>
-      <td>NaN</td>
+      <td>18</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Germany</td>
       <td>W. Europe</td>
       <td>35613</td>
-      <td>NaN</td>
+      <td>20</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Mexico</td>
       <td>N. America</td>
       <td>14495</td>
-      <td>NaN</td>
+      <td>18</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Mozambique</td>
       <td>Africa</td>
       <td>855</td>
-      <td>5.0</td>
+      <td>5</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Russia</td>
       <td>C&amp;E Europe</td>
       <td>16139</td>
-      <td>NaN</td>
+      <td>17</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Ukraine</td>
       <td>C&amp;E Europe</td>
       <td>7271</td>
-      <td>NaN</td>
+      <td>16</td>
     </tr>
   </tbody>
 </table>
@@ -1060,9 +1077,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_37248/2079543889.py:1: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_27525/2079543889.py:1: ChainedAssignmentError: A value is trying to be set on a copy of a DataFrame or Series through chained assignment.
+When using the Copy-on-Write mode, such chained assignment never works to update the original DataFrame or Series, because the intermediate object on which we are setting values always behaves as a copy.
+
+Try using &#39;.loc[row_indexer, col_indexer] = value&#39; instead, to perform the assignment in a single step.
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   smallworld[smallworld.country == &quot;Mozambique&quot;][&quot;polityIV&quot;] = 5
@@ -1070,7 +1088,97 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
-<p>You will get the <code class="docutils literal notranslate"><span class="pre">SettingWithCopyWarning</span></code> we discussed in our reading on views and copies. That’s because it’s possible that when you run <code class="docutils literal notranslate"><span class="pre">smallworld[smallworld.country</span> <span class="pre">==</span> <span class="pre">&quot;Mozambique&quot;]</span></code>, pandas <strong>may</strong> return an entirely new DataFrame, and the next part of the operation (changing the values of <code class="docutils literal notranslate"><span class="pre">polityIV</span></code>) will run against a completely new DataFrame, not <code class="docutils literal notranslate"><span class="pre">smallworld</span></code>, and in the end your original <code class="docutils literal notranslate"><span class="pre">smallworld</span></code> DataFrame won’t end up being modified at all. This kind of chained assignment will SOMETIMES work, but not ALWAYS, which is why you get that warning.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smallworld</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>region</th>
+      <th>gdppcap08</th>
+      <th>polityIV</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Brazil</td>
+      <td>S. America</td>
+      <td>10296</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Germany</td>
+      <td>W. Europe</td>
+      <td>35613</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Mexico</td>
+      <td>N. America</td>
+      <td>14495</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Mozambique</td>
+      <td>Africa</td>
+      <td>855</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Russia</td>
+      <td>C&amp;E Europe</td>
+      <td>16139</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Ukraine</td>
+      <td>C&amp;E Europe</td>
+      <td>7271</td>
+      <td>16</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Provided you have Copy-on-Write activated, this will result in a <code class="docutils literal notranslate"><span class="pre">ChainedAssignmentError</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">ChainedAssignmentError</span><span class="p">:</span> <span class="n">A</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">trying</span> <span class="n">to</span> <span class="n">be</span> <span class="nb">set</span> <span class="n">on</span> <span class="n">a</span> <span class="n">copy</span> <span class="n">of</span> <span class="n">a</span> <span class="n">DataFrame</span> 
+<span class="ow">or</span> <span class="n">Series</span> <span class="n">through</span> <span class="n">chained</span> <span class="n">assignment</span><span class="o">.</span>
+<span class="n">When</span> <span class="n">using</span> <span class="n">the</span> <span class="n">Copy</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">Write</span> <span class="n">mode</span><span class="p">,</span> <span class="n">such</span> <span class="n">chained</span> <span class="n">assignment</span> <span class="n">never</span> <span class="n">works</span> <span class="n">to</span> 
+<span class="n">update</span> <span class="n">the</span> <span class="n">original</span> <span class="n">DataFrame</span> <span class="ow">or</span> <span class="n">Series</span><span class="p">,</span> <span class="n">because</span> <span class="n">the</span> <span class="n">intermediate</span> <span class="nb">object</span> <span class="n">on</span> 
+<span class="n">which</span> <span class="n">we</span> <span class="n">are</span> <span class="n">setting</span> <span class="n">values</span> <span class="n">always</span> <span class="n">behaves</span> <span class="k">as</span> <span class="n">a</span> <span class="n">copy</span><span class="o">.</span>
+<span class="n">Try</span> <span class="n">using</span> <span class="s1">&#39;.loc[row_indexer, col_indexer] = value&#39;</span> <span class="n">instead</span><span class="p">,</span> <span class="n">to</span> <span class="n">perform</span> <span class="n">the</span> 
+<span class="n">assignment</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">single</span> <span class="n">step</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>That’s because when you run <code class="docutils literal notranslate"><span class="pre">smallworld[smallworld.country</span> <span class="pre">==</span> <span class="pre">&quot;Mozambique&quot;]</span></code>, pandas returns an entirely new DataFrame, and the next part of the operation (changing the values of <code class="docutils literal notranslate"><span class="pre">polityIV</span></code>) is being excuted against that completely new DataFrame, not the one associated with the variable <code class="docutils literal notranslate"><span class="pre">smallworld</span></code>. As a result,  <code class="docutils literal notranslate"><span class="pre">smallworld</span></code> DataFrame won’t end up being modified at all.</p>
+<p>(If you don’t have Copy-on-Write activated, you will get a <code class="docutils literal notranslate"><span class="pre">SettingWithCopyWarning</span></code> warning instead. Whether the assignment will work in that case is basically unpredictable!)</p>
 </section>
 <section id="categoricals">
 <h2>Categoricals<a class="headerlink" href="#categoricals" title="Permalink to this headline">#</a></h2>
@@ -1083,6 +1191,84 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smallworld</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>region</th>
+      <th>gdppcap08</th>
+      <th>polityIV</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Brazil</td>
+      <td>S. America</td>
+      <td>10296</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Germany</td>
+      <td>W. Europe</td>
+      <td>35613</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Mexico</td>
+      <td>N. America</td>
+      <td>14495</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Mozambique</td>
+      <td>Africa</td>
+      <td>855</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Russia</td>
+      <td>C&amp;E Europe</td>
+      <td>16139</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Ukraine</td>
+      <td>C&amp;E Europe</td>
+      <td>7271</td>
+      <td>16</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <p>Now suppose that Mexico has gotten tired of being in the same region as the United States, and would much prefer to be considered a part of Central America than North America.</p>
 <p>Normally we could just do <code class="docutils literal notranslate"><span class="pre">smallworld.loc[smallworld[&quot;country&quot;]</span> <span class="pre">==</span> <span class="pre">&quot;Mexico&quot;,</span> <span class="pre">&quot;region&quot;]</span> <span class="pre">=</span> <span class="pre">&quot;C</span> <span class="pre">America&quot;</span></code>. But if I try that here, because <code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">America</span></code> isn’t one of the established values for the Categorical variable, we get this error (with the middle section omitted for brevity):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">---------------------------------------------------------------------------</span>
@@ -1090,27 +1276,14 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">Nick</span><span class="o">/</span><span class="n">github</span><span class="o">/</span><span class="n">mids_coursera</span><span class="o">/</span><span class="n">class_3</span><span class="o">/</span><span class="n">week_3</span><span class="o">/</span><span class="mi">32</span><span class="n">_cleaning_editing_specific_locations</span><span class="o">.</span><span class="n">ipynb</span> <span class="n">Cell</span> <span class="mi">29</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">cell</span> <span class="n">line</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span>
 <span class="o">----&gt;</span> <span class="mi">1</span> <span class="n">smallworld</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smallworld</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Mexico&quot;</span><span class="p">,</span> <span class="s2">&quot;region&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;C America&quot;</span>
 
-<span class="n">File</span> <span class="o">~/</span><span class="n">opt</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">indexing</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">716</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_LocationIndexer</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-    <span class="mi">713</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_valid_setitem_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-    <span class="mi">715</span> <span class="n">iloc</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;iloc&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">iloc</span>
-<span class="o">--&gt;</span> <span class="mi">716</span> <span class="n">iloc</span><span class="o">.</span><span class="n">_setitem_with_indexer</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
 <span class="p">[</span><span class="o">...</span><span class="p">]</span>
 
-<span class="n">File</span> <span class="o">~/</span><span class="n">opt</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">arrays</span><span class="o">/</span><span class="n">categorical</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1484</span><span class="p">,</span> <span class="ow">in</span> <span class="n">Categorical</span><span class="o">.</span><span class="n">_validate_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">)</span>
-   <span class="mi">1482</span>     <span class="n">fill_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unbox_scalar</span><span class="p">(</span><span class="n">fill_value</span><span class="p">)</span>
-   <span class="mi">1483</span> <span class="k">else</span><span class="p">:</span>
-<span class="o">-&gt;</span> <span class="mi">1484</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-   <span class="mi">1485</span>         <span class="s2">&quot;Cannot setitem on a Categorical with a new &quot;</span>
-   <span class="mi">1486</span>         <span class="sa">f</span><span class="s2">&quot;category (</span><span class="si">{</span><span class="n">fill_value</span><span class="si">}</span><span class="s2">), set the categories first&quot;</span>
-   <span class="mi">1487</span>     <span class="p">)</span>
-   <span class="mi">1488</span> <span class="k">return</span> <span class="n">fill_value</span>
 
 <span class="ne">TypeError</span><span class="p">:</span> <span class="n">Cannot</span> <span class="n">setitem</span> <span class="n">on</span> <span class="n">a</span> <span class="n">Categorical</span> <span class="k">with</span> <span class="n">a</span> <span class="n">new</span> <span class="n">category</span> <span class="p">(</span><span class="n">C</span> <span class="n">America</span><span class="p">),</span> <span class="nb">set</span> <span class="n">the</span> <span class="n">categories</span> <span class="n">first</span>
 </pre></div>
 </div>
 <p>So what do we do?</p>
-<p>One option is to modify the allowable categories for the variable with <code class="docutils literal notranslate"><span class="pre">.cat.add_categories()</span></code>, then making the edit again:</p>
+<p>One option is to modify the allowable categories for the variable with <code class="docutils literal notranslate"><span class="pre">.cat.add_categories()</span></code>, then make the edit again:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smallworld</span><span class="p">[</span><span class="s2">&quot;region&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">smallworld</span><span class="p">[</span><span class="s2">&quot;region&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">add_categories</span><span class="p">([</span><span class="s2">&quot;C America&quot;</span><span class="p">])</span>
