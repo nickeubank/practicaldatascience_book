@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Debugging Python in VS Code &#8212; Practical Data Science with Python</title>
   
@@ -19,51 +18,47 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/clipboard.min.js"></script>
-    <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../../../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode';</script>
-    <link rel="shortcut icon" href="../../../_static/mids_logo.svg"/>
+    <link rel="icon" href="../../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Defensive Programming" href="defensive_programming.html" />
@@ -77,10 +72,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -121,11 +115,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -159,7 +156,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -169,7 +177,11 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">IDS 720</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../ids720_specific/class_schedule.html">Class Schedule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
@@ -527,18 +539,18 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="debugging-python-in-vs-code">
-<h1>Debugging Python in VS Code<a class="headerlink" href="#debugging-python-in-vs-code" title="Permalink to this heading">#</a></h1>
-<p>As noted in our <span class="xref myst">previous reading</span>, when working with more complicated programs, we often need something more sophisticated than <code class="docutils literal notranslate"><span class="pre">print()</span></code> to understand why our code isn’t working. And for that, we have debuggers!</p>
+<h1>Debugging Python in VS Code<a class="headerlink" href="#debugging-python-in-vs-code" title="Link to this heading">#</a></h1>
+<p>As noted in our <a class="reference internal" href="#10_debugging_in_vscode.ipynb"><span class="xref myst">previous reading</span></a>, when working with more complicated programs, we often need something more sophisticated than <code class="docutils literal notranslate"><span class="pre">print()</span></code> to understand why our code isn’t working. And for that, we have debuggers!</p>
 <p>In this reading, we’ll talk about the Python Debugger in VS Code, and in particular:</p>
 <ol class="arabic simple">
 <li><p>Debugging <code class="docutils literal notranslate"><span class="pre">.py</span></code> files with the built in debugger</p></li>
 <li><p>Debugging <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> files (Jupyter notebooks) with debugging tools</p></li>
 </ol>
 <section id="preliminaries">
-<h2>0. Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this heading">#</a></h2>
+<h2>0. Preliminaries<a class="headerlink" href="#preliminaries" title="Link to this heading">#</a></h2>
 <p>Before we get started, we have to make sure your VS Code environment is properly setup. Here’s a quick checklist to make sure you are ready to go:</p>
 <ul class="simple">
 <li><p><strong>Install VS Code, Python, and the Python VS Code extension</strong>. Make sure you have Python installed on your system and the Python VS Code extension is also installed. You can install the VS Code Python extension by going to the Extensions Marketplace in VS Code (#1 below) and searching for “Python”, then installing the Python extension (#2 below).</p></li>
@@ -548,7 +560,7 @@ document.write(`
 </ul>
 <p><img alt="numbered image of vscode buttons" src="../../../_images/preliminaries.png" /></p>
 <section id="vs-code-debugger-for-py-files">
-<h3>1. VS Code Debugger for <code class="docutils literal notranslate"><span class="pre">.py</span></code> files<a class="headerlink" href="#vs-code-debugger-for-py-files" title="Permalink to this heading">#</a></h3>
+<h3>1. VS Code Debugger for <code class="docutils literal notranslate"><span class="pre">.py</span></code> files<a class="headerlink" href="#vs-code-debugger-for-py-files" title="Link to this heading">#</a></h3>
 <p>Debugging in VS Code allows us to interactively explore how the code is executing line-by-line and variable-by-variable. To start debugging, we first need to activate the debugging environment in VS Code (#1) which brings up the “Run and Debug” button, which we can use to launch a debug session. If we click this button it will run the code and stop of there are any runtime errors. However, this will not pause the code unless a runtime error is encountered, so logical errors that produce erroneous outputs will be analyzed just by pressing the button.</p>
 <p><img alt="debug start" src="../../../_images/debug_start.png" /></p>
 <p>To resolve this issue, we need to set breakpoint (#1). Breakpoints are conditions that if the code reaches such a condition, the code will pause. The default breakpoint is for “Uncaught Exceptions” although we can add to that list breakpoints at any point in the code. For example if we click on the “gutter” (the space to the left of the line numbers, as shown in #2), we activate a breakpoint which means that when the execution of the code reaches that line it will pause and show you the state of all the variables in the code, which is incredibly useful (giving us the information we previously achieved through <code class="docutils literal notranslate"><span class="pre">print()</span></code> statements). We can activate multiple breakpoints and the program will pause execution anytime a line with a breakpoint is encountered. To remove a breakpoint, just click on the red dot or uncheck the box in the breakpoints panel (#1) to temporarily deactivate it.</p>
@@ -580,7 +592,7 @@ document.write(`
 <p>This suite of debugging tools is incredibly useful for debugging complicated programs and as you can see, it requires no additional code to be added! What’s most valuable about these tools is that they quickly give you insights into how a program is running and allows you to explore the logic of the code interactively.</p>
 </section>
 <section id="vs-code-debugger-for-ipynb-files-jupyter-notebooks">
-<h3>2. VS Code Debugger for <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> files (Jupyter notebooks)<a class="headerlink" href="#vs-code-debugger-for-ipynb-files-jupyter-notebooks" title="Permalink to this heading">#</a></h3>
+<h3>2. VS Code Debugger for <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> files (Jupyter notebooks)<a class="headerlink" href="#vs-code-debugger-for-ipynb-files-jupyter-notebooks" title="Link to this heading">#</a></h3>
 <p>Another major advantage of VS Code is that it provides many of the same debugging features for Jupyter notebooks. For example, you can activate breakpoints in any code cell (#1), run as a debug session using the small downward pointing arrow next to the run button (#2) or even just quickly run one line at a time in a cell using the run-by-line button.</p>
 <p><img alt="debug jupyter" src="../../../_images/debugger_jupyter.png" /></p>
 <p>Let’s replicate the debugging process that we used previously in this Jupyter session showing the interactive tools, the debugging console, the variable watch list, and the ability to hover over values and see their contents:</p>
@@ -590,7 +602,7 @@ document.write(`
 </section>
 </section>
 <section id="debugging-summary">
-<h2>Debugging Summary<a class="headerlink" href="#debugging-summary" title="Permalink to this heading">#</a></h2>
+<h2>Debugging Summary<a class="headerlink" href="#debugging-summary" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>There are two primary types of bugs: syntax errors and logical errors. Syntax errors typically prevent your code from running, so are more easily identified, while logical errors may cause your code to fail silently: producing output, but incorrect output.</p></li>
 <li><p>The best debugging tool is the one that helps you understand what’s going on in your code well enough to identify and resolve errors.</p></li>
@@ -658,6 +670,7 @@ document.write(`
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -694,7 +707,7 @@ By Kyle Bradbury & Nick Eubank
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2024.
       <br/>
     
   </p>
@@ -718,8 +731,8 @@ By Kyle Bradbury & Nick Eubank
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>
