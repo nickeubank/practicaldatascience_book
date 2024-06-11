@@ -12,7 +12,11 @@ With that in mind, in this reading, I want to detail a series of tools you may f
 
 ## Simple Interventions
 
-If nothing else, I'm a *huge* advocate of getting an external monitor and keyboard. Not only are external keyboards and monitors relatively inexpensive — provided you look for one that's good for doing work on a computer and not one with crazy specs designed for gamers or professional photographers — but working at a desk with a monitor and keyboard that allows you to sit up straight and look forward is probably the single most impactful change you can make to your routine to protect your body. As of 2024, you can pretty easily get a 24" HD-resolution display for $150 and a 27" display for $200-250. Those are cutting-edge specs and maybe a little less sharp than your laptop, but the real estate you gain more than compensates. And keyboards are a dime a dozen.
+If nothing else, I'm a *huge* advocate of getting an external monitor, keyboard, and mouse. They're relatively inexpensive, and probably the most beneficial interventions available.
+
+When looking at monitors, bear in mind you shouldn't spend more than $250 if you don't want to. Many monitors have really high resolutions, refresh rates, and color fidelity for gamers or professional photographers. But as of 2024, you can pretty easily get a 24" HD-resolution display for $150 and a 27" display for $200-250. Those aren't cutting-edge specs and may be a little less sharp than your laptop screen, but the real estate you gain more than compensates.
+
+Keyboards and external mice, similarly, are a dime a dozen. And in combination, a monitor, keyboard, and mouse that allows you to sit up straight and look forward are probably the single most impactful changes you can make to your routine to protect your body.
 
 Once you have these, make sure you use them correctly — if you search for "good ergonomics for computers," you'll find plenty of resources. The *top* of the monitor should be a couple inches below your eye level, the monitor should be roughly arm length from you, and your elbows should be about level with your keyboard. Just put a book under the monitor if it's too low and doesn't have its own arm.
 
