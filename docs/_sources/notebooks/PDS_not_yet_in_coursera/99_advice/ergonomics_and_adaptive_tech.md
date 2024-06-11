@@ -12,13 +12,25 @@ With that in mind, in this reading, I want to detail a series of tools you may f
 
 ## Simple Interventions
 
-If nothing else, I'm a *huge* advocate of getting an external monitor, keyboard, and mouse. They're relatively inexpensive, and probably the most beneficial interventions available.
+### External Monitor, Keyboard, and Mouse
+
+If nothing else, I'm a *huge* advocate of anyone who works at their computer a lot getting an external monitor, keyboard, and mouse. They're relatively inexpensive and probably the most beneficial interventions available.
 
 When looking at monitors, bear in mind you shouldn't spend more than $250 if you don't want to. Many monitors have really high resolutions, refresh rates, and color fidelity for gamers or professional photographers. But as of 2024, you can pretty easily get a 24" HD-resolution display for $150 and a 27" display for $200-250. Those aren't cutting-edge specs and may be a little less sharp than your laptop screen, but the real estate you gain more than compensates.
 
 Keyboards and external mice, similarly, are a dime a dozen. And in combination, a monitor, keyboard, and mouse that allows you to sit up straight and look forward are probably the single most impactful changes you can make to your routine to protect your body.
 
 Once you have these, make sure you use them correctly — if you search for "good ergonomics for computers," you'll find plenty of resources. The *top* of the monitor should be a couple inches below your eye level, the monitor should be roughly arm length from you, and your elbows should be about level with your keyboard. Just put a book under the monitor if it's too low and doesn't have its own arm.
+
+### A Good Chair
+
+A good chair can also be a really impactful intervention (depending on what you're starting with). Gaming chairs, for example, are often surprising inexpensive (compared to fancy office chairs that are priced for corporate buyers), are highly adjustable, and have high backs with good support.
+
+### Don't Zone Out
+
+It's easy when working at your computer to zone out and just work non-stop for extended periods. But taking quick breaks — spending a minute every 20 looking at something far away to let your eyes focus at a different distance, and/or standing and moving around every 20 minutes if you can — can be hugely beneficial.
+
+To help you remember to follow these practices, consider a program that gives you little reminders to look away from your monitor or stand up occasionally like [Break Timer](https://breaktimer.app/) or [Time Out](https://apps.apple.com/us/app/time-out-break-reminders/). Fitness trackers like an Apple Watch or Fitbit can also remind you if you've been sitting for more than 20 minutes to move.
 
 ## Medium Interventions
 
