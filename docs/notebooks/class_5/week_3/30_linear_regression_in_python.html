@@ -1,0 +1,1062 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Linear Regression in Python &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_5/week_3/30_linear_regression_in_python';</script>
+    <link rel="icon" href="../../../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Practical Data Science with Python - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Practical Data Science with Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">IDS 720</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../ids720_specific/class_schedule.html">Class Schedule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">Views and Copies</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">Matrices</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">Arrays</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/18_object_dtype.html">The <code class="docutils literal notranslate"><span class="pre">object</span></code> Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/45_categorical_dtype.html">The Categorical Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_3/week_3/07_indices.html">Indexes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/03_plaintext_files.html">Reading Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_2/10_plotting_in_python.html">Plotting in Python</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/20_plotting_with_seaborn.html">seaborn and the Grammar of Graphics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_5/45_plotting_with_matplotlib.html">Plotting with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_5/46_making_plots_pretty.html">Making pretty plots in Python: customizing plots in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">Defensive Programming</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_5/week_3/30_linear_regression_in_python.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/class_5/week_3/30_linear_regression_in_python.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Linear Regression in Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-in-statsmodels">Regression in statsmodels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-from-pandas-to-numpy">Moving from Pandas to Numpy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-i-care">Why do I care?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#patsy-formula-syntax">patsy Formula Syntax</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-variables">Categorical Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interaction-terms">Interaction Terms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isn-t-this-formula-syntax-the-same-as-r">Isn’t this formula syntax the same as R?</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="linear-regression-in-python">
+<h1>Linear Regression in Python<a class="headerlink" href="#linear-regression-in-python" title="Link to this heading">#</a></h1>
+<p>There are many packages that implement linear regression in Python. As detailed in our last reading, however, depending on whether they are intended for use in prediction or inference, the way these packages operate can vary substantially.</p>
+<p>In this reading, we will look at how linear regression has been implemented in two major packages — <a class="reference external" href="http://statsmodels.org">statsmodels</a> and <a class="reference external" href="http://scikit-learn.org">scikit-learn</a>. Both of these packages can fit a wide range of linear models, but the way they are organized and the results they report reflect the different audiences for whom they were designed.</p>
+<p><em>Broadly speaking</em>, statsmodels is a library written by statisticians for statisticians, biostatisticians, social scientists, and natural scientists. It can do prediction, but its focus is <em>inference</em>, and as we will see that is reflected throughout the package.</p>
+<p>scikit-learn, by contrast, was written by and for computer scientists interested in machine learning. Its focus is on prediction, and while it includes a far more diverse collection of machine learning models than statsmodels, it does not include all the features someone doing inference might expect for evaluating model performance or doing things like calculating different types of standard errors.</p>
+<section id="regression-in-statsmodels">
+<h2>Regression in statsmodels<a class="headerlink" href="#regression-in-statsmodels" title="Link to this heading">#</a></h2>
+<p>Because it is the more feature-rich library when it comes to regression, we will start our exploration of linear regression in Python with statsmodels. If you have any interest in inference, are coming from a programming language like R or Stata, and/or have a background in statistics, social science, or the natural sciences, then statsmodels is the package that will feel most familiar and useful.</p>
+<p>While our focus will be on linear regression, the statsmodels package includes a wide range of tools for inference and modeling, from simple models like linear and logistic regression to generalized linear models (GLMs), non-parametric regression, robust linear models, time series models, survival analysis, multiple imputation, generalized additive models (GAMs), and more. (Curious if it includes that <em>one</em> model that’s near and dear to your heart? <a class="reference external" href="https://www.statsmodels.org/stable/user-guide.html">Feel free to go check and come back</a>).</p>
+<p>Moreover, it provides by far the easiest interface for moving from a pandas DataFrame to a regression in the Python ecosystem. To illustrate, let’s fit a quick regression looking at countries’ under-5 mortality rates as a function of GDP per capita and Work Bank ratings of each countries’ public sector in terms of transparency, accountability, and levels of corruption:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Load data on infant mortality, gdp per capita, and</span>
+<span class="c1"># World Bank CPIA public sector transparency, accountability,</span>
+<span class="c1"># and corruption in the public sector scores</span>
+<span class="c1"># (1 = low transparency and accountability, 6 = high transparency and accountability).</span>
+
+<span class="n">wdi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/wdi_corruption.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check one observation to get a feel for things.</span>
+<span class="n">wdi</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>38</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>country_name</th>
+      <td>Mali</td>
+    </tr>
+    <tr>
+      <th>gdp_per_capita_ppp</th>
+      <td>1922.434</td>
+    </tr>
+    <tr>
+      <th>CPIA_public_sector_rating</th>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>mortality_rate_under5_per_1000</th>
+      <td>113.7</td>
+    </tr>
+    <tr>
+      <th>Mortality rate, under-5, female (per 1,000 live births)</th>
+      <td>107.8</td>
+    </tr>
+    <tr>
+      <th>Mortality rate, under-5, male (per 1,000 live births)</th>
+      <td>119.0</td>
+    </tr>
+    <tr>
+      <th>Population, total</th>
+      <td>17438778.0</td>
+    </tr>
+    <tr>
+      <th>region</th>
+      <td>Sub-Saharan Africa</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit model</span>
+<span class="n">corruption_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span>
+    <span class="s2">&quot;mortality_rate_under5_per_1000 ~ np.log(gdp_per_capita_ppp) + CPIA_public_sector_rating + region&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">wdi</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># Get regression result</span>
+<span class="n">corruption_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>(why <code class="docutils literal notranslate"><span class="pre">smf.ols</span></code>? Recall that one name for linear regression is “Ordinary Least Squares,” which is often shortened to “OLS.”)</p>
+<p>Not bad, huh? Not only was our regression a one-liner, but the <code class="docutils literal notranslate"><span class="pre">.summary()</span></code> method has provided us with all our coefficients with labels, standard errors, t-statistics, p-values, 95% confidence intervals, and a range of additional statistics about the regression.</p>
+<p>We were also able to apply come manipulations right in the regression specification — note the use of <code class="docutils literal notranslate"><span class="pre">np.log()</span></code> to apply the log function to <code class="docutils literal notranslate"><span class="pre">gdp_per_capita_ppp</span></code> without having to create a new variable in our DataFrame.</p>
+<p>Finally (if this doesn’t mean much to you, don’t worry about it), statsmodels recognized that <code class="docutils literal notranslate"><span class="pre">region</span></code> contained strings rather than numbers, so it dynamically created a set of indicator variables (i.e., it created one-hot encodings).</p>
+<p>If you come from R or Stata, none of that is likely to seem notable to you, but as we’ll discuss in the next section (and as we’ll see when we get to <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>), those are conveniences that should not be taken for granted.</p>
+</section>
+<section id="moving-from-pandas-to-numpy">
+<h2>Moving from Pandas to Numpy<a class="headerlink" href="#moving-from-pandas-to-numpy" title="Link to this heading">#</a></h2>
+<p>Tools like the <code class="docutils literal notranslate"><span class="pre">ols</span></code> function from <code class="docutils literal notranslate"><span class="pre">statsmodels.formula.api</span></code> we used above can make your life as a data scientist <em>much</em> easier, but they also mask some of the complexity that lies between passing the function a pandas DataFrame and the actual regression taking place.</p>
+<p>Why? At the level of the underlying math, a linear regression is fit using matrix calculations. Indeed, if you imagine putting your outcome variable in vector called <span class="math notranslate nohighlight">\(y\)</span> and your explanatory variables in a matrix <span class="math notranslate nohighlight">\(X\)</span> where each column one of your explanatory variables and each row is an observation, then the way we actually get the vector of coefficients <span class="math notranslate nohighlight">\(\beta\)</span> is with the following matrix formula:</p>
+<div class="math notranslate nohighlight">
+\[\beta = (X^TX)^{-1} X^Ty\]</div>
+<p>Indeed, matrix math (also known as matrix algebra) underlies a huge proportion of statistics and machine learning tools, which is one of the reasons that a linear algebra course (the part of math focused on the study of matrix math) is often recommended for data science students. (Don’t worry — you don’t need to know linear algebra to start as a data scientist, or to understand that formula above; I’m just telling you this to motivate what comes next).</p>
+<p>But you can’t always do matrix math on a pandas DataFrame. pandas DataFrames are great because of their flexibility, but you can’t multiply to pandas DataFrames that contain some integer columns, some floating point columns, and some string columns. Moreover, you also can’t do matrix calculations with missing values — the inverse of a matrix with missing values is not a defined concept.</p>
+<p>So how was <code class="docutils literal notranslate"><span class="pre">smf.ols()</span></code> able to fit that regression? <a class="reference external" href="https://patsy.readthedocs.io/en/latest/overview.html">patsy</a>. patsy is a package that takes as input a pandas DataFrame and a formula (like the <code class="docutils literal notranslate"><span class="pre">&quot;mortality_rate_under5_per_1000</span> <span class="pre">~</span> <span class="pre">np.log(gdp_per_capita_ppp)</span> <span class="pre">+</span> <span class="pre">CPIA_public_sector_rating</span> <span class="pre">+</span> <span class="pre">region&quot;</span></code> formula we used above), and returns a numpy array of floating point numbers without missing data (and with labels!) on which matrix algebra can be performed. And all <code class="docutils literal notranslate"><span class="pre">smf.ols()</span></code> is doing is calling patsy, giving it your DataFrame and formula, the taking the numpy arrays it returns and passing them to its more traditional OLS function, <code class="docutils literal notranslate"><span class="pre">OLS()</span></code> from <code class="docutils literal notranslate"><span class="pre">statsmodels.api</span></code>.</p>
+<section id="why-do-i-care">
+<h3>Why do I care?<a class="headerlink" href="#why-do-i-care" title="Link to this heading">#</a></h3>
+<p>“OK,” I hear you yell, “but if statsmodels does this for me what do I care how it does it?”</p>
+<p>You need to care because outside a handful of functions for which statsmodels offers this convenience (you can find the <a class="reference external" href="https://www.statsmodels.org/stable/api.html#statsmodels-formula-api">full list here</a>), <strong>nearly every modeling tool you encounter in the Python ecosystem will expect numpy arrays of floating point numbers as inputs.</strong> And that means that it’s important to (a) understand why they’re doing this, and (b) be comfortable using <code class="docutils literal notranslate"><span class="pre">patsy</span></code> directly to move from pandas DataFrames to numpy arrays yourself.</p>
+</section>
+</section>
+<section id="patsy-formula-syntax">
+<h2>patsy Formula Syntax<a class="headerlink" href="#patsy-formula-syntax" title="Link to this heading">#</a></h2>
+<p>To move between pandas and numpy, we will use the <code class="docutils literal notranslate"><span class="pre">patsy.dmatrices()</span></code> function. It takes a pandas DataFrame and a formula string and returns a tuple containing an outcome vector and a matrix of explanatory variables.</p>
+<p>To illustrate how patsy works, let’s create a quite small toy dataset just to help us visualize what is going on.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">toy_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+        <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="s2">&quot;names&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Nick&quot;</span><span class="p">,</span> <span class="s2">&quot;Lyra&quot;</span><span class="p">,</span> <span class="s2">&quot;Nick&quot;</span><span class="p">,</span> <span class="s2">&quot;Lyra&quot;</span><span class="p">,</span> <span class="s2">&quot;Lyra&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">toy_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>y</th>
+      <th>a</th>
+      <th>b</th>
+      <th>names</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10</td>
+      <td>1</td>
+      <td>3.14</td>
+      <td>Nick</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>11</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>Lyra</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>3</td>
+      <td>2.50</td>
+      <td>Nick</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8</td>
+      <td>1</td>
+      <td>0.00</td>
+      <td>Lyra</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12</td>
+      <td>3</td>
+      <td>3.00</td>
+      <td>Lyra</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now let’s suppose we want to regress <code class="docutils literal notranslate"><span class="pre">y</span></code> on <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. Let’s use <code class="docutils literal notranslate"><span class="pre">dmatrices</span></code> to create our matrices. Note that <code class="docutils literal notranslate"><span class="pre">patsy.dmatrices</span></code> returns two objects — our outcome vector and our matrix of explanatory variables, so if you assign the result to a single variable you will get a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> with the two items, or you can assign the result to two variables (separated by a comma) and the results will be distributed to those two variables:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">patsy</span>
+
+<span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ a + b&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s start by looking at our X matrix:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 2)
+  a     b
+  1  3.14
+  3  2.50
+  1  0.00
+  3  3.00
+  Terms:
+    &#39;a&#39; (column 0)
+    &#39;b&#39; (column 1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see, there are a few differences between our pandas DataFrame and this <code class="docutils literal notranslate"><span class="pre">DesignMatrix</span></code> (these are basically numpy arrays with some extra metadata, like labels. You can use them with any function that expects numpy arrays).</p>
+<ul class="simple">
+<li><p>The DesignMatrix <code class="docutils literal notranslate"><span class="pre">X</span></code> includes a column of 1s labelled as <code class="docutils literal notranslate"><span class="pre">Intercept</span></code>. You may have never thought about this before, but the intercept in a regression doesn’t appear by magic — it’s actually a coefficient created by adding a column that has the same value for every observation (1 makes interpretation easiest). By default, <code class="docutils literal notranslate"><span class="pre">patsy</span></code> will always add an intercept, but if you would prefer it did not, just add <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">0</span></code> to the formula.</p></li>
+<li><p>Our pandas DataFrame had 5 rows, but <code class="docutils literal notranslate"><span class="pre">X</span></code> only has 4. Why? Well, the second row of our DataFrame included a missing value (<code class="docutils literal notranslate"><span class="pre">np.nan</span></code>) in the <code class="docutils literal notranslate"><span class="pre">b</span></code> column. As noted above, we can’t do matrix algebra with missing values, so any row that includes a missing value <em>in one of the variables in the formula</em> is automatically dropped. And yes, it drops that row from <code class="docutils literal notranslate"><span class="pre">y</span></code> too.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 1)
+   y
+  10
+   9
+   8
+  12
+  Terms:
+    &#39;y&#39; (column 0)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="categorical-variables">
+<h3>Categorical Variables<a class="headerlink" href="#categorical-variables" title="Link to this heading">#</a></h3>
+<p>Great, but this is just the start of things. Now let’s add <code class="docutils literal notranslate"><span class="pre">names</span></code> — a string variable — to the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ a + b + names&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 4)
+  Intercept  names[T.Nick]  a     b
+          1              1  1  3.14
+          1              1  3  2.50
+          1              0  1  0.00
+          1              0  3  3.00
+  Terms:
+    &#39;Intercept&#39; (column 0)
+    &#39;names&#39; (column 1)
+    &#39;a&#39; (column 2)
+    &#39;b&#39; (column 3)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now our <code class="docutils literal notranslate"><span class="pre">X</span></code> matrix has a new column called <code class="docutils literal notranslate"><span class="pre">names[T.Nick]</span></code> that contains 0s and 1s. Basically, if the variable takes on the value after <code class="docutils literal notranslate"><span class="pre">T.</span></code> (here, <code class="docutils literal notranslate"><span class="pre">Nick</span></code>), then that variable will be 1; otherwise it will be a zero. If our variable <code class="docutils literal notranslate"><span class="pre">c</span></code> took on more than two values (say, <code class="docutils literal notranslate"><span class="pre">&quot;Lyra&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Nick&quot;,</span></code> <code class="docutils literal notranslate"><span class="pre">&quot;Trillian&quot;</span></code>), <code class="docutils literal notranslate"><span class="pre">X</span></code> would have also had a variable called <code class="docutils literal notranslate"><span class="pre">names[T.Trillian]</span></code>.</p>
+<p>By default, patsy will always omit one category (the “omitted category” or “reference category”). As a result, for a variable that takes on <code class="docutils literal notranslate"><span class="pre">N</span></code> unique values, patsy will always add <code class="docutils literal notranslate"><span class="pre">N-1</span></code> variables when doing one-hot encoding.</p>
+<p>patsy will do this automatically when it encounters a <code class="docutils literal notranslate"><span class="pre">Categorical</span></code> or <code class="docutils literal notranslate"><span class="pre">object</span></code> <code class="docutils literal notranslate"><span class="pre">dtype</span></code> column, but you can also use <code class="docutils literal notranslate"><span class="pre">C()</span></code> to force it to treat any variable as categorical. For example, if I put <code class="docutils literal notranslate"><span class="pre">C(a)</span></code> in the formula, it will treat <code class="docutils literal notranslate"><span class="pre">a</span></code> as a categorical variable and apply one-hot encoding to all the unique values of the variable:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ C(a) + b&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 4)
+  Intercept  C(a)[T.2]  C(a)[T.3]     b
+          1          0          0  3.14
+          1          0          1  2.50
+          1          0          0  0.00
+          1          0          1  3.00
+  Terms:
+    &#39;Intercept&#39; (column 0)
+    &#39;C(a)&#39; (columns 1:3)
+    &#39;b&#39; (column 3)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Arguments can also be passed to <code class="docutils literal notranslate"><span class="pre">C()</span></code> to modify patsy’s one-hot encoding behavior. For example, if you pass <code class="docutils literal notranslate"><span class="pre">C(names,</span> <span class="pre">Treatment('Nick'))</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Nick&quot;</span></code> will become the omitted category (instead of the default, which is the first value alphabetically):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ a + b + C(names, Treatment(&#39;Nick&#39;))&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 4)
+  Intercept  C(names, Treatment(&#39;Nick&#39;))[T.Lyra]  a     b
+          1                                    0  1  3.14
+          1                                    0  3  2.50
+          1                                    1  1  0.00
+          1                                    1  3  3.00
+  Terms:
+    &#39;Intercept&#39; (column 0)
+    &quot;C(names, Treatment(&#39;Nick&#39;))&quot; (column 1)
+    &#39;a&#39; (column 2)
+    &#39;b&#39; (column 3)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="interaction-terms">
+<h3>Interaction Terms<a class="headerlink" href="#interaction-terms" title="Link to this heading">#</a></h3>
+<p>Patsy can also create interaction terms on the fly. For example, if you wished to add the multiplicative interaction of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, you could either put <code class="docutils literal notranslate"><span class="pre">a*b</span></code> in place of <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code> to have patsy insert <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">a*b</span></code> to the model:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ a * b + names&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 5)
+  Intercept  names[T.Nick]  a     b   a:b
+          1              1  1  3.14  3.14
+          1              1  3  2.50  7.50
+          1              0  1  0.00  0.00
+          1              0  3  3.00  9.00
+  Terms:
+    &#39;Intercept&#39; (column 0)
+    &#39;names&#39; (column 1)
+    &#39;a&#39; (column 2)
+    &#39;b&#39; (column 3)
+    &#39;a:b&#39; (column 4)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or you can leave in <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code> and add <code class="docutils literal notranslate"><span class="pre">a:b</span></code> to just add the multiplicative interaction term:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ a * b + names&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 5)
+  Intercept  names[T.Nick]  a     b   a:b
+          1              1  1  3.14  3.14
+          1              1  3  2.50  7.50
+          1              0  1  0.00  0.00
+          1              0  3  3.00  9.00
+  Terms:
+    &#39;Intercept&#39; (column 0)
+    &#39;names&#39; (column 1)
+    &#39;a&#39; (column 2)
+    &#39;b&#39; (column 3)
+    &#39;a:b&#39; (column 4)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="isn-t-this-formula-syntax-the-same-as-r">
+<h3>Isn’t this formula syntax the same as R?<a class="headerlink" href="#isn-t-this-formula-syntax-the-same-as-r" title="Link to this heading">#</a></h3>
+<p>Pretty close! Here’s a <a class="reference external" href="https://patsy.readthedocs.io/en/latest/R-comparison.html">list of all known differences</a>, but as you’ll see, there aren’t too many.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_5/week_3"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-in-statsmodels">Regression in statsmodels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-from-pandas-to-numpy">Moving from Pandas to Numpy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-i-care">Why do I care?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#patsy-formula-syntax">patsy Formula Syntax</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-variables">Categorical Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interaction-terms">Interaction Terms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isn-t-this-formula-syntax-the-same-as-r">Isn’t this formula syntax the same as R?</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
