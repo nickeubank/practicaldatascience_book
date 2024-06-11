@@ -1,6 +1,6 @@
 # Ergonomics and Disability Accommodations for Programming
 
-## Or: How To Not Hurt Yourself Doing Your Computer Job* #
+## Or: How To Not Hurt Yourself Doing Your Computer Job
 
 *Note: None of these links are affiliate links. These are just recommendations I'm sharing from personal experience and lots of internet research I've done to accommodate my own medical issues.*
 
@@ -52,8 +52,11 @@ Voice dictation software is everywhere today ([most people use Dragon](https://w
 If you want a tool to help you *program*, there are a few options:
 
 - [Talon Voice](https://talonvoice.com/). The website isn't super well documented, but **its free**, the community around it is **amazing**, and it's explicitly for programming. To get a feel for it, start by watching [this video on the tech](https://www.youtube.com/watch?v=YKuRkGkf5HU) and/or this [demo](https://www.youtube.com/watch?v=ddFI63dgpaI). I've used this off and on for years (depending on personal need), and I can attest that it's quite good.
+  - Most people who use Talon start by cloning [these configurations](https://github.com/talonhub/community) into their ~/.talon folder. By default, Talon doesn't know any syntax — no alphabet, no commands for editors, etc. These configurations are a great starting place that most people fork, then tweak over time to meet their own needs.
 - [Cursorless](https://www.youtube.com/watch?v=NcUJnmBqHTY) is another voice programming tool that uses Talon as its backend engine, but has some different syntax.
 - The newest kid on the block is a tool for programming with [Github Copilot AI](https://www.youtube.com/watch?v=Bk7UdqoZUDk). This uses more natural language than the above, which could be a pro or con (it's less deterministic than Talon, like all Copilot behavior). No personal experience with this.
+
+**Voice programming and Vim:** many people who voice program like vim or emacs, given they're explicitly designed for writing code without use of a mouse. With that said, if you don't use emacs or vim already you don't *need* those editors to be successful at voice programming. If getting started with voice programming feels daunting on its own, I'd recommend getting used to voice programming in your current editor before deciding whether transitioning to one of those editors is worthwhile.
 
 ### Using Your Eyes Instead of a Mouse
 
