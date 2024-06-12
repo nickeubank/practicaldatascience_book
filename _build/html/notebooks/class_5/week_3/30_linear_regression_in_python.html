@@ -528,16 +528,9 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-in-statsmodels">Regression in statsmodels</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-from-pandas-to-numpy">Moving from Pandas to Numpy</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-i-care">Why do I care?</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#patsy-formula-syntax">patsy Formula Syntax</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-variables">Categorical Variables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interaction-terms">Interaction Terms</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isn-t-this-formula-syntax-the-same-as-r">Isn’t this formula syntax the same as R?</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-results">Accessing Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-standard-error-calculations">Alternative Standard Error Calculations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-pulling-back-the-curtain">Next: Pulling Back the Curtain</a></li>
 </ul>
             </nav>
         </div>
@@ -599,17 +592,17 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>38</th>
+      <th>28</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>country_name</th>
-      <td>Mali</td>
+      <td>Kenya</td>
     </tr>
     <tr>
       <th>gdp_per_capita_ppp</th>
-      <td>1922.434</td>
+      <td>2797.863584</td>
     </tr>
     <tr>
       <th>CPIA_public_sector_rating</th>
@@ -617,19 +610,19 @@ document.write(`
     </tr>
     <tr>
       <th>mortality_rate_under5_per_1000</th>
-      <td>113.7</td>
+      <td>48.7</td>
     </tr>
     <tr>
       <th>Mortality rate, under-5, female (per 1,000 live births)</th>
-      <td>107.8</td>
+      <td>44.5</td>
     </tr>
     <tr>
       <th>Mortality rate, under-5, male (per 1,000 live births)</th>
-      <td>119.0</td>
+      <td>52.7</td>
     </tr>
     <tr>
       <th>Population, total</th>
-      <td>17438778.0</td>
+      <td>47878336.0</td>
     </tr>
     <tr>
       <th>region</th>
@@ -652,6 +645,80 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>    <td>mortality_rate_under5_per_1000</td> <th>  R-squared:         </th> <td>   0.586</td>
+</tr>
+<tr>
+  <th>Model:</th>                          <td>OLS</td>              <th>  Adj. R-squared:    </th> <td>   0.541</td>
+</tr>
+<tr>
+  <th>Method:</th>                    <td>Least Squares</td>         <th>  F-statistic:       </th> <td>   13.12</td>
+</tr>
+<tr>
+  <th>Date:</th>                    <td>Tue, 11 Jun 2024</td>        <th>  Prob (F-statistic):</th> <td>2.11e-10</td>
+</tr>
+<tr>
+  <th>Time:</th>                        <td>12:05:27</td>            <th>  Log-Likelihood:    </th> <td> -322.68</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>             <td>    73</td>             <th>  AIC:               </th> <td>   661.4</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>                 <td>    65</td>             <th>  BIC:               </th> <td>   679.7</td>
+</tr>
+<tr>
+  <th>Df Model:</th>                     <td>     7</td>             <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>             <td>nonrobust</td>           <th>                     </th>     <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+                     <td></td>                       <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th>                              <td>  169.9397</td> <td>   36.430</td> <td>    4.665</td> <td> 0.000</td> <td>   97.183</td> <td>  242.696</td>
+</tr>
+<tr>
+  <th>region[T.Europe and Central Asia]</th>      <td>  -15.9265</td> <td>   12.304</td> <td>   -1.294</td> <td> 0.200</td> <td>  -40.499</td> <td>    8.646</td>
+</tr>
+<tr>
+  <th>region[T.Latin America and Caribbean]</th>  <td>    1.9023</td> <td>    9.226</td> <td>    0.206</td> <td> 0.837</td> <td>  -16.523</td> <td>   20.327</td>
+</tr>
+<tr>
+  <th>region[T.Middle East and North Africa]</th> <td>    3.7668</td> <td>   23.057</td> <td>    0.163</td> <td> 0.871</td> <td>  -42.280</td> <td>   49.814</td>
+</tr>
+<tr>
+  <th>region[T.South Asia]</th>                   <td>    4.9372</td> <td>    9.818</td> <td>    0.503</td> <td> 0.617</td> <td>  -14.671</td> <td>   24.545</td>
+</tr>
+<tr>
+  <th>region[T.Sub-Saharan Africa]</th>           <td>   27.8448</td> <td>    7.360</td> <td>    3.783</td> <td> 0.000</td> <td>   13.145</td> <td>   42.544</td>
+</tr>
+<tr>
+  <th>np.log(gdp_per_capita_ppp)</th>             <td>  -13.3790</td> <td>    4.547</td> <td>   -2.942</td> <td> 0.005</td> <td>  -22.461</td> <td>   -4.297</td>
+</tr>
+<tr>
+  <th>CPIA_public_sector_rating</th>              <td>   -7.1417</td> <td>    4.387</td> <td>   -1.628</td> <td> 0.108</td> <td>  -15.902</td> <td>    1.619</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td> 4.467</td> <th>  Durbin-Watson:     </th> <td>   1.617</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.107</td> <th>  Jarque-Bera (JB):  </th> <td>   4.375</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td> 0.592</td> <th>  Prob(JB):          </th> <td>   0.112</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 2.813</td> <th>  Cond. No.          </th> <td>    128.</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</div></div>
 </div>
 <p>(why <code class="docutils literal notranslate"><span class="pre">smf.ols</span></code>? Recall that one name for linear regression is “Ordinary Least Squares,” which is often shortened to “OLS.”)</p>
 <p>Not bad, huh? Not only was our regression a one-liner, but the <code class="docutils literal notranslate"><span class="pre">.summary()</span></code> method has provided us with all our coefficients with labels, standard errors, t-statistics, p-values, 95% confidence intervals, and a range of additional statistics about the regression.</p>
@@ -659,292 +726,244 @@ document.write(`
 <p>Finally (if this doesn’t mean much to you, don’t worry about it), statsmodels recognized that <code class="docutils literal notranslate"><span class="pre">region</span></code> contained strings rather than numbers, so it dynamically created a set of indicator variables (i.e., it created one-hot encodings).</p>
 <p>If you come from R or Stata, none of that is likely to seem notable to you, but as we’ll discuss in the next section (and as we’ll see when we get to <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>), those are conveniences that should not be taken for granted.</p>
 </section>
-<section id="moving-from-pandas-to-numpy">
-<h2>Moving from Pandas to Numpy<a class="headerlink" href="#moving-from-pandas-to-numpy" title="Link to this heading">#</a></h2>
-<p>Tools like the <code class="docutils literal notranslate"><span class="pre">ols</span></code> function from <code class="docutils literal notranslate"><span class="pre">statsmodels.formula.api</span></code> we used above can make your life as a data scientist <em>much</em> easier, but they also mask some of the complexity that lies between passing the function a pandas DataFrame and the actual regression taking place.</p>
-<p>Why? At the level of the underlying math, a linear regression is fit using matrix calculations. Indeed, if you imagine putting your outcome variable in vector called <span class="math notranslate nohighlight">\(y\)</span> and your explanatory variables in a matrix <span class="math notranslate nohighlight">\(X\)</span> where each column one of your explanatory variables and each row is an observation, then the way we actually get the vector of coefficients <span class="math notranslate nohighlight">\(\beta\)</span> is with the following matrix formula:</p>
-<div class="math notranslate nohighlight">
-\[\beta = (X^TX)^{-1} X^Ty\]</div>
-<p>Indeed, matrix math (also known as matrix algebra) underlies a huge proportion of statistics and machine learning tools, which is one of the reasons that a linear algebra course (the part of math focused on the study of matrix math) is often recommended for data science students. (Don’t worry — you don’t need to know linear algebra to start as a data scientist, or to understand that formula above; I’m just telling you this to motivate what comes next).</p>
-<p>But you can’t always do matrix math on a pandas DataFrame. pandas DataFrames are great because of their flexibility, but you can’t multiply to pandas DataFrames that contain some integer columns, some floating point columns, and some string columns. Moreover, you also can’t do matrix calculations with missing values — the inverse of a matrix with missing values is not a defined concept.</p>
-<p>So how was <code class="docutils literal notranslate"><span class="pre">smf.ols()</span></code> able to fit that regression? <a class="reference external" href="https://patsy.readthedocs.io/en/latest/overview.html">patsy</a>. patsy is a package that takes as input a pandas DataFrame and a formula (like the <code class="docutils literal notranslate"><span class="pre">&quot;mortality_rate_under5_per_1000</span> <span class="pre">~</span> <span class="pre">np.log(gdp_per_capita_ppp)</span> <span class="pre">+</span> <span class="pre">CPIA_public_sector_rating</span> <span class="pre">+</span> <span class="pre">region&quot;</span></code> formula we used above), and returns a numpy array of floating point numbers without missing data (and with labels!) on which matrix algebra can be performed. And all <code class="docutils literal notranslate"><span class="pre">smf.ols()</span></code> is doing is calling patsy, giving it your DataFrame and formula, the taking the numpy arrays it returns and passing them to its more traditional OLS function, <code class="docutils literal notranslate"><span class="pre">OLS()</span></code> from <code class="docutils literal notranslate"><span class="pre">statsmodels.api</span></code>.</p>
-<section id="why-do-i-care">
-<h3>Why do I care?<a class="headerlink" href="#why-do-i-care" title="Link to this heading">#</a></h3>
-<p>“OK,” I hear you yell, “but if statsmodels does this for me what do I care how it does it?”</p>
-<p>You need to care because outside a handful of functions for which statsmodels offers this convenience (you can find the <a class="reference external" href="https://www.statsmodels.org/stable/api.html#statsmodels-formula-api">full list here</a>), <strong>nearly every modeling tool you encounter in the Python ecosystem will expect numpy arrays of floating point numbers as inputs.</strong> And that means that it’s important to (a) understand why they’re doing this, and (b) be comfortable using <code class="docutils literal notranslate"><span class="pre">patsy</span></code> directly to move from pandas DataFrames to numpy arrays yourself.</p>
-</section>
-</section>
-<section id="patsy-formula-syntax">
-<h2>patsy Formula Syntax<a class="headerlink" href="#patsy-formula-syntax" title="Link to this heading">#</a></h2>
-<p>To move between pandas and numpy, we will use the <code class="docutils literal notranslate"><span class="pre">patsy.dmatrices()</span></code> function. It takes a pandas DataFrame and a formula string and returns a tuple containing an outcome vector and a matrix of explanatory variables.</p>
-<p>To illustrate how patsy works, let’s create a quite small toy dataset just to help us visualize what is going on.</p>
+<section id="accessing-results">
+<h2>Accessing Results<a class="headerlink" href="#accessing-results" title="Link to this heading">#</a></h2>
+<p>While <code class="docutils literal notranslate"><span class="pre">.summary()</span></code> is great for printing out results, this is a class about <em>programming</em> for data science, and so, of course, we also need to know how to access these results programatically.</p>
+<p>All results — along with a large number of other useful statistics about model performance — are accessible through the fit model (in this example, <code class="docutils literal notranslate"><span class="pre">corruption_model</span></code>). This fit model is a <code class="docutils literal notranslate"><span class="pre">RegressionResult</span></code> object. You can find a full list <code class="docutils literal notranslate"><span class="pre">RegressionResult</span></code> attributes and methods <a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.RegressionResults.html#statsmodels.regression.linear_model.RegressionResults">here</a>. Two of the most important attributes of a <code class="docutils literal notranslate"><span class="pre">RegressionResult</span></code> object are: <code class="docutils literal notranslate"><span class="pre">.params</span></code> (a pandas Series of regression coefficients) and <code class="docutils literal notranslate"><span class="pre">.df_resid</span></code> (a DataFrame of residuals).</p>
+<p>To illustrate:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">toy_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-    <span class="p">{</span>
-        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
-        <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-        <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-        <span class="s2">&quot;names&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Nick&quot;</span><span class="p">,</span> <span class="s2">&quot;Lyra&quot;</span><span class="p">,</span> <span class="s2">&quot;Nick&quot;</span><span class="p">,</span> <span class="s2">&quot;Lyra&quot;</span><span class="p">,</span> <span class="s2">&quot;Lyra&quot;</span><span class="p">],</span>
-    <span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corruption_model</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept                                 169.939656
+region[T.Europe and Central Asia]         -15.926485
+region[T.Latin America and Caribbean]       1.902313
+region[T.Middle East and North Africa]      3.766843
+region[T.South Asia]                        4.937173
+region[T.Sub-Saharan Africa]               27.844846
+np.log(gdp_per_capita_ppp)                -13.379033
+CPIA_public_sector_rating                  -7.141716
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;The partial correlation of CPIA rating with under &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;five mortality is </span><span class="si">{</span><span class="n">corruption_model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;CPIA_public_sector_rating&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="p">)</span>
-<span class="n">toy_df</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>y</th>
-      <th>a</th>
-      <th>b</th>
-      <th>names</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>10</td>
-      <td>1</td>
-      <td>3.14</td>
-      <td>Nick</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>11</td>
-      <td>2</td>
-      <td>NaN</td>
-      <td>Lyra</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>9</td>
-      <td>3</td>
-      <td>2.50</td>
-      <td>Nick</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>8</td>
-      <td>1</td>
-      <td>0.00</td>
-      <td>Lyra</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>12</td>
-      <td>3</td>
-      <td>3.00</td>
-      <td>Lyra</td>
-    </tr>
-  </tbody>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The partial correlation of CPIA rating with under five mortality is -7.14
+</pre></div>
+</div>
+</div>
+</div>
+<p>For those who are familiar with these concepts, a RegressionResult object also has methods for post-regression testing (e.g., f-tests, Lagrange Multiplier (LM) tests of linear restrictions, likelihood ratio tests).</p>
+<p>For example, to test whether the coefficient for the South Asia region is statistically significantly different from the coefficient for the Middle East and North Africa region, you would:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corruption_model</span><span class="o">.</span><span class="n">t_test</span><span class="p">(</span><span class="s2">&quot;region[T.South Asia] = region[T.Middle East and North Africa]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;statsmodels.stats.contrast.ContrastResults&#39;&gt;
+                             Test for Constraints                             
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+c0             1.1703     23.625      0.050      0.961     -46.013      48.354
+==============================================================================
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="alternative-standard-error-calculations">
+<h2>Alternative Standard Error Calculations<a class="headerlink" href="#alternative-standard-error-calculations" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">RegressionResult</span></code> objects also have a method for different standard error calculations (again, don’t worry if this doesn’t mean anything to you!). statsmodels supports <code class="docutils literal notranslate"><span class="pre">HC1</span></code>, <code class="docutils literal notranslate"><span class="pre">HC2</span></code>, and <code class="docutils literal notranslate"><span class="pre">HC3</span></code> heteroskedastic robust standard errors, as well as heteroskedasticity-autocorrelation robust standard errors:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corruption_model</span><span class="o">.</span><span class="n">get_robustcov_results</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s2">&quot;HC2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>    <td>mortality_rate_under5_per_1000</td> <th>  R-squared:         </th> <td>   0.586</td>
+</tr>
+<tr>
+  <th>Model:</th>                          <td>OLS</td>              <th>  Adj. R-squared:    </th> <td>   0.541</td>
+</tr>
+<tr>
+  <th>Method:</th>                    <td>Least Squares</td>         <th>  F-statistic:       </th> <td>   48.92</td>
+</tr>
+<tr>
+  <th>Date:</th>                    <td>Tue, 11 Jun 2024</td>        <th>  Prob (F-statistic):</th> <td>1.68e-23</td>
+</tr>
+<tr>
+  <th>Time:</th>                        <td>12:21:39</td>            <th>  Log-Likelihood:    </th> <td> -322.68</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>             <td>    73</td>             <th>  AIC:               </th> <td>   661.4</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>                 <td>    65</td>             <th>  BIC:               </th> <td>   679.7</td>
+</tr>
+<tr>
+  <th>Df Model:</th>                     <td>     7</td>             <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>                <td>HC2</td>              <th>                     </th>     <td> </td>   
+</tr>
 </table>
-</div></div></div>
+<table class="simpletable">
+<tr>
+                     <td></td>                       <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th>                              <td>  169.9397</td> <td>   37.846</td> <td>    4.490</td> <td> 0.000</td> <td>   94.357</td> <td>  245.522</td>
+</tr>
+<tr>
+  <th>region[T.Europe and Central Asia]</th>      <td>  -15.9265</td> <td>    5.763</td> <td>   -2.764</td> <td> 0.007</td> <td>  -27.436</td> <td>   -4.417</td>
+</tr>
+<tr>
+  <th>region[T.Latin America and Caribbean]</th>  <td>    1.9023</td> <td>    6.687</td> <td>    0.284</td> <td> 0.777</td> <td>  -11.453</td> <td>   15.257</td>
+</tr>
+<tr>
+  <th>region[T.Middle East and North Africa]</th> <td>    3.7668</td> <td>    8.304</td> <td>    0.454</td> <td> 0.652</td> <td>  -12.817</td> <td>   20.351</td>
+</tr>
+<tr>
+  <th>region[T.South Asia]</th>                   <td>    4.9372</td> <td>    9.361</td> <td>    0.527</td> <td> 0.600</td> <td>  -13.759</td> <td>   23.633</td>
+</tr>
+<tr>
+  <th>region[T.Sub-Saharan Africa]</th>           <td>   27.8448</td> <td>    7.238</td> <td>    3.847</td> <td> 0.000</td> <td>   13.389</td> <td>   42.300</td>
+</tr>
+<tr>
+  <th>np.log(gdp_per_capita_ppp)</th>             <td>  -13.3790</td> <td>    4.550</td> <td>   -2.941</td> <td> 0.005</td> <td>  -22.465</td> <td>   -4.293</td>
+</tr>
+<tr>
+  <th>CPIA_public_sector_rating</th>              <td>   -7.1417</td> <td>    3.966</td> <td>   -1.801</td> <td> 0.076</td> <td>  -15.063</td> <td>    0.779</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td> 4.467</td> <th>  Durbin-Watson:     </th> <td>   1.617</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.107</td> <th>  Jarque-Bera (JB):  </th> <td>   4.375</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td> 0.592</td> <th>  Prob(JB):          </th> <td>   0.112</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 2.813</td> <th>  Cond. No.          </th> <td>    128.</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors are heteroscedasticity robust (HC2)</div></div>
 </div>
-<p>Now let’s suppose we want to regress <code class="docutils literal notranslate"><span class="pre">y</span></code> on <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. Let’s use <code class="docutils literal notranslate"><span class="pre">dmatrices</span></code> to create our matrices. Note that <code class="docutils literal notranslate"><span class="pre">patsy.dmatrices</span></code> returns two objects — our outcome vector and our matrix of explanatory variables, so if you assign the result to a single variable you will get a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> with the two items, or you can assign the result to two variables (separated by a comma) and the results will be distributed to those two variables:</p>
+<p><code class="docutils literal notranslate"><span class="pre">RegressionResults</span></code> also support clustered standard errors using <code class="docutils literal notranslate"><span class="pre">corruption_model.get_robustcov_results(cov_type=&quot;cluster&quot;,</span> <span class="pre">groups=)</span></code>. However, <code class="docutils literal notranslate"><span class="pre">groups</span></code> has to be passed a vector of integer group</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">patsy</span>
-
-<span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ a + b&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Let’s start by looking at our X matrix:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corruption_model</span><span class="o">.</span><span class="n">get_robustcov_results</span><span class="p">(</span>
+    <span class="n">cov_type</span><span class="o">=</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">wdi</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">region</span>
+<span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 2)
-  a     b
-  1  3.14
-  3  2.50
-  1  0.00
-  3  3.00
-  Terms:
-    &#39;a&#39; (column 0)
-    &#39;b&#39; (column 1)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/nce8/opt/miniconda3/lib/python3.11/site-packages/statsmodels/base/model.py:1896: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 7, but rank is 2
+  warnings.warn(&#39;covariance of constraints does not have full &#39;
 </pre></div>
 </div>
-</div>
-</div>
-<p>As you can see, there are a few differences between our pandas DataFrame and this <code class="docutils literal notranslate"><span class="pre">DesignMatrix</span></code> (these are basically numpy arrays with some extra metadata, like labels. You can use them with any function that expects numpy arrays).</p>
-<ul class="simple">
-<li><p>The DesignMatrix <code class="docutils literal notranslate"><span class="pre">X</span></code> includes a column of 1s labelled as <code class="docutils literal notranslate"><span class="pre">Intercept</span></code>. You may have never thought about this before, but the intercept in a regression doesn’t appear by magic — it’s actually a coefficient created by adding a column that has the same value for every observation (1 makes interpretation easiest). By default, <code class="docutils literal notranslate"><span class="pre">patsy</span></code> will always add an intercept, but if you would prefer it did not, just add <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">0</span></code> to the formula.</p></li>
-<li><p>Our pandas DataFrame had 5 rows, but <code class="docutils literal notranslate"><span class="pre">X</span></code> only has 4. Why? Well, the second row of our DataFrame included a missing value (<code class="docutils literal notranslate"><span class="pre">np.nan</span></code>) in the <code class="docutils literal notranslate"><span class="pre">b</span></code> column. As noted above, we can’t do matrix algebra with missing values, so any row that includes a missing value <em>in one of the variables in the formula</em> is automatically dropped. And yes, it drops that row from <code class="docutils literal notranslate"><span class="pre">y</span></code> too.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 1)
-   y
-  10
-   9
-   8
-  12
-  Terms:
-    &#39;y&#39; (column 0)
-</pre></div>
-</div>
-</div>
-</div>
-<section id="categorical-variables">
-<h3>Categorical Variables<a class="headerlink" href="#categorical-variables" title="Link to this heading">#</a></h3>
-<p>Great, but this is just the start of things. Now let’s add <code class="docutils literal notranslate"><span class="pre">names</span></code> — a string variable — to the model.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ a + b + names&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
-<span class="n">X</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 4)
-  Intercept  names[T.Nick]  a     b
-          1              1  1  3.14
-          1              1  3  2.50
-          1              0  1  0.00
-          1              0  3  3.00
-  Terms:
-    &#39;Intercept&#39; (column 0)
-    &#39;names&#39; (column 1)
-    &#39;a&#39; (column 2)
-    &#39;b&#39; (column 3)
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now our <code class="docutils literal notranslate"><span class="pre">X</span></code> matrix has a new column called <code class="docutils literal notranslate"><span class="pre">names[T.Nick]</span></code> that contains 0s and 1s. Basically, if the variable takes on the value after <code class="docutils literal notranslate"><span class="pre">T.</span></code> (here, <code class="docutils literal notranslate"><span class="pre">Nick</span></code>), then that variable will be 1; otherwise it will be a zero. If our variable <code class="docutils literal notranslate"><span class="pre">c</span></code> took on more than two values (say, <code class="docutils literal notranslate"><span class="pre">&quot;Lyra&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Nick&quot;,</span></code> <code class="docutils literal notranslate"><span class="pre">&quot;Trillian&quot;</span></code>), <code class="docutils literal notranslate"><span class="pre">X</span></code> would have also had a variable called <code class="docutils literal notranslate"><span class="pre">names[T.Trillian]</span></code>.</p>
-<p>By default, patsy will always omit one category (the “omitted category” or “reference category”). As a result, for a variable that takes on <code class="docutils literal notranslate"><span class="pre">N</span></code> unique values, patsy will always add <code class="docutils literal notranslate"><span class="pre">N-1</span></code> variables when doing one-hot encoding.</p>
-<p>patsy will do this automatically when it encounters a <code class="docutils literal notranslate"><span class="pre">Categorical</span></code> or <code class="docutils literal notranslate"><span class="pre">object</span></code> <code class="docutils literal notranslate"><span class="pre">dtype</span></code> column, but you can also use <code class="docutils literal notranslate"><span class="pre">C()</span></code> to force it to treat any variable as categorical. For example, if I put <code class="docutils literal notranslate"><span class="pre">C(a)</span></code> in the formula, it will treat <code class="docutils literal notranslate"><span class="pre">a</span></code> as a categorical variable and apply one-hot encoding to all the unique values of the variable:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ C(a) + b&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
-<span class="n">X</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 4)
-  Intercept  C(a)[T.2]  C(a)[T.3]     b
-          1          0          0  3.14
-          1          0          1  2.50
-          1          0          0  0.00
-          1          0          1  3.00
-  Terms:
-    &#39;Intercept&#39; (column 0)
-    &#39;C(a)&#39; (columns 1:3)
-    &#39;b&#39; (column 3)
-</pre></div>
-</div>
-</div>
-</div>
-<p>Arguments can also be passed to <code class="docutils literal notranslate"><span class="pre">C()</span></code> to modify patsy’s one-hot encoding behavior. For example, if you pass <code class="docutils literal notranslate"><span class="pre">C(names,</span> <span class="pre">Treatment('Nick'))</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Nick&quot;</span></code> will become the omitted category (instead of the default, which is the first value alphabetically):</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ a + b + C(names, Treatment(&#39;Nick&#39;))&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
-<span class="n">X</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 4)
-  Intercept  C(names, Treatment(&#39;Nick&#39;))[T.Lyra]  a     b
-          1                                    0  1  3.14
-          1                                    0  3  2.50
-          1                                    1  1  0.00
-          1                                    1  3  3.00
-  Terms:
-    &#39;Intercept&#39; (column 0)
-    &quot;C(names, Treatment(&#39;Nick&#39;))&quot; (column 1)
-    &#39;a&#39; (column 2)
-    &#39;b&#39; (column 3)
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>    <td>mortality_rate_under5_per_1000</td> <th>  R-squared:         </th> <td>   0.586</td>
+</tr>
+<tr>
+  <th>Model:</th>                          <td>OLS</td>              <th>  Adj. R-squared:    </th> <td>   0.541</td>
+</tr>
+<tr>
+  <th>Method:</th>                    <td>Least Squares</td>         <th>  F-statistic:       </th> <td>   4.404</td>
+</tr>
+<tr>
+  <th>Date:</th>                    <td>Tue, 11 Jun 2024</td>        <th>  Prob (F-statistic):</th>  <td>0.0789</td> 
+</tr>
+<tr>
+  <th>Time:</th>                        <td>12:30:04</td>            <th>  Log-Likelihood:    </th> <td> -322.68</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>             <td>    73</td>             <th>  AIC:               </th> <td>   661.4</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>                 <td>    65</td>             <th>  BIC:               </th> <td>   679.7</td>
+</tr>
+<tr>
+  <th>Df Model:</th>                     <td>     7</td>             <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>              <td>cluster</td>            <th>                     </th>     <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+                     <td></td>                       <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th>                              <td>  169.9397</td> <td>   16.975</td> <td>   10.011</td> <td> 0.000</td> <td>  126.304</td> <td>  213.575</td>
+</tr>
+<tr>
+  <th>region[T.Europe and Central Asia]</th>      <td>  -15.9265</td> <td>    1.241</td> <td>  -12.829</td> <td> 0.000</td> <td>  -19.118</td> <td>  -12.735</td>
+</tr>
+<tr>
+  <th>region[T.Latin America and Caribbean]</th>  <td>    1.9023</td> <td>    0.694</td> <td>    2.739</td> <td> 0.041</td> <td>    0.117</td> <td>    3.688</td>
+</tr>
+<tr>
+  <th>region[T.Middle East and North Africa]</th> <td>    3.7668</td> <td>    2.644</td> <td>    1.425</td> <td> 0.214</td> <td>   -3.030</td> <td>   10.564</td>
+</tr>
+<tr>
+  <th>region[T.South Asia]</th>                   <td>    4.9372</td> <td>    0.719</td> <td>    6.869</td> <td> 0.001</td> <td>    3.090</td> <td>    6.785</td>
+</tr>
+<tr>
+  <th>region[T.Sub-Saharan Africa]</th>           <td>   27.8448</td> <td>    1.385</td> <td>   20.098</td> <td> 0.000</td> <td>   24.283</td> <td>   31.406</td>
+</tr>
+<tr>
+  <th>np.log(gdp_per_capita_ppp)</th>             <td>  -13.3790</td> <td>    2.727</td> <td>   -4.906</td> <td> 0.004</td> <td>  -20.389</td> <td>   -6.369</td>
+</tr>
+<tr>
+  <th>CPIA_public_sector_rating</th>              <td>   -7.1417</td> <td>    2.067</td> <td>   -3.455</td> <td> 0.018</td> <td>  -12.455</td> <td>   -1.829</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td> 4.467</td> <th>  Durbin-Watson:     </th> <td>   1.617</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.107</td> <th>  Jarque-Bera (JB):  </th> <td>   4.375</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td> 0.592</td> <th>  Prob(JB):          </th> <td>   0.112</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 2.813</td> <th>  Cond. No.          </th> <td>    128.</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors are robust to cluster correlation (cluster)</div></div>
 </div>
 </section>
-<section id="interaction-terms">
-<h3>Interaction Terms<a class="headerlink" href="#interaction-terms" title="Link to this heading">#</a></h3>
-<p>Patsy can also create interaction terms on the fly. For example, if you wished to add the multiplicative interaction of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, you could either put <code class="docutils literal notranslate"><span class="pre">a*b</span></code> in place of <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code> to have patsy insert <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">a*b</span></code> to the model:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ a * b + names&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
-<span class="n">X</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 5)
-  Intercept  names[T.Nick]  a     b   a:b
-          1              1  1  3.14  3.14
-          1              1  3  2.50  7.50
-          1              0  1  0.00  0.00
-          1              0  3  3.00  9.00
-  Terms:
-    &#39;Intercept&#39; (column 0)
-    &#39;names&#39; (column 1)
-    &#39;a&#39; (column 2)
-    &#39;b&#39; (column 3)
-    &#39;a:b&#39; (column 4)
-</pre></div>
-</div>
-</div>
-</div>
-<p>Or you can leave in <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code> and add <code class="docutils literal notranslate"><span class="pre">a:b</span></code> to just add the multiplicative interaction term:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;y ~ a * b + names&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">toy_df</span><span class="p">)</span>
-<span class="n">X</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 5)
-  Intercept  names[T.Nick]  a     b   a:b
-          1              1  1  3.14  3.14
-          1              1  3  2.50  7.50
-          1              0  1  0.00  0.00
-          1              0  3  3.00  9.00
-  Terms:
-    &#39;Intercept&#39; (column 0)
-    &#39;names&#39; (column 1)
-    &#39;a&#39; (column 2)
-    &#39;b&#39; (column 3)
-    &#39;a:b&#39; (column 4)
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="isn-t-this-formula-syntax-the-same-as-r">
-<h3>Isn’t this formula syntax the same as R?<a class="headerlink" href="#isn-t-this-formula-syntax-the-same-as-r" title="Link to this heading">#</a></h3>
-<p>Pretty close! Here’s a <a class="reference external" href="https://patsy.readthedocs.io/en/latest/R-comparison.html">list of all known differences</a>, but as you’ll see, there aren’t too many.</p>
-</section>
+<section id="next-pulling-back-the-curtain">
+<h2>Next: Pulling Back the Curtain<a class="headerlink" href="#next-pulling-back-the-curtain" title="Link to this heading">#</a></h2>
+<p>This reading has hopefully given you a sense of how easy statsmodels makes it to fit and analyze a linear regression. Some of the extensions to basic modelling discussed here may not be familiar to everyone, but even so, hopefully this gives you a sense of how things are organized so when you <em>do</em> learn more about linear regression, you’ll know how to use that knowledge.</p>
+<p>In our next reading, we’ll put ourselves squarely back in the land of data science programming as we pull back the curtain and take a look at what’s going on behind the scenes of <code class="docutils literal notranslate"><span class="pre">statsmodels.formula.api.ols</span></code>.</p>
 </section>
 </section>
 
@@ -995,16 +1014,9 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-in-statsmodels">Regression in statsmodels</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-from-pandas-to-numpy">Moving from Pandas to Numpy</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-i-care">Why do I care?</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#patsy-formula-syntax">patsy Formula Syntax</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-variables">Categorical Variables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interaction-terms">Interaction Terms</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isn-t-this-formula-syntax-the-same-as-r">Isn’t this formula syntax the same as R?</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-results">Accessing Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-standard-error-calculations">Alternative Standard Error Calculations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-pulling-back-the-curtain">Next: Pulling Back the Curtain</a></li>
 </ul>
   </nav></div>
 

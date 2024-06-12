@@ -24,7 +24,7 @@ Once you have these, make sure you use them correctly — if you search for "goo
 
 ### A Good Chair
 
-A good chair can also be a really impactful intervention (depending on what you're starting with). Gaming chairs, for example, are often less expensive than similar quality office chairs that are priced for corporate buyers, are highly adjustable, and have high backs with good support. [Lots of youtube videos on these](https://www.youtube.com/watch?v=WQEkEfQs5vs), though it's always better if you can try a chair before buying.
+A good chair can also be a really impactful intervention (depending on what you're starting with). [Lots of youtube videos on these](https://www.youtube.com/watch?v=WQEkEfQs5vs), though it's always better if you can try a chair before buying.
 
 ### Don't Zone Out
 
