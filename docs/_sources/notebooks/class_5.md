@@ -1,104 +1,47 @@
 # Class 5: Towards the practice of data science
 - Theme: Program like a software engineer; think like a data scientist
+- Learning objectives:
+  - Make reproducible, customizable plots that use programming to reveal data insights
+  - Use programming skills to create software for common data science applications
+  - Conduct a full-scale data science analysis that makes use of the programming tools developed through the course and specialization
 
-## WEEK ONE @nickeubank
+## WEEK 1: Visualizing Data with Code: Plotting with Matplotlib (Kyle)
+- Why do we plot? Visual exploration, communication, and summarization
+- Introduction to plotting with code: Matplotlib basics
+- Procedural versus object oriented approaches to plotting
+- Basic Plotting: coding a plot in 4 lines of code or less
+- Using code to inspect your data: Datasaurus / Anscombes Quartet
+- Common plot forms: scatter, line, bar, and heatmaps
+- Histograms for data summarization
+- Making highly customized and fully reproducible plots with code
+- Effective plotting practices
+- Other plotting tools in Python
 
-- Theme: Big data
-- Learning objectives
-  - Understand what makes big data big and how to work with it
+## WEEK 2: Using Code to Make Predictions from Data: Classification and Regression (Kyle)
+- Introduction to prediction (supervised learning): classification and regression
+- Preparing your data: training and test data
+- K Nearest Neighbors (KNN) classification
+- Coding a KNN classifier
+- Applying your KNN classifier to real world data
+- How to convert your KNN classifier into a regression tool
+- Common programming tools for prediction
 
-### Big Data
+## WEEK 3: Using Code to Draw Inferences from Data: Regression (Nick)
+- From prediction to inference: understanding relationships between inputs and outputs
+- Introducing linear regression
+  - Link out to Mina's course on linear regression
+- Understanding standard errors
+- Interpreting regression results
+- Real-world example of applying regression for inference
+- The importance of modeling assumptions
+- Common programming tools for inference
 
-- What makes big data big (e.g. memory hierarchy)
-- Big data strategies (e.g. chunking)
-- Tools for big data: dask
-
-## WEEK TWO @kylebradbury
-
-- Theme: Plotting and Exploratory Data Analysis
-- Learning objectives: 
-  - Never trust your data too much
-  - Learn tools for data summarization
-  - Understand the plotting ecosystem in Python
-  - Understand the graphics of grammar
-  - Be able to do basic plots in altair
-
-### Plotting Principles
-
-- Altair and its alternatives (matplotlib, plotly, etc.)
-- Why Altair?
-- Grammer of Graphics
-- Hierarchy of encodings
-- Common plot forms: scatter, line, bar, histogram, and heatmaps
-
-### Effective plotting 
-
-- Exploration and Exposition
-- Communication and summarization
-- Examples from real data sources
-
-### Interactive plotting
-- Enables rapid exploration of data and is web-friendly
-- Altair can create interactive plots implicitly
-
-## WEEK THREE
-
-- Theme: Data Modeling
-- Learning objectives: 
-  - Examples of common data science applications and the programming strategies used
-  - Understand common packages to be conversant in the lingua franca
-  - Work through examples of each as a "hello world" of applied programming for data science
-
-### What is Data Modelling? @kylebradbury
-
-- Overview! "Dimensionality reduction" 
-- representing data with high-fidelity
-- Datasaurus / Anscombes Quartet
-
-### Linear Regression @nickeubank
-
-- What Is Linear Regression?
-- What Are Standard Errors?
-- Modelling with `statsmodels`
-
-### Machine Learning @kylebradbury
-
-- **What is it?**
-  - Unsupervised Machine Learning
-  - Supervised Machine Learning
-- **scikit-learn**
-  - split, fit, predict
-
-## WEEK FOUR [assignment TBD]
-
-- Theme: Getting Help in Learning More; Other Things
-- Learning objective: 
-  - Data Science is changing quickly, so you will have to keep learning constantly
-
-### Workflows
-
-- Data analysis v. software engineering
-- don't edit your source data / data pipelines
-- Collaboration on github demonstration?
-- CI/CD
-
-### Forums 
-
-- How to post on stackoverflow
-  - MWE, etiquette, problems of gender
-- Posting on github
-
-### Accessibility Tech
-
-- Data science resources for accessibility
-
-## WEEK FIVE [assignment / content TBD]
-
-- Theme: Bringing it all together
-- Learning objective:
-  - Complete a worked example that brings together content from all 5 of the specialization courses
-
-### Comprehensive example
-
-- This example should include all of key practices from through out the 5 courses
-- Conclude week 5 with a summary of what was learned
+## WEEK 4: Bringing it All Together: Final Coding Project (Kyle and Nick)
+- Intro to the GapMinder project
+- Motivation: background on the problem (and how to formulate data science question)
+- Gathering and merging the data
+- Drafting a plot of the data
+- Refining a plot of the data
+- Training a regression model on the data
+- Determining the relationships between predictors
+- Interpreting and sharing your findings

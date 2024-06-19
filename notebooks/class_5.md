@@ -29,6 +29,7 @@
 ## WEEK 3: Using Code to Draw Inferences from Data: Regression (Nick)
 - From prediction to inference: understanding relationships between inputs and outputs
 - Introducing linear regression
+  - Link out to Mina's course on linear regression
 - Understanding standard errors
 - Interpreting regression results
 - Real-world example of applying regression for inference
