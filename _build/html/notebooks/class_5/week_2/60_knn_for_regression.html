@@ -523,7 +523,42 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="knn-for-regression">
 <h1>KNN for regression<a class="headerlink" href="#knn-for-regression" title="Link to this heading">#</a></h1>
-<p>So far, we’ve done a deep dive into KNN for classification. What if we want to make predictions for numerical target data, like housing prices? In that case, we would need a different approach. Instead of classification, we would use regression.</p>
+<p>So far, we’ve done a deep dive into KNN for classification. What if we want to make predictions for numerical target data, like housing prices? In that case, we would need a different approach. Instead of classification, we would use regression. Recall our example in a previous lesson about estimating house sale priceusing data on the number of bedrooms in the home, the year it was built and whether or not a swimming pool is present, as shown below in Table 1.</p>
+<p><em>Table 1. Example of training data.</em></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x_1\)</span><br>Number of bedrooms</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(x_2\)</span><br>Year built</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(x_3\)</span><br>Swimming pool present?</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(y\)</span><br>Price ($)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>1965</p></td>
+<td><p>True</p></td>
+<td><p>325,000</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1957</p></td>
+<td><p>False</p></td>
+<td><p>297,000</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>2004</p></td>
+<td><p>False</p></td>
+<td><p>443,000</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2023</p></td>
+<td><p>True</p></td>
+<td><p>502,000</p></td>
+</tr>
+</tbody>
+</table>
+<p>As the simplest of examples, imagine we had the training data shown in Figure 1, below showing in (A) a table of the training data (and a question mark where we want to make our prediction), and a plot of the data in (B).</p>
+<p><img alt="Regression Example" src="../../../_images/regression-explained.png" /></p>
+<p>In Figure 1A we can see that know 4 training points and want to make a prediction for the <span class="math notranslate nohighlight">\(y\)</span> value that corresponds to an <span class="math notranslate nohighlight">\(x\)</span> value of 4. If you look at this, you can instantly see a reasonable answer: <span class="math notranslate nohighlight">\(y=8\)</span>. You generalize the from the data to make a prediction for a value when you don’t know what the answer from the training data: this is regression.</p>
 <p>So how do we adapt our K nearest neighbors approach to work for regression problems? The transition is simple: instead of identifying the k nearest neighbors and selecting the most represented class of those k training observations, instead we simply take the average of target value of the k nearest neighbors instead.</p>
 <p><img alt="" src="../../../_images/knn_regression0.png" /></p>
 <p><em>Figure 1. Feature space plot showing two features and the target numerical variable. The goal would be to make a prediction for the unlabeled variable <span class="math notranslate nohighlight">\(\hat{y}\)</span></em></p>

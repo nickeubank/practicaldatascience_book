@@ -1,0 +1,1153 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Preparing the data: Continents &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_5/week_4/14_part4_continents';</script>
+    <link rel="icon" href="../../../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Practical Data Science with Python - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Practical Data Science with Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">IDS 720</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../ids720_specific/class_schedule.html">Class Schedule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">Views and Copies</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">Matrices</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">Arrays</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/18_object_dtype.html">The <code class="docutils literal notranslate"><span class="pre">object</span></code> Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/45_categorical_dtype.html">The Categorical Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_3/week_3/07_indices.html">Indexes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/03_plaintext_files.html">Reading Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">Defensive Programming</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_5/week_4/14_part4_continents.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/class_5/week_4/14_part4_continents.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Preparing the data: Continents</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="preparing-the-data-continents">
+<h1>Preparing the data: Continents<a class="headerlink" href="#preparing-the-data-continents" title="Link to this heading">#</a></h1>
+<p>We’re walking through our four datasets, processing one at a time:</p>
+<ol class="arabic simple">
+<li><p><em>Carbon dioxide emissions by country</em></p></li>
+<li><p><em>Income (as measured by GDP per capita) by country</em></p></li>
+<li><p><em>Population by country (so we can convert CO2 emissions into per capita emissions)</em></p></li>
+<li><p><strong>List of territories by continent (since we want to be able to group the countries by region of the world)</strong></p></li>
+</ol>
+<p>Once again, let’s start by loading in and inspecting the next and final dataset we’ll be incorporating: the UN data on continents.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">continents_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/united_nations_continents.csv&quot;</span><span class="p">)</span>
+<span class="n">continents_all</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">File</span> <span class="n">parsers</span><span class="o">.</span><span class="n">pyx</span><span class="p">:</span><span class="mi">2058</span><span class="p">,</span> <span class="ow">in</span> <span class="n">pandas</span><span class="o">.</span><span class="n">_libs</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">raise_parser_error</span><span class="p">()</span>
+
+<span class="n">ParserError</span><span class="p">:</span> <span class="n">Error</span> <span class="n">tokenizing</span> <span class="n">data</span><span class="o">.</span> <span class="n">C</span> <span class="n">error</span><span class="p">:</span> <span class="n">Expected</span> <span class="mi">1</span> <span class="n">fields</span> <span class="ow">in</span> <span class="n">line</span> <span class="mi">67</span><span class="p">,</span> <span class="n">saw</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Uh, oh. When we run this, we get an error! What’s going on? Whenever we see an error like this, it’s good to look directly at our data to see if we missed something about the data that prevented it from loading. Let’s take a look into the first few lines of the ‘united_nations_continents.csv’ file and see if anything odd is going on there:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Global Code;Global Name;Region Code;Region Name;Sub-region Code;Sub-region Name;Intermediate Region Code;Intermediate Region Name;Country or Area;M49 Code;ISO-alpha2 Code;ISO-alpha3 Code;Least Developed Countries (LDC);Land Locked Developing Countries (LLDC);Small Island Developing States (SIDS)
+001;World;002;Africa;015;Northern Africa;;;Algeria;012;DZ;DZA;;;
+001;World;002;Africa;015;Northern Africa;;;Egypt;818;EG;EGY;;;
+001;World;002;Africa;015;Northern Africa;;;Libya;434;LY;LBY;;;
+001;World;002;Africa;015;Northern Africa;;;Morocco;504;MA;MAR;;;
+001;World;002;Africa;015;Northern Africa;;;Sudan;729;SD;SDN;x;;
+</pre></div>
+</div>
+<p>There is definitely something odd going on here! A CSV file stands for “comma separated values” however, this file is not comma separated, it’s semicolon separated! To address this, we will need to adjust our data loading code to accommodate. We can do this with the <code class="docutils literal notranslate"><span class="pre">sep</span></code> keyword for the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> method to let it know the separator is a semicolon and otherwise proceed as it would with the comma.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">continents_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/united_nations_continents.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="n">continents_all</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Global Code</th>
+      <th>Global Name</th>
+      <th>Region Code</th>
+      <th>Region Name</th>
+      <th>Sub-region Code</th>
+      <th>Sub-region Name</th>
+      <th>Intermediate Region Code</th>
+      <th>Intermediate Region Name</th>
+      <th>Country or Area</th>
+      <th>M49 Code</th>
+      <th>ISO-alpha2 Code</th>
+      <th>ISO-alpha3 Code</th>
+      <th>Least Developed Countries (LDC)</th>
+      <th>Land Locked Developing Countries (LLDC)</th>
+      <th>Small Island Developing States (SIDS)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>World</td>
+      <td>2.0</td>
+      <td>Africa</td>
+      <td>15.0</td>
+      <td>Northern Africa</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Algeria</td>
+      <td>12</td>
+      <td>DZ</td>
+      <td>DZA</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>World</td>
+      <td>2.0</td>
+      <td>Africa</td>
+      <td>15.0</td>
+      <td>Northern Africa</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Egypt</td>
+      <td>818</td>
+      <td>EG</td>
+      <td>EGY</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>World</td>
+      <td>2.0</td>
+      <td>Africa</td>
+      <td>15.0</td>
+      <td>Northern Africa</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Libya</td>
+      <td>434</td>
+      <td>LY</td>
+      <td>LBY</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>World</td>
+      <td>2.0</td>
+      <td>Africa</td>
+      <td>15.0</td>
+      <td>Northern Africa</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Morocco</td>
+      <td>504</td>
+      <td>MA</td>
+      <td>MAR</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>World</td>
+      <td>2.0</td>
+      <td>Africa</td>
+      <td>15.0</td>
+      <td>Northern Africa</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Sudan</td>
+      <td>729</td>
+      <td>SD</td>
+      <td>SDN</td>
+      <td>x</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>World</td>
+      <td>2.0</td>
+      <td>Africa</td>
+      <td>15.0</td>
+      <td>Northern Africa</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Tunisia</td>
+      <td>788</td>
+      <td>TN</td>
+      <td>TUN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1</td>
+      <td>World</td>
+      <td>2.0</td>
+      <td>Africa</td>
+      <td>15.0</td>
+      <td>Northern Africa</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Western Sahara</td>
+      <td>732</td>
+      <td>EH</td>
+      <td>ESH</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1</td>
+      <td>World</td>
+      <td>2.0</td>
+      <td>Africa</td>
+      <td>202.0</td>
+      <td>Sub-Saharan Africa</td>
+      <td>14.0</td>
+      <td>Eastern Africa</td>
+      <td>British Indian Ocean Territory</td>
+      <td>86</td>
+      <td>IO</td>
+      <td>IOT</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1</td>
+      <td>World</td>
+      <td>2.0</td>
+      <td>Africa</td>
+      <td>202.0</td>
+      <td>Sub-Saharan Africa</td>
+      <td>14.0</td>
+      <td>Eastern Africa</td>
+      <td>Burundi</td>
+      <td>108</td>
+      <td>BI</td>
+      <td>BDI</td>
+      <td>x</td>
+      <td>x</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>World</td>
+      <td>2.0</td>
+      <td>Africa</td>
+      <td>202.0</td>
+      <td>Sub-Saharan Africa</td>
+      <td>14.0</td>
+      <td>Eastern Africa</td>
+      <td>Comoros</td>
+      <td>174</td>
+      <td>KM</td>
+      <td>COM</td>
+      <td>x</td>
+      <td>NaN</td>
+      <td>x</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>While there’s a lot of information here, what we need are two columns: ‘Region Name’ and ‘Country or Area’. Let’s extract just those from the data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">continent</span> <span class="o">=</span> <span class="n">continents_all</span><span class="p">[[</span><span class="s2">&quot;Region Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Country or Area&quot;</span><span class="p">]]</span>
+<span class="n">continent</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Region Name</th>
+      <th>Country or Area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Africa</td>
+      <td>Algeria</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Africa</td>
+      <td>Egypt</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Africa</td>
+      <td>Libya</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Africa</td>
+      <td>Morocco</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Africa</td>
+      <td>Sudan</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Africa</td>
+      <td>Tunisia</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Africa</td>
+      <td>Western Sahara</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Africa</td>
+      <td>British Indian Ocean Territory</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Africa</td>
+      <td>Burundi</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Africa</td>
+      <td>Comoros</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>For ease of reference, let’s rename the columns ‘Region Name’ and ‘Country or Area’ to ‘continent’ and ‘country’ respectively:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">continent</span> <span class="o">=</span> <span class="n">continent</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Region Name&quot;</span><span class="p">:</span> <span class="s2">&quot;continent&quot;</span><span class="p">,</span> <span class="s2">&quot;Country or Area&quot;</span><span class="p">:</span> <span class="s2">&quot;country&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">continent</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>continent</th>
+      <th>country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Africa</td>
+      <td>Algeria</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Africa</td>
+      <td>Egypt</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Africa</td>
+      <td>Libya</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Africa</td>
+      <td>Morocco</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Africa</td>
+      <td>Sudan</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>244</th>
+      <td>Oceania</td>
+      <td>Samoa</td>
+    </tr>
+    <tr>
+      <th>245</th>
+      <td>Oceania</td>
+      <td>Tokelau</td>
+    </tr>
+    <tr>
+      <th>246</th>
+      <td>Oceania</td>
+      <td>Tonga</td>
+    </tr>
+    <tr>
+      <th>247</th>
+      <td>Oceania</td>
+      <td>Tuvalu</td>
+    </tr>
+    <tr>
+      <th>248</th>
+      <td>Oceania</td>
+      <td>Wallis and Futuna Islands</td>
+    </tr>
+  </tbody>
+</table>
+<p>249 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Let’s also sort <code class="docutils literal notranslate"><span class="pre">continent</span></code> by ‘country’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">continent</span> <span class="o">=</span> <span class="n">continent</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">])</span>
+<span class="n">continent</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>continent</th>
+      <th>country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>141</th>
+      <td>Asia</td>
+      <td>Afghanistan</td>
+    </tr>
+    <tr>
+      <th>195</th>
+      <td>Europe</td>
+      <td>Albania</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Africa</td>
+      <td>Algeria</td>
+    </tr>
+    <tr>
+      <th>239</th>
+      <td>Oceania</td>
+      <td>American Samoa</td>
+    </tr>
+    <tr>
+      <th>196</th>
+      <td>Europe</td>
+      <td>Andorra</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Africa</td>
+      <td>Western Sahara</td>
+    </tr>
+    <tr>
+      <th>167</th>
+      <td>Asia</td>
+      <td>Yemen</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Africa</td>
+      <td>Zambia</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Africa</td>
+      <td>Zimbabwe</td>
+    </tr>
+    <tr>
+      <th>178</th>
+      <td>Europe</td>
+      <td>Åland Islands</td>
+    </tr>
+  </tbody>
+</table>
+<p>249 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Great! This looks ready to save to file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">continent</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/intermediate/continent.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we have each of the pieces of the puzzle that we need: <code class="docutils literal notranslate"><span class="pre">co2</span></code>, <code class="docutils literal notranslate"><span class="pre">income</span></code>, <code class="docutils literal notranslate"><span class="pre">pop</span></code> and <code class="docutils literal notranslate"><span class="pre">continents</span></code>. Getting the data ready for use requires significant effort, but it’s best if it can be done in a way that is easily reproducible. Imagine that we received an update to the data for 2023 and the first time through we had done all of the steps above manually in the original CSV files. We would then have to go through that process all over again. However, because we automated each process, we can easily rerun the above steps on new data, so our investment in time would pay off going forward.</p>
+<p>Now that we have each of the four data sources separately, in the next lesson we will merge these into one dataset that we can then plot.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_5/week_4"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

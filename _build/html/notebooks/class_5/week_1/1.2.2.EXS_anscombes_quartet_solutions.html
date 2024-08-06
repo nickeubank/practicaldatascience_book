@@ -1,0 +1,1306 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Exercise: Summary statistics are not always the entire story &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_5/week_1/1.2.2.EXS_anscombes_quartet_solutions';</script>
+    <link rel="icon" href="../../../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Practical Data Science with Python - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Practical Data Science with Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">IDS 720</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../ids720_specific/class_schedule.html">Class Schedule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">Views and Copies</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">Matrices</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">Arrays</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/18_object_dtype.html">The <code class="docutils literal notranslate"><span class="pre">object</span></code> Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/45_categorical_dtype.html">The Categorical Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_3/week_3/07_indices.html">Indexes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/03_plaintext_files.html">Reading Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">Defensive Programming</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_5/week_1/1.2.2.EXS_anscombes_quartet_solutions.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/class_5/week_1/1.2.2.EXS_anscombes_quartet_solutions.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exercise: Summary statistics are not always the entire story</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="exercise-summary-statistics-are-not-always-the-entire-story">
+<h1>Exercise: Summary statistics are not always the entire story<a class="headerlink" href="#exercise-summary-statistics-are-not-always-the-entire-story" title="Link to this heading">#</a></h1>
+<p>Data scientists encourage you to always look at your data by plotting it. But why is this really useful? What if I gathered the summary statistics of a dataset - isn’t that enough? Most certainly, it’s not! Summary statistics are useful first-pass tools for getting a sense of your dataset, but they can be deceiving. Let’s walk through an exercise to both test out your plotting skills while exploring this question further.</p>
+<p><strong>(1)</strong> You’ll be working on a file called “four_datasets.csv” which contains - you guessed it - four separate datasets. Start by loading these data and getting a bunch of summary statistics. Include the mean of the <span class="math notranslate nohighlight">\(x\)</span> variable, the mean of the <span class="math notranslate nohighlight">\(y\)</span> variable, the standard deviation of the <span class="math notranslate nohighlight">\(x\)</span> variable and the standard deviation of the <span class="math notranslate nohighlight">\(y\)</span> variable. Optionally, for those of you familiar with correlation coefficients, output the correlation between the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> variable for each dataset (you can use the <code class="docutils literal notranslate"><span class="pre">np.corrcoef()</span></code> function, which returns a 2D matrix of which you want the element in the second column of the first row). For those unfamiliar, broadly speaking, the correlation coefficient tells us how much the two series vary together or are independent of one another. Output all of these statistics to a precision of two digits after the decimal point (revisit f-strings to help with this).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">file</span> <span class="o">=</span> <span class="s2">&quot;data/four_datasets.csv&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x0</th>
+      <th>y0</th>
+      <th>x1</th>
+      <th>y1</th>
+      <th>x2</th>
+      <th>y2</th>
+      <th>x3</th>
+      <th>y3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10</td>
+      <td>8.04</td>
+      <td>10</td>
+      <td>9.14</td>
+      <td>10</td>
+      <td>7.46</td>
+      <td>8</td>
+      <td>6.58</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>8</td>
+      <td>6.95</td>
+      <td>8</td>
+      <td>8.14</td>
+      <td>8</td>
+      <td>6.77</td>
+      <td>8</td>
+      <td>5.76</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>13</td>
+      <td>7.58</td>
+      <td>13</td>
+      <td>8.74</td>
+      <td>13</td>
+      <td>12.74</td>
+      <td>8</td>
+      <td>7.71</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>9</td>
+      <td>8.81</td>
+      <td>9</td>
+      <td>8.77</td>
+      <td>9</td>
+      <td>7.11</td>
+      <td>8</td>
+      <td>8.84</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>11</td>
+      <td>8.33</td>
+      <td>11</td>
+      <td>9.26</td>
+      <td>11</td>
+      <td>7.81</td>
+      <td>8</td>
+      <td>8.47</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>14</td>
+      <td>9.96</td>
+      <td>14</td>
+      <td>8.10</td>
+      <td>14</td>
+      <td>8.84</td>
+      <td>8</td>
+      <td>7.04</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>7.24</td>
+      <td>6</td>
+      <td>6.13</td>
+      <td>6</td>
+      <td>6.08</td>
+      <td>8</td>
+      <td>5.25</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>4</td>
+      <td>4.26</td>
+      <td>4</td>
+      <td>3.10</td>
+      <td>4</td>
+      <td>5.39</td>
+      <td>19</td>
+      <td>12.50</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>12</td>
+      <td>10.84</td>
+      <td>12</td>
+      <td>9.13</td>
+      <td>12</td>
+      <td>8.15</td>
+      <td>8</td>
+      <td>5.56</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>7</td>
+      <td>4.82</td>
+      <td>7</td>
+      <td>7.26</td>
+      <td>7</td>
+      <td>6.42</td>
+      <td>8</td>
+      <td>7.91</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>5</td>
+      <td>5.68</td>
+      <td>5</td>
+      <td>4.74</td>
+      <td>5</td>
+      <td>5.73</td>
+      <td>8</td>
+      <td>6.89</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;-----------------&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean x: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean y: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Std  x: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Std  y: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Corr  : </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------------
+Dataset #0
+Mean x: 9.00
+Mean y: 7.50
+Std  x: 3.32
+Std  y: 2.03
+Corr  : 0.82
+-----------------
+Dataset #1
+Mean x: 9.00
+Mean y: 7.50
+Std  x: 3.32
+Std  y: 2.03
+Corr  : 0.82
+-----------------
+Dataset #2
+Mean x: 9.00
+Mean y: 7.50
+Std  x: 3.32
+Std  y: 2.03
+Corr  : 0.82
+-----------------
+Dataset #3
+Mean x: 9.00
+Mean y: 7.50
+Std  x: 3.32
+Std  y: 2.03
+Corr  : 0.82
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>(2)</strong> You should get something of an odd result and find that each of the statistics summarizing those data are <em>identical</em>. If you’ve looked at the values in the four_datasets.csv file, what should be quite clear is that the data <em>are</em> different. This is a great point to introduce plots for each of the datasets. Create a 2x2 set of subplots of the data plotting the <span class="math notranslate nohighlight">\(y\)</span> vs <span class="math notranslate nohighlight">\(x\)</span> values for each of the four datasets. The data are best viewed as a scatter plot. As good practice, be sure to label your x and y axes and title each with the number of the dataset for reference. Lastly, to be sure to compare the plots farily, plot the data over the same x and y limits where x values go from 0 to 20 and the y values from 0 to 14.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">14</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Dataset </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/d0206c97efd819ef14b2afcb0f99a16c5b7be2bfb0761af57ba46561af65ba06.png" src="../../../_images/d0206c97efd819ef14b2afcb0f99a16c5b7be2bfb0761af57ba46561af65ba06.png" />
+</div>
+</div>
+<p><strong>(3)</strong> How do the datasets compare with one another? Were the summary statistics sufficient to see the differences in the data?</p>
+<p>These data are a well-known dataset called Anscombe’s Quartet and demonstrate how summary statistics don’t always capture the entire story for a given dataset.</p>
+<p><strong>(4)</strong> Now that you’re flexing your data visualization muscles, repeat this process (gather the summary statistics, then visualize the data) for the 12 datasets in the file “twelve_datasets.csv” first looking at the summary statistics as before, then plotting a figure with twelve plots and each labeled by its dataset number in the CSV file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">file</span> <span class="o">=</span> <span class="s2">&quot;data/twelve_datasets.csv&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x0</th>
+      <th>y0</th>
+      <th>x1</th>
+      <th>y1</th>
+      <th>x2</th>
+      <th>y2</th>
+      <th>x3</th>
+      <th>y3</th>
+      <th>x4</th>
+      <th>y4</th>
+      <th>...</th>
+      <th>x7</th>
+      <th>y7</th>
+      <th>x8</th>
+      <th>y8</th>
+      <th>x9</th>
+      <th>y9</th>
+      <th>x10</th>
+      <th>y10</th>
+      <th>x11</th>
+      <th>y11</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>65.815540</td>
+      <td>95.588374</td>
+      <td>55.3846</td>
+      <td>97.1795</td>
+      <td>32.331110</td>
+      <td>61.411101</td>
+      <td>53.366567</td>
+      <td>90.208030</td>
+      <td>50.481508</td>
+      <td>93.222701</td>
+      <td>...</td>
+      <td>57.613234</td>
+      <td>83.905171</td>
+      <td>51.147917</td>
+      <td>90.867412</td>
+      <td>55.993030</td>
+      <td>79.277264</td>
+      <td>51.203891</td>
+      <td>83.339777</td>
+      <td>47.695201</td>
+      <td>95.241187</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>65.672265</td>
+      <td>91.933402</td>
+      <td>51.5385</td>
+      <td>96.0256</td>
+      <td>53.421463</td>
+      <td>26.186880</td>
+      <td>52.801979</td>
+      <td>90.088065</td>
+      <td>50.282406</td>
+      <td>97.609984</td>
+      <td>...</td>
+      <td>51.274392</td>
+      <td>82.817983</td>
+      <td>50.517126</td>
+      <td>89.102395</td>
+      <td>50.032254</td>
+      <td>79.013071</td>
+      <td>58.974470</td>
+      <td>85.499818</td>
+      <td>44.609976</td>
+      <td>93.075835</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>39.002716</td>
+      <td>92.261838</td>
+      <td>46.1538</td>
+      <td>94.4872</td>
+      <td>63.920202</td>
+      <td>30.832194</td>
+      <td>47.054130</td>
+      <td>90.458936</td>
+      <td>50.186703</td>
+      <td>99.694680</td>
+      <td>...</td>
+      <td>50.753898</td>
+      <td>76.754129</td>
+      <td>50.207480</td>
+      <td>85.460047</td>
+      <td>51.288459</td>
+      <td>82.435940</td>
+      <td>51.872073</td>
+      <td>85.829738</td>
+      <td>43.856381</td>
+      <td>94.085872</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>37.795303</td>
+      <td>93.532455</td>
+      <td>42.8205</td>
+      <td>91.4103</td>
+      <td>70.289506</td>
+      <td>82.533649</td>
+      <td>42.448434</td>
+      <td>89.507700</td>
+      <td>50.326911</td>
+      <td>90.022053</td>
+      <td>...</td>
+      <td>37.021184</td>
+      <td>81.954470</td>
+      <td>50.069482</td>
+      <td>83.057670</td>
+      <td>51.170537</td>
+      <td>79.165294</td>
+      <td>48.179931</td>
+      <td>85.045117</td>
+      <td>41.578929</td>
+      <td>90.303567</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>35.513901</td>
+      <td>89.599190</td>
+      <td>40.7692</td>
+      <td>88.3333</td>
+      <td>34.118830</td>
+      <td>45.734551</td>
+      <td>42.704036</td>
+      <td>90.442629</td>
+      <td>50.456207</td>
+      <td>89.987410</td>
+      <td>...</td>
+      <td>42.881755</td>
+      <td>80.184770</td>
+      <td>50.562846</td>
+      <td>82.937822</td>
+      <td>44.377915</td>
+      <td>78.164628</td>
+      <td>41.683200</td>
+      <td>84.017941</td>
+      <td>49.177419</td>
+      <td>96.610532</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>137</th>
+      <td>33.674442</td>
+      <td>26.090490</td>
+      <td>39.4872</td>
+      <td>25.3846</td>
+      <td>59.851838</td>
+      <td>72.958391</td>
+      <td>42.224120</td>
+      <td>30.498037</td>
+      <td>30.487392</td>
+      <td>19.779470</td>
+      <td>...</td>
+      <td>37.949784</td>
+      <td>26.521749</td>
+      <td>50.533635</td>
+      <td>17.019581</td>
+      <td>39.921363</td>
+      <td>19.701850</td>
+      <td>50.967748</td>
+      <td>29.679774</td>
+      <td>31.333244</td>
+      <td>32.538569</td>
+    </tr>
+    <tr>
+      <th>138</th>
+      <td>75.627255</td>
+      <td>37.128752</td>
+      <td>91.2821</td>
+      <td>41.5385</td>
+      <td>48.960460</td>
+      <td>72.629526</td>
+      <td>87.698464</td>
+      <td>50.489937</td>
+      <td>89.500180</td>
+      <td>31.978917</td>
+      <td>...</td>
+      <td>86.504391</td>
+      <td>34.894025</td>
+      <td>77.500907</td>
+      <td>50.166986</td>
+      <td>84.794278</td>
+      <td>55.568650</td>
+      <td>91.191054</td>
+      <td>46.674343</td>
+      <td>86.401550</td>
+      <td>38.746933</td>
+    </tr>
+    <tr>
+      <th>139</th>
+      <td>40.610125</td>
+      <td>89.136240</td>
+      <td>50.0000</td>
+      <td>95.7692</td>
+      <td>46.844855</td>
+      <td>36.791714</td>
+      <td>52.360331</td>
+      <td>89.704317</td>
+      <td>50.410272</td>
+      <td>98.628369</td>
+      <td>...</td>
+      <td>50.815485</td>
+      <td>78.950839</td>
+      <td>50.691124</td>
+      <td>87.513960</td>
+      <td>55.662959</td>
+      <td>83.356480</td>
+      <td>55.863768</td>
+      <td>85.336487</td>
+      <td>47.442112</td>
+      <td>98.184302</td>
+    </tr>
+    <tr>
+      <th>140</th>
+      <td>39.114366</td>
+      <td>96.481751</td>
+      <td>47.9487</td>
+      <td>95.0000</td>
+      <td>39.963022</td>
+      <td>42.944915</td>
+      <td>51.406787</td>
+      <td>89.712139</td>
+      <td>50.325924</td>
+      <td>94.994631</td>
+      <td>...</td>
+      <td>51.183467</td>
+      <td>85.128855</td>
+      <td>49.990395</td>
+      <td>83.997357</td>
+      <td>50.492248</td>
+      <td>78.997532</td>
+      <td>49.280595</td>
+      <td>84.048823</td>
+      <td>46.264741</td>
+      <td>94.116192</td>
+    </tr>
+    <tr>
+      <th>141</th>
+      <td>34.583829</td>
+      <td>89.588902</td>
+      <td>44.1026</td>
+      <td>92.6923</td>
+      <td>66.704944</td>
+      <td>32.015095</td>
+      <td>43.588468</td>
+      <td>89.745537</td>
+      <td>50.104031</td>
+      <td>95.088538</td>
+      <td>...</td>
+      <td>40.863855</td>
+      <td>82.926145</td>
+      <td>50.127182</td>
+      <td>82.990750</td>
+      <td>51.467101</td>
+      <td>79.201845</td>
+      <td>43.368502</td>
+      <td>84.332177</td>
+      <td>40.163816</td>
+      <td>87.448672</td>
+    </tr>
+  </tbody>
+</table>
+<p>142 rows × 24 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;-----------------&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean x: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean y: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Std  x: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Std  y: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Corr  : </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------------
+Dataset #0
+Mean x: 54.27
+Mean y: 47.83
+Std  x: 16.77
+Std  y: 26.94
+Corr  : -0.07
+-----------------
+Dataset #1
+Mean x: 54.26
+Mean y: 47.83
+Std  x: 16.77
+Std  y: 26.94
+Corr  : -0.06
+-----------------
+Dataset #2
+Mean x: 54.27
+Mean y: 47.83
+Std  x: 16.77
+Std  y: 26.94
+Corr  : -0.06
+-----------------
+Dataset #3
+Mean x: 54.26
+Mean y: 47.83
+Std  x: 16.77
+Std  y: 26.94
+Corr  : -0.06
+-----------------
+Dataset #4
+Mean x: 54.27
+Mean y: 47.84
+Std  x: 16.77
+Std  y: 26.94
+Corr  : -0.07
+-----------------
+Dataset #5
+Mean x: 54.26
+Mean y: 47.84
+Std  x: 16.77
+Std  y: 26.93
+Corr  : -0.07
+-----------------
+Dataset #6
+Mean x: 54.27
+Mean y: 47.84
+Std  x: 16.77
+Std  y: 26.93
+Corr  : -0.06
+-----------------
+Dataset #7
+Mean x: 54.27
+Mean y: 47.84
+Std  x: 16.77
+Std  y: 26.94
+Corr  : -0.07
+-----------------
+Dataset #8
+Mean x: 54.26
+Mean y: 47.84
+Std  x: 16.77
+Std  y: 26.93
+Corr  : -0.06
+-----------------
+Dataset #9
+Mean x: 54.27
+Mean y: 47.84
+Std  x: 16.76
+Std  y: 26.93
+Corr  : -0.07
+-----------------
+Dataset #10
+Mean x: 54.27
+Mean y: 47.83
+Std  x: 16.77
+Std  y: 26.94
+Corr  : -0.07
+-----------------
+Dataset #11
+Mean x: 54.27
+Mean y: 47.83
+Std  x: 16.77
+Std  y: 26.94
+Corr  : -0.07
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/81665c23b87fcdfc9f6227598a04f7cde050d8e35eb7c21962e3c2b0fc82ba98.png" src="../../../_images/81665c23b87fcdfc9f6227598a04f7cde050d8e35eb7c21962e3c2b0fc82ba98.png" />
+</div>
+</div>
+<p><strong>(5)</strong> Note the patterns of each of these datasets consider how these patterns compare to the summary statistics you encountered earlier.</p>
+<p><strong>Store your answers for the patterns in plots 1, 6, and 10 for a later quiz.</strong></p>
+<p>Hopefully, this exercise makes clear the immense importance of visualizing your data and complementing the important information summary statistics provide with visual inspection of the data. Who knows what you may find!</p>
+<p><strong>References</strong>:</p>
+<ul class="simple">
+<li><p>Anscombe, F.J., 1973. Graphs in statistical analysis. The american statistician, 27(1), pp.17-21.</p></li>
+<li><p>Matejka, J. and Fitzmaurice, G., 2017, May. Same stats, different graphs: generating datasets with varied appearance and identical statistics through simulated annealing. In Proceedings of the 2017 CHI conference on human factors in computing systems (pp. 1290-1294).</p></li>
+</ul>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_5/week_1"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

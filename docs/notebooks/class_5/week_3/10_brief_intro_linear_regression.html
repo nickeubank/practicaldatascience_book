@@ -539,9 +539,9 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="linear-regression-a-brief-introduction">
 <h1>Linear Regression: A Brief Introduction<a class="headerlink" href="#linear-regression-a-brief-introduction" title="Link to this heading">#</a></h1>
 <p>Suppose you are given the data in the picture below and asked to draw a straight line that you feel best describes the relationship between the square footage of a house (on the x-axis) and its price (on the y-axis). What might that line look like? Seriously, pause for a moment and imagine a line on that graph. What would it look like?</p>
-<p>[figure with point cloud in approximate line]</p>
+<p><img alt="Figure with point cloud and line" src="../../../_images/regression-point-cloud-and-line.png" /></p>
 <p>Most of us would probably end up drawing a line that looks something like the line in the figure below. And that, in a basic sense, is precisely what we are trying to do with linear regression: use mathematics to estimate a “line of best fit” that (we hope) gives a pretty good summary of the relationship between different variables.</p>
-<p>[figure with red line]</p>
+<p><img alt="Figure with point cloud and errors" src="../../../_images/regression-point-cloud-and-errors.png" /></p>
 <p>But how exactly does linear regression do this? Odds are, you probably aren’t even quite sure what guided you to think about a line very similar to the red one in the figure above — you just followed your intuition. But the basic idea that probably guided how you drew the line in your head is very similar to the principle used by a linear regression: try to draw a line that, on average, is as close as possible to all the data points plotted.</p>
 <p>To be more specific, a linear regression estimates the line that minimizes the sum of squared errors between the line of best fit and each data point. Indeed, linear regression is often called “Ordinary Least Squares” or “Least Squares Regression” precisely because it tries to find the line that minimizes (gives rise to the smallest or least) sum of squared errors. There are reasons that linear regression minimizes the sum of <em>squared</em> errors (instead of just the sum of errors), but those reasons aren’t crucial to getting an intuitive sense of how linear regression works.</p>
 <section id="representing-a-regression-line">
@@ -581,10 +581,10 @@ document.write(`
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th>  <td>2.100e+04</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 20 Jul 2024</td> <th>  Prob (F-statistic):</th>   <td>  0.00</td>   
+  <th>Date:</th>             <td>Mon, 22 Jul 2024</td> <th>  Prob (F-statistic):</th>   <td>  0.00</td>   
 </tr>
 <tr>
-  <th>Time:</th>                 <td>18:44:15</td>     <th>  Log-Likelihood:    </th> <td>-3.0027e+05</td>
+  <th>Time:</th>                 <td>01:24:35</td>     <th>  Log-Likelihood:    </th> <td>-3.0027e+05</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td> 21613</td>      <th>  AIC:               </th>  <td>6.005e+05</td> 
@@ -650,21 +650,21 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>14427</th>
+      <th>2608</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>id</th>
-      <td>6413600276</td>
+      <td>7132300550</td>
     </tr>
     <tr>
       <th>date</th>
-      <td>20150324T000000</td>
+      <td>20150224T000000</td>
     </tr>
     <tr>
       <th>price</th>
-      <td>354950.0</td>
+      <td>450000.0</td>
     </tr>
     <tr>
       <th>bedrooms</th>
@@ -676,11 +676,11 @@ document.write(`
     </tr>
     <tr>
       <th>sqft_living</th>
-      <td>970</td>
+      <td>1210</td>
     </tr>
     <tr>
       <th>sqft_lot</th>
-      <td>5922</td>
+      <td>4000</td>
     </tr>
     <tr>
       <th>floors</th>
@@ -704,15 +704,15 @@ document.write(`
     </tr>
     <tr>
       <th>sqft_above</th>
-      <td>970</td>
+      <td>1090</td>
     </tr>
     <tr>
       <th>sqft_basement</th>
-      <td>0</td>
+      <td>120</td>
     </tr>
     <tr>
       <th>yr_built</th>
-      <td>1949</td>
+      <td>1928</td>
     </tr>
     <tr>
       <th>yr_renovated</th>
@@ -720,23 +720,23 @@ document.write(`
     </tr>
     <tr>
       <th>zipcode</th>
-      <td>98125</td>
+      <td>98144</td>
     </tr>
     <tr>
       <th>lat</th>
-      <td>47.719</td>
+      <td>47.5934</td>
     </tr>
     <tr>
       <th>long</th>
-      <td>-122.321</td>
+      <td>-122.308</td>
     </tr>
     <tr>
       <th>sqft_living15</th>
-      <td>1730</td>
+      <td>1210</td>
     </tr>
     <tr>
       <th>sqft_lot15</th>
-      <td>6128</td>
+      <td>4000</td>
     </tr>
   </tbody>
 </table>
@@ -749,14 +749,16 @@ document.write(`
 <p>If I plot the prices this model would predict for each home in our dataset in red (and plot it over the real data points in blue), you can see that we do indeed have what looks like a reasonable line of best fit (similar to what we see in the figure above). We can also see that the red line has a slope of about 280 — this isn’t immediately obvious because each tick on the y-axis is 1,000,000 units (note the 1e6 at the top), while each tick on the x-axis is only 2,000, but if you pick a few points and to the math it works out.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get home prices predicted by the model</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+
+<span class="c1"># Get home prices predicted by the model</span>
 <span class="n">predicted_price</span> <span class="o">=</span> <span class="n">price_and_footage_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;sqft_living&quot;</span><span class="p">])</span>
 
 <span class="c1"># Plot predicted home prices</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;sqft_living&quot;</span><span class="p">],</span> <span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;sqft_living&quot;</span><span class="p">],</span> <span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;sqft_living&quot;</span><span class="p">],</span> <span class="n">predicted_price</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Square Footage and Home Prices&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;House Size (m^2)&quot;</span><span class="p">)</span>
@@ -766,7 +768,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/8bf241a039938534b603b8e55174a1c4f1aa0a9f3c21327129fd524cc0515f66.png" src="../../../_images/8bf241a039938534b603b8e55174a1c4f1aa0a9f3c21327129fd524cc0515f66.png" />
+<img alt="../../../_images/19978b0360cf64d27fb12b834bff03709d8bfb90e2b4d954cb7179eca6cc3c65.png" src="../../../_images/19978b0360cf64d27fb12b834bff03709d8bfb90e2b4d954cb7179eca6cc3c65.png" />
 </div>
 </div>
 <p>It’s common for people new to regression to look at the intercept (here, -43,000 dollars) and say that’s nuts — no house has a negative price. However, there are also no houses with 0 square footage, which means there are no actual houses at 0 or even too close to that point. Given that, the intercept in a regression like this is generally not something we interpret — it just provides the model with an extra parameter the model can use to best fit the data.</p>
@@ -798,10 +800,10 @@ document.write(`
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th>  <td>1.076e+04</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 20 Jul 2024</td> <th>  Prob (F-statistic):</th>   <td>  0.00</td>   
+  <th>Date:</th>             <td>Mon, 22 Jul 2024</td> <th>  Prob (F-statistic):</th>   <td>  0.00</td>   
 </tr>
 <tr>
-  <th>Time:</th>                 <td>18:44:16</td>     <th>  Log-Likelihood:    </th> <td>-3.0014e+05</td>
+  <th>Time:</th>                 <td>01:24:35</td>     <th>  Log-Likelihood:    </th> <td>-3.0014e+05</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td> 21613</td>      <th>  AIC:               </th>  <td>6.003e+05</td> 
@@ -863,6 +865,7 @@ document.write(`
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Condition&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;Price&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Home Prices, Square Footage and Home Condition&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">4000</span><span class="p">,</span><span class="mi">8000</span><span class="p">,</span><span class="mi">12000</span><span class="p">])</span>
 <span class="c1"># Build a mesh of x-y points.</span>
 <span class="n">STEPS</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
@@ -883,10 +886,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;mpl_toolkits.mplot3d.art3d.Line3DCollection at 0x2a0deba90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;mpl_toolkits.mplot3d.art3d.Line3DCollection at 0x16ac1aa80&gt;
 </pre></div>
 </div>
-<img alt="../../../_images/7c1ff33c9eb24139209ac9335cd795d7f2f101f4d8b42feb4953f6e3acb9e73b.png" src="../../../_images/7c1ff33c9eb24139209ac9335cd795d7f2f101f4d8b42feb4953f6e3acb9e73b.png" />
+<img alt="../../../_images/4ccefc690cdd43f2baf94f6cd9f3de727fb45d2637c04fc1a4955ec7aad94a9f.png" src="../../../_images/4ccefc690cdd43f2baf94f6cd9f3de727fb45d2637c04fc1a4955ec7aad94a9f.png" />
 </div>
 </div>
 <p>The logic is also the same for even more regressors, but visualization goes from “hard” to basically impossible, so you’ll just have to trust me at that point!</p>
