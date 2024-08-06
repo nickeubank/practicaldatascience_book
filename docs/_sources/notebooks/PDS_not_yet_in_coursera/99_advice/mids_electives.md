@@ -27,11 +27,11 @@ The following is a list of the most popular electives taken by MIDS students fro
 - STA 601L / STA 602L: Bayesian Statistical Modeling and Data Analysis
 - BIOSTAT 724: Introduction to Applied Bayesian Analysis
 
-### Entrepreneurship
+### Entrepreneurship & Business
 
 - [I&E 748: New Ventures: Discover](https://entrepreneurship.duke.edu/courses-certificates/graduate-professional-courses/) <details><summary>Course Description</summary>
 This course is designed to lead you to a eureka moment by teaching you how to explore the world around you for problems worth solving. Instead of jumping directly into problem solving and solution development—which can often be wasteful without a clear understanding of a given market and customer need—this course focuses on research, exploration, and discovery. It asks students to set aside pre-conceived notions, avoiding some of their own blind spots, in order to do the necessary work of collecting data about market and learning to assess it as objectively as possible. This course is ideal for anyone who wants to excel at finding white space for new innovation and entrepreneurial action.</details>
-- [I&E 748: New Ventures: Deliver](https://entrepreneurship.duke.edu/courses-certificates/graduate-professional-courses/) <details><summary>Description</summary>
+- [I&E 748: New Ventures: Deliver](https://entrepreneurship.duke.edu/courses-certificates/graduate-professional-courses/) <details><summary>Course Description</summary>
 Did your idea pass muster in New Ventures Develop? Do you have early revenue or evidence of product market fit and want to continue to refine your go to market strategy? New Ventures Deliver is the ideal course for serious entrepreneurs ready to push themselves to take the leap. In this course you will continue to test core hypothesis while you develop a milestone driven plan for go-to-market, sales, staffing, and fundraising.</details>
 
 ### Ethics
