@@ -10,8 +10,8 @@
 - Introduction to plotting with code: Matplotlib basics
 - Procedural versus object oriented approaches to plotting
 - Basic Plotting: coding a plot in 4 lines of code or less
+  - Common plot forms: scatter, line, bar, and heatmaps
 - Using code to inspect your data: Datasaurus / Anscombes Quartet
-- Common plot forms: scatter, line, bar, and heatmaps
 - Histograms for data summarization
 - Making highly customized and fully reproducible plots with code
 - Effective plotting practices

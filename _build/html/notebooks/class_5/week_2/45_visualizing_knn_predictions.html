@@ -1,0 +1,2323 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Visualizing the predictions from your KNN classifier &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_5/week_2/45_visualizing_knn_predictions';</script>
+    <link rel="icon" href="../../../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Practical Data Science with Python - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Practical Data Science with Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">IDS 720</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../ids720_specific/class_schedule.html">Class Schedule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">Views and Copies</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">Matrices</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">Arrays</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/18_object_dtype.html">The <code class="docutils literal notranslate"><span class="pre">object</span></code> Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/45_categorical_dtype.html">The Categorical Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_3/week_3/07_indices.html">Indexes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/03_plaintext_files.html">Reading Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">Defensive Programming</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_5/week_2/45_visualizing_knn_predictions.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/class_5/week_2/45_visualizing_knn_predictions.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Visualizing the predictions from your KNN classifier</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="visualizing-the-predictions-from-your-knn-classifier">
+<h1>Visualizing the predictions from your KNN classifier<a class="headerlink" href="#visualizing-the-predictions-from-your-knn-classifier" title="Link to this heading">#</a></h1>
+<p>Visualizing our data and the predictions we make can be informative to how well our prediction algorithm is working. Let’s visualize our training data and the predictions for our test data. We’ll even work up to plotting the decision boundaries between classes to see the limits of our algorithm and how that boundary changes as the number of nearest neighbors changes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the output figure format to be high resolution</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+
+<span class="c1"># Load our previously written classification class (we saved it to a file &#39;src/knn.py&#39;)</span>
+<span class="kn">from</span> <span class="nn">src.knn</span> <span class="kn">import</span> <span class="n">Knn_classification</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s start by reloading our data and making predictions with our classification algorithm so that we can plot the results:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Load our data</span>
+<span class="n">data_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/train.csv&quot;</span><span class="p">)</span>
+<span class="n">data_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/test.csv&quot;</span><span class="p">)</span>
+
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">data_train</span><span class="p">[[</span><span class="s2">&quot;PetalWidthCm&quot;</span><span class="p">,</span> <span class="s2">&quot;SepalWidthCm&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">data_train</span><span class="p">[[</span><span class="s2">&quot;Species&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">data_test</span><span class="p">[[</span><span class="s2">&quot;PetalWidthCm&quot;</span><span class="p">,</span> <span class="s2">&quot;SepalWidthCm&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">data_test</span><span class="p">[[</span><span class="s2">&quot;Species&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Initialize the KNN model</span>
+<span class="n">myknn</span> <span class="o">=</span> <span class="n">Knn_classification</span><span class="p">()</span>
+
+<span class="c1"># Train the model</span>
+<span class="n">myknn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Make predictions on the test data</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">y_prediction</span> <span class="o">=</span> <span class="n">myknn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="n">y_prediction</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Iris-setosa&#39;, &#39;Iris-setosa&#39;, &#39;Iris-virginica&#39;, &#39;Iris-versicolor&#39;,
+       &#39;Iris-versicolor&#39;, &#39;Iris-setosa&#39;, &#39;Iris-versicolor&#39;, &#39;Iris-setosa&#39;,
+       &#39;Iris-virginica&#39;, &#39;Iris-setosa&#39;, &#39;Iris-setosa&#39;, &#39;Iris-versicolor&#39;,
+       &#39;Iris-virginica&#39;, &#39;Iris-versicolor&#39;, &#39;Iris-setosa&#39;,
+       &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;,
+       &#39;Iris-setosa&#39;, &#39;Iris-versicolor&#39;, &#39;Iris-virginica&#39;,
+       &#39;Iris-versicolor&#39;, &#39;Iris-setosa&#39;, &#39;Iris-setosa&#39;, &#39;Iris-versicolor&#39;,
+       &#39;Iris-setosa&#39;, &#39;Iris-setosa&#39;, &#39;Iris-versicolor&#39;, &#39;Iris-versicolor&#39;,
+       &#39;Iris-versicolor&#39;, &#39;Iris-versicolor&#39;, &#39;Iris-versicolor&#39;,
+       &#39;Iris-versicolor&#39;, &#39;Iris-setosa&#39;, &#39;Iris-setosa&#39;, &#39;Iris-virginica&#39;,
+       &#39;Iris-virginica&#39;, &#39;Iris-versicolor&#39;, &#39;Iris-virginica&#39;,
+       &#39;Iris-virginica&#39;, &#39;Iris-setosa&#39;, &#39;Iris-virginica&#39;, &#39;Iris-setosa&#39;,
+       &#39;Iris-setosa&#39;, &#39;Iris-versicolor&#39;], dtype=&#39;&lt;U15&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, we’ll gather our visualization code from earlier when we were exploring our data</p>
+<p>As we’re doing this, we’ll build a function for visualizing the data. Let’s start with visualizing our data by class. We have three classes: [‘Iris-setosa’, ‘Iris-versicolor’ ,’Iris-virginica’]. Let’s plot each class as a different color (you can find a full list of colors for matplotlib <a class="reference external" href="https://matplotlib.org/stable/gallery/color/named_colors.html">here</a>). We’ll develop a plotting function along the way to better display them. To start off with, we’ll want to determine the observations in the training data that have each type of label and plot them in that color. We’ll assume the features are two dimensional for this, which they are for our example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Get each unique type of label</span>
+<span class="n">class_labels</span> <span class="o">=</span> <span class="n">data_train</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Loop through each of the class labels and plot them</span>
+<span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">class_labels</span><span class="p">:</span>
+    <span class="c1"># Get the data that have that label</span>
+    <span class="n">data_subset</span> <span class="o">=</span> <span class="n">data_train</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data_train</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">label</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">data_subset</span><span class="p">[</span><span class="s2">&quot;PetalWidthCm&quot;</span><span class="p">],</span>
+        <span class="n">data_subset</span><span class="p">[</span><span class="s2">&quot;SepalWidthCm&quot;</span><span class="p">],</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Petal Width (cm)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Sepal Width (cm)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Sepal Width (cm)&#39;)
+</pre></div>
+</div>
+<img alt="../../../_images/1f7824785158b77f276e49aa8acb04b2fc80fb6123683d3bdf416d3dc3993b79.png" src="../../../_images/1f7824785158b77f276e49aa8acb04b2fc80fb6123683d3bdf416d3dc3993b79.png" />
+</div>
+</div>
+<p>Now, let’s place this into a function that we can use to plot on any axis that we create, so that we could make subplots easily of both the training and test data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get each unique type of label</span>
+
+
+<span class="k">def</span> <span class="nf">plot_data_with_labels</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">class_labels</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+    <span class="c1"># Loop through each of the class labels and plot them</span>
+    <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">class_labels</span><span class="p">:</span>
+        <span class="c1"># Get the data that have that label</span>
+        <span class="n">data_subset</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">label</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">data_subset</span><span class="p">[</span><span class="s2">&quot;PetalWidthCm&quot;</span><span class="p">],</span>
+            <span class="n">data_subset</span><span class="p">[</span><span class="s2">&quot;SepalWidthCm&quot;</span><span class="p">],</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Petal Width (cm)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Sepal Width (cm)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s see this in action by plotting both our training and test data, each on their own axis:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">]</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plot_data_with_labels</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">data_train</span><span class="p">)</span>
+<span class="n">plot_data_with_labels</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">data_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/14fd5d20c21b741dcaadab1c7392d528bd160979f72be3d3f3089f649d4727ed.png" src="../../../_images/14fd5d20c21b741dcaadab1c7392d528bd160979f72be3d3f3089f649d4727ed.png" />
+</div>
+</div>
+<p>This is looking very good, but we have two issues. First, we haven’t labeled which is the training data and which is the test data. Let’s explicitly set what the labels are so the order is always consistent. Secondly, the axes are a bit different between the two - see on the left the data on the y axis reaches 4.5 while on the right it only reaches 4. Let’s adjust the function to specify the extent ourselves.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_data_with_labels</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="c1"># Loop through each of the class labels and plot them</span>
+    <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+        <span class="c1"># Get the data that have that label</span>
+        <span class="n">data_subset</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">label</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">data_subset</span><span class="p">[</span><span class="s2">&quot;PetalWidthCm&quot;</span><span class="p">],</span>
+            <span class="n">data_subset</span><span class="p">[</span><span class="s2">&quot;SepalWidthCm&quot;</span><span class="p">],</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+            <span class="n">markersize</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Petal Width (cm)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Sepal Width (cm)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s try that again:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Iris-setosa&quot;</span><span class="p">,</span> <span class="s2">&quot;Iris-versicolor&quot;</span><span class="p">,</span> <span class="s2">&quot;Iris-virginica&quot;</span><span class="p">]</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">]</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plot_data_with_labels</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">data_train</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="s2">&quot;Training Data&quot;</span><span class="p">,</span> <span class="n">extent</span><span class="p">)</span>
+<span class="n">plot_data_with_labels</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">data_test</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="s2">&quot;Test Data&quot;</span><span class="p">,</span> <span class="n">extent</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/c09f8d1c9ec923aa99e2ad5f5d2c56784a0a59a560aeacdf7c2981f482d088d2.png" src="../../../_images/c09f8d1c9ec923aa99e2ad5f5d2c56784a0a59a560aeacdf7c2981f482d088d2.png" />
+</div>
+</div>
+<p>But we need to add in the predictions to see how well this worked. Let’s start by simply circling each test observation with the color of the class that was predicted for it. Let’s add a column to our test DataFrame that includes the prediction. To accomplish this, we’ll need to identify each of the mistakes. Let’s add that in as a column in the DataFrame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_predictions</span> <span class="o">=</span> <span class="n">data_test</span>
+<span class="n">data_predictions</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+    <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;prediction&quot;</span><span class="p">,</span> <span class="n">y_prediction</span>
+<span class="p">)</span>  <span class="c1"># Adds the &quot;prediction&quot; column to the 3rd index (becomes the 4th column)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_predictions</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SepalWidthCm</th>
+      <th>PetalWidthCm</th>
+      <th>Species</th>
+      <th>prediction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3.0</td>
+      <td>0.1</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.6</td>
+      <td>2.3</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.3</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2.9</td>
+      <td>1.4</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2.9</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2.8</td>
+      <td>1.2</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>3.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2.5</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>3.7</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>3.3</td>
+      <td>0.5</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2.5</td>
+      <td>1.5</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>3.2</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>3.0</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>3.6</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>3.8</td>
+      <td>2.2</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>2.2</td>
+      <td>1.5</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>3.4</td>
+      <td>2.4</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>3.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>2.9</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>2.8</td>
+      <td>2.1</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>2.8</td>
+      <td>1.5</td>
+      <td>Iris-virginica</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>3.1</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>3.5</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>2.5</td>
+      <td>1.1</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>3.6</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>3.0</td>
+      <td>0.1</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>2.3</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>2.8</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>2.8</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>2.7</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>3.4</td>
+      <td>1.6</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>3.9</td>
+      <td>0.4</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>3.5</td>
+      <td>0.3</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>3.0</td>
+      <td>2.1</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>3.2</td>
+      <td>1.8</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>2.9</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>2.8</td>
+      <td>1.9</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>3.1</td>
+      <td>2.1</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>3.1</td>
+      <td>0.1</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>3.8</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>3.0</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>4.0</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>2.6</td>
+      <td>1.2</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now we’ll add a column that states whether the prediction was true or false.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_predictions</span><span class="p">[</span><span class="s2">&quot;correct&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">data_predictions</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">data_predictions</span><span class="p">[</span><span class="s2">&quot;prediction&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">data_predictions</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SepalWidthCm</th>
+      <th>PetalWidthCm</th>
+      <th>Species</th>
+      <th>prediction</th>
+      <th>correct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3.0</td>
+      <td>0.1</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.6</td>
+      <td>2.3</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.3</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2.9</td>
+      <td>1.4</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2.9</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2.8</td>
+      <td>1.2</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>3.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2.5</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>3.7</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>3.3</td>
+      <td>0.5</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2.5</td>
+      <td>1.5</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>3.2</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>3.0</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>3.6</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>3.8</td>
+      <td>2.2</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>2.2</td>
+      <td>1.5</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-virginica</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>3.4</td>
+      <td>2.4</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>3.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>2.9</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>2.8</td>
+      <td>2.1</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>2.8</td>
+      <td>1.5</td>
+      <td>Iris-virginica</td>
+      <td>Iris-versicolor</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>3.1</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>3.5</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>2.5</td>
+      <td>1.1</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>3.6</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>3.0</td>
+      <td>0.1</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>2.3</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>2.8</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>2.8</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>2.7</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>3.4</td>
+      <td>1.6</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>3.9</td>
+      <td>0.4</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>3.5</td>
+      <td>0.3</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>3.0</td>
+      <td>2.1</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>3.2</td>
+      <td>1.8</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-virginica</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>2.9</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>2.8</td>
+      <td>1.9</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>3.1</td>
+      <td>2.1</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>3.1</td>
+      <td>0.1</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>3.8</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>3.0</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>4.0</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>2.6</td>
+      <td>1.2</td>
+      <td>Iris-versicolor</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Lastly, let’s clean this up and leave the predictions renamed as “Species” and whether that prediction was correct.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_predictions</span> <span class="o">=</span> <span class="n">data_predictions</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">])</span>
+<span class="n">data_predictions</span> <span class="o">=</span> <span class="n">data_predictions</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="s2">&quot;Species&quot;</span><span class="p">})</span>
+<span class="n">data_predictions</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SepalWidthCm</th>
+      <th>PetalWidthCm</th>
+      <th>Species</th>
+      <th>correct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3.0</td>
+      <td>0.1</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.6</td>
+      <td>2.3</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.3</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2.9</td>
+      <td>1.4</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2.9</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2.8</td>
+      <td>1.2</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>3.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2.5</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>3.7</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>3.3</td>
+      <td>0.5</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2.5</td>
+      <td>1.5</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>3.2</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>3.0</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>3.6</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>3.8</td>
+      <td>2.2</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>2.2</td>
+      <td>1.5</td>
+      <td>Iris-virginica</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>3.4</td>
+      <td>2.4</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>3.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>2.9</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>2.8</td>
+      <td>2.1</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>2.8</td>
+      <td>1.5</td>
+      <td>Iris-versicolor</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>3.1</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>3.5</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>2.5</td>
+      <td>1.1</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>3.6</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>3.0</td>
+      <td>0.1</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>2.3</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>2.8</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>2.8</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>2.7</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>3.4</td>
+      <td>1.6</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>3.9</td>
+      <td>0.4</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>3.5</td>
+      <td>0.3</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>3.0</td>
+      <td>2.1</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>3.2</td>
+      <td>1.8</td>
+      <td>Iris-virginica</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>2.9</td>
+      <td>1.3</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>2.8</td>
+      <td>1.9</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>3.1</td>
+      <td>2.1</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>3.1</td>
+      <td>0.1</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>3.8</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>3.0</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>4.0</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>2.6</td>
+      <td>1.2</td>
+      <td>Iris-versicolor</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now we can select only the mistakes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the mistakes</span>
+<span class="n">mistakes</span> <span class="o">=</span> <span class="n">data_predictions</span><span class="p">[</span><span class="n">data_predictions</span><span class="p">[</span><span class="s2">&quot;correct&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s create a function to plot those mistakes by making the marker bigger with no color in the center to effectively circle the mistakes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_mistakes</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="c1"># Loop through each of the class labels and plot them</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;PetalWidthCm&quot;</span><span class="p">],</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;SepalWidthCm&quot;</span><span class="p">],</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+        <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Incorrect Prediction&quot;</span><span class="p">,</span>
+        <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the data and circle the mistakes in black</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Iris-setosa&quot;</span><span class="p">,</span> <span class="s2">&quot;Iris-versicolor&quot;</span><span class="p">,</span> <span class="s2">&quot;Iris-virginica&quot;</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:green&quot;</span><span class="p">]</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">]</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plot_data_with_labels</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">data_train</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="s2">&quot;Training Data&quot;</span><span class="p">,</span> <span class="n">extent</span><span class="p">)</span>
+<span class="n">plot_data_with_labels</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">data_predictions</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="s2">&quot;Test Data&quot;</span><span class="p">,</span> <span class="n">extent</span><span class="p">)</span>
+<span class="n">plot_mistakes</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">mistakes</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/bfb1f7f06c67717bf10a89d68737c7f3aae2398d08e67b44c1d534de9774c391.png" src="../../../_images/bfb1f7f06c67717bf10a89d68737c7f3aae2398d08e67b44c1d534de9774c391.png" />
+</div>
+</div>
+<p>Fantastic! Now we can clearly see our training data and which of our test data samples were mistakenly classified.</p>
+<p>Now let’s take this a step further using our wealth of numpy and plotting knowledge to show where the boundary is for each class prediction for our problem. This is not a trivial plot to make but can reveal a great deal about how our algorithm is classifying our data. What we want to do is make a plot that will show the prediction value any point in feature space.</p>
+<p>Let’s create a plot that does just that! We’ll start by creating a grid of values that represent every pair of inputs into the algorithm in the features space. In this case, our petal width values go from about 0 to 2.5 while sepal width ranges from about 2 to 4.5. The numpy <code class="docutils literal notranslate"><span class="pre">meshgrid</span></code> function can help us here. Let’s see it in action before we get started:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 2 3 4]
+ [1 2 3 4]
+ [1 2 3 4]
+ [1 2 3 4]]
+[[5 5 5 5]
+ [6 6 6 6]
+ [7 7 7 7]
+ [8 8 8 8]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then if we look at any point in the grid, we have our x value from the <code class="docutils literal notranslate"><span class="pre">X</span></code> matrix and our y value from the <code class="docutils literal notranslate"><span class="pre">Y</span></code> matrix. We can use those as inputs to get a prediction for every value across a range of our feature space values. We can do this by collecting the pairs of inputs that we want to make predictions for. As an example, here’s how we can create our vectorized inputs to put into our prediction algorithm:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xv</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Creates a 1-D array of all the x inputs</span>
+<span class="n">Yv</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Creates a 1-D array of all the y inputs</span>
+<span class="n">Pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">Xv</span><span class="p">,</span> <span class="n">Yv</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># Creates pairs (x,y) inputs for every point in the matrix. The `.T` transposes the matrix</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xv</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Yv</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Pv</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1, 5],
+       [2, 5],
+       [3, 5],
+       [4, 5],
+       [1, 6],
+       [2, 6],
+       [3, 6],
+       [4, 6],
+       [1, 7],
+       [2, 7],
+       [3, 7],
+       [4, 7],
+       [1, 8],
+       [2, 8],
+       [3, 8],
+       [4, 8]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now this is something we could put into a function of two variables. For example, instead of our prediction algorithm, let’s say we computed <span class="math notranslate nohighlight">\(f(x,y)=xy\)</span>. We could perform that computation and then reshape our data so it matches <code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">Y</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Fv</span> <span class="o">=</span> <span class="n">Pv</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Fv</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 5, 10, 15, 20,  6, 12, 18, 24,  7, 14, 21, 28,  8, 16, 24, 32])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Fxy</span> <span class="o">=</span> <span class="n">Fv</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">Fxy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 5, 10, 15, 20],
+       [ 6, 12, 18, 24],
+       [ 7, 14, 21, 28],
+       [ 8, 16, 24, 32]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Which represents the product of each of the constituent parts:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1, 2, 3, 4],
+       [1, 2, 3, 4],
+       [1, 2, 3, 4],
+       [1, 2, 3, 4]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[5, 5, 5, 5],
+       [6, 6, 6, 6],
+       [7, 7, 7, 7],
+       [8, 8, 8, 8]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s use that function to create our boundary data. We’ll specify a grid size of 200 samples each along the x and y axes to create a sufficiently fine grid.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the decision boundary</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">create_boundary</span><span class="p">(</span><span class="n">limits</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">limits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">limits</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">limits</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">limits</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">reverse_y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">reverse_y</span><span class="p">)</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">Xv</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">Yv</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">Pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">Xv</span><span class="p">,</span> <span class="n">Yv</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="c1"># Estimate a kNN decision boundary</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Pv</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">predictions</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+
+
+<span class="n">N_values</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">predictions_knn</span> <span class="o">=</span> <span class="n">create_boundary</span><span class="p">(</span><span class="n">extent</span><span class="p">,</span> <span class="n">myknn</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N_values</span><span class="p">)</span>
+<span class="n">predictions_knn</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&#39;Iris-setosa&#39;, &#39;Iris-setosa&#39;, &#39;Iris-setosa&#39;, ...,
+        &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;],
+       [&#39;Iris-setosa&#39;, &#39;Iris-setosa&#39;, &#39;Iris-setosa&#39;, ...,
+        &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;],
+       [&#39;Iris-setosa&#39;, &#39;Iris-setosa&#39;, &#39;Iris-setosa&#39;, ...,
+        &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;],
+       ...,
+       [&#39;Iris-versicolor&#39;, &#39;Iris-versicolor&#39;, &#39;Iris-versicolor&#39;, ...,
+        &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;],
+       [&#39;Iris-versicolor&#39;, &#39;Iris-versicolor&#39;, &#39;Iris-versicolor&#39;, ...,
+        &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;],
+       [&#39;Iris-versicolor&#39;, &#39;Iris-versicolor&#39;, &#39;Iris-versicolor&#39;, ...,
+        &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;, &#39;Iris-virginica&#39;]],
+      dtype=&#39;&lt;U15&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>One thing we’ll notice is that our predictions are each text labels. Since we’ll need to assign a color to each of the categories, we’ll replace these text labels with integers to represent each class:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">translate_dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Iris-setosa&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Iris-versicolor&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Iris-virginica&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">label_to_num</span><span class="p">(</span><span class="n">predictions_knn</span><span class="p">,</span> <span class="n">translate_dictionary</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">predictions_knn</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">predictions_knn</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">predictions_knn</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">translate_dictionary</span><span class="p">[</span>
+                <span class="n">predictions_knn</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">]</span>
+            <span class="p">]</span>
+    <span class="k">return</span> <span class="n">predictions_knn</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+
+<span class="n">predictions_knn</span> <span class="o">=</span> <span class="n">label_to_num</span><span class="p">(</span><span class="n">predictions_knn</span><span class="p">,</span> <span class="n">translate_dictionary</span><span class="p">)</span>
+<span class="n">predictions_knn</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 0, 0, ..., 2, 2, 2],
+       [0, 0, 0, ..., 2, 2, 2],
+       [0, 0, 0, ..., 2, 2, 2],
+       ...,
+       [1, 1, 1, ..., 2, 2, 2],
+       [1, 1, 1, ..., 2, 2, 2],
+       [1, 1, 1, ..., 2, 2, 2]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we have everything we need, we’ll create a function to plot the colors that correspond to the part of the feature space that</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mplcolors</span>
+
+
+<span class="k">def</span> <span class="nf">plot_prediction_boundaries</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">predictions_knn</span><span class="p">,</span> <span class="n">limits</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+    <span class="c1"># Plot the prediction colors using imshow with a colormap specified by colors we enter</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">mplcolors</span><span class="o">.</span><span class="n">ListedColormap</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
+    <span class="n">sp</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">predictions_knn</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">limits</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+    <span class="c1"># The alpha parameter controls transparency. We set it to less than one to make the colors lighter than the originals</span>
+
+    <span class="c1"># Plot the boundaries between the plots in white to show where the prediction changes</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">limits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">limits</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">limits</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">limits</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">,</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">predictions_knn</span><span class="p">),</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+        <span class="n">linewidths</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Add a colorbar that uses the class labels as the color axis ticks</span>
+    <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+        <span class="n">sp</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.046</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.04</span>
+    <span class="p">)</span>  <span class="c1"># The fraction and pad parameters guide the size of the colorbar to more closely align with the figure</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted Label&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">]</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:green&quot;</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Iris-setosa&quot;</span><span class="p">,</span> <span class="s2">&quot;Iris-versicolor&quot;</span><span class="p">,</span> <span class="s2">&quot;Iris-virginica&quot;</span><span class="p">]</span>
+
+<span class="n">plot_prediction_boundaries</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">predictions_knn</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N_values</span><span class="p">)</span>
+<span class="n">plot_data_with_labels</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">data_test</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="s2">&quot;Test Data&quot;</span><span class="p">,</span> <span class="n">extent</span><span class="p">)</span>
+<span class="n">plot_mistakes</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">mistakes</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Actual Target Variable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x14368bf20&gt;
+</pre></div>
+</div>
+<img alt="../../../_images/014301113b18345c1821597d723329728874b9b81097134808d5cff10de6c617.png" src="../../../_images/014301113b18345c1821597d723329728874b9b81097134808d5cff10de6c617.png" />
+</div>
+</div>
+<p>Now that looks great! Let’s bring this all together and make this into a subplot so we can see the training data that was used by the KNN algorithm to make this boundary along with the test data as well. We’ll also highlight the prediction mistakes in the test data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax_train</span><span class="p">,</span> <span class="n">ax_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">]</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:green&quot;</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Iris-setosa&quot;</span><span class="p">,</span> <span class="s2">&quot;Iris-versicolor&quot;</span><span class="p">,</span> <span class="s2">&quot;Iris-virginica&quot;</span><span class="p">]</span>
+
+<span class="n">plot_prediction_boundaries</span><span class="p">(</span>
+    <span class="n">ax_train</span><span class="p">,</span> <span class="n">predictions_knn</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N_values</span>
+<span class="p">)</span>
+<span class="n">plot_data_with_labels</span><span class="p">(</span><span class="n">ax_train</span><span class="p">,</span> <span class="n">data_train</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="s2">&quot;Train Data&quot;</span><span class="p">,</span> <span class="n">extent</span><span class="p">)</span>
+<span class="n">ax_train</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Actual Target Variable&quot;</span><span class="p">)</span>
+
+<span class="n">plot_prediction_boundaries</span><span class="p">(</span><span class="n">ax_test</span><span class="p">,</span> <span class="n">predictions_knn</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N_values</span><span class="p">)</span>
+<span class="n">plot_data_with_labels</span><span class="p">(</span><span class="n">ax_test</span><span class="p">,</span> <span class="n">data_test</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="s2">&quot;Test Data&quot;</span><span class="p">,</span> <span class="n">extent</span><span class="p">)</span>
+<span class="n">plot_mistakes</span><span class="p">(</span><span class="n">ax_test</span><span class="p">,</span> <span class="n">mistakes</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">ax_test</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Actual Target Variable&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Generally helps the plot look a bit cleaner</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/eb91dd3feb3a539e949c1cdc2455a63c77a45478b88a61940b5d20b2b74a3d5e.png" src="../../../_images/eb91dd3feb3a539e949c1cdc2455a63c77a45478b88a61940b5d20b2b74a3d5e.png" />
+</div>
+</div>
+<p>This is a very informative plot. What we can see here is that the KNN decision boundary with <span class="math notranslate nohighlight">\(k=5\)</span> very clearly separates the Iris-setosa class from the rest. The training samples define the boundary and that leads to 3 mistakes on the test data when the test observations appear near the border of that boundary. The boundaries are also nonlinear but not overly variable. This does mean that there are a few training observations that are not on the correct side of the decisin boundary. This can often depend on our choice of <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>Let’s repeat this process again, but this time with <span class="math notranslate nohighlight">\(k=1\)</span> to get a sense of the difference that the number of nearest neighbors can make for the variability of the boundary.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make predictions on the test data</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">y_prediction</span> <span class="o">=</span> <span class="n">myknn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+
+<span class="c1"># Get the mistakes that were made in prediction</span>
+<span class="n">data_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/test.csv&quot;</span><span class="p">)</span>
+<span class="n">data_predictions</span> <span class="o">=</span> <span class="n">data_test</span>
+<span class="n">data_predictions</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+    <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;prediction&quot;</span><span class="p">,</span> <span class="n">y_prediction</span>
+<span class="p">)</span>  <span class="c1"># Adds the column to the 3rd index (becomes the 4th column)</span>
+<span class="n">data_predictions</span><span class="p">[</span><span class="s2">&quot;correct&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">data_predictions</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">data_predictions</span><span class="p">[</span><span class="s2">&quot;prediction&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">data_predictions</span> <span class="o">=</span> <span class="n">data_predictions</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">])</span>
+<span class="n">data_predictions</span> <span class="o">=</span> <span class="n">data_predictions</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="s2">&quot;Species&quot;</span><span class="p">})</span>
+<span class="n">mistakes</span> <span class="o">=</span> <span class="n">data_predictions</span><span class="p">[</span><span class="n">data_predictions</span><span class="p">[</span><span class="s2">&quot;correct&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">]</span>
+
+<span class="c1"># Create the matrix of predictions to help plot where the decision boundaries are</span>
+<span class="n">N_values</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">predictions_knn</span> <span class="o">=</span> <span class="n">create_boundary</span><span class="p">(</span><span class="n">extent</span><span class="p">,</span> <span class="n">myknn</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N_values</span><span class="p">)</span>
+<span class="n">translate_dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Iris-setosa&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Iris-versicolor&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Iris-virginica&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">predictions_knn</span> <span class="o">=</span> <span class="n">label_to_num</span><span class="p">(</span><span class="n">predictions_knn</span><span class="p">,</span> <span class="n">translate_dictionary</span><span class="p">)</span>
+
+<span class="c1"># Plot the train and test data on top of the decision boundaries and show the mistakes for the test data</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax_train</span><span class="p">,</span> <span class="n">ax_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">]</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:green&quot;</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Iris-setosa&quot;</span><span class="p">,</span> <span class="s2">&quot;Iris-versicolor&quot;</span><span class="p">,</span> <span class="s2">&quot;Iris-virginica&quot;</span><span class="p">]</span>
+
+<span class="n">plot_prediction_boundaries</span><span class="p">(</span>
+    <span class="n">ax_train</span><span class="p">,</span> <span class="n">predictions_knn</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N_values</span>
+<span class="p">)</span>
+<span class="n">plot_data_with_labels</span><span class="p">(</span><span class="n">ax_train</span><span class="p">,</span> <span class="n">data_train</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="s2">&quot;Train Data&quot;</span><span class="p">,</span> <span class="n">extent</span><span class="p">)</span>
+<span class="n">ax_train</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Actual Target Variable&quot;</span><span class="p">)</span>
+
+<span class="n">plot_prediction_boundaries</span><span class="p">(</span><span class="n">ax_test</span><span class="p">,</span> <span class="n">predictions_knn</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N_values</span><span class="p">)</span>
+<span class="n">plot_data_with_labels</span><span class="p">(</span><span class="n">ax_test</span><span class="p">,</span> <span class="n">data_test</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="s2">&quot;Test Data&quot;</span><span class="p">,</span> <span class="n">extent</span><span class="p">)</span>
+<span class="n">plot_mistakes</span><span class="p">(</span><span class="n">ax_test</span><span class="p">,</span> <span class="n">mistakes</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">ax_test</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Actual Target Variable&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/d5860c05096e1254daa135546a4b66c26d33a45cc3b24e32e0ba74131345fdfc.png" src="../../../_images/d5860c05096e1254daa135546a4b66c26d33a45cc3b24e32e0ba74131345fdfc.png" />
+</div>
+</div>
+<p>What we can clearly see here is that in this case, EVERY training observation is correctly classified because it’s based on the 1 nearest observation in the training data. However, this leads to a highly variable decision boundary and the number of mistakes has increased on the TEST data from 3 to 4. This is a common problem in prediction known as the bias-variance tradeoff. If the prediction algorithm is too flexible in how much the boundary can change with the training data (like is the case with <span class="math notranslate nohighlight">\(k=1\)</span>), this often results in poor predictions. Similarly, if our algorithm is not flexible enough we can also get poor predictions. We often seek a balance, and having a value closer to <span class="math notranslate nohighlight">\(k=5\)</span> is better than <span class="math notranslate nohighlight">\(k=1\)</span> in this case.</p>
+<p>We’ve now dived deeply into classification, but that’s only one half of prediction. The other half is regression, which we turn to next!</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_5/week_2"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -79,3 +79,7 @@ If you want a tool to help you *program*, there are a few options:
 The [Tobii Eye Tracker](https://gaming.tobii.com/product/eye-tracker-5/) is a tool (originally for gaming) that you can use as a no-hands mouse replacement. You need one of their eye trackers, which you can then pair with [Talon](https://talonvoice.com/) to enable it to work as a mouse replacement. Talon also then allows for the use of your voice to induce clicks.
 
 Again, the docs on the Talon site aren't great, but the community is amazing. Join the slack, ask for help, and look for youtube videos.
+
+## Want More Resources?
+
+Check out this resource page from [AccessComputing](https://www.washington.edu/accesscomputing/resources/accommodations) at the University of Washington! It has even more resources, and advice that's more general than the programming-focused resources I've focused on here.

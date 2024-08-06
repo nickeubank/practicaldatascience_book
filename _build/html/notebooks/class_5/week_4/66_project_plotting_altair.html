@@ -1,0 +1,1253 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Project: Plotting &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_5/week_4/66_project_plotting_altair';</script>
+    <link rel="icon" href="../../../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Practical Data Science with Python - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Practical Data Science with Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">IDS 720</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../ids720_specific/class_schedule.html">Class Schedule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">Views and Copies</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">Matrices</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">Arrays</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/18_object_dtype.html">The <code class="docutils literal notranslate"><span class="pre">object</span></code> Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/45_categorical_dtype.html">The Categorical Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_3/week_3/07_indices.html">Indexes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/03_plaintext_files.html">Reading Data</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">Defensive Programming</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_5/week_4/66_project_plotting_altair.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/class_5/week_4/66_project_plotting_altair.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Project: Plotting</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Project: Plotting</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#making-the-plot-interactive-through-altair">Making the plot interactive through <code class="docutils literal notranslate"><span class="pre">altair</span></code></a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Not for inclusion - just to load contents from previous notebook</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">pickle_path</span> <span class="o">=</span> <span class="s2">&quot;data/pickle/&quot;</span>
+
+<span class="n">to_pickle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">to_pickle</span><span class="p">:</span>
+    <span class="n">exec</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">=pd.read_pickle(&quot;</span><span class="si">{</span><span class="n">pickle_path</span><span class="si">}{</span><span class="n">item</span><span class="si">}</span><span class="s1">.pkl&quot;)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="project-plotting">
+<h1>Project: Plotting<a class="headerlink" href="#project-plotting" title="Link to this heading">#</a></h1>
+<p>In the last lesson, we loaded the data we needed for reach of those as: <code class="docutils literal notranslate"><span class="pre">co2</span></code>, <code class="docutils literal notranslate"><span class="pre">income</span></code>, <code class="docutils literal notranslate"><span class="pre">pop</span></code> and <code class="docutils literal notranslate"><span class="pre">continents</span></code>. Now, we need to merge these into one <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> so that we can plot it. To refresh our memories, let’s take a look at our four datasets that we need to merge together and think about how we will merge them:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>co2</th>
+      <th>income</th>
+      <th>population</th>
+      <th>continent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>0.254</td>
+      <td>2030.0</td>
+      <td>37200000.0</td>
+      <td>Asia</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Angola</td>
+      <td>1.120</td>
+      <td>6930.0</td>
+      <td>30800000.0</td>
+      <td>Africa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Albania</td>
+      <td>1.590</td>
+      <td>13300.0</td>
+      <td>2880000.0</td>
+      <td>Europe</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Andorra</td>
+      <td>6.120</td>
+      <td>58300.0</td>
+      <td>77000.0</td>
+      <td>Europe</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>United Arab Emirates</td>
+      <td>21.400</td>
+      <td>67000.0</td>
+      <td>9630000.0</td>
+      <td>Asia</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>188</th>
+      <td>Samoa</td>
+      <td>1.320</td>
+      <td>6390.0</td>
+      <td>196000.0</td>
+      <td>Asia</td>
+    </tr>
+    <tr>
+      <th>189</th>
+      <td>Yemen</td>
+      <td>0.356</td>
+      <td>2660.0</td>
+      <td>28500000.0</td>
+      <td>Asia</td>
+    </tr>
+    <tr>
+      <th>190</th>
+      <td>South Africa</td>
+      <td>8.100</td>
+      <td>13900.0</td>
+      <td>57800000.0</td>
+      <td>Africa</td>
+    </tr>
+    <tr>
+      <th>191</th>
+      <td>Zambia</td>
+      <td>0.302</td>
+      <td>3520.0</td>
+      <td>17400000.0</td>
+      <td>Africa</td>
+    </tr>
+    <tr>
+      <th>192</th>
+      <td>Zimbabwe</td>
+      <td>0.850</td>
+      <td>3920.0</td>
+      <td>14400000.0</td>
+      <td>Africa</td>
+    </tr>
+  </tbody>
+</table>
+<p>193 rows × 5 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import packages</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s start with the simplest possible plot we could make here and we will take it, one step at a time, to make a progressively more complex plot. We’ll start with using the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> plotting tools, which are our standard go-to tools for plotting and will layer on complexity towards a fully interactive <code class="docutils literal notranslate"><span class="pre">altair</span></code>-based plot.</p>
+<p>For our first step, let’s create a simple scatter plot from the data using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x178cd24c3a0&gt;
+</pre></div>
+</div>
+<img alt="../../../_images/bb0fff1ffc4a7dede3b78e4609660bf940351f5dbb87bfb1580ade482d2ab9ad.png" src="../../../_images/bb0fff1ffc4a7dede3b78e4609660bf940351f5dbb87bfb1580ade482d2ab9ad.png" />
+</div>
+</div>
+<p>Let’s make sure we label our axes so that we know what we’re plotting (this is always good visualization hygene):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Income Per Capita (GDP per person in USD)&#39;),
+ Text(0, 0.5, &#39;Carbon Dioxide Emissions per person (metric tonnes)&#39;)]
+</pre></div>
+</div>
+<img alt="../../../_images/2c0ddd074a5a6ee8f44f765020182df1589804b42921838d3ff3ac3c51aa2a02.png" src="../../../_images/2c0ddd074a5a6ee8f44f765020182df1589804b42921838d3ff3ac3c51aa2a02.png" />
+</div>
+</div>
+<p>Next, a lot of the markers are overlapping one another in the lower left of the plot, so it’s hard to see how many countries are represented there. Let’s add transparency there using the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> plotting keyword to make those points semi-transparent so we can read this more clearly</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Income Per Capita (GDP per person in USD)&#39;),
+ Text(0, 0.5, &#39;Carbon Dioxide Emissions per person (metric tonnes)&#39;)]
+</pre></div>
+</div>
+<img alt="../../../_images/02440e87677111af576d2631f6a0bef3bfc50ed38ad8de814904ca05b19200a8.png" src="../../../_images/02440e87677111af576d2631f6a0bef3bfc50ed38ad8de814904ca05b19200a8.png" />
+</div>
+</div>
+<p>What’s clear here is that many of the values are clumped together in the lower left. This makes this plot more difficult to read since one or two outliers in the data dominate the scale of the axes. Instead, lets set the scale to a logarithmic scale. With a log scale, instead of incrementing each tick as one unit at a time (1, 2, 3, 4, 5, …) each tick of the plot jumps (typically) by a power of 10 (1, 10, 100, 1000, 10000, …). This will help us see both the very small and the very large values more clearly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+    <span class="n">xscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Income Per Capita (GDP per person in USD)&#39;),
+ Text(0, 0.5, &#39;Carbon Dioxide Emissions per person (metric tonnes)&#39;),
+ None,
+ None]
+</pre></div>
+</div>
+<img alt="../../../_images/765c8654820e92a1674d48b05abfbe389caf85c1c62b6eb1a5e147906cad7047.png" src="../../../_images/765c8654820e92a1674d48b05abfbe389caf85c1c62b6eb1a5e147906cad7047.png" />
+</div>
+</div>
+<p>That is much easier to see the individual points in the plot, now. However, we haven’t encoded the population of each country into the plot, yet. To do so, let’s set the size based on the population. We can do this with the <code class="docutils literal notranslate"><span class="pre">s</span></code> keyword in the <code class="docutils literal notranslate"><span class="pre">scatter</span></code> method. However, we can’t use raw population since that would create circles with a size in the billions - far too big to fit on the screen! However, if we scale that down by a factor of 500,000, that generally brings the values of the largest countries like China to less than 20. In practice, you often have to tweak the scales of these values to make it work for your data; in this case, dividing by 500,000 will do the trick.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">population</span> <span class="o">/</span> <span class="mi">500000</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+    <span class="n">xscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Income Per Capita (GDP per person in USD)&#39;),
+ Text(0, 0.5, &#39;Carbon Dioxide Emissions per person (metric tonnes)&#39;),
+ None,
+ None]
+</pre></div>
+</div>
+<img alt="../../../_images/1d120111bcc549e1ebf9666516dccad08a6c3e0e2c5fa7df03385e8fdaf46fa0.png" src="../../../_images/1d120111bcc549e1ebf9666516dccad08a6c3e0e2c5fa7df03385e8fdaf46fa0.png" />
+</div>
+</div>
+<p>We still have one more significant difference from this plot to the GapMinder plot; that is coloring the markers by the region of the world where each country/territory is located. Assigning those colors is a little tricky since</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">region</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Africa&quot;</span><span class="p">,</span> <span class="s2">&quot;Asia&quot;</span><span class="p">,</span> <span class="s2">&quot;Europe&quot;</span><span class="p">,</span> <span class="s2">&quot;Americas&quot;</span><span class="p">]</span>
+<span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#00d5e9&quot;</span><span class="p">,</span> <span class="s2">&quot;#ff5872&quot;</span><span class="p">,</span> <span class="s2">&quot;#ffe700&quot;</span><span class="p">,</span> <span class="s2">&quot;#84ec04&quot;</span><span class="p">]</span>
+
+<span class="n">color_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">ir</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">continent</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">ireg</span><span class="p">,</span> <span class="n">reg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">region</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="o">==</span> <span class="n">reg</span><span class="p">:</span>
+            <span class="n">color_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="n">ireg</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">population</span> <span class="o">/</span> <span class="mi">500000</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_list</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+    <span class="n">xscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Income Per Capita (GDP per person in USD)&#39;),
+ Text(0, 0.5, &#39;Carbon Dioxide Emissions per person (metric tonnes)&#39;),
+ None,
+ None]
+</pre></div>
+</div>
+<img alt="../../../_images/90fc1ab956de903323c55b7ace57e5c6018e58c5b05c43724f75c2b317d7bd69.png" src="../../../_images/90fc1ab956de903323c55b7ace57e5c6018e58c5b05c43724f75c2b317d7bd69.png" />
+</div>
+</div>
+<p>Now lets add a black boundary to the marker. We can do this with the <code class="docutils literal notranslate"><span class="pre">edgecolors</span></code> property. We could feed in a color for each of the markers separately, but instead, we’ll provide one color for all markers and make the edges black.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">,</span>
+    <span class="n">s</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">population</span> <span class="o">/</span> <span class="mi">500000</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="n">color_list</span><span class="p">,</span>
+    <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+    <span class="n">xscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Income Per Capita (GDP per person in USD)&#39;),
+ Text(0, 0.5, &#39;Carbon Dioxide Emissions per person (metric tonnes)&#39;),
+ None,
+ None]
+</pre></div>
+</div>
+<img alt="../../../_images/ab68279da1aecfff6bc193bb3fa4d0baedd987ec5f3dec6ef8f122fa03487d46.png" src="../../../_images/ab68279da1aecfff6bc193bb3fa4d0baedd987ec5f3dec6ef8f122fa03487d46.png" />
+</div>
+</div>
+<p>This plot is a bit too small at this point to really read well, so let’s make it a bit larger. Let’s set the figure size to be 10 inches by 10 inches using the <code class="docutils literal notranslate"><span class="pre">figsize</span></code> property of <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">,</span>
+    <span class="n">s</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">population</span> <span class="o">/</span> <span class="mi">500000</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="n">color_list</span><span class="p">,</span>
+    <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+    <span class="n">xscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Income Per Capita (GDP per person in USD)&#39;),
+ Text(0, 0.5, &#39;Carbon Dioxide Emissions per person (metric tonnes)&#39;),
+ None,
+ None]
+</pre></div>
+</div>
+<img alt="../../../_images/772be3f62e2c74c0e86602dd11f7dc7eeedf41e9ef9eedc3467daf7aef8ac008.png" src="../../../_images/772be3f62e2c74c0e86602dd11f7dc7eeedf41e9ef9eedc3467daf7aef8ac008.png" />
+</div>
+</div>
+<p>Now this is quite close to what we want, but now that the plot is much bigger, the scale of the markers can be larger, so lets increase their size by changing how the <code class="docutils literal notranslate"><span class="pre">s</span></code> value is set, dividing it by 100,000 instead of 500,000. Let’s also add in grid lines to make this plot easier to read - this can be done with the <code class="docutils literal notranslate"><span class="pre">ax.grid()</span></code> method, which adds the gridlines to the plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">,</span>
+    <span class="n">s</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">population</span> <span class="o">/</span> <span class="mi">100000</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="n">color_list</span><span class="p">,</span>
+    <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+    <span class="n">xscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/be6d244e5b6d2cce3bafdb8c8a86201909690a72794027c6f91d93245a07b097.png" src="../../../_images/be6d244e5b6d2cce3bafdb8c8a86201909690a72794027c6f91d93245a07b097.png" />
+</div>
+</div>
+<p>But we’re still no quite there yet - the gridlines are only for the powers of 10: 100, 1,000, and 10,000 on the x-axis, for example. We can fix this by telling the grid method to not only use the major gridlines, but also the minor gridlines using hte <code class="docutils literal notranslate"><span class="pre">which='both'</span></code> property</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">,</span>
+    <span class="n">s</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">population</span> <span class="o">/</span> <span class="mi">100000</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="n">color_list</span><span class="p">,</span>
+    <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+    <span class="n">xscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/ac97f017dc48892324a080c7cc6f761fa7578e18d235678f97958e37825cd4ae.png" src="../../../_images/ac97f017dc48892324a080c7cc6f761fa7578e18d235678f97958e37825cd4ae.png" />
+</div>
+</div>
+<p>The grid lines are plotted in FRONT of our markers, though - this makes it harder to read. Let’s move those back with <code class="docutils literal notranslate"><span class="pre">ax.set_axisbelow(True)</span></code>, which plots the axes and gridlines behind the markers</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">,</span>
+    <span class="n">s</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">population</span> <span class="o">/</span> <span class="mi">100000</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="n">color_list</span><span class="p">,</span>
+    <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+    <span class="n">xscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/f7d930fa3536676616334c8615bce2c02f2ed9e3ea066224cbf4937f5ef1ef4f.png" src="../../../_images/f7d930fa3536676616334c8615bce2c02f2ed9e3ea066224cbf4937f5ef1ef4f.png" />
+</div>
+</div>
+<p>This is looking great, but we want this plot to be readily understood by a wide audience, so we really want all markings on the plot to be crystal clear to read. That leads to two more tweaks. First is that we need a legend for this plot, but using <code class="docutils literal notranslate"><span class="pre">ax.legend()</span></code> doesn’t produce anything since we only used one set of scatterplot markers. Typically if we called the <code class="docutils literal notranslate"><span class="pre">scatter()</span></code> method on multiple datasets and plotted them each on the same set of axes, the <code class="docutils literal notranslate"><span class="pre">legend()</span></code> method would produce a nice legend entry for each time we called the <code class="docutils literal notranslate"><span class="pre">scatter()</span></code> method. In this case, since we only called <code class="docutils literal notranslate"><span class="pre">scatter()</span></code> once, we can’t use this standard approach to create our legend. Fortunately, though, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> is quite a versatile tool that allows you to create a custom legend.</p>
+<p>To accomplish this we can create a custom legend by feeding in markers that are appropriate colored for each class, as shown in the example below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.lines</span> <span class="kn">import</span> <span class="n">Line2D</span>
+
+<span class="n">region</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Africa&quot;</span><span class="p">,</span> <span class="s2">&quot;Asia&quot;</span><span class="p">,</span> <span class="s2">&quot;Europe&quot;</span><span class="p">,</span> <span class="s2">&quot;Americas&quot;</span><span class="p">]</span>
+<span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#00d5e9&quot;</span><span class="p">,</span> <span class="s2">&quot;#ff5872&quot;</span><span class="p">,</span> <span class="s2">&quot;#ffe700&quot;</span><span class="p">,</span> <span class="s2">&quot;#84ec04&quot;</span><span class="p">]</span>
+
+<span class="n">legend_elements</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="n">legend_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">Line2D</span><span class="p">(</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span>
+                <span class="mi">0</span>
+            <span class="p">],</span>  <span class="c1"># Coordinates of the item to plot (we leave this blank so it doesn&#39;t actually plot anything)</span>
+            <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># removes the line</span>
+            <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>  <span class="c1"># Sets our plot to be a circle</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>  <span class="c1"># Sets the edge color of the marker</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">r</span><span class="p">,</span>  <span class="c1"># The label we want for this legend entry</span>
+            <span class="n">markerfacecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>  <span class="c1"># The color of the inside of the marker</span>
+            <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Pick a size the looks readable on the plot</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="c1"># Create a sample figure to demonstrate the output of the legend() method</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_elements</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x178ce62f4f0&gt;
+</pre></div>
+</div>
+<img alt="../../../_images/4a49bf691912ada607abcf4680652c7bf01f2aca1f077608c459b2f99bc20c09.png" src="../../../_images/4a49bf691912ada607abcf4680652c7bf01f2aca1f077608c459b2f99bc20c09.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">co2</span><span class="p">,</span>
+    <span class="n">s</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">population</span> <span class="o">/</span> <span class="mi">100000</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="n">color_list</span><span class="p">,</span>
+    <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+    <span class="n">xscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_elements</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x178d623a950&gt;
+</pre></div>
+</div>
+<img alt="../../../_images/ac459489afb1bf34f183dc6ae9bb73f4e46b077d568751603a171b662b98a86f.png" src="../../../_images/ac459489afb1bf34f183dc6ae9bb73f4e46b077d568751603a171b662b98a86f.png" />
+</div>
+</div>
+<p>The other issue here is that exponential notation on the labels may not be that easy for all readers to understand</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="making-the-plot-interactive-through-altair">
+<h1>Making the plot interactive through <code class="docutils literal notranslate"><span class="pre">altair</span></code><a class="headerlink" href="#making-the-plot-interactive-through-altair" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># MAIN PLOT</span>
+<span class="c1"># Create the plot with Altair</span>
+<span class="n">domain</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Africa&quot;</span><span class="p">,</span> <span class="s2">&quot;Asia&quot;</span><span class="p">,</span> <span class="s2">&quot;Europe&quot;</span><span class="p">,</span> <span class="s2">&quot;Americas&quot;</span><span class="p">]</span>
+<span class="n">range_</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#00d5e9&quot;</span><span class="p">,</span> <span class="s2">&quot;#ff5872&quot;</span><span class="p">,</span> <span class="s2">&quot;#ffe700&quot;</span><span class="p">,</span> <span class="s2">&quot;#84ec04&quot;</span><span class="p">]</span>
+
+<span class="n">chart</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">stroke</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">strokeWidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span>
+            <span class="s2">&quot;income&quot;</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Income Per Capita (GDP per person in USD)&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span>
+            <span class="s2">&quot;co2&quot;</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Carbon Dioxide Emissions per person (metric tonnes)&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span>
+            <span class="s2">&quot;continent&quot;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">domain</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="n">range_</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Region&quot;</span>
+        <span class="p">),</span>
+        <span class="n">size</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Size</span><span class="p">(</span>
+            <span class="s2">&quot;population&quot;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">8000</span><span class="p">]),</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Population&quot;</span>
+        <span class="p">),</span>
+        <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Territory&quot;</span><span class="p">),</span>
+            <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s2">&quot;income&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;GDP per capita ($)&quot;</span><span class="p">),</span>
+            <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s2">&quot;co2&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;CO2 per capita (tonnes)&quot;</span><span class="p">),</span>
+            <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s2">&quot;continent&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Region&quot;</span><span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">configure_mark</span><span class="p">(</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="n">configure_legend</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">symbolFillColor</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-d3d658b0fe8e44f49aeed5ce510007b5"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-d3d658b0fe8e44f49aeed5ce510007b5") {
+      outputDiv = document.getElementById("altair-viz-d3d658b0fe8e44f49aeed5ce510007b5");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}, "legend": {"symbolFillColor": "lightgrey", "tickCount": 3}, "mark": {"opacity": 0.7}}, "data": {"name": "data-548295f963b9602f50f7af757b55d55f"}, "mark": {"type": "circle", "size": 60, "stroke": "black", "strokeWidth": 1}, "encoding": {"color": {"field": "continent", "scale": {"domain": ["Africa", "Asia", "Europe", "Americas"], "range": ["#00d5e9", "#ff5872", "#ffe700", "#84ec04"]}, "title": "Region", "type": "nominal"}, "size": {"field": "population", "scale": {"range": [50, 8000]}, "title": "Population", "type": "quantitative"}, "tooltip": [{"field": "country", "title": "Territory", "type": "nominal"}, {"field": "income", "title": "GDP per capita ($)", "type": "quantitative"}, {"field": "co2", "title": "CO2 per capita (tonnes)", "type": "quantitative"}, {"field": "continent", "title": "Region", "type": "nominal"}], "x": {"field": "income", "scale": {"type": "log"}, "title": "Income Per Capita (GDP per person in USD)", "type": "quantitative"}, "y": {"field": "co2", "scale": {"type": "log"}, "title": "Carbon Dioxide Emissions per person (metric tonnes)", "type": "quantitative"}}, "height": 500, "selection": {"selector006": {"type": "interval", "bind": "scales", "encodings": ["x", "y"]}}, "width": 500, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-548295f963b9602f50f7af757b55d55f": [{"country": "Afghanistan", "co2": 0.254, "income": 2030.0, "population": 37200000.0, "continent": "Asia"}, {"country": "Angola", "co2": 1.12, "income": 6930.0, "population": 30800000.0, "continent": "Africa"}, {"country": "Albania", "co2": 1.59, "income": 13300.0, "population": 2880000.0, "continent": "Europe"}, {"country": "Andorra", "co2": 6.12, "income": 58300.0, "population": 77000.0, "continent": "Europe"}, {"country": "United Arab Emirates", "co2": 21.4, "income": 67000.0, "population": 9630000.0, "continent": "Asia"}, {"country": "Argentina", "co2": 4.41, "income": 22700.0, "population": 44400000.0, "continent": "Americas"}, {"country": "Armenia", "co2": 1.89, "income": 12700.0, "population": 2950000.0, "continent": "Asia"}, {"country": "Antigua and Barbuda", "co2": 5.88, "income": 21000.0, "population": 96300.0, "continent": "Americas"}, {"country": "Australia", "co2": 16.9, "income": 49000.0, "population": 24900000.0, "continent": "Asia"}, {"country": "Austria", "co2": 7.75, "income": 55300.0, "population": 8890000.0, "continent": "Europe"}, {"country": "Azerbaijan", "co2": 3.7, "income": 14200.0, "population": 9950000.0, "continent": "Asia"}, {"country": "Burundi", "co2": 0.0467, "income": 762.0, "population": 11200000.0, "continent": "Africa"}, {"country": "Belgium", "co2": 8.69, "income": 51100.0, "population": 11500000.0, "continent": "Europe"}, {"country": "Benin", "co2": 0.623, "income": 3160.0, "population": 11500000.0, "continent": "Africa"}, {"country": "Burkina Faso", "co2": 0.198, "income": 2120.0, "population": 19800000.0, "continent": "Africa"}, {"country": "Bangladesh", "co2": 0.531, "income": 4440.0, "population": 161000000.0, "continent": "Asia"}, {"country": "Bulgaria", "co2": 6.32, "income": 22200.0, "population": 7050000.0, "continent": "Europe"}, {"country": "Bahrain", "co2": 19.8, "income": 46400.0, "population": 1570000.0, "continent": "Asia"}, {"country": "Bahamas", "co2": 4.7, "income": 36500.0, "population": 386000.0, "continent": "Americas"}, {"country": "Bosnia and Herzegovina", "co2": 6.53, "income": 14400.0, "population": 3320000.0, "continent": "Europe"}, {"country": "Belarus", "co2": 6.93, "income": 19000.0, "population": 9450000.0, "continent": "Europe"}, {"country": "Belize", "co2": 1.5, "income": 7260.0, "population": 383000.0, "continent": "Americas"}, {"country": "Bolivia", "co2": 1.96, "income": 8660.0, "population": 11400000.0, "continent": "Americas"}, {"country": "Brazil", "co2": 2.18, "income": 14700.0, "population": 209000000.0, "continent": "Americas"}, {"country": "Barbados", "co2": 4.48, "income": 15700.0, "population": 287000.0, "continent": "Americas"}, {"country": "Brunei", "co2": 18.5, "income": 60400.0, "population": 429000.0, "continent": "Asia"}, {"country": "Bhutan", "co2": 1.61, "income": 11300.0, "population": 754000.0, "continent": "Asia"}, {"country": "Botswana", "co2": 2.96, "income": 16200.0, "population": 2250000.0, "continent": "Africa"}, {"country": "Central African Republic", "co2": 0.0651, "income": 933.0, "population": 4670000.0, "continent": "Africa"}, {"country": "Canada", "co2": 15.3, "income": 49000.0, "population": 37100000.0, "continent": "Americas"}, {"country": "Switzerland", "co2": 4.33, "income": 70600.0, "population": 8530000.0, "continent": "Europe"}, {"country": "Chile", "co2": 4.59, "income": 25000.0, "population": 18700000.0, "continent": "Americas"}, {"country": "China", "co2": 7.06, "income": 15100.0, "population": 1430000000.0, "continent": "Asia"}, {"country": "Cote d'Ivoire", "co2": 0.335, "income": 4850.0, "population": 25100000.0, "continent": "Africa"}, {"country": "Cameroon", "co2": 0.323, "income": 3710.0, "population": 25200000.0, "continent": "Africa"}, {"country": "Congo, Dem. Rep.", "co2": 0.0243, "income": 1090.0, "population": 84100000.0, "continent": "Africa"}, {"country": "Congo, Rep.", "co2": 0.617, "income": 3930.0, "population": 5240000.0, "continent": "Africa"}, {"country": "Colombia", "co2": 1.96, "income": 14300.0, "population": 49700000.0, "continent": "Americas"}, {"country": "Comoros", "co2": 0.263, "income": 3070.0, "population": 832000.0, "continent": "Africa"}, {"country": "Cape Verde", "co2": 1.16, "income": 6860.0, "population": 544000.0, "continent": "Africa"}, {"country": "Costa Rica", "co2": 1.61, "income": 20700.0, "population": 5000000.0, "continent": "Americas"}, {"country": "Cuba", "co2": 2.53, "income": 9680.0, "population": 11300000.0, "continent": "Americas"}, {"country": "Cyprus", "co2": 6.3, "income": 40000.0, "population": 1190000.0, "continent": "Asia"}, {"country": "Czech Republic", "co2": 9.94, "income": 39900.0, "population": 10700000.0, "continent": "Europe"}, {"country": "Germany", "co2": 9.14, "income": 53500.0, "population": 83100000.0, "continent": "Europe"}, {"country": "Djibouti", "co2": 0.672, "income": 5210.0, "population": 959000.0, "continent": "Africa"}, {"country": "Dominica", "co2": 2.55, "income": 11500.0, "population": 71600.0, "continent": "Americas"}, {"country": "Denmark", "co2": 6.06, "income": 56200.0, "population": 5750000.0, "continent": "Europe"}, {"country": "Dominican Republic", "co2": 2.34, "income": 17700.0, "population": 10600000.0, "continent": "Americas"}, {"country": "Algeria", "co2": 3.69, "income": 11600.0, "population": 42200000.0, "continent": "Africa"}, {"country": "Ecuador", "co2": 2.46, "income": 11600.0, "population": 17100000.0, "continent": "Americas"}, {"country": "Egypt", "co2": 2.43, "income": 11400.0, "population": 98400000.0, "continent": "Africa"}, {"country": "Eritrea", "co2": 0.215, "income": 1560.0, "population": 3450000.0, "continent": "Africa"}, {"country": "Spain", "co2": 5.75, "income": 40300.0, "population": 46700000.0, "continent": "Europe"}, {"country": "Estonia", "co2": 14.8, "income": 35100.0, "population": 1320000.0, "continent": "Europe"}, {"country": "Ethiopia", "co2": 0.137, "income": 2100.0, "population": 109000000.0, "continent": "Africa"}, {"country": "Finland", "co2": 8.52, "income": 48000.0, "population": 5520000.0, "continent": "Europe"}, {"country": "Fiji", "co2": 2.41, "income": 13800.0, "population": 883000.0, "continent": "Asia"}, {"country": "France", "co2": 5.2, "income": 45300.0, "population": 65000000.0, "continent": "Europe"}, {"country": "Micronesia, Fed. Sts.", "co2": 1.34, "income": 3460.0, "population": 113000.0, "continent": "Asia"}, {"country": "Gabon", "co2": 2.53, "income": 14700.0, "population": 2120000.0, "continent": "Africa"}, {"country": "United Kingdom", "co2": 5.65, "income": 46900.0, "population": 67099999.99999999, "continent": "Europe"}, {"country": "Georgia", "co2": 2.64, "income": 14300.0, "population": 4000000.0, "continent": "Asia"}, {"country": "Ghana", "co2": 0.615, "income": 5320.0, "population": 29800000.0, "continent": "Africa"}, {"country": "Guinea", "co2": 0.256, "income": 2500.0, "population": 12400000.0, "continent": "Africa"}, {"country": "Gambia", "co2": 0.268, "income": 2160.0, "population": 2280000.0, "continent": "Africa"}, {"country": "Guinea-Bissau", "co2": 0.181, "income": 1900.0, "population": 1870000.0, "continent": "Africa"}, {"country": "Equatorial Guinea", "co2": 4.35, "income": 20400.0, "population": 1310000.0, "continent": "Africa"}, {"country": "Greece", "co2": 7.03, "income": 29100.0, "population": 10500000.0, "continent": "Europe"}, {"country": "Grenada", "co2": 2.43, "income": 16800.0, "population": 111000.0, "continent": "Americas"}, {"country": "Guatemala", "co2": 1.07, "income": 8460.0, "population": 17200000.0, "continent": "Americas"}, {"country": "Guyana", "co2": 3.12, "income": 12500.0, "population": 779000.0, "continent": "Americas"}, {"country": "Hong Kong, China", "co2": 5.86, "income": 61100.0, "population": 7370000.0, "continent": "Asia"}, {"country": "Honduras", "co2": 1.04, "income": 5680.0, "population": 9590000.0, "continent": "Americas"}, {"country": "Croatia", "co2": 4.48, "income": 28200.0, "population": 4160000.0, "continent": "Europe"}, {"country": "Haiti", "co2": 0.27, "income": 3170.0, "population": 11100000.0, "continent": "Americas"}, {"country": "Hungary", "co2": 5.14, "income": 31100.0, "population": 9710000.0, "continent": "Europe"}, {"country": "Indonesia", "co2": 2.3, "income": 11400.0, "population": 268000000.0, "continent": "Asia"}, {"country": "India", "co2": 1.96, "income": 6520.0, "population": 1350000000.0, "continent": "Asia"}, {"country": "Ireland", "co2": 8.09, "income": 83700.0, "population": 4820000.0, "continent": "Europe"}, {"country": "Iran", "co2": 8.81, "income": 13500.0, "population": 81800000.0, "continent": "Asia"}, {"country": "Iraq", "co2": 5.32, "income": 10600.0, "population": 38400000.0, "continent": "Asia"}, {"country": "Iceland", "co2": 10.8, "income": 56800.0, "population": 337000.0, "continent": "Europe"}, {"country": "Israel", "co2": 7.67, "income": 39900.0, "population": 8380000.000000001, "continent": "Asia"}, {"country": "Italy", "co2": 5.58, "income": 42000.0, "population": 60600000.0, "continent": "Europe"}, {"country": "Jamaica", "co2": 2.79, "income": 9740.0, "population": 2930000.0, "continent": "Americas"}, {"country": "Jordan", "co2": 2.42, "income": 10000.0, "population": 9970000.0, "continent": "Asia"}, {"country": "Japan", "co2": 9.14, "income": 41800.0, "population": 127000000.0, "continent": "Asia"}, {"country": "Kazakhstan", "co2": 17.6, "income": 25500.0, "population": 18300000.0, "continent": "Asia"}, {"country": "Kenya", "co2": 0.36, "income": 4340.0, "population": 51400000.0, "continent": "Africa"}, {"country": "Kyrgyz Republic", "co2": 1.6, "income": 5130.0, "population": 6300000.0, "continent": "Asia"}, {"country": "Cambodia", "co2": 0.64, "income": 4160.0, "population": 16200000.0, "continent": "Asia"}, {"country": "Kiribati", "co2": 0.601, "income": 2290.0, "population": 116000.0, "continent": "Asia"}, {"country": "St. Kitts and Nevis", "co2": 4.62, "income": 27500.0, "population": 52400.0, "continent": "Americas"}, {"country": "South Korea", "co2": 12.9, "income": 42000.0, "population": 51200000.0, "continent": "Asia"}, {"country": "Kuwait", "co2": 23.7, "income": 50500.0, "population": 4139999.9999999995, "continent": "Asia"}, {"country": "Lao", "co2": 2.74, "income": 7590.0, "population": 7060000.0, "continent": "Asia"}, {"country": "Lebanon", "co2": 3.53, "income": 15700.0, "population": 6860000.0, "continent": "Asia"}, {"country": "Liberia", "co2": 0.324, "income": 1540.0, "population": 4820000.0, "continent": "Africa"}, {"country": "Libya", "co2": 8.09, "income": 15000.0, "population": 6680000.0, "continent": "Africa"}, {"country": "St. Lucia", "co2": 2.31, "income": 15300.0, "population": 182000.0, "continent": "Americas"}, {"country": "Sri Lanka", "co2": 1.1, "income": 12900.0, "population": 21200000.0, "continent": "Asia"}, {"country": "Lesotho", "co2": 1.26, "income": 2620.0, "population": 2110000.0, "continent": "Africa"}, {"country": "Lithuania", "co2": 4.84, "income": 35400.0, "population": 2800000.0, "continent": "Europe"}, {"country": "Luxembourg", "co2": 15.9, "income": 115000.0, "population": 604000.0, "continent": "Europe"}, {"country": "Latvia", "co2": 3.73, "income": 30100.0, "population": 1930000.0, "continent": "Europe"}, {"country": "Morocco", "co2": 1.84, "income": 7450.0, "population": 36000000.0, "continent": "Africa"}, {"country": "Moldova", "co2": 1.27, "income": 12400.0, "population": 4050000.0, "continent": "Europe"}, {"country": "Madagascar", "co2": 0.163, "income": 1590.0, "population": 26300000.0, "continent": "Africa"}, {"country": "Maldives", "co2": 2.96, "income": 18800.0, "population": 516000.0, "continent": "Asia"}, {"country": "Mexico", "co2": 3.79, "income": 19900.0, "population": 126000000.0, "continent": "Americas"}, {"country": "Marshall Islands", "co2": 2.58, "income": 3820.0, "population": 58400.0, "continent": "Asia"}, {"country": "North Macedonia", "co2": 3.49, "income": 16100.000000000002, "population": 2080000.0, "continent": "Europe"}, {"country": "Mali", "co2": 0.187, "income": 2280.0, "population": 19100000.0, "continent": "Africa"}, {"country": "Malta", "co2": 3.61, "income": 43300.0, "population": 439000.0, "continent": "Europe"}, {"country": "Myanmar", "co2": 0.491, "income": 4470.0, "population": 53700000.0, "continent": "Asia"}, {"country": "Montenegro", "co2": 3.2, "income": 20700.0, "population": 628000.0, "continent": "Europe"}, {"country": "Mongolia", "co2": 8.88, "income": 12000.0, "population": 3170000.0, "continent": "Asia"}, {"country": "Mozambique", "co2": 0.281, "income": 1290.0, "population": 29500000.0, "continent": "Africa"}, {"country": "Mauritania", "co2": 0.605, "income": 5190.0, "population": 4400000.0, "continent": "Africa"}, {"country": "Mauritius", "co2": 3.83, "income": 22200.0, "population": 1270000.0, "continent": "Africa"}, {"country": "Malawi", "co2": 0.0762, "income": 1500.0, "population": 18100000.0, "continent": "Africa"}, {"country": "Malaysia", "co2": 8.08, "income": 27600.0, "population": 31500000.0, "continent": "Asia"}, {"country": "Namibia", "co2": 1.75, "income": 10100.0, "population": 2450000.0, "continent": "Africa"}, {"country": "Niger", "co2": 0.103, "income": 1200.0, "population": 22400000.0, "continent": "Africa"}, {"country": "Nigeria", "co2": 0.65, "income": 5160.0, "population": 196000000.0, "continent": "Africa"}, {"country": "Nicaragua", "co2": 0.862, "income": 5730.0, "population": 6470000.0, "continent": "Americas"}, {"country": "Netherlands", "co2": 9.48, "income": 56100.0, "population": 17100000.0, "continent": "Europe"}, {"country": "Norway", "co2": 8.31, "income": 64300.0, "population": 5340000.0, "continent": "Europe"}, {"country": "Nepal", "co2": 0.337, "income": 3770.0, "population": 28100000.0, "continent": "Asia"}, {"country": "Nauru", "co2": 4.71, "income": 13600.0, "population": 10700.0, "continent": "Asia"}, {"country": "New Zealand", "co2": 7.34, "income": 42900.0, "population": 4740000.0, "continent": "Asia"}, {"country": "Oman", "co2": 13.9, "income": 32600.0, "population": 4830000.0, "continent": "Asia"}, {"country": "Pakistan", "co2": 1.05, "income": 4740.0, "population": 212000000.0, "continent": "Asia"}, {"country": "Panama", "co2": 2.62, "income": 31000.0, "population": 4179999.9999999995, "continent": "Americas"}, {"country": "Peru", "co2": 1.74, "income": 12800.0, "population": 32000000.0, "continent": "Americas"}, {"country": "Philippines", "co2": 1.27, "income": 8520.0, "population": 107000000.0, "continent": "Asia"}, {"country": "Palau", "co2": 13.2, "income": 17600.0, "population": 17900.0, "continent": "Asia"}, {"country": "Papua New Guinea", "co2": 0.911, "income": 4190.0, "population": 8610000.0, "continent": "Asia"}, {"country": "Poland", "co2": 9.07, "income": 31700.0, "population": 37900000.0, "continent": "Europe"}, {"country": "North Korea", "co2": 1.18, "income": 1860.0, "population": 25500000.0, "continent": "Asia"}, {"country": "Portugal", "co2": 4.97, "income": 34000.0, "population": 10300000.0, "continent": "Europe"}, {"country": "Paraguay", "co2": 1.07, "income": 12800.0, "population": 6960000.0, "continent": "Americas"}, {"country": "Palestine", "co2": 0.661, "income": 6320.0, "population": 4860000.0, "continent": "Asia"}, {"country": "Qatar", "co2": 38.0, "income": 91000.0, "population": 2780000.0, "continent": "Asia"}, {"country": "Romania", "co2": 3.8, "income": 28500.0, "population": 19500000.0, "continent": "Europe"}, {"country": "Russia", "co2": 11.7, "income": 26700.0, "population": 146000000.0, "continent": "Europe"}, {"country": "Rwanda", "co2": 0.0913, "income": 2090.0, "population": 12300000.0, "continent": "Africa"}, {"country": "Saudi Arabia", "co2": 18.4, "income": 47600.0, "population": 33700000.0, "continent": "Asia"}, {"country": "Sudan", "co2": 0.504, "income": 4370.0, "population": 41800000.0, "continent": "Africa"}, {"country": "Senegal", "co2": 0.739, "income": 3310.0, "population": 15900000.0, "continent": "Africa"}, {"country": "Singapore", "co2": 7.1, "income": 98200.0, "population": 5760000.0, "continent": "Asia"}, {"country": "Solomon Islands", "co2": 0.273, "income": 2700.0, "population": 653000.0, "continent": "Asia"}, {"country": "Sierra Leone", "co2": 0.141, "income": 1660.0, "population": 7650000.0, "continent": "Africa"}, {"country": "El Salvador", "co2": 1.11, "income": 8620.0, "population": 6420000.0, "continent": "Americas"}, {"country": "Somalia", "co2": 0.0466, "income": 1130.0, "population": 15000000.0, "continent": "Africa"}, {"country": "Serbia", "co2": 5.17, "income": 17500.0, "population": 8800000.0, "continent": "Europe"}, {"country": "South Sudan", "co2": 0.171, "income": 2010.0, "population": 11000000.0, "continent": "Africa"}, {"country": "Sao Tome and Principe", "co2": 0.587, "income": 3990.0, "population": 211000.0, "continent": "Africa"}, {"country": "Suriname", "co2": 3.1, "income": 19000.0, "population": 576000.0, "continent": "Americas"}, {"country": "Slovak Republic", "co2": 6.61, "income": 31200.0, "population": 5450000.0, "continent": "Europe"}, {"country": "Slovenia", "co2": 6.95, "income": 38000.0, "population": 2080000.0, "continent": "Europe"}, {"country": "Sweden", "co2": 4.12, "income": 52300.0, "population": 9970000.0, "continent": "Europe"}, {"country": "Eswatini", "co2": 1.06, "income": 8520.0, "population": 1140000.0, "continent": "Africa"}, {"country": "Seychelles", "co2": 6.75, "income": 27500.0, "population": 97100.0, "continent": "Africa"}, {"country": "Syria", "co2": 1.67, "income": 3890.0, "population": 16900000.0, "continent": "Asia"}, {"country": "Chad", "co2": 0.0656, "income": 1580.0, "population": 15500000.0, "continent": "Africa"}, {"country": "Togo", "co2": 0.434, "income": 2060.0, "population": 7890000.0, "continent": "Africa"}, {"country": "Thailand", "co2": 4.15, "income": 18100.0, "population": 69400000.0, "continent": "Asia"}, {"country": "Tajikistan", "co2": 0.603, "income": 3420.0, "population": 9100000.0, "continent": "Asia"}, {"country": "Turkmenistan", "co2": 13.7, "income": 14800.0, "population": 5850000.0, "continent": "Asia"}, {"country": "Timor-Leste", "co2": 0.412, "income": 3090.0, "population": 1270000.0, "continent": "Asia"}, {"country": "Tonga", "co2": 1.31, "income": 6410.0, "population": 103000.0, "continent": "Asia"}, {"country": "Trinidad and Tobago", "co2": 31.3, "income": 26300.0, "population": 1390000.0, "continent": "Americas"}, {"country": "Tunisia", "co2": 2.73, "income": 11400.0, "population": 11600000.0, "continent": "Africa"}, {"country": "Turkey", "co2": 5.2, "income": 28300.0, "population": 82300000.0, "continent": "Asia"}, {"country": "Tuvalu", "co2": 1.01, "income": 3950.0, "population": 11500.0, "continent": "Asia"}, {"country": "Taiwan", "co2": 11.6, "income": 51900.0, "population": 23700000.0, "continent": "Asia"}, {"country": "Tanzania", "co2": 0.222, "income": 2590.0, "population": 56300000.0, "continent": "Africa"}, {"country": "Uganda", "co2": 0.135, "income": 2130.0, "population": 42700000.0, "continent": "Africa"}, {"country": "Ukraine", "co2": 5.09, "income": 12300.0, "population": 44200000.0, "continent": "Europe"}, {"country": "Uruguay", "co2": 2.01, "income": 23000.0, "population": 3450000.0, "continent": "Americas"}, {"country": "United States", "co2": 16.6, "income": 61600.0, "population": 327000000.0, "continent": "Americas"}, {"country": "Uzbekistan", "co2": 2.81, "income": 7080.0, "population": 32500000.0, "continent": "Asia"}, {"country": "St. Vincent and the Grenadines", "co2": 2.03, "income": 12500.0, "population": 110000.0, "continent": "Americas"}, {"country": "Venezuela", "co2": 4.81, "income": 12400.0, "population": 28900000.0, "continent": "Americas"}, {"country": "Vietnam", "co2": 2.16, "income": 7590.0, "population": 95500000.0, "continent": "Asia"}, {"country": "Vanuatu", "co2": 0.529, "income": 3090.0, "population": 293000.0, "continent": "Asia"}, {"country": "Samoa", "co2": 1.32, "income": 6390.0, "population": 196000.0, "continent": "Asia"}, {"country": "Yemen", "co2": 0.356, "income": 2660.0, "population": 28500000.0, "continent": "Asia"}, {"country": "South Africa", "co2": 8.1, "income": 13900.0, "population": 57800000.0, "continent": "Africa"}, {"country": "Zambia", "co2": 0.302, "income": 3520.0, "population": 17400000.0, "continent": "Africa"}, {"country": "Zimbabwe", "co2": 0.85, "income": 3920.0, "population": 14400000.0, "continent": "Africa"}]}}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_5/week_4"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Project: Plotting</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#making-the-plot-interactive-through-altair">Making the plot interactive through <code class="docutils literal notranslate"><span class="pre">altair</span></code></a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
