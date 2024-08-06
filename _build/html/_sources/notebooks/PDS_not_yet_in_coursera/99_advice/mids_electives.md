@@ -8,6 +8,7 @@ This page includes a summary of electives that have been taken by MIDS students 
 
 The following is a list of the most popular electives taken by MIDS students from 2020-2022 (based on number of students who have taken each class, ordered by popularity):
 
+- IDS 721: Data Analysis at Scale in Cloud
 - ECE 661: Computer Engineering Machine Learning and Deep Neural Nets
 - STA 602: Bayesian Statistical Modeling and Data Analysis
 - ECE 685D: Intro to Deep Learning
@@ -61,6 +62,7 @@ Did your idea pass muster in New Ventures Develop? Do you have early revenue or 
 
 ### Programming
 
+- [IDS 721: Data Analysis at Scale in Cloud](https://github.com/noahgift/cloud-data-analysis-at-scale)
 - BIOSTAT 821: Software Tools for Data Science
 - [MATH 560: Theory and Practice of Algorithms](https://math.duke.edu/courses/theory-and-practice-algorithms)
 - [MATH 561: Numerical Linear Algebra, Optimization and Monte Carlo Simulation](https://math.duke.edu/math-561-syllabus)
