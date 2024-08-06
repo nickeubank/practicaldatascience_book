@@ -38,6 +38,10 @@ Did your idea pass muster in New Ventures Develop? Do you have early revenue or 
 
 - [BIOETHICS 676: Ethical Technology Practicum](https://scienceandsociety.duke.edu/science-technology-ethics-and-leadership-practicum/)
 
+### Finance
+
+For Quantitative Finance Electives, [please see this page](https://datascience.duke.edu/academics/electives/quantitative-finance/).
+
 ### Geospatial (GIS)
 
 - ENVIRON 559: Fundamentals of GIS and Geospatial Analysis
@@ -68,7 +72,8 @@ Did your idea pass muster in New Ventures Develop? Do you have early revenue or 
 - [MATH 560: Theory and Practice of Algorithms](https://math.duke.edu/courses/theory-and-practice-algorithms)
 - [MATH 561: Numerical Linear Algebra, Optimization and Monte Carlo Simulation](https://math.duke.edu/math-561-syllabus)
 - [STA 663L: Statistical Computing and Computation](https://stat.duke.edu/courses/statistical-computing-and-computation-0)
-- ECE 551D: Programming, Data Structures, and Algorithms in C++. <details><summary>Course Description</summary>Students learn to program in C and C++ with coverage of data structures (linked lists, binary trees, hash tables, graphs), Abstract Data Types (Stacks, Queues, Maps, Sets), and algorithms (sorting, graph search, minimal spanning tree). Efficiency of these structures and algorithms is compared via Big-O analysis. Brief coverage of concurrent (multi-threaded) programming. Emphasis is placed on defensive coding, and use of standard UNIX development tools in preparation for students' entry into real world software development jobs. Not open to undergraduates. Instructors: Hilton, Lipp, Pastorino, or Younes</summary>
+- ECE 551D: Programming, Data Structures, and Algorithms in C++.
+*Editorial Comment:* An extremely difficult course. Do **not** enroll lightly or concurrently with other difficult courses.<details><summary>Course Description</summary>Students learn to program in C and C++ with coverage of data structures (linked lists, binary trees, hash tables, graphs), Abstract Data Types (Stacks, Queues, Maps, Sets), and algorithms (sorting, graph search, minimal spanning tree). Efficiency of these structures and algorithms is compared via Big-O analysis. Brief coverage of concurrent (multi-threaded) programming. Emphasis is placed on defensive coding, and use of standard UNIX development tools in preparation for students' entry into real world software development jobs. Not open to undergraduates. Instructors: Hilton, Lipp, Pastorino, or Younes</summary>
 - ECE 651: Software Engineering <details><summary>Course Description</summary>Teaches students about all steps of the software development lifecycle: requirements definition, design, development, testing, and maintenance. The course assumes students are skilled object-oriented programmers from prior courses, but will include a rapid introduction to Java. Students complete team-based semester-long software project which will progress through all phases of the software lifecycle. Prerequisite: Electrical and Computer Engineering 551D or 751D. Instructors: Derby, Hilton, Noyce, Pastorino, or Rahbar</summary>
 
 ### Time Series
