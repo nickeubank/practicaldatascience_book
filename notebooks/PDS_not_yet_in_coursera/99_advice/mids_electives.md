@@ -1,8 +1,20 @@
 # MIDS Elective Suggestions
 
-This page includes a summary of electives that have been taken by MIDS students in the past. These are not endorsements of courses, but rather a list of courses students have taken previously.
+This page includes some guidance on how to think about choosing electives as well as a summary of electives that have been taken by MIDS students in the past.
+
+To be clear, the summary of electives below is NOT the full list of all electives available at Duke or even the full list of electives MIDS students have taken in the past — MIDS students have taken dozens of different courses as electives over the years! This is only meant to provide you a sense of some of the most popular courses and the areas in which you may wish to investigate electives!
+
+It's also worth emphasizing that the **best** resource on electives are older MIDS students — they've taken many of these courses, and so can speak to things like instructor quality and class workload!
 
 **Data science is a quickly changing field, so courses are constantly being added, removed, and changed! Please speak to your peers and faculty for their advice on electives and always check course syllabi since they often change from year to year.**
+
+## How To Think About Electives
+
+As you are deciding what electives to take, it can be helpful to start by thinking about your goals. To illustrate, here are a few common goals:
+
+- **Improving some foundational skills or knowledge:** Feel like you want to improve your foundational programming, math or statistics skills? Electives are a *great* opportunity for that, especially because many people like to learn this kind of material in a university class rather than trying to learn the material on their own later.
+- **Get a pre-requisite done:** If there are specific classes you *really* want to take, check to see if there are classes you're required to take to enroll in those classes. Many statistics courses at Duke, for example, require you to take a Introduction to Bayesian Statistics, so even if you don't want to take that *particular* class, you may find it useful so you can take other stats department classes.
+- **See if you like a substantive domain/type of data science:** Data science is an *extremely* diverse field, and electives are an opportunity to try on different data science hats to see which fits best. Curious about biomedical applications, or finance, or public policy? Try a data science class in that specific area and see if it resonates with you!
 
 ## Most Popular Electives
 
@@ -20,6 +32,8 @@ The following is a list of the most popular electives taken by MIDS students fro
 - ECE 551D: Programming, Data Structures, and Algorithms in C++ <details><summary>Course Description</summary>Students learn to program in C and C++ with coverage of data structures (linked lists, binary trees, hash tables, graphs), Abstract Data Types (Stacks, Queues, Maps, Sets), and algorithms (sorting, graph search, minimal spanning tree). Efficiency of these structures and algorithms is compared via Big-O analysis. Brief coverage of concurrent (multi-threaded) programming. Emphasis is placed on defensive coding, and use of standard UNIX development tools in preparation for students' entry into real world software development jobs.</details>
 
 ## Electives by Topic Area
+
+Below are a list of electives by topic area. Again, this is **not** an exhaustive list of electives you *can* take, or even an exhaustive list of electives MIDS students *have* taken — just some classes and topic areas to get you thinking!
 
 ### Bayesian Statistics
 
