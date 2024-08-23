@@ -1,0 +1,387 @@
+\documentclass[12pt]{article}
+
+
+
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts, amsmath, amssymb}
+\usepackage{multirow}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+% \usepackage[document]{ragged2e}
+\usepackage{verbatim, rotating, paralist}
+\usepackage{enumerate}
+
+\usepackage{natbib}
+
+
+\usepackage{pdfsync}
+\usepackage{latexsym}
+\usepackage{amsthm}
+\usepackage{mathabx}
+
+\usepackage{stmaryrd}
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+\usepackage{fancyhdr}
+\usepackage{color}
+
+\usepackage{parskip}
+\usepackage{anysize, indentfirst, setspace}
+\usepackage[right=1.75cm, left=1.75cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{appendix}
+
+\usepackage{enumitem}
+\setlist{nosep}
+
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+\renewcommand{\dbltopfraction}{.66}
+\renewcommand{\dblfloatpagefraction}{.66}
+
+
+
+
+% \pagestyle{fancyplain}
+% \rhead{\hfill \small \emph{MIDS NUMBER -- Fall 2019}}
+\cfoot{}
+
+% \renewcommand{\headrulewidth}{0pt}
+
+
+
+%-------------------------- BEGIN DOCUMENT ----------------------------------%
+\begin{document}
+
+
+\singlespacing
+
+
+
+
+
+
+%------------------------- HEADER ---------------------------------%
+\thispagestyle{empty}
+\begin{minipage}[t]{.5\textwidth}
+	Nicholas Eubank \\
+	 Assistant Research Professor\\
+	 Office Hours: Thursday, 10-11am \\
+	 In Person: Gross Hall 231 \\
+	 Zoom: \href{https://duke.zoom.us/my/nickeubank}{https://duke.zoom.us/my/nickeubank}
+     \vspace*{0.1cm}
+\end{minipage}
+\begin{minipage}[t]{.5\textwidth}
+	\begin{flushright}  IDS 720\\
+	Fall 2024
+    \vspace*{0.1cm}
+\end{flushright}
+\end{minipage}
+
+
+% line
+\line(1,0){499}
+
+\vspace{.35in}
+
+\begin{center}
+	\textbf{\LARGE{Practical Data Science:} }\\
+	\vspace*{.05in}
+	\textbf{\large{Wrestling with Data \& Answering Questions}}
+\end{center}
+
+
+
+
+
+
+
+%--------------------------------------------COURSE DESCRIPTION--------------------------------------------------%
+
+\section{Course Description}
+
+
+Data Science is an intrinsically applied field, and yet all too often students are taught the advanced math and statistics behind data science tools, but are left to fend for themselves when it comes to learning the tools we use to do data science on a day-to-day basis or how to manage actual projects. This course is designed to fill that gap.
+
+Practical Data Science is a flipped-classroom, exercise and project-focused course. It is designed to give students practical experience manipulating and analyzing manipulating real (often messy, error ridden, and poorly documented) data using the full range of bread-and-butter Python data science tools (like the command line, git, python (especially numpy and pandas), jupyter notebooks, and more). By the end of the course, students will be able to:
+
+\begin{itemize}
+	\item Manipulate and analyze data in any format, including cleaning, merging, and summarizing all standard tabular formats and levels of cleanliness, as well as large datasets,
+	\item Identify and resolve data issues using defensive programming practices,
+	\item Setup and manage a data science programming environment on their own computers, including installing Python, managing packages with pip and conda, setting PATH variables, and working with VS Code,
+	\item Collaborate with colleagues effectively using git and github,
+	\item Plan and execute a full data science project from planning data manipulations through analysis and presentation of findings.
+\end{itemize}
+
+\section{For Whom Is This Course Meant?}
+
+\subsection{Pre-Requisites}
+
+This course is primarily designed for incoming Masters in Data Science (MIDS) students. As such, the only pre-requisites are the three things taught in the MIDS student boot-camp:
+
+\begin{itemize}
+	\item A familiarity with basic python
+	\item A familiarity with basic statistics (i.e. what you'd get from an intro stats course)
+	\item A familiarity with git and github
+\end{itemize}
+
+\textbf{MIDS students:}
+
+The only knowledge assumed is the portion of these topics covered in boot-camp, so unless you skipped (the mandatory) bootcamp, you should be good.
+
+MIDS students should also be aware that while many of the topics in the course schedule may seem like things you covered over the summer, we will be exploring them in much more depth, and practicing techniques you've learned with much messier real-world data. Your experience from DataCamp will make these sections easier, but it does not obviate the need for this class.
+
+\textbf{For non-MIDS students:}
+
+By ``basic python'' I mean a familiarity with the core Python programming language, including concepts like variables, loops, lists, dictionaries, and defining functions. Unfortunately, if you haven't worked with Python before, I'm afraid you will likely find this course hard to follow.
+
+Git and github are a lot easier to learn than Python, though, so if you know Python but not git and github, talk to me and we can figure something out.
+
+Much of this course will focus on learn about and getting experience working with the Python packages \texttt{numpy} and \texttt{pandas}. \textbf{While familiarity with these packages is not an explicit pre-requisite for this course, you should be aware that incoming MIDS students have been exposed to these packages through \emph{DataCamp} tutorials they completed over the summer. As a result, if you come into this course without ever having seen those packages, you may have to do some extra work since you'll be seeing these packages for the first time. This should not prevent you from being able to succeed in this course, but if you are in this position please talk to me after class to make a plan.}
+
+\subsection{For Whom Would This Course Be Inappropriate?}
+
+If you were a computer science major as an undergraduate or worked in a job that made intense use of Python for Data Science applications, please speak to me after class, as the first portion of this course might be somewhat boring for you. With that said, even students who have taken computer science courses may find that this class offers a very different perspective on familiar tools. CS programs tend to be oriented towards a style of programming best suited for software development which can differ substantially from the tools and style used in data science. Moreover, project design should be new to anyone who hasn't worked in the data science field.
+
+\section{What Do You Mean By Data Science?}
+
+There are, broadly speaking, two branches of what is often referred to as Data Science, which I will term \emph{Software Development Data Science} and \emph{Data Analysis Data Science}.
+
+In \emph{Software Development Data Science}, programmers write programs that gets bundled up in software and distributed widely, or gets run on the cloud for millions of people. For example, software development data scientists wrote the recommendation engine that lets Netflix tell you what movies you might enjoy, or what people might be your friends on Facebook. As a result, they generally write \emph{generalizable} code that is designed to run on data with a known structure.
+
+In \emph{Data Analysis Data Science}, the data scientist is generally employed to answer a single, specific question. For example, a Data Analysis Data Scientist may be hired to figure out how to reduce anti-biotic resistant infections in a hospital, or to identify what campaign promises are most likely to convince voters to support a politician. As a result, Data Analysis Data Scientists are generally writing code that is only meant to be used for their specific project. Moreover, Data Analysis Data Scientists don't generally have the luxury of working with data with a known structure -- where a Netflix Data Scientist may get data from a company database that's clean and well organized, a Data Analysis Data Scientist may have to work with data that has come from lots of different sources and which no one has cleaned and organized (e.g. notes from nurses, or voting data from different states compiled by hand by minimum wage government employees).
+
+To be clear, these branches are not completely distinct. Most data scientists do things that fall into both categories (for example, even a Software Developer will likely do some \emph{ad hoc} analyses before developing a fully deployable tool). However these two types of data science do emphasize different skills. Software Development Data Scientists, for example, are well served by traditional computer science curricula and need a much deeper understanding of concepts like object-oriented programming, and software deployment. By contrast, Data Analysis Data Scientists need to be comfortable working with data in different formats and to understand how to clean and fit together datasets that were never actually built to be integrated.
+
+The focus of this course will be on the skills of Data Analysis Data Science: cleaning and merging data, data exploration, and designing projects to answer very specific questions. If you're interested in policy analysis, or health-sector analysis, or applied empirical research, this course is for you; if you're interested in developing programs you can deploy in an iPhone app to improve recommendations, then while there will be material that will be of use to you (the Python data science stack, working at the command line, git and github), the emphasis of the material won't quite be what you're looking for.
+
+\section{Python}
+
+In this class we will primarily be working with Python.
+
+Why Python? Because it's currently one of the two most-used programs in data science (the other being R, which you'll be working with in other classes), which means there is a good chance you'll be called upon to use it when working in teams.
+
+It is worth emphasizing that we're not learning Python because it is necessarily the ``the best'' language. The reality is that there are \emph{lots} of tools for statistical programming, and each has its own strengths and weaknesses (e.g. R, Stata, SPSS, Python, Julia, Matlab, etc., etc.). People often develop strong opinions about which language is \emph{best}, and sometimes pass judgement on people who use other languages. Every programming language has its strengths and weaknesses, and what is ``best'' depends on your use-case (the types of things you are using the language to do). This is true not only because languages themselves have strengths and weaknesses, but also because the tools and packages that have been created for use in different languages differ (e.g. people just haven't made a good package for doing geo-spatial work in Julia yet, for example). And if you're working on teams, you'll also have to make decisions based on the backgrounds of your tool sets. All of which is to say: there is no single \emph{best} language for all purposes. But Python is a very popular, strong, general purpose language, so will serve as a great starting point.
+
+As a result, over the course of your career you may find yourself gravitating to one tool or another as required by your research. But in providing you with a firm foundation in a very popular language like Python, you will not only be learning a tool that will allow you to do most everything you'll want to do in graduate school, but you will also be providing yourself with a solid foundation in \emph{generalizable} skills that you will find useful if you later change platforms.
+
+\section{Class Organization}
+
+Data science is an applied discipline, and so this will be an intensely applied class with \emph{lots} of hands-on exercises.
+
+To make it possible for us to work through problems together as they arise, we will dedicate most of our class time to completing these exercises in small groups. That means that students will be required to read instructional material \emph{before every class} so they will be ready to do these exercises. This is what is referred to as ``flipping the classroom.''
+
+In order to make this class organization work, it will be \textbf{\emph{critically}} important that students do their assigned readings before \emph{every} class, and as discussed below, this will be reflected in how grades are assigned in this class. Students who do not complete their assigned readings and tutorials before each class should not expect to receive good grades, regardless of performance on project assignments.
+
+This class is organized around having two (synchronous) class sessions every week. While the plan is for most of these will be in person, some classes will inevitably end up needing to be held online. \textbf{Synchronous attendance, whether classes online or in person, is required unless you are unable to participate synchronously due to extenuating circumstances (such as an internet connection that will not support synchronous participation (for online classes) or illness (for in person classes)).} 
+
+With that said, everyone's health and safety is of course our first priority, so while it is very important you attend class whenever possible, you should \textbf{never} hesitate to stay home if you're not feeling well. If you are not feeling well and need to miss class -- or need to miss class for covid related reasons (e.g. quarantine) -- please reach out to me \textbf{before class} so that we can make a plan to make sure you're fully supported!
+
+
+%--------------------------------------------COURSE ASSIGNMENTS------------------------------------------------%
+\section{Assignments \& Grading}
+
+\subsection{Participation (20\% of Grade)}
+
+Note that a major component of good participation is good \emph{preparation}. Because we will mostly reserve class time for hands-on exercises, it is absolutely critical that students do their assigned readings before \emph{every} class. Students who do not work through the instructional materials they have been assigned before class will not only get very little out of the hands-on exercises designed to reinforce the assigned materials, but they will also undermine the learning of the students they are asked to work with. With that in mind, students who do not complete their assigned readings before every class should expect to see this reflected in their participation grades.
+
+Participation will be graded as follows:\footnote{This rubric is adapted from that of Duke Political Science Professor Adriane Fresh.}
+
+\textbf{A range.}  You are fully \emph{and consistently} engaged in class discussion and exercises.  You both listen and contribute actively.  You are well-prepared for class.  Having done more than merely read the material, you have spent time thinking \emph{carefully and deeply} about the material's relationship to other materials and ideas presented in previous classes. You are not only able to answer questions about the material, but also come to class with thoughtful questions.  When working in teams, you work \emph{with} your partner. If your partner is struggling with an exercise, you help them understand the material rather than just completing the material on your own. If you are struggling with material, you ask for help (both from the instructor and your fellow students) and do not simply lean on your partner to complete the exercise. \\
+
+\textbf{B range.}  You are engaged in class discussion and exercises.  You listen and contribute regularly.  You come well-prepared to class having read the material and your contributions show your familiarity, but your level of engagement lacks the depth accumulated through extra time spent thinking about the material.  When working in teams, you work \emph{with} your partner when they have a similar level of understanding, but do not always invest in helping a struggling partner to understand the material. You often ask for help when you are struggling, but other times you let your partner just complete the exercise. \\
+
+\textbf{C range.}  You have met the minimum requirements of participation.  You are usually, but not always prepared.  You participate sometimes, but not regularly.  The comments that you offer show a basic familiarity with the materials, but do not help to build a coherent or productive discussion.  When working in teams, you only sometimes work \emph{with} your partner. When your partner is struggling, you often just do the exercise yourself. If you are struggling, you often do not ask for help and allow your partner to take over the exercise. \\
+
+\textbf{D range.}  You have not met the minimum requirements of participation.  You are unprepared for class.  You have not read with the material with sufficient engagement to know even the most basic elements.  When working in teams, you do not attempt to work \emph{with} your partner. When your partner is struggling, you just do the exercise yourself. If you are struggling, you do not ask for help and allow your partner to take over the exercise.\\
+
+\textbf{As should be clear from this rubric, above all it is important to emphasize that participation is evaluated on the basis of \emph{quality} and \emph{consistently}, \emph{not} quantity. Moreover, when completing in-class exercises, good participation is not about finishing first or without ever asking for help; good participation in in-class exercises is about helping your partner understand the material, and asking for help when you need it.}
+
+\subsection{Quizzes (20\%)}
+
+To ensure students are doing their readings in advance of class, from time to time we will start class with short quizzes. These quizzes are designed to be relatively straightforward if you did the readings—they won't be full of gotcha questions—but will require you to have done the readings.
+
+\subsection{Interim Assignments (35\% of Grade)}
+
+Over the course of the semester, students will be asked to complete a number of small assignments as homework. These assignments will, in total, be worth 30\% of student grades.
+
+\subsection{Team Data Science Project  (25\% of Grade)}
+
+Around mid-semester, students will be assigned a large team Data Science Project. The goal and general framework for this team project will be provided to students, but the project will require students to complete the analysis component of a full data science project, including gathering data, cleaning and merging that data, analyzing the data, and presenting results.
+
+\subsection{Late Assignments, Make Up Exams and Extra Credit}
+
+
+\textbf{Grading}
+
+All assignments will be given a numerical score on a 0-1 scale.  These scores will be multiplied by the value of the assignment (see above) and the following scale will be used to assign a final letter grade.  \\
+
+
+\textbf{Late Assignment}
+
+All late assignments will be penalized 10\% per day the assignment is late, up to a maximum penalty of 50\%.
+
+The final deadline for accepting assignments that are more than one week late is at the discretion of the instructor and may vary by assignment. 
+
+Exceptions to these late penalties may be made for students dealing with exceptional circumstances (illness for themselves or family, etc.) — if you are dealing with a difficult situation, please feel free to contact me to discuss your situation.
+
+\textbf{Dropping Lowest Scores}
+
+To accommodate the fact that life happens, at the end of the semester, I will drop each student's lowest Quiz \emph{and} lowest Exercise \textbf{that have been completed.} Essentially, this is a free pass for one exercise and one quiz you totally whiff, submit very late. But it is \emph{not} a free pass to \emph{skip} an Exercise or Quiz — uncompleted Exercises or Quizzes are not eligible for being dropped.
+
+\textbf{Quizzes and Absentees}
+
+As detailed above, attendance in class is always required barring injury, illness, or other significant conflict. 
+
+To ensure fairness: 
+
+\begin{itemize}
+	\item students who are not present in class will not be allowed to make up quizzes
+	\item except if the student has reached out to me \textbf{before} class to alert me to their absence and the reason for it. If the reason is it deemed to be grounds for an excused absence, the student will be able to take the quiz at a different time.
+	\item students who are not physically in class are also \textbf{NOT} allowed to take quizzes remotely without express permission. If you are found to have taken a quiz when not in class, not only will you receive a zero on that quiz, but it may be considered an honor code violation. Note that because classes are recorded (for students with excused absences) and gradescope tracks IP addresses, this is not a hard thing to figure out.
+\end{itemize}
+
+
+\section{Texts}
+
+This year we will be working exclusively from \emph{Practical Data Science with Python}, a textbook being developed by myself and Kyle Bradbury. So you don't have to buy anything!
+
+We will also do some readings from \href{https://www.amazon.com/Code-Language-Computer-Hardware-Software/dp/0735611319}{Code: The Hidden Language of Computer Hardware and Software} by Petzold, Charles. It's a fun book and not very expensive, but we won't use it a lot so copies of relevant chapters will be provided if you don't want to buy it.
+
+\section{Course Schedule}
+
+Because one aim of this course is to ensure that all MIDS students have a solid foundation for their time at Duke, the exact organization of this course is likely to change regularly as the course proceeds. Students will therefore be expected to regularly (i.e. before every class) check on the updated course schedule (which will include assignments for the next class) at \href{https://www.practicaldatascience.org}{www.practicaldatascience.org}.
+
+\section{Honor Policy}
+
+Duke University is a community dedicated to scholarship, leadership, and service and to the principles of honesty, fairness, respect, and accountability. Citizens of this community commit to reflect upon and uphold these principles in all academic and nonacademic endeavors, and to protect and promote a culture of integrity.
+
+Remember the \href{https://studentaffairs.duke.edu/conduct/about-us/duke-community-standard}{Duke Community Standard} that you have agreed to abide by:
+
+\begin{itemize}
+	\item I will not lie, cheat, or steal in my academic endeavors;
+	\item I will conduct myself honorably in all my endeavors; and
+	\item I will act if the Standard is compromised.
+\end{itemize}
+
+Cheating on exams or plagiarism on homework assignments, lying about an illness or absence and other forms of academic dishonesty are a breach of trust with classmates and faculty, violate the Duke Community Standard, and will not be tolerated. Such incidences will result in a 0 grade for all parties involved. Additionally, there may be penalties to your final class grade along with being reported to the MIDS program directors.
+
+\section{Disability Statement}
+
+In an effort to prevent students with disabilities from having to explain and justify their condition separately to each of their various instructors, Duke has centralized disability management in the \href{https://access.duke.edu/students}{Student Disabilities Access Office}. If you think there is a possibility you may need an accommodation during this course, please reach out to their office as soon as possible (processing can take a little time).
+
+Medical information shared with the SDAO are strictly confidential, and if SDAO determines an accommodation is appropriate, faculty members will simply be informed of the accommodation they are required to provide, not the underlying medical reason for the accommodation.
+
+If you have any problems with SDAO, please let me know as soon as possible.
+
+\section{Student Signature}
+
+I, the undersigned, confirm I have read and understand the expectations of this class.
+\\
+\vspace{1cm}
+
+Name: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\\
+\vspace{1cm}
+
+Signature: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\\
+\vspace{1cm}
+
+Date: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\vspace{2cm}
+
+
+I, the undersigned, confirm I have also read and understand the \href{https://nickeubank.github.io/practicaldatascience_book/notebooks/PDS_not_yet_in_coursera/99_advice/llms.html}{chatGPT and You} reading.
+\\
+\vspace{1cm}
+
+Name: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\\
+\vspace{1cm}
+
+Signature: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\\
+\vspace{1cm}
+
+Date: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+
+% \section{Learning Goals}
+%
+% In Data Science today, the only constant is change. With that in mind, in this course we will not only learn \emph{how} popular tools work, but also:
+% \begin{itemize}
+% 	\item the logic that underlies their operation (so when new situations arise you will have a \emph{generalized} understanding of the tool you can use to reason through your problem), and
+% 	\item how to find help on your own.
+% \end{itemize}
+%
+% In particular, by the end of this course, you will have developed the following abilities in each topic area:
+%
+% \textbf{The Command Line}\\
+% \emph{Main Takeaway: The Command Line is just a way to interact with your operating system with text instead of with a mouse.}
+% \begin{itemize}
+% 	\item Explain the value of the command line
+% 	\item Manipulate files and work with command-line-only tools
+% 	\item Anticipate the likely syntax of new tools you may come across
+% \end{itemize}
+%
+% \textbf{\texttt{numpy}}\\
+% \emph{Main Takeaway: numpy is what makes Python useable for data science.}
+% \begin{itemize}
+% 	\item Explain \emph{why} numpy and pandas are so crucial to data science in Python
+% 	\item Manipulate vectors and matrices with \texttt{numpy}
+% \end{itemize}
+%
+% \textbf{\texttt{pandas}}\\
+% \emph{Main Takeaway: pandas is a hack, so if it drives you nuts, it's not your fault.}
+% \begin{itemize}
+% 	\item Read in data of various formats with \texttt{pandas}
+% 	\item Clean, organize, and reshape real-world data with \texttt{pandas}
+% 	\item Move back and forth from \texttt{pandas} to \texttt{numpy}
+% 	\item Pass data from \texttt{pandas} and \texttt{numpy} to \texttt{scikit-learn} functions
+% \end{itemize}
+%
+% \textbf{Git and Github}\\
+% \emph{Main Takeaway: Bundling changes into discrete chunks is incredibly powerful}
+% \begin{itemize}
+% 	\item Not sure yet...
+% \end{itemize}
+%
+%
+% \textbf{Getting Help Online}\\
+% \emph{Main Takeaway: Asking for help effectively takes effort}
+% \begin{itemize}
+% 	\item Find appropriate forums for different types of questions
+% 	\item Compose requests for help that are likely to get useful responses using Minimal Working Examples (MWEs) and proofs of effort.
+% \end{itemize}
+%
+% \textbf{Debugging}\\
+% \emph{Main Takeaway: Debugging as an \textbf{active} exercise}
+% \begin{itemize}
+% 	\item Isolate and analyze bugs quickly
+% \end{itemize}
+%
+% \textbf{Workflow Management}\\
+% \emph{Main Takeaway: Projects change, so a good workflow must be adaptive}
+% \begin{itemize}
+% 	\item Organize data science projects in a manner that is robust to future changes
+% 	\item Organize, document, and comment projects to allow others (and your future self) to easily understand project organization
+% \end{itemize}
+%
+% \textbf{Defensive Programming}\\
+% \emph{Main Takeaway: To err is human, so we must develop practices to protect ourselves from ourselves}
+% \begin{itemize}
+% 	\item Understand the futility of ``just trying to be careful''
+% 	\item Compose code that is less likely to contains errors, and where errors that do occur are more likely to be caught.
+% \end{itemize}
+
+\end{document}
