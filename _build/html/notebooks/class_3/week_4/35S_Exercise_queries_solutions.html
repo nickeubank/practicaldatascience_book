@@ -920,7 +920,7 @@ document.write(`
 </div>
 </div>
 <ol class="arabic simple" start="11">
-<li><p>Which state(s) have the fewest number of coal plants? If there are more than one, list the state abbreviations in alphabetical order, separated with commas (but no spaces).</p></li>
+<li><p>Which states have EXACTLY 1 coal plant? List the state abbreviations in alphabetical order, separated with commas (but no spaces).</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -934,6 +934,22 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;SD&#39;, &#39;OR&#39;, &#39;DE&#39;, &#39;HI&#39;, &#39;NH&#39;, &#39;ID&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If we wanted EXACTLY 0 coals plants:</span>
+<span class="n">coal_plants</span> <span class="o">=</span> <span class="n">egrid</span><span class="p">[</span><span class="n">egrid</span><span class="p">[</span><span class="s1">&#39;PLPRMFL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">coal</span><span class="p">)]</span>
+<span class="n">coal_states</span> <span class="o">=</span> <span class="n">coal_plants</span><span class="p">[</span><span class="s1">&#39;PSTATABB&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">non_coal_plant_states</span> <span class="o">=</span> <span class="n">egrid</span><span class="p">[</span><span class="o">~</span><span class="n">egrid</span><span class="p">[</span><span class="s1">&#39;PSTATABB&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">coal_states</span><span class="p">)]</span>
+<span class="n">non_coal_plant_states</span><span class="p">[</span><span class="s1">&#39;PSTATABB&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;DC&#39;, &#39;ME&#39;, &#39;RI&#39;, &#39;VT&#39;], dtype=object)
 </pre></div>
 </div>
 </div>
