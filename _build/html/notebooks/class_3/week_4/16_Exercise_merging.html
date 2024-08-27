@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>EXERCISES: Merging Data to Understand the Relationship between Drug Legalization and Violent Crime &#8212; Practical Data Science with Python</title>
+    <title>Merging Data to Understand the Relationship between Drug Legalization and Violent Crime &#8212; Practical Data Science with Python</title>
   
   
   
@@ -512,7 +512,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>EXERCISES: Merging Data to Understand the Relationship between Drug Legalization and Violent Crime</h1>
+    <h1>Merging Data to Understand the Relationship between Drug Legalization and Violent Crime</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -522,11 +522,38 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-loading-our-data-pre-legalization">EXERCISE 1: Loading our data pre-legalization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-merging-our-data">EXERCISE 2: Merging our data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-calculating-arrest-rates-and-gathering-2018-data">EXERCISE 3: Calculating arrest rates and gathering 2018 data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-comparing-2009-with-2018-arrests-repeating-your-merge-from-the-2009-data">EXERCISE 4: Comparing 2009 with 2018 Arrests - Repeating your merge from the 2009 data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-diving-deeper-into-the-post-legalization-changes">EXERCISE 5: Diving deeper into the post-legalization changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-our-data-pre-legalization">Loading our data pre-legalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-our-data">Merging our data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-arrest-rates-and-gathering-2018-data">Calculating arrest rates and gathering 2018 data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10">Exercise 10</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-2009-with-2018-arrests-repeating-your-merge-from-the-2009-data">Comparing 2009 with 2018 Arrests: Repeating your merge from the 2009 data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11">Exercise 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12">Exercise 12</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-13">Exercise 13</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diving-deeper-into-the-post-legalization-changes">Diving deeper into the post-legalization changes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14">Exercise 14</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-15">Exercise 15</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#execise-16">Execise 16</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-17">Exercise 17</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -538,40 +565,85 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="exercises-merging-data-to-understand-the-relationship-between-drug-legalization-and-violent-crime">
-<h1>EXERCISES: Merging Data to Understand the Relationship between Drug Legalization and Violent Crime<a class="headerlink" href="#exercises-merging-data-to-understand-the-relationship-between-drug-legalization-and-violent-crime" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="merging-data-to-understand-the-relationship-between-drug-legalization-and-violent-crime">
+<h1>Merging Data to Understand the Relationship between Drug Legalization and Violent Crime<a class="headerlink" href="#merging-data-to-understand-the-relationship-between-drug-legalization-and-violent-crime" title="Link to this heading">#</a></h1>
 <p>In recent years, many US states have decided to legalize the use of marijuana.</p>
 <p>When these ideas were first proposed, there were many theories about the relationship between crime and the “War on Drugs” (the term given to US efforts to arrest drug users and dealers over the past several decades).</p>
 <p>In this exercise, we’re going to test a few of those theories using drug arrest data from the state of California.</p>
-<p>Though California has passed a number of laws lessening penalities for marijuana possession over the years, arguably the biggest changes were in  2010, when the state changed the penalty for possessing a small amount of marijuana from a criminal crime to a “civil” penality (meaning those found guilty only had to pay a fine, not go to jail), though possessing, selling, or producing larger quantities remained illegal. Then in 2016, the state fully legalized marijuana for recreational use, not only making possession of small amounts legal, but also creating a regulatory system for producing marijuana for sale.</p>
+<p><strong>Note: this is one of the most ambitious exercises in this Coursera course! It is quite involved, and requires you to think not just about how to get your pandas code to work, but also to think about where the data comes from what and what you are trying to accomplish!</strong></p>
+<p>Though California has passed a number of laws lessening penalties for marijuana possession over the years, arguably the biggest changes were in  2010, when the state changed the penalty for possessing a small amount of marijuana from a criminal crime to a “civil” penality (meaning those found guilty only had to pay a fine, not go to jail), though possessing, selling, or producing larger quantities remained illegal. Then in 2016, the state fully legalized marijuana for recreational use, not only making possession of small amounts legal, but also creating a regulatory system for producing marijuana for sale.</p>
 <p>Proponents of drug legalization have long argued that the war on drugs contributes to violent crime by creating an opportunity for drug dealers and organized crime to sell and distribute drugs, a business which tends to generate violence when gangs battle over territory. According to this theory, with drug legalization, we should see violent crime decrease after legalization in places where drug arrests had previously been common. In this exercise, we will explore this argument and explore the relationship between drug legalization and violent crime.</p>
 <p><strong>To be clear,</strong> drug legalization is a complex issue and far more study than what we will do here is required to understand its complexities! This exercise is meant to help you think through how to address data science questions programmatically.</p>
-<section id="exercise-1-loading-our-data-pre-legalization">
-<h2>EXERCISE 1: Loading our data pre-legalization<a class="headerlink" href="#exercise-1-loading-our-data-pre-legalization" title="Link to this heading">#</a></h2>
-<p><strong>(1)</strong> We will begin by examining <a class="reference external" href="https://github.com/nickeubank/practicaldatascience/tree/master/Example_Data/ca">county-level data on arrests from California in 2009</a>, which is derived from data provided by the Office of the California State Attorney General <a class="reference external" href="https://openjustice.doj.ca.gov/data">here</a>. Load the file <code class="docutils literal notranslate"><span class="pre">ca_arrests_2009.csv</span></code>.</p>
-<p><strong>(2)</strong> Use your data exploration skills to get a feel for this data. If you need to, you can find the <a class="reference external" href="https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2019-07/Arrests%20Context_062119.pdf">original codebook here</a> (This data are similar, but have been collapsed to one observation per county.)</p>
-<p><strong>(3)</strong> Figuring out what county has the most violent arrests isn’t very meaningful if we don’t normalize for size. A county with 10 people and 10 arrests for violent crimes is obviously worse than a county with 1,000,000 people an 11 arrests for violent crime.</p>
+<section id="loading-our-data-pre-legalization">
+<h2>Loading our data pre-legalization<a class="headerlink" href="#loading-our-data-pre-legalization" title="Link to this heading">#</a></h2>
+<section id="exercise-1">
+<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
+<p>We will begin by examining <a class="reference external" href="https://github.com/nickeubank/practicaldatascience/tree/master/Example_Data/ca">county-level data on arrests from California in 2009</a>, which is derived from data provided by the Office of the California State Attorney General <a class="reference external" href="https://openjustice.doj.ca.gov/data">here</a>. Load the file <code class="docutils literal notranslate"><span class="pre">ca_arrests_2009.csv</span></code>.</p>
+</section>
+<section id="exercise-2">
+<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h3>
+<p>Use your data exploration skills to get a feel for this data. If you need to, you can find the <a class="reference external" href="https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2019-07/Arrests%20Context_062119.pdf">original codebook here</a> (This data are similar, but have been collapsed to one observation per county.)</p>
+</section>
+<section id="exercise-3">
+<h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
+<p>Figuring out what county has the most violent arrests isn’t very meaningful if we don’t normalize for size. A county with 10 people and 10 arrests for violent crimes is obviously worse than a county with 1,000,000 people an 11 arrests for violent crime.</p>
 <p>To address this, also import <code class="docutils literal notranslate"><span class="pre">nhgis_county_populations.csv</span></code>.</p>
-<p><strong>(4)</strong> Use your data exploration skills to get used to these data and figure out how they relates to your 2009 arrest data. Determine the meaning of the various columns and check the data for completeness</p>
 </section>
-<section id="exercise-2-merging-our-data">
-<h2>EXERCISE 2: Merging our data<a class="headerlink" href="#exercise-2-merging-our-data" title="Link to this heading">#</a></h2>
-<p><strong>(5)</strong> Once you feel like you have a good sense of the relation between our arrest and population data, merge the two datasets. You may need to filter the data first. Do both datasets cover all states or just some or just one? Which years do you care about in this case?</p>
-<p><strong>(6)</strong> Now repeat your previous merge using <em>both</em> the <code class="docutils literal notranslate"><span class="pre">validate</span></code> keyword <em>and</em> the <code class="docutils literal notranslate"><span class="pre">indicator</span></code> keyword with <code class="docutils literal notranslate"><span class="pre">how='outer'</span></code> as discussed in the last reading to help you debug your merge.</p>
-<p><strong>(7)</strong> You <em>should</em> be able to get to the point that all counties in our arrest data merge with population data. Can you figure out why that did not happen? Using the tools we just discussed, look for any inconsistencies across the two datasets to see if anything did not match when it should have. Can you fix the data so that they all merge with population data? <em>Hint: what are the DataFrames being merged on? Does it match across both DataFrames?</em></p>
+<section id="exercise-4">
+<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
+<p>Use your data exploration skills to get used to these data and figure out how they relates to your 2009 arrest data. Determine the meaning of the various columns and check the data for completeness</p>
 </section>
-<section id="exercise-3-calculating-arrest-rates-and-gathering-2018-data">
-<h2>EXERCISE 3: Calculating arrest rates and gathering 2018 data<a class="headerlink" href="#exercise-3-calculating-arrest-rates-and-gathering-2018-data" title="Link to this heading">#</a></h2>
-<p><strong>(8)</strong> Now that we have arrest counts and population data, we can calculate arrest <em>rates</em>. For each county, create a new variable called <code class="docutils literal notranslate"><span class="pre">violent_arrest_rate_2009</span></code> that is the number of violent arrests for 2009 divided by the population of the county from 2005-2009, and an analogous variable for drug offenses (<code class="docutils literal notranslate"><span class="pre">F_DRUGOFF</span></code>) called <code class="docutils literal notranslate"><span class="pre">f_drugoff_arrest_rate_2009</span></code>.</p>
-<p><strong>(9)</strong> Just as we created violent arrest rates and drug arrest rates for 2009, now we want to do it for 2018, so we can work towards comparing the two. Using the data on 2018 arrests (ca_arrests_2018.csv) and the same dataset of population data (you’ll use population from 2013-2017 this time), create a dataset of arrest rates.</p>
-<p>As before, <em>be careful with your merges!!!</em></p>
-<p><strong>(10)</strong> Go ahead and calculate the arrest rates for the 2018 dataset as well. For each county, create a new variable called <code class="docutils literal notranslate"><span class="pre">violent_arrest_rate_2018</span></code> that is the number of violent arrests for 2018 divided by the population of the county from 2013-2017, and an analogous variable for drug offenses (<code class="docutils literal notranslate"><span class="pre">F_DRUGOFF</span></code>) called <code class="docutils literal notranslate"><span class="pre">f_drugoff_arrest_rate_2018</span></code>.</p>
 </section>
-<section id="exercise-4-comparing-2009-with-2018-arrests-repeating-your-merge-from-the-2009-data">
-<h2>EXERCISE 4: Comparing 2009 with 2018 Arrests - Repeating your merge from the 2009 data<a class="headerlink" href="#exercise-4-comparing-2009-with-2018-arrests-repeating-your-merge-from-the-2009-data" title="Link to this heading">#</a></h2>
+<section id="merging-our-data">
+<h2>Merging our data<a class="headerlink" href="#merging-our-data" title="Link to this heading">#</a></h2>
+<section id="exercise-5">
+<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
+<p>Once you feel like you have a good sense of the relation between our arrest and population data, merge the two datasets. You may need to filter the data first. Do both datasets cover all states or just some or just one? Which years do you care about in this case?</p>
+</section>
+<section id="exercise-6">
+<h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
+<p>Now repeat your previous merge using <em>both</em> the <code class="docutils literal notranslate"><span class="pre">validate</span></code> keyword <em>and</em> the <code class="docutils literal notranslate"><span class="pre">indicator</span></code> keyword with <code class="docutils literal notranslate"><span class="pre">how=&quot;outer&quot;</span></code> as discussed in the last reading to help you debug your merge. (Hint: your merge should end up being a one to one merge)</p>
+</section>
+<section id="exercise-7">
+<h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
+<p>You <em>should</em> be able to get to the point that all counties in our arrest data merge with population data. Can you figure out why that did not happen? Using the tools we just discussed, look for any inconsistencies across the two datasets to see if anything did not match when it should have.</p>
+<p><strong>You will need to fix the data so that all 58 counties in the arrest data merge with population data for your subsequent answers to be correct.</strong></p>
+<p>The type of data edit we’re asking you to make may make you feel a little uncomfortable — who are you to edit the data, after all?! The answer is: you’re the data scientist who has to make sense of this data! When merging data — especially data that uses names stored as strings — you will often discover different datasets have found slightly different ways to label observations. It’s up to you to use your critical thinking skills, context clues, and domain knowledge to evaluate whether you think observations in different datasets are actually the same entity.</p>
+<p><em>Hint: what are the DataFrames being merged on? Does it match across both DataFrames?</em></p>
+</section>
+</section>
+<section id="calculating-arrest-rates-and-gathering-2018-data">
+<h2>Calculating arrest rates and gathering 2018 data<a class="headerlink" href="#calculating-arrest-rates-and-gathering-2018-data" title="Link to this heading">#</a></h2>
+<section id="exercise-8">
+<h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
+<p>Now that we have arrest counts and population data, we can calculate arrest <em>rates</em>. For each county, create a new variable called <code class="docutils literal notranslate"><span class="pre">violent_arrest_rate_2009</span></code> that is the number of violent arrests for 2009 divided by the population of the county from 2005-2009, and an analogous variable for drug offenses (<code class="docutils literal notranslate"><span class="pre">F_DRUGOFF</span></code>) called <code class="docutils literal notranslate"><span class="pre">f_drugoff_arrest_rate_2009</span></code>.</p>
+<p>In general, people tend not to be arrested that often as a share of population, so to avoid working with tiny numbers, statistics like arrest rates are often reported as arrests per X people (rather than arrests per capita, which is just arrests divided by population).</p>
+<p><strong>For this and all following exercises, please calculate arrest rates as arrests per 1,000 people</strong>.</p>
+<p>Calculate the average county-level felony drug arrest rate for 2009 (in arrests per 1,000) rounded to three significant places. <strong>Note this average value - you will need to submit this at the end of this week for the final Quiz.</strong></p>
+</section>
+<section id="exercise-9">
+<h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
+<p>Just as we created violent arrest rates and drug arrest rates for 2009, now we want to do it for 2018, so we can work towards comparing the two. Using the data on 2018 arrests (ca_arrests_2018.csv) and the same dataset of population data (you’ll use population from 2013-2017 this time), create a dataset of arrest rates.</p>
+<p>As before, be careful with your merges! The same issues you uncovered with the 2009 data are likely to also be present here, <strong>and if you don’t correct them again, your following answers will be incorrect.</strong></p>
+<p>If you:</p>
+<p>(a) don’t end up with population data for all 58 counties, or</p>
+<p>(b) don’t get your merge to be 1-to-1</p>
+<p>something is wrong.</p>
+</section>
+<section id="exercise-10">
+<h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Link to this heading">#</a></h3>
+<p>Go ahead and calculate the arrest rates for the 2018 dataset as well. For each county, create a new variable called <code class="docutils literal notranslate"><span class="pre">violent_arrest_rate_2018</span></code> that is the number of violent arrests for 2018 divided by the population of the county from 2013-2017, and an analogous variable for drug offenses (<code class="docutils literal notranslate"><span class="pre">F_DRUGOFF</span></code>) called <code class="docutils literal notranslate"><span class="pre">f_drugoff_arrest_rate_2018</span></code>.</p>
+<p><strong>For this and all following exercises, please calculate arrest rates as arrests per 1,000 people</strong>.</p>
+<p>Calculate the average county-level felony drug arrest rate for 2018 (in arrests per 1,000) rounded to three significant places. <strong>Note this average value - you will need to submit this at the end of this week for the final Quiz.</strong></p>
+</section>
+</section>
+<section id="comparing-2009-with-2018-arrests-repeating-your-merge-from-the-2009-data">
+<h2>Comparing 2009 with 2018 Arrests: Repeating your merge from the 2009 data<a class="headerlink" href="#comparing-2009-with-2018-arrests-repeating-your-merge-from-the-2009-data" title="Link to this heading">#</a></h2>
 <p>If we plotted our rate data for 2009 (violent crime arrest rate vs felony drug arrest rate) it would show that drug arrests and violent crime arrests tend to be positively correlated, but that does not tell us much about whether they are <em>causally</em> related. It <em>could</em> be the case that people dealing drugs <em>causes</em> more violent crime, but it could also be that certain communities, for some other reason, tend to have <em>both</em> more drug sales <em>and</em> more violent crime.</p>
 <p>So to test for this, we went to see if the same communities that had violent crime in 2009 <em>also</em> have violent crime in 2019 (after marijuana legalization). If these communities have just as much crime in 2018, that would suggest that violent crime is being driven by a third factor, and not drug sales of marijuana.</p>
-<p><strong>(11)</strong> Merge the two county-level datasets so you have one row for each county, and variables for violent arrest rates in 2018, violent arrest rates in 2009, felony drug arrest rates in 2018, and felony drug arrest rates in 2009. You will need at least 5 columns from this going forward (you’re welcome to drop the rest for the remainder of the analysis):</p>
+<section id="exercise-11">
+<h3>Exercise 11<a class="headerlink" href="#exercise-11" title="Link to this heading">#</a></h3>
+<p>Merge the two county-level datasets so you have one row for each county, and variables for violent arrest rates in 2018, violent arrest rates in 2009, felony drug arrest rates in 2018, and felony drug arrest rates in 2009. You will need at least 5 columns from this going forward (you’re welcome to drop the rest for the remainder of the analysis):</p>
 <ol class="arabic simple">
 <li><p>COUNTY</p></li>
 <li><p>violent_arrest_rate_2009</p></li>
@@ -582,29 +654,52 @@ document.write(`
 <p><em>Hints and notes</em>:</p>
 <ul class="simple">
 <li><p>If you used <code class="docutils literal notranslate"><span class="pre">indicator</span> <span class="pre">=</span> <span class="pre">True</span></code>, you may need to drop the <code class="docutils literal notranslate"><span class="pre">_merge</span></code> columns before merging from each dataset</p></li>
-<li><p>Note that since you’ll be merging two DataFrames with the same column names, when you merge them it will create two versions from each dataset, one from the first DataFrame you list in the merge (which will be appended with ‘_x’ in the column name and one from the second DataFrame you list in the merge which will be appended with ‘_y’ in the column name)</p></li>
+<li><p>Since you’ll be merging two DataFrames with the same column names, when you merge them it will create two versions from each dataset, one from the first DataFrame you list in the merge (which will be appended with ‘_x’ in the column name and one from the second DataFrame you list in the merge which will be appended with ‘_y’ in the column name).</p></li>
 <li><p>At any time you can use the <code class="docutils literal notranslate"><span class="pre">rename</span></code> method in pandas to adjust column names if it makes them easier for you to understand</p></li>
 </ul>
-<p><strong>(12)</strong> Did drug arrests go down from 2009 to 2018? (they sure better! This is what’s called a “sanity check” of your data and analysis. If you find drug arrests went <em>up</em>, you know something went wrong with your code or your understanding of the situations. To verify this, compute the difference between the 2018 drug rate and that of 2009 and review those values sorted from smallest to largest. How many of the values were less than zero (meaning the rate decreased). For how many counties did the rate increase? Calculate the average percentage change in felony drug arrests across all counties.</p>
+</section>
+<section id="exercise-12">
+<h3>Exercise 12<a class="headerlink" href="#exercise-12" title="Link to this heading">#</a></h3>
+<p>Did drug arrests go down from 2009 to 2018? (they sure better! This is what’s called a “sanity check” of your data and analysis. If you find drug arrests went <em>up</em>, you know something went wrong with your code or your understanding of the situations. To verify this, compute the difference between the 2018 drug rate and that of 2009 and review those values sorted from smallest to largest. How many of the values were less than zero (meaning the rate decreased). For how many counties did the rate increase? Calculate the average percentage change in felony drug arrests across all counties.</p>
 <p>As a reminder, percentage change can be calculated as follows where <span class="math notranslate nohighlight">\(x_{2018}\)</span> is the respective rate for the year 2018:
 $<span class="math notranslate nohighlight">\(\frac{x_{2018} - x_{2009}}{x_{2009}} \times 100\)</span>$</p>
 <p><strong>Note this average percentage change in the felony drug arrest rate value - you will need to submit this at the end of this week for the final Quiz.</strong></p>
-<p><strong>(13)</strong> Now we want to look at whether violent crime decreased following drug legalization. Did the average violent arrest rate decrease? By how much? (Note: We’re assuming that arrest rates are proportionate to crime rates. If policing increased so that there were more arrests per crime committed, that would impact our interpretation of these results. But this is just an exercise, so…)</p>
+</section>
+<section id="exercise-13">
+<h3>Exercise 13<a class="headerlink" href="#exercise-13" title="Link to this heading">#</a></h3>
+<p>Now we want to look at whether violent crime decreased following drug legalization. Did the average violent arrest rate decrease? By how much? (Note: We’re assuming that arrest rates are proportionate to crime rates. If policing increased so that there were more arrests per crime committed, that would impact our interpretation of these results. But this is just an exercise, so we’ll keep it simple)</p>
 <p><strong>Note this average percentage change in the violent crime arrest rate value - you will need to submit this at the end of this week for the final Quiz.</strong></p>
 </section>
-<section id="exercise-5-diving-deeper-into-the-post-legalization-changes">
-<h2>EXERCISE 5: Diving deeper into the post-legalization changes<a class="headerlink" href="#exercise-5-diving-deeper-into-the-post-legalization-changes" title="Link to this heading">#</a></h2>
-<p><strong>(14)</strong> So we’ve determined that both drug arrests and violent crime arrests were decreasing over this period. But maybe <em>all</em> crime was just falling, and this isn’t about drug legalization.</p>
+</section>
+<section id="diving-deeper-into-the-post-legalization-changes">
+<h2>Diving deeper into the post-legalization changes<a class="headerlink" href="#diving-deeper-into-the-post-legalization-changes" title="Link to this heading">#</a></h2>
+<section id="exercise-14">
+<h3>Exercise 14<a class="headerlink" href="#exercise-14" title="Link to this heading">#</a></h3>
+<p>So we’ve determined that both drug arrests and violent crime arrests were decreasing over this period. But maybe <em>all</em> crime was just falling, and this isn’t about drug legalization.</p>
 <p>This is the problem with a “pre-to-post” analysis: yes, our results are <em>consistent</em> with the idea that drug legalization reduced violent crime, but lots of things happened between 2009 and 2018, not just drug legalization, so we don’t know that drug legalization <em>caused</em> the decline in violent crime.</p>
 <p>So let’s do a kind of difference-in-difference analysis. We know that drug legalization should have had a bigger effect on counties that had higher drug arrest rates prior to drug legalization. After all, in a county that had no drug arrests, legalization wouldn’t do anything, would it?</p>
-<p>So let’s split our sample into two groups: high drug arrests in 2009, and low drug arrests in 2009 (split the counties at the average drug arrest rate in 2009).</p>
-<p><strong>(15)</strong> Now we can ask: did violent crime fall <em>more</em> from 2009 to 2018 in the counties that had lots of drug arrests in 2009 (where legalization likely had more of an effect) than in counties with fewer drug arrests in 2009 (where legalization likely mattered less)? Calculate this using what we call a difference-in-differences, which can be computed as follows:</p>
+<p>So let’s split our sample into two groups: high drug arrests in 2009, and low drug arrests in 2009.</p>
+<p>To decide who goes into each group, first calculate the average 2009 drug arrest rate across all counties. Then make the “high drug arrest” group counties whose 2009 drug arrest rate was above that mean value and make the “low drug arrest rate” counties whose 2009 drug arrest rate was above that mean value.</p>
+</section>
+<section id="exercise-15">
+<h3>Exercise 15<a class="headerlink" href="#exercise-15" title="Link to this heading">#</a></h3>
+<p>Now we can ask: did violent crime fall <em>more</em> from 2009 to 2018 in the counties that had lots of drug arrests in 2009 (where legalization likely had more of an effect) than in counties with fewer drug arrests in 2009 (where legalization likely mattered less)? Calculate this using what we call a difference-in-differences, which can be computed as follows:</p>
 <p>(the change in violent crime rate for counties with lots of drug arrests in 2009) - (the change in violent crime rate for counties with few drug arrests in 2009)</p>
-<p><strong>(16)</strong> Hmmm… we showed that there was a greater <em>absolute</em> decline in violent arrest rates in counties more impacted by drug legalization. But was there also a greater <em>proportionate</em> decline?</p>
+<p><strong>Please make sure to calculate arrest rates in arrests per 1,000 people.</strong></p>
+<p><strong>Note this average value - you will need to submit this at the end of this week for the final Quiz.</strong></p>
+<p><strong>Note your output here: the percentage change for the case of both the high and the low 2009 drug arrest rate groups in 2009 - you will need to submit this at the end of this week for the final Quiz.</strong></p>
+</section>
+<section id="execise-16">
+<h3>Execise 16<a class="headerlink" href="#execise-16" title="Link to this heading">#</a></h3>
+<p>Hmmm… we showed that there was a greater <em>absolute</em> decline in violent arrest rates in counties more impacted by drug legalization. But was there also a greater <em>proportionate</em> decline?</p>
 <p>Repeat the above calculation but for percentage change:</p>
 <p>(the percentage change in violent crime rate for counties with lots of drug arrests in 2009) - (the percentage change in violent crime rate for counties with few drug arrests in 2009)</p>
 <p><strong>Note your output here: the percentage change for the case of both the high and the low 2009 drug arrest rate groups in 2009 - you will need to submit this at the end of this week for the final Quiz.</strong></p>
-<p><strong>(17)</strong> What are your conclusions about the relationship between violent crime and drug legalization, give your analysis above?</p>
+</section>
+<section id="exercise-17">
+<h3>Exercise 17<a class="headerlink" href="#exercise-17" title="Link to this heading">#</a></h3>
+<p>What are your conclusions about the relationship between violent crime and drug legalization, give your analysis above?</p>
+</section>
 </section>
 </section>
 
@@ -654,11 +749,38 @@ $<span class="math notranslate nohighlight">\(\frac{x_{2018} - x_{2009}}{x_{2009
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-loading-our-data-pre-legalization">EXERCISE 1: Loading our data pre-legalization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-merging-our-data">EXERCISE 2: Merging our data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-calculating-arrest-rates-and-gathering-2018-data">EXERCISE 3: Calculating arrest rates and gathering 2018 data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-comparing-2009-with-2018-arrests-repeating-your-merge-from-the-2009-data">EXERCISE 4: Comparing 2009 with 2018 Arrests - Repeating your merge from the 2009 data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-diving-deeper-into-the-post-legalization-changes">EXERCISE 5: Diving deeper into the post-legalization changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-our-data-pre-legalization">Loading our data pre-legalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-our-data">Merging our data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-arrest-rates-and-gathering-2018-data">Calculating arrest rates and gathering 2018 data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10">Exercise 10</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-2009-with-2018-arrests-repeating-your-merge-from-the-2009-data">Comparing 2009 with 2018 Arrests: Repeating your merge from the 2009 data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11">Exercise 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12">Exercise 12</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-13">Exercise 13</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diving-deeper-into-the-post-legalization-changes">Diving deeper into the post-legalization changes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14">Exercise 14</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-15">Exercise 15</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#execise-16">Execise 16</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-17">Exercise 17</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
