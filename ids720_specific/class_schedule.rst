@@ -4,7 +4,7 @@ Class Schedule
 Office Hours and Links
 --------------------------
 
-`Nick <https://duke.zoom.us/my/nickeubank>`_ : Thursday 10 am - 11 am
+`Nick <https://duke.zoom.us/my/nickeubank>`_ (Zoom or in Gross 231): Thursday 9:30 am - 10:30 am
 
 Keon: TBD
 
