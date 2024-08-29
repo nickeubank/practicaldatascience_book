@@ -531,6 +531,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nano-editor">The <code class="docutils literal notranslate"><span class="pre">nano</span></code> Editor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sudo"><code class="docutils literal notranslate"><span class="pre">sudo</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-path-variable">The PATH Variable</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-is-useful-to-know">Why This Is Useful to Know</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-your-path-variable">Modifying Your PATH Variable</a></li>
@@ -755,6 +756,16 @@ wc<span class="w"> </span>-l<span class="w"> </span>~/files_in_folder.txt
 <p>It is often the case when working at the command line that one wants to actually edit a file, not just look at it or move it around. For small, quick edits, <code class="docutils literal notranslate"><span class="pre">bash</span></code> comes with an extremely useful tool for this purpose: <code class="docutils literal notranslate"><span class="pre">nano</span></code>. Just type <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">FILENAME</span></code> on almost any system, and you can edit your file without opening or installing additional programs.</p>
 <p>(Note for MIDS Students: you can also use Emacs for the same purpose, since you’ve already gone through the pain of learning it!)</p>
 </section>
+<section id="sudo">
+<h2><code class="docutils literal notranslate"><span class="pre">sudo</span></code><a class="headerlink" href="#sudo" title="Link to this heading">#</a></h2>
+<p>Sometimes when you try and do something on the command line, you will get an permission error. The exact form of this error will depend on the command, but will generally include the text <code class="docutils literal notranslate"><span class="pre">permission</span> <span class="pre">denied</span></code>.</p>
+<p>This occurs when you try to do something that the operating system won’t let just anyone do. If you did something analogous in your regular operating system, you’d get some kind of a popup — on a mac, it’s that window that asks for your password or TouchID; on windows, it’s a popup where one option includes the Yellow and Orange shield asking you to confirm.</p>
+<p>To do something on the command line as an administrator, you prefix your command with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (short for <strong>s</strong>uper-<strong>u</strong>ser do). For example, to delete something that’s protected, you’d type <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">rm</span> <span class="pre">file.txt</span></code>. [NOTE: I don’t think git bash on windows allows you to <code class="docutils literal notranslate"><span class="pre">sudo</span></code>! But you’ll see it working on linux in the cloud, so just try and remember this.]</p>
+<p>After you run a command prefixed by sudo, you’ll be asked for your password. Type in your user password. While typing, nothing will happen. Then type enter. If it worked, you’ll just have your normal terminal again.</p>
+<p><strong>Warning:</strong> you can do VERY BAD THINGS if you’re careless with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>. The most famous example is <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">rm</span> <span class="pre">-Rf</span> <span class="pre">/*</span></code>. This command will *<em>delete your entire computer instantly.</em> I’m telling you about it because people will sometimes suggest it as a solution to problems on the internet (“My computer’s doing this weird thing, how do I fix it?” “have you tried <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">rm</span> <span class="pre">-Rf</span> <span class="pre">/*</span></code>?” [pain]). So <code class="docutils literal notranslate"><span class="pre">sudo</span></code> with care.</p>
+<p>(<code class="docutils literal notranslate"><span class="pre">rm</span></code> is remove, <code class="docutils literal notranslate"><span class="pre">-R</span></code> means do it recursively (so delete the folder and anything in it, and anything in any folders in it), <code class="docutils literal notranslate"><span class="pre">f</span></code> means don’t doublecheck before proceding, and <code class="docutils literal notranslate"><span class="pre">/*</span></code> captures all folders in the root directory of your system.)</p>
+<p><img alt="xkcd sudo make me a sandwich cartoon" src="https://imgs.xkcd.com/comics/sandwich.png" /></p>
+</section>
 <section id="the-path-variable">
 <h2>The PATH Variable<a class="headerlink" href="#the-path-variable" title="Link to this heading">#</a></h2>
 <p>The last feature of the command line that is important to understand is the PATH variable. We won’t get into all the intricacies of the PATH variable here, but having a basic understanding of its purpose and function will likely prove useful to you if you ever have to troubleshoot problems in the future.</p>
@@ -881,6 +892,7 @@ wc<span class="w"> </span>-l<span class="w"> </span>~/files_in_folder.txt
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nano-editor">The <code class="docutils literal notranslate"><span class="pre">nano</span></code> Editor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sudo"><code class="docutils literal notranslate"><span class="pre">sudo</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-path-variable">The PATH Variable</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-is-useful-to-know">Why This Is Useful to Know</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-your-path-variable">Modifying Your PATH Variable</a></li>
