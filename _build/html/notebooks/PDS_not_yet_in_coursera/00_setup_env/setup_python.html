@@ -620,10 +620,23 @@ document.write(`
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">config</span> <span class="pre">--add</span> <span class="pre">channels</span> <span class="pre">conda-forge</span></code> (you may be told you already have it listed)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">config</span> <span class="pre">--set</span> <span class="pre">channel_priority</span> <span class="pre">strict</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">config</span> <span class="pre">--set</span> <span class="pre">solver</span> <span class="pre">classic</span></code></p>
+<ul>
+<li><p>Why? Long story, but miniconda started using a fancy tool for figuring out which packages to install as the default, but that causes issues if that setting is in place before you install your first package.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">python=3.12</span></code></p></li>
 </ul>
 </li>
 </ul>
-<p>These just change where conda looks for packages (different channels are just different collections of copies of packages (different repositories, if you will)).</p>
+<p>The first of two of these just change where conda looks for packages. Different channels are just different collections of copies of packages (different repositories, if you will), and <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> is the most reliable.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">solver</span></code> setting is odd, but gets around a bug in 2024.</p>
+<p>Installing Python explicitly ensures that all your packages are from <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>.</p>
+<p>In addition, if you want, you can install and setup a faster package installer called “libmamba” with the following commands:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">conda-libmamba-solver</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">config</span> <span class="pre">--set</span> <span class="pre">solver</span> <span class="pre">libmamba</span></code></p></li>
+</ul>
 </section>
 </section>
 <section id="and-that-s-it">
