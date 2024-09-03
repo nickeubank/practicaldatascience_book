@@ -8,7 +8,7 @@ In short:
 - MIDS students have also seen a little bit of the two Python data science packages we'll use a lot in this course: `numpy`, and `pandas`. As a result, this course is not optimally designed for those who have no exposure to these tools. A person who knows Python but has never seen `numpy` and `pandas` can still learn all they need from the materials in this course, but for reasons discussed below, it may be harder than is really necessary. *Guidance for students in this position below.*
 - No experience or past exposure is assumed for topic areas other than a very basic sense of `numpy` and `pandas`.
 
-## If you've never used Python before
+## Need to Catch Up?
 
 Great news! You can now work through the exact same Python introductory materials that MIDS students do when they arrive on campus for a three-week in-person bootcamp. These materials assume **zero** past experience with Python or programming!
 
@@ -16,8 +16,14 @@ Moreover, if you're a Duke student, then provided you create a Coursera account 
 
 To be prepared for the course, you'll need to:
 
-- **Complete** [Python Programming Fundamentals](https://www.coursera.org/learn/python-programming-fundamentals?specialization=python-data-science)
-- Complete the first **two weeks** (half) of [Data Science with NumPy, Sets and Dictionaries](https://www.coursera.org/learn/numpy-data-science?specialization=python-data-science)
+- [Python Programming Fundamentals](https://www.coursera.org/learn/python-programming-fundamentals):
+  - Do entire course.
+- [Data Science with NumPy, Sets and Dictionaries](https://www.coursera.org/learn/numpy-data-science):
+  - Week/Module 1: "Sets and Dictionaries: Storing and Working with Data"
+- [Pandas for Data Science](https://www.coursera.org/learn/pandas-data-science):
+  - Week/Module 1: "Intro to Pandas For Data Science + Strings and I/O"
+- [Designing Larger Python Programs for Data Science](https://www.coursera.org/learn/python-design-for-data-science):
+  - Do entire course
 
 ## If you've done *some* Python
 
