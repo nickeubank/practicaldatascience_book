@@ -6,7 +6,10 @@ Office Hours and Links
 
 `Nick <https://duke.zoom.us/my/nickeubank>`_ (Zoom or in Gross 231): Thursday 9:30 am - 10:30 am
 
-Keon: TBD
+`Divya <https://duke.zoom.us/j/97259589605>`_ (Zoom or Gross Hall 2nd Floor): Wednesday 12 - 1pm
+
+`Keon <https://duke.zoom.us/j/98191393031>`_ (Zoom or Gross Hall 2nd Floor): Tuesdays and Thursdays 12 - 1pm
+
 
 
 Class Time
