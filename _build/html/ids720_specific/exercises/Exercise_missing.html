@@ -555,7 +555,7 @@ document.write(`
 <h1>Missing Values Exercises<a class="headerlink" href="#missing-values-exercises" title="Link to this heading">#</a></h1>
 <section id="gradescope-autograding">
 <h2>Gradescope Autograding<a class="headerlink" href="#gradescope-autograding" title="Link to this heading">#</a></h2>
-<p>Please follow <a class="reference external" href="https://www.practicaldatascience.org/html/autograder_guidelines.html">all standard guidance</a> for submitting this assignment to the Gradescope autograder, including storing your solutions in a dictionary called <code class="docutils literal notranslate"><span class="pre">results</span></code> and ensuring your notebook runs from the start to completion without any errors.</p>
+<p>Please follow <a class="reference external" href="https://www.practicaldatascience.org/ids720_specific/autograder_guidelines.html">all standard guidance</a> for submitting this assignment to the Gradescope autograder, including storing your solutions in a dictionary called <code class="docutils literal notranslate"><span class="pre">results</span></code> and ensuring your notebook runs from the start to completion without any errors.</p>
 <p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_missing.ipynb</span></code> before uploading.</p>
 <p>You can check that you have answers for all questions in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary with this code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">{</span>
@@ -627,11 +627,12 @@ document.write(`
 </section>
 <section id="exercise-9">
 <h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
-<p>As noted above, these estimates are not actually <em>quite</em> correct because we aren’t using survey weights. To calculate a weighted average that takes into account survey weights, you need to use the following formula:</p>
+<p>As noted above, these estimates are not actually <em>quite</em> correct because we aren’t taking into account the fact that when the US Census decided who to survey, not all Americans had the same likelihood of being asked. The US American Community Survey is an example of a <em>weighted</em> survey (essentially, people from smaller subpopulations have a higher likelihood of being included to ensure enough individuals in the final survey to constitute a representative sample that can be used statistically).</p>
+<p>To calculate a weighted average that takes into account these survey weights (in other words, a more accurate estimate of US incomes), you need to use the following formula:</p>
 <div class="math notranslate nohighlight">
 \[weighted\_mean\_of\_x = \frac{\sum_i x_i * weight_i}{\sum_i weight_i}\]</div>
 <p>(As you can see, when <span class="math notranslate nohighlight">\(weight_i\)</span> is constant for all observations, this just simplifies to our normal formula for mean values. It is only when weights vary across individuals that weights must be explicitly addressed).</p>
-<p>In this data, weights are stored in the variable <code class="docutils literal notranslate"><span class="pre">perwt</span></code>, which is the number of people for which each observation is a stand-in (the inverse of that observations sampling probability).</p>
+<p>In this data, weights are stored in the variable <code class="docutils literal notranslate"><span class="pre">perwt</span></code>, which is the number of people for which each observation is a stand-in (the inverse of that observation’s sampling probability).</p>
 <p>Using the formula, re-calculate the <em>weighted</em> average income for both populations and store them as <code class="docutils literal notranslate"><span class="pre">ex9_avg_income_white</span></code> and <code class="docutils literal notranslate"><span class="pre">ex9_avg_income_black</span></code>.</p>
 </section>
 <section id="exercise-10">
