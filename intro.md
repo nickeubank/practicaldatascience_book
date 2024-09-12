@@ -6,6 +6,8 @@ We are in the process of developing this content into both a Coursera [Python Da
 
 ## Duke MIDS Practical Data Science IDS 720
 
+b
+
 *Interested in enrolling in IDS 720 but not a MIDS student? [Read this!](ids720_specific/not_a_mids_student)*
 
 Data Science is an intrinsically applied field, and yet all too often students are taught the advanced math and statistics behind data science tools, but are left to fend for themselves when it comes to learning the tools we use to do data science on a day-to-day basis or how to manage actual projects. This course is designed to fill that gap.
