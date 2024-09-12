@@ -566,8 +566,6 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="git-and-github-part-1">
 <h1>Git and Github, Part 1<a class="headerlink" href="#git-and-github-part-1" title="Link to this heading">#</a></h1>
 <p>In these exercises, we’ll be practicing creating and contributing to projects using the “Github Flow” workflow you can <a class="reference external" href="https://guides.github.com/introduction/flow/">find summarized here</a>. Note this is not the only workflow out there – different companies or groups will often develop their own modification of this basic strategy – but most are pretty similar to this approach.</p>
-<p>In these exercises, for the first time we’ll want to use the computers of BOTH people working in each pair, so label one computer as Computer A, and one as Computer B.</p>
-<p>Hello</p>
 <section id="part-0-change-your-default-editor">
 <h2>Part 0: Change your default editor!<a class="headerlink" href="#part-0-change-your-default-editor" title="Link to this heading">#</a></h2>
 <p>By default, when git needs you to label a commit, it will open an editor called <a class="reference external" href="https://www.vim.org/">vim</a> that is very hard to work with (it’s not just weird – it’s even hard to get out of once it’s opened!)</p>
@@ -603,9 +601,9 @@ document.write(`
 </section>
 <section id="part-2-making-a-pull-request">
 <h2>Part 2: Making a Pull Request<a class="headerlink" href="#part-2-making-a-pull-request" title="Link to this heading">#</a></h2>
-<p>As you’ve read, a common way to work with a github repository is to create <em>branches</em> where you develop new code. Creating a <em>branch</em>, as the name implies, is a way of creating a version of your repository that <em>branches</em> off from the master branch at a point. Once created, a branch exists independently of the master branch so that you can make edits to your code without worrying about interfering with anyone else who wants to use the master branch. This is useful in software (since people may be running the master branch), but it’s also often useful in data science (where you may be experimenting with changing how variables are defined, and won’t want that to impact other people till you’ve decided what you want to do.</p>
-<p>Once you’re done working on a branch, you may decide that the changes you’ve made are amazing, and you want to merge those changes back into the master branch (you also may not! It’s always ok to throw away a branch that didn’t work! Branches are for experimenting safely).</p>
-<p>In order to ensure that only <em>good</em> code ends up in the master branch, it is common practice when working on teams to not just merge you branch back into the master branch. Instead, you submit a “Pull Request” on github, which is basically a request (on github) for other people to come review your code. Pull requests, in other words, are primarily a mechanism for peer review. So let’s make our first pull request (common referred to as a PR)!</p>
+<p>As you’ve read, a common way to work with a github repository is to create <em>branches</em> where you develop new code. Creating a <em>branch</em>, as the name implies, is a way of creating a version of your repository that <em>branches</em> off from the main branch at a point. Once created, a branch exists independently of the main branch so that you can make edits to your code without worrying about interfering with anyone else who wants to use the main branch. This is useful in software (since people may be running the main branch), but it’s also often useful in data science (where you may be experimenting with changing how variables are defined, and won’t want that to impact other people till you’ve decided what you want to do.</p>
+<p>Once you’re done working on a branch, you may decide that the changes you’ve made are amazing, and you want to merge those changes back into the main branch (you also may not! It’s always ok to throw away a branch that didn’t work! Branches are for experimenting safely).</p>
+<p>In order to ensure that only <em>good</em> code ends up in the main branch, it is common practice when working on teams to not just merge you branch back into the main branch. Instead, you submit a “Pull Request” on github, which is basically a request (on github) for other people to come review your code. Pull requests, in other words, are primarily a mechanism for peer review. So let’s make our first pull request (common referred to as a PR)!</p>
 <section id="exercise-5">
 <h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
 <p>Still on Computer A, let’s create a new branch we can experiment on. We can do this in one of two ways:</p>
@@ -613,16 +611,16 @@ document.write(`
 <li><p>We can type <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">&lt;new_branch_name&gt;</span></code> (to create the branch), then <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">&lt;new_branch_name&gt;</span></code> to switch to that branch, or</p></li>
 <li><p>We can type <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">&lt;new_branch_name&gt;</span></code> to <strong>both</strong> create a new branch and switch to that branch.</p></li>
 </ul>
-<p>“Switching” branches means that git (potentially) changes what files are visible to your computer and operating system. Because our new branch is, well… new, it still looks exactly the same as our master branch, so you won’t see any changes in your files. If you’re using Oh-My-Posh on Windows or Oh-My-Zsh on a Mac, though, you can see what branch your on by looking at your command line prompt. It should move from showing either “master” or “main” to your new branch name (here: “my_new_branch”) when you switch:</p>
+<p>“Switching” branches means that git (potentially) changes what files are visible to your computer and operating system. Because our new branch is, well… new, it still looks exactly the same as our main branch, so you won’t see any changes in your files. If you’re using Oh-My-Posh on Windows or Oh-My-Zsh on a Mac, though, you can see what branch your on by looking at your command line prompt. It should move from showing either “main” or “main” to your new branch name (here: “my_new_branch”) when you switch:</p>
 <p><strong>Note: the primary branch of a github repo USED to be called <code class="docutils literal notranslate"><span class="pre">master</span></code>, but as of late 2020 the default is not <code class="docutils literal notranslate"><span class="pre">main</span></code>, so you’ll likely see both for a while!</strong></p>
 <p><img alt="branch_change_in_terminal" src="../../_images/branch_change_in_terminal.png" /></p>
-<p>Now any changes you make and commit to the files in your repository will be <em>changes made to the active branch</em>, not to master.</p>
+<p>Now any changes you make and commit to the files in your repository will be <em>changes made to the active branch</em>, not to main.</p>
 </section>
 <section id="exercise-6">
 <h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
 <p>Still on Computer A, let’s start writing some analysis code! Before we start, though, an important note: Git is only really build for simple, plaintext files, so please don’t use Jupyter Notebooks (we’ll discuss that in more detail below). You can use text files you edit and work with in VS Code, but not notebooks. For a refresher on how to use text files in VS Code (in a manner analogous to RStudio) see <a class="reference internal" href="Exercise_jupytervscode.html"><span class="std std-doc">Jupyter Exercises</span></a>.</p>
 <p>OK, so now let’s create a regular Python (<code class="docutils literal notranslate"><span class="pre">.py</span></code>) analysis file in our repository. If you’re using Jupyter Lab, just create a new textfile, save it into the  repository folder, then get to work (right-click the text file, select “Create Console for Editor”, then select Python 3 to create a kernel where you can run your code as you work).</p>
-<p>In particular, import World Develoment Indicators from this url using <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code>: <a class="reference external" href="https://media.githubusercontent.com/media/nickeubank/MIDS_Data/master/World_Development_Indicators/wdi_small_tidy_2015.csv">https://media.githubusercontent.com/media/nickeubank/MIDS_Data/master/World_Development_Indicators/wdi_small_tidy_2015.csv</a></p>
+<p>In particular, import World Develoment Indicators from this url using <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code>: <a class="reference external" href="https://media.githubusercontent.com/media/nickeubank/MIDS_Data/main/World_Development_Indicators/wdi_small_tidy_2015.csv">https://media.githubusercontent.com/media/nickeubank/MIDS_Data/main/World_Development_Indicators/wdi_small_tidy_2015.csv</a></p>
 <p>Then pull out the columns:</p>
 <ul class="simple">
 <li><p>‘Mortality rate, infant (per 1,000 live births)’</p></li>
@@ -634,7 +632,18 @@ document.write(`
 <section id="exercise-7">
 <h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
 <p>Once you’re done, add and commit the new analysis file (from in your command line session). Then push these files to github.</p>
-<p>When you try and push them to github, you will be told that you can’t push them because there’s no branch on github to receive the push. That’s because you created your new branch <em>locally</em>, but it doesn’t exist yet on github. Follow the directions for telling github to make a branch to receive your push, then push again.</p>
+<p>When you try and push them to github, you will be told that you can’t push them because there’s no branch on github to receive the push:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fatal:<span class="w"> </span>The<span class="w"> </span>current<span class="w"> </span>branch<span class="w"> </span><span class="nb">test</span><span class="w"> </span>has<span class="w"> </span>no<span class="w"> </span>upstream<span class="w"> </span>branch.
+To<span class="w"> </span>push<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>branch<span class="w"> </span>and<span class="w"> </span><span class="nb">set</span><span class="w"> </span>the<span class="w"> </span>remote<span class="w"> </span>as<span class="w"> </span>upstream,<span class="w"> </span>use
+
+<span class="w">    </span>git<span class="w"> </span>push<span class="w"> </span>--set-upstream<span class="w"> </span>origin<span class="w"> </span>new_branch
+
+To<span class="w"> </span>have<span class="w"> </span>this<span class="w"> </span>happen<span class="w"> </span>automatically<span class="w"> </span><span class="k">for</span><span class="w"> </span>branches<span class="w"> </span>without<span class="w"> </span>a<span class="w"> </span>tracking
+upstream,<span class="w"> </span>see<span class="w"> </span><span class="s1">&#39;push.autoSetupRemote&#39;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s1">&#39;git help config&#39;</span>.
+</pre></div>
+</div>
+<p>That’s because you created your new branch <em>locally</em>, but it doesn’t exist yet on github.</p>
+<p>Follow the helpful directions you’ve been given to push in a way that also tells github to make a branch to receive your push: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">--set-upstream</span> <span class="pre">origin</span> <span class="pre">[the</span> <span class="pre">name</span> <span class="pre">of</span> <span class="pre">your</span> <span class="pre">new</span> <span class="pre">branch]</span></code></p>
 </section>
 <section id="exercise-8">
 <h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
@@ -661,16 +670,16 @@ document.write(`
 </section>
 <section id="exercise-11">
 <h3>Exercise 11<a class="headerlink" href="#exercise-11" title="Link to this heading">#</a></h3>
-<p>Let’s try the second startegy. On Computer B, clone the repository.</p>
+<p>Let’s try the second strategy. On Computer B, clone the repository.</p>
 </section>
 <section id="exercise-12">
 <h3>Exercise 12<a class="headerlink" href="#exercise-12" title="Link to this heading">#</a></h3>
-<p>Navigate (from the command line) into the now cloned repository. By default, you should be on the master branch.</p>
-<p>Remember when I said that switching branches changes the files visible to the operating system? Open your repository folder using your operating system (File Explorer or Finder) and look in it. If you’re on the master branch, you won’t see the new analysis file.</p>
+<p>Navigate (from the command line) into the now cloned repository. By default, you should be on the main branch.</p>
+<p>Remember when I said that switching branches changes the files visible to the operating system? Open your repository folder using your operating system (File Explorer or Finder) and look in it. If you’re on the main branch, you won’t see the new analysis file.</p>
 </section>
 <section id="exercise-13">
 <h3>Exercise 13<a class="headerlink" href="#exercise-13" title="Link to this heading">#</a></h3>
-<p>Now, from the command line, swith to the branch you’re reviewing for the PR (it should already be there, so you just have to do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">&lt;branch_name&gt;</span></code>.</p>
+<p>Now, from the command line, switch to the branch you’re reviewing for the PR (it should already be there, so you just have to do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">&lt;branch_name&gt;</span></code>.</p>
 </section>
 <section id="exercise-14">
 <h3>Exercise 14<a class="headerlink" href="#exercise-14" title="Link to this heading">#</a></h3>
@@ -690,7 +699,7 @@ document.write(`
 </section>
 <section id="exercise-17">
 <h3>Exercise 17<a class="headerlink" href="#exercise-17" title="Link to this heading">#</a></h3>
-<p>On Computer B, look to see that those changes are present, then click “Merge this PR”! Now if you look at the master branch of your repository, you should see that the analysis file now appears on <code class="docutils literal notranslate"><span class="pre">master</span></code>.</p>
+<p>On Computer B, look to see that those changes are present, then click “Merge this PR”! Now if you look at the main branch of your repository, you should see that the analysis file now appears on <code class="docutils literal notranslate"><span class="pre">main</span></code>.</p>
 </section>
 </section>
 <section id="congratulations">

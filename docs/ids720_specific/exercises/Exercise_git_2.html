@@ -522,11 +522,37 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-dealing-with-conflicts">Part 5: Dealing with Conflicts</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-merge-conflict">Creating a Merge Conflict</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolving-a-merge-conflict">Resolving a Merge Conflict</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-jupyter-notebooks">A Note on Jupyter Notebooks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gitignore">.gitignore</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-lfs">Git LFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-merge-conflict">Creating a Merge Conflict</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-0">Exercise 0</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolving-a-merge-conflict">Resolving a Merge Conflict</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-jupyter-notebooks">A Note on Jupyter Notebooks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Exercise 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10">Exercise 10</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gitignore">.gitignore</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11">Exercise 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12">Exercise 12</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-lfs">Git LFS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-13">Exercise 13</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14">Exercise 14</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -550,42 +576,68 @@ document.write(`
 <ul class="simple">
 <li><p>You clone a repository, create a branch, and start making some edits to the code that correlates mortality and GDP per capita. For example, maybe you decide you want to use GDP per capita in current US dollars instead of constant 2010 US dollars.</p></li>
 <li><p>While you are making these edits, someone else comes along and modifies the code that correlates mortality and GDP per capita too. For example, suppose they decide they want to use “Mortality rate, Under-5 (per 1,000 live births)” instead of “Mortality rate, infant (per 1,000 live births)”.</p></li>
-<li><p>The <em>other</em> person’s code gets merged into the master branch while you’re still working on your code.</p></li>
+<li><p>The <em>other</em> person’s code gets merged into the main branch while you’re still working on your code.</p></li>
 </ul>
-<p>Now the master branch and the branch you are working on have “diverged.” That’s because changes to the master branch don’t get immediately applied to other branches, so the master branch now reflects changes that aren’t present on the branch you’ve been working on.</p>
-<p>Now, <em>if</em> the specific lines of code that define what variables to use and what year to use are different lines of code, then when you go to merge your edits into the master branch (after your PR has been reviewed), then you won’t have any problems. <strong>Github considers each line of code to be a separate entity,</strong> and so it will only compare lines of code you’ve modified to those in the master branch, and will just apply <em>only</em> those changes when you merge your PR. So no conflict!</p>
-<p>Indeed, this is what happened above – while you were working on your PR, the master branch you were working off changed when you directly edited your README file. But that didn’t cause a problem for git, because it could merge in your PR by just combining (a) the changes made to README since you created your branch, and (b) the changes you’ve made to your data analysis file since you created your branch to create a new commit on the master branch. Those changes were made to fully independent lines of code, so they didn’t conflict.</p>
-<p><strong>But if changes are applied to the master branch that affect the same lines of code being modified on a different branch, then you get a conflict.</strong> For example, if the lines of code that select the year to use are the same lines of code that selects the variables to keep, then github is stuck. It knows that <em>since the creation of your new branch</em> that same line of code was edited in both your file <em>and</em> in the master branch, and it doesn’t know which one is correct. If it uses your version of that line of code, then it would delete those changes to use 2015 instead of 2016; but if it uses the code on the master branch, your changes to what variables you use will be ignored.</p>
+<p>Now the main branch and the branch you are working on have “diverged.” That’s because changes to the main branch don’t get immediately applied to other branches, so the main branch now reflects changes that aren’t present on the branch you’ve been working on.</p>
+<p>Now, <em>if</em> the specific lines of code that define what variables to use and what year to use are different lines of code, then when you go to merge your edits into the main branch (after your PR has been reviewed), then you won’t have any problems. <strong>Github considers each line of code to be a separate entity,</strong> and so it will only compare lines of code you’ve modified to those in the main branch, and will just apply <em>only</em> those changes when you merge your PR. So no conflict!</p>
+<p>Indeed, this is what happened above – while you were working on your PR, the main branch you were working off changed when you directly edited your README file. But that didn’t cause a problem for git, because it could merge in your PR by just combining (a) the changes made to README since you created your branch, and (b) the changes you’ve made to your data analysis file since you created your branch to create a new commit on the main branch. Those changes were made to fully independent lines of code, so they didn’t conflict.</p>
+<p><strong>But if changes are applied to the main branch that affect the same lines of code being modified on a different branch, then you get a conflict.</strong> For example, if the lines of code that select the year to use are the same lines of code that selects the variables to keep, then github is stuck. It knows that <em>since the creation of your new branch</em> that same line of code was edited in both your file <em>and</em> in the main branch, and it doesn’t know which one is correct. If it uses your version of that line of code, then it would delete those changes to use 2015 instead of 2016; but if it uses the code on the main branch, your changes to what variables you use will be ignored.</p>
 <p>So when it happens, github throws up its hands and says “sorry, this is above my paygrade. There’s a problem here I can’t solve, so I need you to do it manually”. And that’s what’s called a merge conflict.</p>
 <p>So to get used to merge conflicts, let’s cause one! Note that both teams will have to do a bunch of steps in sequence to get this to work.</p>
 </section>
 <section id="creating-a-merge-conflict">
 <h2>Creating a Merge Conflict<a class="headerlink" href="#creating-a-merge-conflict" title="Link to this heading">#</a></h2>
-<p><strong>(1)</strong> On Computer A, first make sure you pull the recent edits (so you have the merged PR in your master branch).</p>
-<p><strong>(2)</strong> On Computer A, create a new branch called “this_is_gonna_be_a_problem”.</p>
-<p><strong>(3)</strong> In that branch, open the <a class="reference external" href="http://README.md">README.md</a> and add to the title (the <em>very first line</em> of the readme) the year of data you’re using (“2016”).</p>
-<p><strong>(4)</strong> Commit and push your edits, and create a new pull request. If you look at your pull request, you should see:</p>
-<p><img alt="ok_to_merge image" src="ids720_specific/images/ok_to_merge.png" /></p>
-<p>That’s because at the moment, since you created your branch, no other changes have been made to the master branch that might conflict with your edits, so if you wanted to merge right now, git would know that it should use your edits.</p>
-<p><strong>(5)</strong> Now, still on Computer A, switch back to the master branch and edit the <a class="reference external" href="http://README.md">README.md</a> title (the <em>very</em> first line) by adding the details of the GDP per capita variable (e.g. “Constant 2010 US$”).</p>
-<p><strong>(6)</strong> Add, commit, and push those changes directly (no PR – we want to modify the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch directly).</p>
-<p><strong>(7)</strong> Now go back to your PR. You should see that because the master branch has now added edits <em>to the line you also edited since you created your branch,</em>, you can no longer just merge your edits! You’ll see:</p>
-<p><img alt="not ok to merge" src="ids720_specific/images/not_ok_to_merge.png" /></p>
+<p>Today, we will only be working with what, in yesterday’s exercises, was Computer A.</p>
+<section id="exercise-0">
+<h3>Exercise 0<a class="headerlink" href="#exercise-0" title="Link to this heading">#</a></h3>
+<p>WHENEVER YOU SIT DOWN TO START WORKING ON A PROJECT FOR THE DAY AND ITS ON GITHUB, START BY DOING A GIT PULL! This ensures you’re up to date with any changes on the remote server before you start making more changes.</p>
+</section>
+<section id="exercise-1">
+<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
+<p>First make sure you pull the recent edits (so you have the merged PR in your main branch).</p>
+</section>
+<section id="exercise-2">
+<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h3>
+<p>Create a new branch called “this_is_gonna_be_a_problem”.</p>
+</section>
+<section id="exercise-3">
+<h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
+<p>In that branch, open the <a class="reference external" href="http://README.md">README.md</a> and add to the title (the <em>very first line</em> of the readme) the year of data you’re using (“2016”).</p>
+</section>
+<section id="exercise-4">
+<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
+<p>Commit and push your edits, and create a new pull request. If you look at your pull request, you should see:</p>
+<p><img alt="ok_to_merge image" src="../../_images/ok_to_merge.png" /></p>
+<p>That’s because at the moment, since you created your branch, no other changes have been made to the main branch that might conflict with your edits, so if you wanted to merge right now, git would know that it should use your edits.</p>
+</section>
+<section id="exercise-5">
+<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
+<p>Now switch back to the main branch and edit the <a class="reference external" href="http://README.md">README.md</a> title (the <em>very</em> first line) by adding the details of the GDP per capita variable (e.g. “Constant 2010 US$”).</p>
+</section>
+<section id="exercise-6">
+<h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
+<p>Add, commit, and push those changes directly (no PR – we want to modify the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch directly).</p>
+</section>
+<section id="exercise-7">
+<h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
+<p>Now go back to your PR. You should see that because the main branch has now added edits <em>to the line you also edited since you created your branch,</em>, you can no longer just merge your edits! You’ll see:</p>
+<p><img alt="not ok to merge" src="../../_images/not_ok_to_merge.png" /></p>
+</section>
 </section>
 <section id="resolving-a-merge-conflict">
 <h2>Resolving a Merge Conflict<a class="headerlink" href="#resolving-a-merge-conflict" title="Link to this heading">#</a></h2>
 <p>Dealing with this situation requires several steps:</p>
 <ol class="arabic simple">
-<li><p>Pull from the repository (so that all the new edits to the master branch are stored in your master branch) with <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code></p></li>
+<li><p>Pull from the repository (so that all the new edits to the main branch are stored in your main branch) with <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code></p></li>
 <li><p>Make sure you’re currently on the branch <code class="docutils literal notranslate"><span class="pre">this_is_gonna_be_a_problem</span></code></p></li>
-<li><p>Run “git rebase master” (or “git rebase main” if your repo calls its primary branch “main”).</p></li>
+<li><p>Run “git rebase main” (or “git rebase main” if your repo calls its primary branch “main”).</p></li>
 </ol>
-<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rebase</span></code> is a command to try and “move” the point from which your branch diverts from master by integrating all the changes that have happened since you first created your branch. It’s <em>basically</em> like merging your current branch with the (now updated) master branch, except that it does it in a way that re-organizes the branch history so it looks like all the changes you’ve made in your branch occurred <em>after</em> the most recent changes that have happened in the master branch. If you’re struggling with the idea of rebasing and want to learn more, <a class="reference external" href="https://www.youtube.com/watch?v=f1wnYdLEpgI">I recommend this video</a>.</p>
-<p>Note it’s important that you’ve checked out your <code class="docutils literal notranslate"><span class="pre">this_is_gonna_be_a_problem</span></code> branch before you do this! <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rebase</span> <span class="pre">master</span></code> says to git “rebase the currently active branch off of master”. If the branch you have open is master, it will just announce that the rebase is done, since master is already up to date with… master (trivially!).</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rebase</span></code> is a command to try and “move” the point from which your branch diverts from main by integrating all the changes that have happened since you first created your branch. It’s <em>basically</em> like merging your current branch with the (now updated) main branch, except that it does it in a way that re-organizes the branch history so it looks like all the changes you’ve made in your branch occurred <em>after</em> the most recent changes that have happened in the main branch. If you’re struggling with the idea of rebasing and want to learn more, <a class="reference external" href="https://www.youtube.com/watch?v=f1wnYdLEpgI">I recommend this video</a>.</p>
+<p>Note it’s important that you’ve checked out your <code class="docutils literal notranslate"><span class="pre">this_is_gonna_be_a_problem</span></code> branch before you do this! <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rebase</span> <span class="pre">main</span></code> says to git “rebase the currently active branch off of main”. If the branch you have open is main, it will just announce that the rebase is done, since main is already up to date with… main (trivially!).</p>
 <p>Visually, you can imagine it like:</p>
-<p><img alt="rebase" src="ids720_specific/images/rebase.png" /></p>
-<p>Rebase can be useful for several things, not just conflicts. If you’ve been working on a branch for a while and you just want to bring all the features and updates from master into that branch, <code class="docutils literal notranslate"><span class="pre">rebase</span></code> pulls all those in.</p>
-<p>But in this case, <code class="docutils literal notranslate"><span class="pre">rebase</span></code> will <em>try</em> and integrate your branch with the master branch, and in doing so will give you a chance to address all the conflicts that have appeared (in this case, both you and your teammates editing the first line of the <a class="reference external" href="http://README.md">README.md</a> at the same time).</p>
+<p><img alt="rebase" src="../../_images/rebase.png" /></p>
+<p>Rebase can be useful for several things, not just conflicts. If you’ve been working on a branch for a while and you just want to bring all the features and updates from main into that branch, <code class="docutils literal notranslate"><span class="pre">rebase</span></code> pulls all those in.</p>
+<p>But in this case, <code class="docutils literal notranslate"><span class="pre">rebase</span></code> will <em>try</em> and integrate your branch with the main branch, and in doing so will give you a chance to address all the conflicts that have appeared (in this case, both you and your teammates editing the first line of the <a class="reference external" href="http://README.md">README.md</a> at the same time).</p>
 <p>When you try and rebase, you should get a message that looks something like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">First</span><span class="p">,</span> <span class="n">rewinding</span> <span class="n">head</span> <span class="n">to</span> <span class="n">replay</span> <span class="n">your</span> <span class="n">work</span> <span class="n">on</span> <span class="n">top</span> <span class="n">of</span> <span class="n">it</span><span class="o">...</span>
 <span class="n">Applying</span><span class="p">:</span> <span class="n">modify</span> <span class="n">readme</span>
@@ -605,17 +657,17 @@ document.write(`
 </pre></div>
 </div>
 <p>As this error message helpfully points out (<code class="docutils literal notranslate"><span class="pre">CONFLICT</span> <span class="pre">(content):</span> <span class="pre">Merge</span> <span class="pre">conflict</span> <span class="pre">in</span> <span class="pre">README.md</span></code>) you have a merge conflict in <a class="reference external" href="http://README.md">README.md</a>. So let’s open the <a class="reference external" href="http://README.md">README.md</a> file and see what’s going on.</p>
-<p>What you will see is that <code class="docutils literal notranslate"><span class="pre">git</span></code> has very kindly flagged the conflict it found, and provided you with both the version you wrote, and the version that it found in the master branch. It should look something like:</p>
+<p>What you will see is that <code class="docutils literal notranslate"><span class="pre">git</span></code> has very kindly flagged the conflict it found, and provided you with both the version you wrote, and the version that it found in the main branch. It should look something like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="o">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> <span class="n">HEAD</span>
-    <span class="p">[</span><span class="n">whatever</span> <span class="n">text</span> <span class="ow">is</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">master</span> <span class="n">branch</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">whatever</span> <span class="n">text</span> <span class="ow">is</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">main</span> <span class="n">branch</span><span class="p">]</span>
     <span class="o">=======</span>
     <span class="p">[</span><span class="n">whatever</span> <span class="n">text</span> <span class="n">you</span> <span class="n">created</span><span class="p">]</span>
     <span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">the_name_of_your_commit</span>
 
 </pre></div>
 </div>
-<p>Think of these new lines as “conflict dividers”. The ======= line is the “center” of the conflict. All the content between the center and the &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD line is content that exists in the current branch master which the HEAD ref is pointing to. Alternatively all content between the center and &gt;&gt;&gt;&gt;&gt;&gt;&gt; new_branch_to_merge_later is content that is present in our merging branch.</p>
-<p>Your job is now to resolve this conflict by editing this text. You can keep the stuff on master, keep your edits, or write something new entirely. So just edit this block to your liking.</p>
+<p>Think of these new lines as “conflict dividers”. The ======= line is the “center” of the conflict. All the content between the center and the &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD line is content that exists in the current branch main which the HEAD ref is pointing to. Alternatively all content between the center and &gt;&gt;&gt;&gt;&gt;&gt;&gt; new_branch_to_merge_later is content that is present in our merging branch.</p>
+<p>Your job is now to resolve this conflict by editing this text. You can keep the stuff on main, keep your edits, or write something new entirely. So just edit this block to your liking.</p>
 <p>(In this case, we want both things in the title, so you should probably write a new title with both additions).</p>
 <p>Once you’ve made those edits, then (as suggested in your error message) you should:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Resolve</span> <span class="nb">all</span> <span class="n">conflicts</span> <span class="n">manually</span><span class="p">,</span> <span class="n">mark</span> <span class="n">them</span> <span class="k">as</span> <span class="n">resolved</span> <span class="k">with</span>
@@ -625,25 +677,37 @@ document.write(`
 </pre></div>
 </div>
 <p>Once done, you’ll then have to push your changes. <strong>Note that just running <code class="docutils literal notranslate"><span class="pre">push</span></code> won’t work!</strong>. That’s because rebasing fundamentally changes the content of the PR in a non-reversable way, and git always gets nervous when you try and make non-reversable changes. So to push you have to use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">--force</span></code>. This is a protection to ensure you recognize you’re making a permanent edit.</p>
-<p><strong>(8)</strong> Now that you’ve pushed your README with conflicts resolved, go back to your PR. If you did everything right, you should now be able to merge your edits!</p>
+<section id="exercise-8">
+<h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
+<p>Now that you’ve pushed your README with conflicts resolved, go back to your PR. If you did everything right, you should now be able to merge your edits!</p>
+</section>
 </section>
 <section id="a-note-on-jupyter-notebooks">
 <h2>A Note on Jupyter Notebooks<a class="headerlink" href="#a-note-on-jupyter-notebooks" title="Link to this heading">#</a></h2>
 <p>Github is both great and terrible when it comes to Jupyter Notebooks.</p>
-<p><strong>(9)</strong> To understand why, let’s begin by having everyone add and push a Jupyter Notebook to their repository. Once you’ve pushed your files, navigate to the notebook on github in your browser.</p>
+<section id="exercise-9">
+<h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
+<p>To understand why, let’s begin by having everyone add and push a Jupyter Notebook to their repository. Once you’ve pushed your files, navigate to the notebook on github in your browser.</p>
 <p>The first thing you’ll likely see is… nothing:</p>
-<p><img alt="notebook_not_rendered" src="ids720_specific/images/notebook_not_rendered.png" /></p>
-<p>The reason is that github has service that renders jupyter notebooks to look like, well… jupyter notebooks. And when you push a jupyter notebook, that notebook gets put into a queue for rendering, and it will thus only be visible as a rendered document when it gets to the front and gets rendered. This can take a while, so we’ll just move on. But if you want to see what github looks like when presented a <em>rendered</em> notebook, you can find this page as a <a class="reference external" href="https://github.com/nickeubank/practicaldatascience/blob/master/source/exercises/Exercise_git_2.ipynb">github-rendered notebook here!</a>.</p>
+<p><img alt="notebook_not_rendered" src="../../_images/notebook_not_rendered.png" /></p>
+<p>The reason is that github has service that renders jupyter notebooks to look like, well… jupyter notebooks. And when you push a jupyter notebook, that notebook gets put into a queue for rendering, and it will thus only be visible as a rendered document when it gets to the front and gets rendered. This can take a while, so we’ll just move on. But if you want to see what github looks like when presented a <em>rendered</em> notebook, you can find this page as a <a class="reference external" href="https://github.com/nickeubank/practicaldatascience/blob/main/source/exercises/Exercise_git_2.ipynb">github-rendered notebook here!</a>.</p>
 <p>This happens because the pretty version of the jupyter notebook you know and love is a <em>rendered</em> interface. If you want to see what a jupyter notebook looks like behind the scenes, click the <em>raw</em> button on the notebooks github page. <em>That</em> is actually everything that is in a jupyter notebook – a plaintext file in JSON formatting.</p>
 <p>This is important to understand, because it also impacts how git manages changes to jupyter notebooks.</p>
-<p><strong>(9)</strong> To illustrate, open the jupyter notebook you added to your repository and make some changes – add some text in one cell, and maybe add a new cell. Then commit and push those changes.</p>
-<p><strong>(10)</strong> In github, you can always easily see what has changed in a commit by clicking on the “Commits” button:</p>
-<p><img alt="commits_button" src="ids720_specific/images/commits_button.png" /></p>
+</section>
+<section id="id1">
+<h3>Exercise 9<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>To illustrate, open the jupyter notebook you added to your repository and make some changes – add some text in one cell, and maybe add a new cell. Then commit and push those changes.</p>
+</section>
+<section id="exercise-10">
+<h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Link to this heading">#</a></h3>
+<p>In github, you can always easily see what has changed in a commit by clicking on the “Commits” button:</p>
+<p><img alt="commits_button" src="../../_images/commits_button.png" /></p>
 <p>then clicking on the hash number next to a given commit (the hash number is what uniquely identifies a commit). So in my repo, I’d click on the 829715d button:</p>
-<p><img alt="click_the_hash" src="ids720_specific/images/click_the_hash.png" /></p>
+<p><img alt="click_the_hash" src="../../_images/click_the_hash.png" /></p>
 <p>That will bring you to a page that shows you a side-by-side comparison of what was in the repo before this commit, and what changed in this commit with nice coloring.</p>
 <p>The problem, as you can see though, is that git interacts with jupyter notebooks at the level of those plaintext JSON formats, making diffs hard to understand.</p>
 <p>It is for this reason that jupyter notebooks, while amazing for many things, and while fine to put into github repositories to share and host, are not great for collaborative analysis, because these diffs are just very hard to read.</p>
+</section>
 </section>
 <section id="gitignore">
 <h2>.gitignore<a class="headerlink" href="#gitignore" title="Link to this heading">#</a></h2>
@@ -651,23 +715,34 @@ document.write(`
 <p>Sometimes when your working, your program will create “helper files” in your repository that you don’t want to keep. R, for example, makes <code class="docutils literal notranslate"><span class="pre">.RHistory</span></code> files, and jupyter notebooks (as you can see now!) makes <code class="docutils literal notranslate"><span class="pre">.ipynb_checkpoints/</span></code> files.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> file is a way of telling git that there are certain files you just don’t want in your repo. As the name implies, these can be <em>ignored</em>.</p>
 <p>Because your <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> file starts with a period, it will be invisible if you aren’t using a command line tool (or a program like Atom), so to modify it you need to go to the command line and run <code class="docutils literal notranslate"><span class="pre">open</span> <span class="pre">.gitignore</span></code> while in the root directory of your git repository.</p>
-<p><strong>(11)</strong> From the command line, navigate to your repository root folder and run <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-la</span></code>. There you should see all your normal files and a folder called <code class="docutils literal notranslate"><span class="pre">.git</span></code>.</p>
+<section id="exercise-11">
+<h3>Exercise 11<a class="headerlink" href="#exercise-11" title="Link to this heading">#</a></h3>
+<p>From the command line, navigate to your repository root folder and run <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-la</span></code>. There you should see all your normal files and a folder called <code class="docutils literal notranslate"><span class="pre">.git</span></code>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">.git</span></code> folder basically <em>is</em> what makes this folder a github repository. It stores the entire history of this repository, as well as information about what github repository it should talk to when you run <code class="docutils literal notranslate"><span class="pre">push</span></code> and <code class="docutils literal notranslate"><span class="pre">pull</span></code>.</p>
 <p>In that folder, you <em>may</em> see a <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> file as well, but you might not. If you do not, create one now (options: <code class="docutils literal notranslate"><span class="pre">atom</span> <span class="pre">.gitignore</span></code> will create a blank file called <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> and open it in atom; <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">.gitignore</span></code> will open a blank file called <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> in <code class="docutils literal notranslate"><span class="pre">nano</span></code>, etc.).</p>
 <p>In that file, add (as a single line in the file): <code class="docutils literal notranslate"><span class="pre">.ipynb_checkpoints/*</span></code>.</p>
 <p>This says “Ignore anything in the folder <code class="docutils literal notranslate"><span class="pre">.ipynb_checkpoints</span></code> in the root directory”.</p>
 <p>From this point forward, github will ignore these files. However, note that you probably already added ipynb_checkpoint files to your repo when you first used your notebook in this repo. So to remove what’s there, you have to run: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rm</span> <span class="pre">[the</span> <span class="pre">file]</span></code>. Note you may also have to use the <code class="docutils literal notranslate"><span class="pre">--force</span></code> option.</p>
-<p><strong>(12)</strong> Now to make sure it has worked, go make more edits to your notebook so that <code class="docutils literal notranslate"><span class="pre">.ipynb_checkpoints</span></code> will be updated. Then check <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>. You should see the edits to your notebook, but you shouldn’t see git report any changes to <code class="docutils literal notranslate"><span class="pre">.ipynb_checkpoints/</span></code> files.</p>
+</section>
+<section id="exercise-12">
+<h3>Exercise 12<a class="headerlink" href="#exercise-12" title="Link to this heading">#</a></h3>
+<p>Now to make sure it has worked, go make more edits to your notebook so that <code class="docutils literal notranslate"><span class="pre">.ipynb_checkpoints</span></code> will be updated. Then check <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>. You should see the edits to your notebook, but you shouldn’t see git report any changes to <code class="docutils literal notranslate"><span class="pre">.ipynb_checkpoints/</span></code> files.</p>
+</section>
 </section>
 <section id="git-lfs">
 <h2>Git LFS<a class="headerlink" href="#git-lfs" title="Link to this heading">#</a></h2>
 <p>The last thing we’ll do is play a little with Git-LFS.</p>
 <p>As you read, Git-LFS allows you to store binary files on a server with much more storage than is available for your primary github repository. Moreover, it helps avoid the “exploding files” problem: if you just put a binary file in your repository, then every time you change that file and make a commit, another full version of that file is added to your git history, and that version stays with the repository. If you have a 100mb file, and modify it through 100 commits (not uncommon), then anyone who wanted to clone your repository would have to download <em>every one of those 100 version</em>, meaning they’d have to clone a 10gb file.</p>
 <p>By contrast, with git-lfs, only a little pointer is added to the repository itself, and only the most recent version of the actual binary file is made available to the user. You can always recover old versions of data, but they don’t actually live <em>in</em> your repo.</p>
-<p><strong>(13)</strong> To use git-lfs, go to your repo and run the command <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">lfs</span> <span class="pre">track</span> <span class="pre">&quot;*.pdf&quot;</span></code> (this says all PDFs should be stored via git-lfs). That will create a <code class="docutils literal notranslate"><span class="pre">.gitattributes</span></code> file that contains all the info about what should be managed using git-lfs.</p>
+<section id="exercise-13">
+<h3>Exercise 13<a class="headerlink" href="#exercise-13" title="Link to this heading">#</a></h3>
+<p>To use git-lfs, go to your repo and run the command <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">lfs</span> <span class="pre">track</span> <span class="pre">&quot;*.pdf&quot;</span></code> (this says all PDFs should be stored via git-lfs). That will create a <code class="docutils literal notranslate"><span class="pre">.gitattributes</span></code> file that contains all the info about what should be managed using git-lfs.</p>
 <p>To see, after running the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">lfs</span> <span class="pre">track</span> <span class="pre">&quot;*.pdf&quot;</span></code> command, open up the <code class="docutils literal notranslate"><span class="pre">.gitattributes</span></code> file to see what it looks like.</p>
-<p><strong>(14)</strong> Now, put a PDF in your repository, commit it and push it to github. If you then look at it on github, you should see:</p>
-<p><img alt="stored_with_lfs" src="ids720_specific/images/stored_with_lfs.png" />.</p>
+</section>
+<section id="exercise-14">
+<h3>Exercise 14<a class="headerlink" href="#exercise-14" title="Link to this heading">#</a></h3>
+<p>Now, put a PDF in your repository, commit it and push it to github. If you then look at it on github, you should see:</p>
+<p><img alt="stored_with_lfs" src="../../_images/stored_with_lfs.png" />.</p>
 <p>Yay!!!</p>
 <p>A few notes about git-lfs:</p>
 <ul class="simple">
@@ -679,6 +754,7 @@ document.write(`
 </ul>
 </li>
 </ul>
+</section>
 </section>
 </section>
 
@@ -729,11 +805,37 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-dealing-with-conflicts">Part 5: Dealing with Conflicts</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-merge-conflict">Creating a Merge Conflict</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolving-a-merge-conflict">Resolving a Merge Conflict</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-jupyter-notebooks">A Note on Jupyter Notebooks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gitignore">.gitignore</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-lfs">Git LFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-merge-conflict">Creating a Merge Conflict</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-0">Exercise 0</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolving-a-merge-conflict">Resolving a Merge Conflict</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-jupyter-notebooks">A Note on Jupyter Notebooks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Exercise 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10">Exercise 10</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gitignore">.gitignore</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11">Exercise 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12">Exercise 12</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-lfs">Git LFS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-13">Exercise 13</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14">Exercise 14</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

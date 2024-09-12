@@ -1,0 +1,728 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Jupyter Lab Exercises &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/ids720_specific/exercises/Exercise_jupyterlab';</script>
+    <link rel="icon" href="../../../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Practical Data Science with Python - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Practical Data Science with Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">IDS 720</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../class_schedule.html">Class Schedule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/git_and_github.html">Git and Github</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">Views and Copies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">Matrices</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">Arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/18_object_dtype.html">The <code class="docutils literal notranslate"><span class="pre">object</span></code> Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/45_categorical_dtype.html">The Categorical Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_3/week_3/07_indices.html">Indexes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/03_plaintext_files.html">Reading Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">Defensive Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/ids720_specific/exercises/Exercise_jupyterlab.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/ids720_specific/exercises/Exercise_jupyterlab.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Jupyter Lab Exercises</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replicating-an-rstudio-interface">Replicating an RStudio Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replicating-spyder-interface">Replicating Spyder Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-kernels">Multiple Kernels</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="jupyter-lab-exercises">
+<h1>Jupyter Lab Exercises<a class="headerlink" href="#jupyter-lab-exercises" title="Link to this heading">#</a></h1>
+<p>In these exercises, we’ll explore a few ways of working with Jupyter Lab. If you haven’t already, make sure you’ve worked through the tutorials for installing <a class="reference internal" href="#../setting_up_your_computer.ipynb"><span class="xref myst">Python and Conda</span></a>, and for <a class="reference internal" href="#../jupyter.ipynb"><span class="xref myst">setting up R</span></a> to work with Jupyter.</p>
+<p>As we work through these exercises, we’ll be openning and working with a set of files you can download <a class="reference external" href="https://github.com/nickeubank/practicaldatascience/blob/master/Example_Data/jupyter_lab.zip">here</a> called <code class="docutils literal notranslate"><span class="pre">jupyter_lab.zip</span></code>.</p>
+<section id="replicating-an-rstudio-interface">
+<h2>Replicating an RStudio Interface<a class="headerlink" href="#replicating-an-rstudio-interface" title="Link to this heading">#</a></h2>
+<p>At this point, all MIDS students have worked with RStudio, so let’s begin by replicating that familiar environment. If you have never used RStudio and don’t want to work with R, feel free to skip this exercise.</p>
+<p>First, let’s open the file <code class="docutils literal notranslate"><span class="pre">analyze_health_and_income.R</span></code> (make sure it’s the <code class="docutils literal notranslate"><span class="pre">.R</span></code> file) by navigating to where you downloaded <code class="docutils literal notranslate"><span class="pre">jupyter_lab</span></code> folder using the file navigator on the left hand pane. If the file navigator not immediately visible, you can open it by clicking the folder icon in at the top of the left sidebar.</p>
+<p>This has now opened a text editor window. To pair it with an active kernel (i.e. a running session of R), we need to right click somewhere inside the file and select “Create Console for Editor”, then choose to open an R kernel. This will open a new window with the same name as your current text file (“analyze_health.R”), but with a different icon (there should be a blue box with a cursor).</p>
+<p>This window is your interface to an active R session, and the setup you have now is basically the same as in RStudio:</p>
+<p><img alt="rstudio" src="notebooks/ids720_specific/images/rstudio_layout.png" /></p>
+<p>You can enter commands directly into the console window, or you can run a block of code from your text-editor window by highlighting it and hitting Shift-Enter.</p>
+<section id="exercise-1">
+<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
+<p>Run <code class="docutils literal notranslate"><span class="pre">print('hi')</span></code> by typing it directly into your console session.</p>
+</section>
+<section id="exercise-2">
+<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h3>
+<p>Now run the first few lines of “analyze_health_and_income.R” by selecting the text and hitting Shift-Enter.</p>
+</section>
+</section>
+<section id="replicating-spyder-interface">
+<h2>Replicating Spyder Interface<a class="headerlink" href="#replicating-spyder-interface" title="Link to this heading">#</a></h2>
+<p>I will confess I’ve never loved having the console below the text file, so let’s also explore having them side-by-side (in a scheme that looks like the scheme used by Spyder).</p>
+<section id="exercise-3">
+<h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
+<p>Grab the tab of the <code class="docutils literal notranslate"><span class="pre">analyze_health_and_income</span></code> console tab and drag it to the right side of the text window:</p>
+<p><img alt="converting_to_spyder" src="notebooks/ids720_specific/images/converting_to_spyder.png" /></p>
+<p>Then you’ll get something like this:</p>
+<p><img alt="spyder_layout" src="notebooks/ids720_specific/images/spyder_layout.png" /></p>
+</section>
+</section>
+<section id="multiple-kernels">
+<h2>Multiple Kernels<a class="headerlink" href="#multiple-kernels" title="Link to this heading">#</a></h2>
+<section id="exercise-4">
+<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
+<p>Now let’s open <code class="docutils literal notranslate"><span class="pre">analyze_health_and_income.py</span></code> (note the <code class="docutils literal notranslate"><span class="pre">py</span></code> file suffix: this is a Python file not R file). Create a kernel for this file as well by right clicking on the text file and clicking “Create A Console for Editor”. This time select Python 3.</p>
+<p>(By default the new console will appear along the bottom, so move it on top of the other console to organize your space:</p>
+<p><img alt="moving_second_console" src="notebooks/ids720_specific/images/moving_second_console.png" /></p>
+<p><img alt="two_tabs" src="notebooks/ids720_specific/images/two_tabs.png" /></p>
+</section>
+<section id="exercise-5">
+<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
+<p>Now run your Python code by highlighting text and hitting shift return! Look at that, R and Python, side by side.</p>
+<p>(Note that this code uses a package called <code class="docutils literal notranslate"><span class="pre">plotnine</span></code>, so you may need to first install it. At the command line, run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">plotnine</span></code>. We’ll talke more about installing packages in a later lesson).</p>
+<p>One quirk of Jupyter Lab is that because you can have many open consoles, each text file will only send code to the console specifically created to work with that file. This is different from RStudio, where all executed code runs in one open kernel, and from Spyder, where code runs in whatever session is currently the front-most tab.</p>
+</section>
+<section id="exercise-6">
+<h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
+<p>Jupyter Lab can also be used to manage your Jupyter Notebooks. In order to get some experience working with a Jupyter Notebook, lets move the analysis we do in this <code class="docutils literal notranslate"><span class="pre">analyze_health_and_income.py</span></code> into a Jupyter Notebook.</p>
+<p>First, download the starter notebook for this exercise <a class="reference external" href="https://github.com/nickeubank/practicaldatascience/blob/master/Example_Data/first_jupyter_notebook.ipynb">here</a>. (Downloading jupyter notebooks from github can be a little tricky. Click <code class="docutils literal notranslate"><span class="pre">Raw</span></code>, then right click and select <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Page</span> <span class="pre">As...</span></code>, then save the file as <code class="docutils literal notranslate"><span class="pre">first_jupyter_notebook.ipynb</span></code>.)</p>
+<p><strong>Note:</strong> All jupyter notebooks carry the file suffix of <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>, regardless of what kernel they are running. This is a hangover from the old days when “jupyter” was “ipython”, so all notebooks were IPython Notebooks. But we still use the suffix <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> even if your notebook is running a non-Python kernel (like R, Julia, etc.).</p>
+<p>Once downloaded, open the file in Jupyter Lab.</p>
+</section>
+<section id="exercise-7">
+<h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
+<p>Once open, follow the directions in the notebook to complete the exercise!</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/ids720_specific/exercises"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replicating-an-rstudio-interface">Replicating an RStudio Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replicating-spyder-interface">Replicating Spyder Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-kernels">Multiple Kernels</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

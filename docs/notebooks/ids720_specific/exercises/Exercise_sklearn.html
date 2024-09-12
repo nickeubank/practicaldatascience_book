@@ -1,0 +1,858 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Machine Learning with Scikit-Learn &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/ids720_specific/exercises/Exercise_sklearn';</script>
+    <link rel="icon" href="../../../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Practical Data Science with Python - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Practical Data Science with Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">IDS 720</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../class_schedule.html">Class Schedule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/git_and_github.html">Git and Github</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">Views and Copies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">Matrices</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">Arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/18_object_dtype.html">The <code class="docutils literal notranslate"><span class="pre">object</span></code> Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/45_categorical_dtype.html">The Categorical Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_3/week_3/07_indices.html">Indexes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/03_plaintext_files.html">Reading Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">Defensive Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/ids720_specific/exercises/Exercise_sklearn.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/ids720_specific/exercises/Exercise_sklearn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Machine Learning with Scikit-Learn</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradescope-autograding">Gradescope Autograding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-limits">Submission Limits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-in-medicine">Machine Learning in Medicine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-your-data">Formatting Your Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-your-data">Splitting Your Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-your-model">Training your Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-your-model">Evaluating your Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-workflow-summary">Machine Learning Workflow Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-models">Comparing Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#want-more-practice">Want More Practice?</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="machine-learning-with-scikit-learn">
+<h1>Machine Learning with Scikit-Learn<a class="headerlink" href="#machine-learning-with-scikit-learn" title="Link to this heading">#</a></h1>
+<section id="gradescope-autograding">
+<h2>Gradescope Autograding<a class="headerlink" href="#gradescope-autograding" title="Link to this heading">#</a></h2>
+<p>Please follow <a class="reference internal" href="../autograder_guidelines.html"><span class="std std-doc">all standard guidance</span></a> for submitting this assignment to the Gradescope autograder, including storing your solutions in a dictionary called <code class="docutils literal notranslate"><span class="pre">results</span></code> and ensuring your notebook runs from the start to completion without any errors.</p>
+<p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_sklearn.</span></code>ipynb` before uploading.</p>
+<p>You can check that you have answers for all questions in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary with this code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">{</span>
+    <span class="s2">&quot;ex3_num_columns&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex6_model_smoking&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex7_first_prediction&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex8_score&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex9_SVR_score&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex10_SVR_linear_score&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="submission-limits">
+<h3>Submission Limits<a class="headerlink" href="#submission-limits" title="Link to this heading">#</a></h3>
+<p>Please remember that you are <strong>only allowed three submissions to the autograder.</strong> Your last submission (if you submit 3 or fewer times), or your third submission (if you submit more than 3 times) will determine your grade Submissions that error out will <strong>not</strong> count against this total.</p>
+</section>
+</section>
+<section id="machine-learning-in-medicine">
+<h2>Machine Learning in Medicine<a class="headerlink" href="#machine-learning-in-medicine" title="Link to this heading">#</a></h2>
+<p>In these exercises, we’ll learn to fit and evaluate (in a basic way) machine learning models using the package <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>.</p>
+<p>The emphasis of these exercises is to help you get comfortable with the data-wrangling component of machine learning so that in future courses you can focus on the <em>theory</em> underlying machine learning. With that in mind, we will be quite cavalier with model fitting and evaluation. As with our <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> exercises—in which we quickly ran through a few models to practice model <em>implemention</em> without thinking too much about model selection and specification—this is <strong>not</strong> how you should do your actual data science analyses!</p>
+<p>Though this is true generally, it is doubly true in the context of these exercises: the application of machine learning to medicine.</p>
+<p>In these exercises, we will use the birth-weight data we used for our <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> exercises to predict birth weights. As you will see, implementing a machine learning model to predict birth weights is actually surprisingly straightforward. But that ease is deceptive; while machine learning algorithms are easy to use, they’re hard to use <em>well</em>, and if you get them wrong in contexts where they impact real people, poorly implemented machine learning models can literally kill people.</p>
+<p>Lest you think I’m being hyperbolic, consider the case of a machine learning model used by medical providers across the US to make treatment decisions for millions of people. The goal of the model (distributed by a company called Optum) was to help providers figure out what patients were especially likely to face health problems down the road, so they could provide these patients extra preventative care.</p>
+<p>The problem, though, is that the way Optum did this was by training a supervised machine learning model to predict future healthcare use by patients. Patients the model predicted would consume more healthcare in the future, the model implicitly <em>assumed</em>, were those who should get extra care today.</p>
+<p>But <a class="reference external" href="https://www.washingtonpost.com/health/2019/10/24/racial-bias-medical-algorithm-favors-white-patients-over-sicker-black-patients/">as was recently described in a paper in the journal Science</a>, the problem is that the model had a large racial bias, and was less likely to recommend extra preventative care for black patients.</p>
+<p>The reason was that Black patients in the United States tend to use the medical system less than White patients <em>even when the Black patients have the same level of medical need as White patients</em>. Why? The paper doesn’t explore that fully, but the causes likely include skepticism towards the medical establishment due to the history of Black Americans being used as <a class="reference external" href="https://en.wikipedia.org/wiki/Tuskegee_syphilis_experiment">unknowing test subjects for medical studies</a>, or the fact that Black Americans tend to have lower incomes and are less likely to be insured than White Americans.</p>
+<p>So when this model saw that Black patients didn’t consume as much healthcare in the future, the algorithm interpreted that as evidence that Black patients <em>didn’t need</em> healthcare in the future. This resulted in the model falsely telling doctors that Black patients were systematically less in need of preventative care.</p>
+<p><strong>Crucially, this occurred even though race wasn’t even a variable in the model.</strong> Machine learning models are very good at picking up subtle signals, and so even though patient race wasn’t an explicit factor in the model, the model was nevertheless able to differentiate Black and White patients. Though it’s not clear exactly how it did so, this can happen whenever variables are included in models that are <em>correlated</em> with race. For example, people’s zip codes (which identify where people live) are notorious for proxying for race in machine learning algorithms since residential segregation in the US means that most people in a given zip code are of the same race.</p>
+<p>And so as a result, this well-meaning machine learning algorithm resulted in black patients receiving fewer preventative medical interventions than white patients, even after taking into account other (medically relevant) factors.</p>
+<p>So: in this exercise, we’ll play with predicting birth weights in infants. But do <strong>NOT</strong> think that just because it’s this easy to fit a model, it is appropriate to then go use these in the real world in contexts where people’s lives are affected!</p>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<p><strong>(1)</strong> Load the data “smoking.csv”, which includes information on both biometrics of infants at birth, and information on mothers (variables prefixed with the letter “m”), from <a class="reference external" href="https://github.com/nickeubank/MIDS_Data">this MIDS repo</a>. We’ll be working with this data in this exercise.</p>
+</section>
+<section id="formatting-your-data">
+<h2>Formatting Your Data<a class="headerlink" href="#formatting-your-data" title="Link to this heading">#</a></h2>
+<p>Unlike in <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>, we can’t use <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrames in scikit-learn, so the first step in nearly any machine learning workflow (if you haven’t already been given a nice giant numpy array) is to convert our heterogeneous pandas array (which includes strings, categorical variables, integers, and floating point numbers) into a single large matrix that consists only of floating point numbers.</p>
+<p>While you can do this by hand, this is most easily accomplished using the <code class="docutils literal notranslate"><span class="pre">patsy</span></code> library, which will take a pandas array and a special formula string and return numpy arrays for use in libraries like scikit-learn. (<code class="docutils literal notranslate"><span class="pre">patsy</span></code> is actually the library that implemented the formulas we used in <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> to specify our regression models—here we’re just using it on its own).</p>
+<p>Let’s assume that for most of these exercises, we want to predict birth weight (<code class="docutils literal notranslate"><span class="pre">bwt.oz</span></code>) using:</p>
+<ul class="simple">
+<li><p>whether the mother is (a) White, (b) Black, (c) Hispanic or (d) of another ethnicity (in other words, please recode <code class="docutils literal notranslate"><span class="pre">mrace</span></code> into four categories)</p></li>
+<li><p>whether the mother smokes (<code class="docutils literal notranslate"><span class="pre">smoke</span></code>)</p></li>
+<li><p>Mother’s age (<code class="docutils literal notranslate"><span class="pre">mage</span></code>)</p></li>
+<li><p>Mother’s weight (<code class="docutils literal notranslate"><span class="pre">mpregwt</span></code>)</p></li>
+<li><p>Mother’s height (<code class="docutils literal notranslate"><span class="pre">mht</span></code>)</p></li>
+</ul>
+<p>We won’t use any interaction terms in this exercise, just these entered on their own.</p>
+<p>For race, recall that in the raw data, <code class="docutils literal notranslate"><span class="pre">mrace</span></code> is coded as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mrace    mother’s race or ethnicity
+         0-5= white
+         6  = mexican
+         7 = black
+         8 = asian
+         9 = mix
+         99 = unknown
+</pre></div>
+</div>
+<p>Re-group mrace to be White(0-5), Hispanic (6), Black(7), other (8, 9, 99)</p>
+<p>(We’re ignoring <code class="docutils literal notranslate"><span class="pre">gestation</span></code> because we don’t really know the value of <code class="docutils literal notranslate"><span class="pre">gestation</span></code> before the child is born, so we can’t use it to predict the birthweight of not-yet-born children!)</p>
+<p><strong>(2)</strong> Begin by using <code class="docutils literal notranslate"><span class="pre">patsy.dmatrices()</span></code> to create two datasets (<code class="docutils literal notranslate"><span class="pre">y</span></code>, which is the birth weights, and <code class="docutils literal notranslate"><span class="pre">X</span></code>, which is a matrix with all your “features” in a nice numpy array).</p>
+<p><strong>Note:</strong> You may hit a similar issue using patsy here you encountered when writing formulas in the <a class="reference internal" href="#exercises/statsmodel.ipynb"><span class="xref myst">statsmodels</span></a> exercise.</p>
+<p><strong>(3)</strong> Look at your features matrix <code class="docutils literal notranslate"><span class="pre">X</span></code>. How many columns does it have? Store your answer as <code class="docutils literal notranslate"><span class="pre">ex3_num_columns</span></code>. How does that compare to the number of variables you used as inputs? (if they’re the same, you probably did something wrong…).</p>
+<p>Explain all the things patsy has done with your data (hint: it’s made TWO changes affecting the number of columns in your data).</p>
+</section>
+<section id="splitting-your-data">
+<h2>Splitting Your Data<a class="headerlink" href="#splitting-your-data" title="Link to this heading">#</a></h2>
+<p>In machine learning, model selection is often accomplished by:</p>
+<ol class="arabic simple">
+<li><p>Splitting your data into two parts (a training set and a test set),</p></li>
+<li><p>Training your model on the training set (i.e. set the parameters of your model to best explain the training data).</p></li>
+<li><p>Testing the model by using the parameters generated during that training to predict values for the testing data, then comparing the predicted values for the testing data to the actual values in the test data. The smaller the difference between the predicted values and the true values in the testing data, the better the model is said to perform.</p></li>
+</ol>
+<p>Suppose we just wanted to use linear regression as our model. First, we’d randomly pick 80% our data, then regress birth weight on the various variables (“features” in machine learning terminology) we specified above. Then we’d use the coefficients from that regression to predict birth weights for the 20% of children we didn’t use in our estimation, and see how different those predictions are from actual birth weights. If we find a model that performs well on our testing data, then we <em>assume</em> (<em>hope</em>) that that model will also work well on new data (i.e. on children who haven’t been born yet whose weight we want to predict).</p>
+<p>(Readers from a statistics background will recognize this as being a little analogous to “cross-validation.”)</p>
+<p>So the first step in machine learning is to split our sample! Thankfully this is easy to do with the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> function. Import the function with <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">sklearn.model_selection</span> <span class="pre">import</span> <span class="pre">train_test_split</span></code>, and split your data. To give you a sense of how it works, this is a common syntax:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> 
+                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> 
+                                                    <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">X_train</span></code> is your training features, <code class="docutils literal notranslate"><span class="pre">Y_train</span></code> are your training birth weights, <code class="docutils literal notranslate"><span class="pre">X_test</span></code> are your test features, and <code class="docutils literal notranslate"><span class="pre">Y_test</span></code> are your test birth weights. The <code class="docutils literal notranslate"><span class="pre">random_state</span></code> var just ensures that you can re-create this split if you have to re-run your code (helpful for debugging and for our autograder).</p>
+<p><strong>(4)</strong> Start by splitting YOUR data, putting 80% into the training data. Set your random state with the seed <code class="docutils literal notranslate"><span class="pre">42</span></code> so your random split is the same as will be used by the autograder.</p>
+</section>
+<section id="training-your-model">
+<h2>Training your Model<a class="headerlink" href="#training-your-model" title="Link to this heading">#</a></h2>
+<p>Now it’s time to train our model!</p>
+<p><code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> is much loved because it has, like… every model ever already built in, and it provides a common interface (API) for all of them. Seriously—go check out all the supervised machine learning models that come <a class="reference external" href="https://scikit-learn.org/stable/supervised_learning.html#supervised-learning">with scikit-learn here</a>.</p>
+<p>Moreover, unlike many open-source projects, all of its models are really well documented, so you can read all about them. And <a class="reference external" href="https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html">check out this nifty guide to choosing an appropriate model</a>.</p>
+<p>For this exercise, let’s start by fitting a <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> model.</p>
+<p>Wait, you say: isn’t that what we did in <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>? Yes!</p>
+<p>Data Science is a very fragmented discipline, and some stuff gets recapitulated in slightly different ways in different places, so it’s common to see different implementations of the same thing as you move from the world of statisticians (<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>) to the world of computer scientists (i.e. machine learning and <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>).</p>
+<p><strong>(5)</strong> Import the Linear Regression model and instantiate it with code like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="n">my_model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">fit_intercept=False</span></code> tells <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> you don’t want it to fit an intercept for your model <em>behind the scenes</em>. We use <code class="docutils literal notranslate"><span class="pre">False</span></code> because <code class="docutils literal notranslate"><span class="pre">patsy</span></code> included an intercept in our design matrix (a column of 1s), and we want to see the coefficient on that column in our coefficients.</p>
+<p><strong>(6)</strong> Now fit your model against X and y and take a look at the coefficients.</p>
+<p>Machine learning, more than absolutely anything else, is concerned with <em>predicting</em> values, and that’s evident in what functionality is exposed by this implementation of linear regressions. As you may recall, in <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>, you could type <code class="docutils literal notranslate"><span class="pre">.summary()</span></code> and get something that looked like this:</p>
+<p><img alt="statsmodel_output" src="notebooks/ids720_specific/images/statsmodel_output.png" /></p>
+<p>A full printout of various diagnostics, all your coefficients, estimates of confidence intervals for each coefficient, etc.</p>
+<p>By contrast, <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> from <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> has no <code class="docutils literal notranslate"><span class="pre">summary</span></code> method. Indeed, the only output you really get for what the model has actually fit is <code class="docutils literal notranslate"><span class="pre">my_model.coef_</span></code>, which will look something like (not real values or number of coefficients you should get here):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">my_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="n">my_model</span><span class="o">.</span><span class="n">coef_</span>
+
+<span class="n">array</span><span class="p">([[</span> <span class="mf">7.89347789e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.3442359e+00</span><span class="p">,</span>
+        <span class="o">-</span><span class="mf">8.78152768e+00</span><span class="p">,</span> <span class="mf">3.215196740e+00</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>Which I think we can all agree is not nearly as informative a print-out!</p>
+<p>To be clear, you can recover many of the diagnostics for LinearRegression by digging around in other corners of <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, but what is made available speaks to the prioritizes of different users: <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> is for making predictions; <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> is for statistics and understanding mechanisms (i.e. seeing if the coefficient on smoking is significant).</p>
+<p>Store your model’s coefficients for smoking in <code class="docutils literal notranslate"><span class="pre">ex6_model_smoking</span></code>. (Note how much trickier this is here than with <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>! sklearn doesn’t think anyone would ever care about individual coefficients).</p>
+<p><strong>Note:</strong> In <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>, the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method returned a new fitted model. In <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, by contrast, <code class="docutils literal notranslate"><span class="pre">.fit</span></code> modifies (mutates) the model in place.</p>
+<p><strong>(7)</strong> OK, but we’re in the world of sklearn, so let’s do some prediction! Now that you’ve fit your model, use the <code class="docutils literal notranslate"><span class="pre">predict</span></code> method your data to create a set of predictions. Store the first (index 0) predicted birthweight in <code class="docutils literal notranslate"><span class="pre">ex7_first_prediction</span></code>.</p>
+</section>
+<section id="evaluating-your-model">
+<h2>Evaluating your Model<a class="headerlink" href="#evaluating-your-model" title="Link to this heading">#</a></h2>
+<p>So we now have a trained model that we can use to predict birthweights. Yay! But is it any good?</p>
+<p>All <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> models have a method called <code class="docutils literal notranslate"><span class="pre">score</span></code> you can used to get the most basic evaluation of your model. The syntax is just:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you’re doing a classification model (something that tries to guess the category for each observation, like a model that evalutes a set of pictures and tries to figure out if the pictures are of cats, dogs, or humans), <code class="docutils literal notranslate"><span class="pre">score</span></code> will return an “accuracy” score (the percentage of observations you properly classified). For a regression model (trying to guess a continuous variable) it will give an R-squared score.</p>
+<p>As you get more sophisticated, you will discover these basic scores are often inadequate for evaluating models, and you can turn to other evaluation functions found in <a class="reference external" href="https://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter">sklearn.metrics</a>. But for now we’ll just use the default <code class="docutils literal notranslate"><span class="pre">score</span></code> output of R-squared.</p>
+<p><strong>(8)</strong> What is the score of your model? Store the result as <code class="docutils literal notranslate"><span class="pre">ex8_score</span></code></p>
+</section>
+<section id="machine-learning-workflow-summary">
+<h2>Machine Learning Workflow Summary<a class="headerlink" href="#machine-learning-workflow-summary" title="Link to this heading">#</a></h2>
+<p>Congratulations! You just did you just fit your machine learning algorithm! And you also learned that sometimes what constitutes “machine learning” is in the eye of the beholder, given what you did today is the same thing you did in our last class without calling it machine learning. :)</p>
+<p>But hopefully that’s given you a general sense for the work-flow of scikit-learn:</p>
+<ol class="arabic simple">
+<li><p>Prep your data:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">patsy</span>
+<span class="n">y</span> <span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s1">&#39;bwt_oz ~ C(race_recoded) + smoke + mage + mpregwt + mht&#39;</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Split your data:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> 
+                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> 
+                                                    <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Import and fit a model:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="n">my_model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">my_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Evaluate your model:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Use youre model to make predictions:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_predictions</span> <span class="o">=</span> <span class="n">my_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="comparing-models">
+<h2>Comparing Models<a class="headerlink" href="#comparing-models" title="Link to this heading">#</a></h2>
+<p>Now that we have a baseline estimate for the performance of <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> for this set of features and outputs, let’s try a different model and see how it compares!</p>
+<p><strong>(9)</strong> Now repeat your analysis using a Support Vector Regression (<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">sklearn.svm</span> <span class="pre">import</span> <span class="pre">SVR</span></code>).</p>
+<p>How does the model perform? Is it better or worse than LinearRegression?</p>
+<p><strong>Note:</strong> You’ll probably get a <code class="docutils literal notranslate"><span class="pre">DataConversionWarning:</span> <span class="pre">A</span> <span class="pre">column-vector</span> <span class="pre">y</span> <span class="pre">was</span> <span class="pre">passed</span> <span class="pre">when</span> <span class="pre">a</span> <span class="pre">1d</span> <span class="pre">array</span> <span class="pre">was</span> <span class="pre">expected</span></code>. This is <a class="reference external" href="https://www.practicaldatascience.org/html/41_broadcasting.html#A-Common-Gotcha:-Narrow-Matrices-v.-1-Dimensional-Vectors">related to this common gotcha</a>. Make sure you understand the problem / are able to resolve the warning.</p>
+<p>Why didn’t you get this with <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code>? That I can’t say! They must each be implemented slightly differently beneath the hood.</p>
+<p><strong>ROUND</strong> your value of the score of this fit model result to <em>2</em> decimal places and store as <code class="docutils literal notranslate"><span class="pre">&quot;ex9_SVR_score&quot;</span></code>. (SVR is not deterministic, and it doesn’t seem to respect our random seeds, so values beyond this may differ a little across computers.)</p>
+<p><strong>(10)</strong> One choice parameter for SVRs is the kernel it uses for weighting (again, this isn’t a class on machine learning, so don’t worry too much about what this means—just know that it’s a parameter of the model). Check the SVR documentation to figure out how to set the kernel to <code class="docutils literal notranslate"><span class="pre">linear</span></code> and see how it performs now.</p>
+<p>Store the score of the SVR with linear kernel as <code class="docutils literal notranslate"><span class="pre">&quot;ex10_SVR_linear_score&quot;</span></code>. <strong>ROUND</strong> your value of the score of the SVR with linear kernel to <em>2</em> decimal places and store as <code class="docutils literal notranslate"><span class="pre">&quot;ex10_SVR_linear_score&quot;</span></code></p>
+<p><strong>(11)</strong> Now pick whatever regression model you’d like and see how it performs (<a class="reference external" href="https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html">some suggestions</a>). Play with your model specifications and see how well you can do with your new model of one of the ones we used above.</p>
+</section>
+<section id="want-more-practice">
+<h2>Want More Practice?<a class="headerlink" href="#want-more-practice" title="Link to this heading">#</a></h2>
+<p>Try replicating our attempts to predict whether infants would be born premature from the <a class="reference internal" href="Exercise_statsmodels.html"><span class="std std-doc">statsmodels exercises</span></a> in scikit-learn. Start with a LogisticRegression, then try some different “classification models” for comparison!</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/ids720_specific/exercises"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradescope-autograding">Gradescope Autograding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-limits">Submission Limits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-in-medicine">Machine Learning in Medicine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-your-data">Formatting Your Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-your-data">Splitting Your Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-your-model">Training your Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-your-model">Evaluating your Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-workflow-summary">Machine Learning Workflow Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-models">Comparing Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#want-more-practice">Want More Practice?</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
