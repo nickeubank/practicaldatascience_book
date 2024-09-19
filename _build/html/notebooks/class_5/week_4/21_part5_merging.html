@@ -1909,6 +1909,106 @@ dtype: bool
 </div>
 </div>
 </div>
+<p>As a final step, let’s collect all of our code for merging our data into a function we can rerun as needed to repeat this process:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">difflib</span> <span class="kn">import</span> <span class="n">SequenceMatcher</span><span class="p">,</span> <span class="n">get_close_matches</span>
+
+<span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="n">continent</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">similar</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">ratio</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">closest</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">get_close_matches</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">B</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">long</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">continent</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">short</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">long_strings</span> <span class="o">=</span> <span class="n">long</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">short_strings</span> <span class="o">=</span> <span class="n">short</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># First pass, match those with exact subsets</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ss</span> <span class="ow">in</span> <span class="n">short</span><span class="p">:</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ls</span> <span class="ow">in</span> <span class="n">long</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ss</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">:</span>
+                <span class="n">candidates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">selected</span> <span class="o">=</span> <span class="n">closest</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span> <span class="n">candidates</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">sim</span> <span class="o">=</span> <span class="n">similar</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span> <span class="n">selected</span><span class="p">)</span>
+            <span class="n">long_strings</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+            <span class="n">short_strings</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span>
+            <span class="n">matches</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ss</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># Second pass, match what remains using proximity</span>
+    <span class="n">slength</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">short_strings</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">slength</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">matching_options</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">similarity</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ss</span> <span class="ow">in</span> <span class="n">short_strings</span><span class="p">:</span>
+            <span class="n">selected</span> <span class="o">=</span> <span class="n">closest</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span> <span class="n">long_strings</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">similarity</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">similar</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span> <span class="n">selected</span><span class="p">))</span>
+            <span class="n">matching_options</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ss</span><span class="p">,</span> <span class="n">selected</span><span class="p">])</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">max_index</span> <span class="o">=</span> <span class="n">similarity</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">similarity</span><span class="p">))</span>
+        <span class="n">sim</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">similarity</span><span class="p">)</span>
+        <span class="n">long_strings</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">matching_options</span><span class="p">[</span><span class="n">max_index</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">short_strings</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">matching_options</span><span class="p">[</span><span class="n">max_index</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">matches</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">matching_options</span><span class="p">[</span><span class="n">max_index</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">matching_options</span><span class="p">[</span><span class="n">max_index</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">sim</span><span class="p">])</span>
+        <span class="n">slength</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">short_strings</span><span class="p">)</span>
+    
+    <span class="c1"># Retain matches with a similarirty score greater than 0.5</span>
+    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+            <span class="n">continent</span> <span class="o">=</span> <span class="n">continent</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">continent</span>
+
+
+<span class="k">def</span> <span class="nf">merge_data</span><span class="p">(</span><span class="n">co2_file</span><span class="p">,</span> <span class="n">income_file</span><span class="p">,</span> <span class="n">pop_file</span><span class="p">,</span> <span class="n">continent_file</span><span class="p">,</span><span class="n">outfile</span><span class="p">):</span>
+    <span class="c1"># Load the data</span>
+    <span class="n">co2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">co2_file</span><span class="p">)</span>
+    <span class="n">income</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">income_file</span><span class="p">)</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pop_file</span><span class="p">)</span>
+    <span class="n">continent</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">continent_file</span><span class="p">)</span>
+    
+    <span class="c1"># Merge CO2 and income:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">co2</span><span class="p">,</span> <span class="n">income</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;country&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Next merge in population:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;country&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Next align the continents data for merging, then merge it in:</span>
+    <span class="n">continent</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">continent</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">continent</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;country&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Manually adjust the unmatched continents:</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">35</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Africa&quot;</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">94</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">177</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
+    
+    <span class="c1"># Replace Oceania with Asia:</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Oceania&quot;</span><span class="p">,</span> <span class="s2">&quot;Asia&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Save to file</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+<span class="c1"># Test and make sure the file produces identical output as the original process:</span>
+<span class="n">co2_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/co2.csv&#39;</span>
+<span class="n">income_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/income.csv&#39;</span>
+<span class="n">population_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/pop.csv&#39;</span> 
+<span class="n">continents_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/continent.csv&#39;</span>
+<span class="n">merged_data_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/data.csv&#39;</span>
+<span class="n">merge_data</span><span class="p">(</span><span class="n">co2_file</span><span class="p">,</span> <span class="n">income_file</span><span class="p">,</span> <span class="n">population_file</span><span class="p">,</span> <span class="n">continents_file</span><span class="p">,</span> <span class="n">merged_data_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 

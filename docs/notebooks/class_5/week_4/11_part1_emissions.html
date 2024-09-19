@@ -1283,7 +1283,32 @@ document.write(`
 </div>
 </div>
 </div>
-<p>The CO2 emissions dataset is ready for use! Let’s save our data and move on to exploring income per person.</p>
+<p>With all of this complete, let’s create a function that includes each of the steps above to reproduce what we’ve done:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Function to process CO2 data.</span>
+<span class="k">def</span> <span class="nf">process_co2</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span><span class="n">outfile</span><span class="p">):</span>
+    <span class="c1"># Read the data</span>
+    <span class="n">co2_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+    
+    <span class="c1"># Select the columns that we need and rename them for ease of reference</span>
+    <span class="n">co2</span> <span class="o">=</span> <span class="n">co2_all</span><span class="p">[[</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="s2">&quot;2017&quot;</span><span class="p">]]</span>
+    <span class="n">co2</span> <span class="o">=</span> <span class="n">co2</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;2017&quot;</span><span class="p">:</span> <span class="s2">&quot;co2&quot;</span><span class="p">})</span>
+    
+    <span class="c1"># Output the resulting data</span>
+    <span class="n">co2</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Test to make sure the results are the same as the original</span>
+<span class="n">raw_co2_file</span> <span class="o">=</span> <span class="s2">&quot;data/co2_emissions_tonnes_per_person.csv&quot;</span>
+<span class="n">co2_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/co2.csv&#39;</span>
+<span class="n">process_co2</span><span class="p">(</span><span class="n">raw_co2_file</span><span class="p">,</span><span class="n">co2_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The CO2 emissions dataset is ready for use! Let’s move on to exploring income per person.</p>
 </section>
 
     <script type="text/x-thebe-config">

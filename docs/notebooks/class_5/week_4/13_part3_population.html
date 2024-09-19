@@ -1227,6 +1227,44 @@ dtype: object
 </div>
 </div>
 </div>
+<p>Great - let’s collect these steps into a single function that we can use to reproduce this process later, as we’ve done ith emissions and income:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="k">def</span> <span class="nf">process_population</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span><span class="n">outfile</span><span class="p">):</span>
+    <span class="c1"># Helper function to convert string data within the file into numerical data</span>
+    <span class="k">def</span> <span class="nf">string2num</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;k&quot;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mi">1000</span>
+        <span class="k">elif</span> <span class="s2">&quot;M&quot;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1e6</span>
+        <span class="k">elif</span> <span class="s2">&quot;B&quot;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1e9</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">number</span>
+    
+    <span class="c1"># Read the file, select the columns of interest</span>
+    <span class="n">pop_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+    <span class="n">pop_2017</span> <span class="o">=</span> <span class="n">pop_all</span><span class="p">[[</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="s2">&quot;2017&quot;</span><span class="p">]]</span>
+    
+    <span class="c1"># Convert the textual data in the dataset into numerical data</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">pop_2017</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pop</span><span class="p">[</span><span class="s2">&quot;2017&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pop_2017</span><span class="p">[</span><span class="s2">&quot;2017&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">string2num</span><span class="p">)</span>
+    
+    <span class="c1"># Rename the columns to make them more readable and save the output to file</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">pop</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;2017&quot;</span><span class="p">:</span> <span class="s2">&quot;population&quot;</span><span class="p">})</span>
+    <span class="n">pop</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Test and make sure the file produces identical output as the original process:</span>
+<span class="n">raw_population_file</span> <span class="o">=</span> <span class="s2">&quot;data/population_total.csv&quot;</span>
+<span class="n">population_file</span> <span class="o">=</span> <span class="s2">&quot;data/intermediate/pop.csv&quot;</span>
+<span class="n">process_population</span><span class="p">(</span><span class="n">raw_population_file</span><span class="p">,</span><span class="n">population_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>With that done, we now have prepared our data for <code class="docutils literal notranslate"><span class="pre">co2</span></code>, <code class="docutils literal notranslate"><span class="pre">income</span></code>, and <code class="docutils literal notranslate"><span class="pre">pop</span></code>. All we need now is a way to identify the corresponding continent / region of the world for each country, and for that, we can look at our UN data.</p>
 </section>
 

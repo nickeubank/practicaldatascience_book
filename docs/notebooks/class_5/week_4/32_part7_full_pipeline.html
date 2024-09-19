@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Preparing the data: Continents &#8212; Practical Data Science with Python</title>
+    <title>Complete Pipeline &#8212; Practical Data Science with Python</title>
   
   
   
@@ -57,7 +57,7 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_5/week_4/14_part4_continents';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_5/week_4/32_part7_full_pipeline';</script>
     <link rel="icon" href="../../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -397,7 +397,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_5/week_4/14_part4_continents.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_5/week_4/32_part7_full_pipeline.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -427,7 +427,7 @@
       
       
       
-      <li><a href="../../../_sources/notebooks/class_5/week_4/14_part4_continents.ipynb" target="_blank"
+      <li><a href="../../../_sources/notebooks/class_5/week_4/32_part7_full_pipeline.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -509,7 +509,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Preparing the data: Continents</h1>
+    <h1>Complete Pipeline</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -523,571 +523,59 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="preparing-the-data-continents">
-<h1>Preparing the data: Continents<a class="headerlink" href="#preparing-the-data-continents" title="Link to this heading">#</a></h1>
-<p>We’re walking through our four datasets, processing one at a time:</p>
-<ol class="arabic simple">
-<li><p><em>Carbon dioxide emissions by country</em></p></li>
-<li><p><em>Income (as measured by GDP per capita) by country</em></p></li>
-<li><p><em>Population by country (so we can convert CO2 emissions into per capita emissions)</em></p></li>
-<li><p><strong>List of territories by continent (since we want to be able to group the countries by region of the world)</strong></p></li>
-</ol>
-<p>Once again, let’s start by loading in and inspecting the next and final dataset we’ll be incorporating: the UN data on continents.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">continents_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/united_nations_continents.csv&quot;</span><span class="p">)</span>
-<span class="n">continents_all</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">File</span> <span class="n">parsers</span><span class="o">.</span><span class="n">pyx</span><span class="p">:</span><span class="mi">2058</span><span class="p">,</span> <span class="ow">in</span> <span class="n">pandas</span><span class="o">.</span><span class="n">_libs</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">raise_parser_error</span><span class="p">()</span>
-
-<span class="n">ParserError</span><span class="p">:</span> <span class="n">Error</span> <span class="n">tokenizing</span> <span class="n">data</span><span class="o">.</span> <span class="n">C</span> <span class="n">error</span><span class="p">:</span> <span class="n">Expected</span> <span class="mi">1</span> <span class="n">fields</span> <span class="ow">in</span> <span class="n">line</span> <span class="mi">67</span><span class="p">,</span> <span class="n">saw</span> <span class="mi">2</span>
-</pre></div>
-</div>
-<p>Uh, oh. When we run this, we get an error! What’s going on? Whenever we see an error like this, it’s good to look directly at our data to see if we missed something about the data that prevented it from loading. Let’s take a look into the first few lines of the ‘united_nations_continents.csv’ file and see if anything odd is going on there:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Global Code;Global Name;Region Code;Region Name;Sub-region Code;Sub-region Name;Intermediate Region Code;Intermediate Region Name;Country or Area;M49 Code;ISO-alpha2 Code;ISO-alpha3 Code;Least Developed Countries (LDC);Land Locked Developing Countries (LLDC);Small Island Developing States (SIDS)
-001;World;002;Africa;015;Northern Africa;;;Algeria;012;DZ;DZA;;;
-001;World;002;Africa;015;Northern Africa;;;Egypt;818;EG;EGY;;;
-001;World;002;Africa;015;Northern Africa;;;Libya;434;LY;LBY;;;
-001;World;002;Africa;015;Northern Africa;;;Morocco;504;MA;MAR;;;
-001;World;002;Africa;015;Northern Africa;;;Sudan;729;SD;SDN;x;;
-</pre></div>
-</div>
-<p>There is definitely something odd going on here! A CSV file stands for “comma separated values” however, this file is not comma separated, it’s semicolon separated! To address this, we will need to adjust our data loading code to accommodate. We can do this with the <code class="docutils literal notranslate"><span class="pre">sep</span></code> keyword for the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> method to let it know the separator is a semicolon and otherwise proceed as it would with the comma.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="complete-pipeline">
+<h1>Complete Pipeline<a class="headerlink" href="#complete-pipeline" title="Link to this heading">#</a></h1>
+<p>With Python, we can collect each of the individual processing components into one location and use them to easily recreate our entire pipeline. First of all, let’s move all of the indivual functions that we put together into one file called <code class="docutils literal notranslate"><span class="pre">project.py</span></code>. In this we place, <code class="docutils literal notranslate"><span class="pre">process_co2</span></code>, <code class="docutils literal notranslate"><span class="pre">process_income</span></code>, <code class="docutils literal notranslate"><span class="pre">process_population</span></code>, <code class="docutils literal notranslate"><span class="pre">process_continents</span></code>, <code class="docutils literal notranslate"><span class="pre">merge_data</span></code> (and the supporting function <code class="docutils literal notranslate"><span class="pre">match</span></code>), and <code class="docutils literal notranslate"><span class="pre">plot_emissions_gdp</span></code>. We also include at the top of that file any imports that we need to make those functions work including pandas (and the <code class="docutils literal notranslate"><span class="pre">difflib</span></code> tools we used to do the country text matching).</p>
+<p>Now, we can simply import this <code class="docutils literal notranslate"><span class="pre">project.py</span></code> file and have access to any of those functions within the corresponding namespace. For example, if we run <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">project</span></code> we can then call <code class="docutils literal notranslate"><span class="pre">process_income</span></code> by <code class="docutils literal notranslate"><span class="pre">running</span> <span class="pre">project.process_income()</span></code>. Let’s use this to rerun our entire project in less than a dozen lines of code. First, we’ll list all of the paths to our data sources for inputs and where to store the intermediate and final data products:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="n">continents_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/united_nations_continents.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
-<span class="n">continents_all</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Global Code</th>
-      <th>Global Name</th>
-      <th>Region Code</th>
-      <th>Region Name</th>
-      <th>Sub-region Code</th>
-      <th>Sub-region Name</th>
-      <th>Intermediate Region Code</th>
-      <th>Intermediate Region Name</th>
-      <th>Country or Area</th>
-      <th>M49 Code</th>
-      <th>ISO-alpha2 Code</th>
-      <th>ISO-alpha3 Code</th>
-      <th>Least Developed Countries (LDC)</th>
-      <th>Land Locked Developing Countries (LLDC)</th>
-      <th>Small Island Developing States (SIDS)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>World</td>
-      <td>2.0</td>
-      <td>Africa</td>
-      <td>15.0</td>
-      <td>Northern Africa</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Algeria</td>
-      <td>12</td>
-      <td>DZ</td>
-      <td>DZA</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>World</td>
-      <td>2.0</td>
-      <td>Africa</td>
-      <td>15.0</td>
-      <td>Northern Africa</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Egypt</td>
-      <td>818</td>
-      <td>EG</td>
-      <td>EGY</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1</td>
-      <td>World</td>
-      <td>2.0</td>
-      <td>Africa</td>
-      <td>15.0</td>
-      <td>Northern Africa</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Libya</td>
-      <td>434</td>
-      <td>LY</td>
-      <td>LBY</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1</td>
-      <td>World</td>
-      <td>2.0</td>
-      <td>Africa</td>
-      <td>15.0</td>
-      <td>Northern Africa</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Morocco</td>
-      <td>504</td>
-      <td>MA</td>
-      <td>MAR</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1</td>
-      <td>World</td>
-      <td>2.0</td>
-      <td>Africa</td>
-      <td>15.0</td>
-      <td>Northern Africa</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Sudan</td>
-      <td>729</td>
-      <td>SD</td>
-      <td>SDN</td>
-      <td>x</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>1</td>
-      <td>World</td>
-      <td>2.0</td>
-      <td>Africa</td>
-      <td>15.0</td>
-      <td>Northern Africa</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Tunisia</td>
-      <td>788</td>
-      <td>TN</td>
-      <td>TUN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>1</td>
-      <td>World</td>
-      <td>2.0</td>
-      <td>Africa</td>
-      <td>15.0</td>
-      <td>Northern Africa</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Western Sahara</td>
-      <td>732</td>
-      <td>EH</td>
-      <td>ESH</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>1</td>
-      <td>World</td>
-      <td>2.0</td>
-      <td>Africa</td>
-      <td>202.0</td>
-      <td>Sub-Saharan Africa</td>
-      <td>14.0</td>
-      <td>Eastern Africa</td>
-      <td>British Indian Ocean Territory</td>
-      <td>86</td>
-      <td>IO</td>
-      <td>IOT</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>1</td>
-      <td>World</td>
-      <td>2.0</td>
-      <td>Africa</td>
-      <td>202.0</td>
-      <td>Sub-Saharan Africa</td>
-      <td>14.0</td>
-      <td>Eastern Africa</td>
-      <td>Burundi</td>
-      <td>108</td>
-      <td>BI</td>
-      <td>BDI</td>
-      <td>x</td>
-      <td>x</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>1</td>
-      <td>World</td>
-      <td>2.0</td>
-      <td>Africa</td>
-      <td>202.0</td>
-      <td>Sub-Saharan Africa</td>
-      <td>14.0</td>
-      <td>Eastern Africa</td>
-      <td>Comoros</td>
-      <td>174</td>
-      <td>KM</td>
-      <td>COM</td>
-      <td>x</td>
-      <td>NaN</td>
-      <td>x</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>While there’s a lot of information here, what we need are two columns: ‘Region Name’ and ‘Country or Area’. Let’s extract just those from the data:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">continent</span> <span class="o">=</span> <span class="n">continents_all</span><span class="p">[[</span><span class="s2">&quot;Region Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Country or Area&quot;</span><span class="p">]]</span>
-<span class="n">continent</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Region Name</th>
-      <th>Country or Area</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Africa</td>
-      <td>Algeria</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Africa</td>
-      <td>Egypt</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Africa</td>
-      <td>Libya</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Africa</td>
-      <td>Morocco</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Africa</td>
-      <td>Sudan</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Africa</td>
-      <td>Tunisia</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>Africa</td>
-      <td>Western Sahara</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>Africa</td>
-      <td>British Indian Ocean Territory</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>Africa</td>
-      <td>Burundi</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>Africa</td>
-      <td>Comoros</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>For ease of reference, let’s rename the columns ‘Region Name’ and ‘Country or Area’ to ‘continent’ and ‘country’ respectively:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">continent</span> <span class="o">=</span> <span class="n">continent</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Region Name&quot;</span><span class="p">:</span> <span class="s2">&quot;continent&quot;</span><span class="p">,</span> <span class="s2">&quot;Country or Area&quot;</span><span class="p">:</span> <span class="s2">&quot;country&quot;</span><span class="p">}</span>
-<span class="p">)</span>
-<span class="n">continent</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>continent</th>
-      <th>country</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Africa</td>
-      <td>Algeria</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Africa</td>
-      <td>Egypt</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Africa</td>
-      <td>Libya</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Africa</td>
-      <td>Morocco</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Africa</td>
-      <td>Sudan</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>244</th>
-      <td>Oceania</td>
-      <td>Samoa</td>
-    </tr>
-    <tr>
-      <th>245</th>
-      <td>Oceania</td>
-      <td>Tokelau</td>
-    </tr>
-    <tr>
-      <th>246</th>
-      <td>Oceania</td>
-      <td>Tonga</td>
-    </tr>
-    <tr>
-      <th>247</th>
-      <td>Oceania</td>
-      <td>Tuvalu</td>
-    </tr>
-    <tr>
-      <th>248</th>
-      <td>Oceania</td>
-      <td>Wallis and Futuna Islands</td>
-    </tr>
-  </tbody>
-</table>
-<p>249 rows × 2 columns</p>
-</div></div></div>
-</div>
-<p>Let’s also sort <code class="docutils literal notranslate"><span class="pre">continent</span></code> by ‘country’:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">continent</span> <span class="o">=</span> <span class="n">continent</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">])</span>
-<span class="n">continent</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>continent</th>
-      <th>country</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>141</th>
-      <td>Asia</td>
-      <td>Afghanistan</td>
-    </tr>
-    <tr>
-      <th>195</th>
-      <td>Europe</td>
-      <td>Albania</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>Africa</td>
-      <td>Algeria</td>
-    </tr>
-    <tr>
-      <th>239</th>
-      <td>Oceania</td>
-      <td>American Samoa</td>
-    </tr>
-    <tr>
-      <th>196</th>
-      <td>Europe</td>
-      <td>Andorra</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>Africa</td>
-      <td>Western Sahara</td>
-    </tr>
-    <tr>
-      <th>167</th>
-      <td>Asia</td>
-      <td>Yemen</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>Africa</td>
-      <td>Zambia</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>Africa</td>
-      <td>Zimbabwe</td>
-    </tr>
-    <tr>
-      <th>178</th>
-      <td>Europe</td>
-      <td>Åland Islands</td>
-    </tr>
-  </tbody>
-</table>
-<p>249 rows × 2 columns</p>
-</div></div></div>
-</div>
-<p>Great! This looks ready to save to file.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">continent</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/intermediate/continent.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Lastly, let’s package these steps into a single function so that we can rerun them with ease if we need to update our process as we’ve done with our previous variables:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="k">def</span> <span class="nf">process_continents</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span><span class="n">outfile</span><span class="p">):</span>
-    <span class="c1"># Helper function to convert string data within the file into numerical data</span>
-    
-    <span class="n">continents_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
-    <span class="n">continent</span> <span class="o">=</span> <span class="n">continents_all</span><span class="p">[[</span><span class="s2">&quot;Region Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Country or Area&quot;</span><span class="p">]]</span>
-    <span class="n">continent</span> <span class="o">=</span> <span class="n">continent</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
-        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Region Name&quot;</span><span class="p">:</span> <span class="s2">&quot;continent&quot;</span><span class="p">,</span> <span class="s2">&quot;Country or Area&quot;</span><span class="p">:</span> <span class="s2">&quot;country&quot;</span><span class="p">}</span>
-    <span class="p">)</span>
-    <span class="n">continent</span> <span class="o">=</span> <span class="n">continent</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">])</span>
-    <span class="n">continent</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    
-<span class="c1"># Test and make sure the file produces identical output as the original process:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Source data files</span>
+<span class="n">raw_co2_file</span> <span class="o">=</span> <span class="s2">&quot;data/co2_emissions_tonnes_per_person.csv&quot;</span>
+<span class="n">raw_income_file</span> <span class="o">=</span> <span class="s2">&quot;data/income_per_person_gdppercapita_ppp_inflation_adjusted.csv&quot;</span>
+<span class="n">raw_population_file</span> <span class="o">=</span> <span class="s2">&quot;data/population_total.csv&quot;</span>
 <span class="n">raw_continents_file</span> <span class="o">=</span> <span class="s2">&quot;data/united_nations_continents.csv&quot;</span>
+
+<span class="c1"># Intermediate files</span>
+<span class="n">co2_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/co2.csv&#39;</span>
+<span class="n">income_file</span> <span class="o">=</span> <span class="s2">&quot;data/intermediate/income.csv&quot;</span>
+<span class="n">population_file</span> <span class="o">=</span> <span class="s2">&quot;data/intermediate/pop.csv&quot;</span>
 <span class="n">continents_file</span> <span class="o">=</span> <span class="s2">&quot;data/intermediate/continent.csv&quot;</span>
-<span class="n">process_continents</span><span class="p">(</span><span class="n">raw_continents_file</span><span class="p">,</span><span class="n">continents_file</span><span class="p">)</span>
+
+<span class="c1"># Final files</span>
+<span class="n">merged_data_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/data.csv&#39;</span>
+<span class="n">plot_file</span> <span class="o">=</span> <span class="s1">&#39;img/finished-product.png&#39;</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Now we have each of the pieces of the puzzle that we need: <code class="docutils literal notranslate"><span class="pre">co2</span></code>, <code class="docutils literal notranslate"><span class="pre">income</span></code>, <code class="docutils literal notranslate"><span class="pre">pop</span></code> and <code class="docutils literal notranslate"><span class="pre">continents</span></code>. Getting the data ready for use requires significant effort, but it’s best if it can be done in a way that is easily reproducible. Imagine that we received an update to the data for 2023 and the first time through we had done all of the steps above manually in the original CSV files. We would then have to go through that process all over again. However, because we automated each process, we can easily rerun the above steps on new data, so our investment in time would pay off going forward.</p>
-<p>Now that we have each of the four data sources separately, in the next lesson we will merge these into one dataset that we can then plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">project</span>
+
+<span class="n">project</span><span class="o">.</span><span class="n">process_co2</span><span class="p">(</span><span class="n">raw_co2_file</span><span class="p">,</span> <span class="n">co2_file</span><span class="p">)</span>
+<span class="n">project</span><span class="o">.</span><span class="n">process_income</span><span class="p">(</span><span class="n">raw_income_file</span><span class="p">,</span> <span class="n">income_file</span><span class="p">)</span>
+<span class="n">project</span><span class="o">.</span><span class="n">process_population</span><span class="p">(</span><span class="n">raw_population_file</span><span class="p">,</span> <span class="n">population_file</span><span class="p">)</span>
+<span class="n">project</span><span class="o">.</span><span class="n">process_continents</span><span class="p">(</span><span class="n">raw_continents_file</span><span class="p">,</span> <span class="n">continents_file</span><span class="p">)</span>
+<span class="n">project</span><span class="o">.</span><span class="n">merge_data</span><span class="p">(</span><span class="n">co2_file</span><span class="p">,</span> <span class="n">income_file</span><span class="p">,</span> <span class="n">population_file</span><span class="p">,</span> <span class="n">continents_file</span><span class="p">,</span> <span class="n">merged_data_file</span><span class="p">)</span>
+<span class="n">project</span><span class="o">.</span><span class="n">plot_emissions_gdp</span><span class="p">(</span><span class="n">merged_data_file</span><span class="p">,</span> <span class="n">plot_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s show the resulting plot from this process:</p>
+<p><img alt="" src="../../../_images/finished-product.png" /></p>
+<p>For the approach to work, you’ll need to make sure that <code class="docutils literal notranslate"><span class="pre">project.py</span></code> is in your current path. You can check what your current path is by executing the following code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The path above should contain your <code class="docutils literal notranslate"><span class="pre">.py</span></code> file so that Python can access it.</p>
+<p>This approach of collecting components of a project for reuse is exceptionally valuable. It allows you to rerun the analysis with ease and makes the analysis easier to share with others and collaborate on the development together.</p>
+<p>There are often multiple ways to solve a problem, and what was presented here is but one. For example, you may choose not to save each intermediate product to file as we did here for co2, income, population, etc. Instead, you may directly feed the data in memory from one stage of the analysis to the next. I can’t stress enough how important checking your data at every step of the process and inspecting it can be. We all make mistakes and instituting tests and checks to ensure the quality of each step will greatly enhance your ability to be productive with programming tools for data-intensive applications.</p>
 </section>
 
     <script type="text/x-thebe-config">

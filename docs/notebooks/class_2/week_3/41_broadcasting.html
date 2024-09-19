@@ -549,6 +549,11 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5, 7, 9])
+</pre></div>
+</div>
+</div>
 </div>
 <p><img alt="Broadcasting" src="../../../_images/2.3.41-broadcasting_0.png" /></p>
 <p>Or, if one of the two vectors is of length one (or we are working with a regular scaler number that isn’t a vector), numpy will <em>broadcast</em> the operation by applying the operation between the single number and each entry and the longer vector:</p>
@@ -717,7 +722,7 @@ document.write(`
 </div>
 <p>Why? Because the shape of <code class="docutils literal notranslate"><span class="pre">skinny_matrix</span></code> is <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">1)</span></code>, when numpy looks at the length of the rightmost dimension, it finds the value <code class="docutils literal notranslate"><span class="pre">1</span></code>, so instead of matching up the elements one to one, it applies the addition operation between <code class="docutils literal notranslate"><span class="pre">my_vector</span></code> and each row, generating a three by three matrix.</p>
 <p><img alt="Broadcasting" src="../../../_images/2.3.41-broadcasting_3.png" /></p>
-<p>To avoid this type of behavior, we just need to reshape <code class="docutils literal notranslate"><span class="pre">skinny_matrix</span></code> so that it is actually one-dimensional:</p>
+<p>To avoid this type of behavior, we just need to reshape <code class="docutils literal notranslate"><span class="pre">skinny_matrix</span></code> so that it is actually one-dimensional. We can do this with <code class="docutils literal notranslate"><span class="pre">.reshape()</span></code>, or with the method <code class="docutils literal notranslate"><span class="pre">.squeeze()</span></code> (which drops dimensions that are of length one).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">now_a_vector</span> <span class="o">=</span> <span class="n">skinny_matrix</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -751,6 +756,32 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 4, 6])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or using <code class="docutils literal notranslate"><span class="pre">.squeeze()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">skinny_matrix</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">squeezed</span> <span class="o">=</span> <span class="n">skinny_matrix</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="n">squeezed</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3,)
 </pre></div>
 </div>
 </div>

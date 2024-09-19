@@ -1062,6 +1062,30 @@ document.write(`
 </div>
 </div>
 </div>
+<p>Lastly, let’s package these steps into a single function so that we can rerun them with ease if we need to update our process as we’ve done with our previous variables:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="k">def</span> <span class="nf">process_continents</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span><span class="n">outfile</span><span class="p">):</span>
+    <span class="c1"># Helper function to convert string data within the file into numerical data</span>
+    
+    <span class="n">continents_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+    <span class="n">continent</span> <span class="o">=</span> <span class="n">continents_all</span><span class="p">[[</span><span class="s2">&quot;Region Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Country or Area&quot;</span><span class="p">]]</span>
+    <span class="n">continent</span> <span class="o">=</span> <span class="n">continent</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Region Name&quot;</span><span class="p">:</span> <span class="s2">&quot;continent&quot;</span><span class="p">,</span> <span class="s2">&quot;Country or Area&quot;</span><span class="p">:</span> <span class="s2">&quot;country&quot;</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">continent</span> <span class="o">=</span> <span class="n">continent</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">])</span>
+    <span class="n">continent</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+<span class="c1"># Test and make sure the file produces identical output as the original process:</span>
+<span class="n">raw_continents_file</span> <span class="o">=</span> <span class="s2">&quot;data/united_nations_continents.csv&quot;</span>
+<span class="n">continents_file</span> <span class="o">=</span> <span class="s2">&quot;data/intermediate/continent.csv&quot;</span>
+<span class="n">process_continents</span><span class="p">(</span><span class="n">raw_continents_file</span><span class="p">,</span><span class="n">continents_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>Now we have each of the pieces of the puzzle that we need: <code class="docutils literal notranslate"><span class="pre">co2</span></code>, <code class="docutils literal notranslate"><span class="pre">income</span></code>, <code class="docutils literal notranslate"><span class="pre">pop</span></code> and <code class="docutils literal notranslate"><span class="pre">continents</span></code>. Getting the data ready for use requires significant effort, but it’s best if it can be done in a way that is easily reproducible. Imagine that we received an update to the data for 2023 and the first time through we had done all of the steps above manually in the original CSV files. We would then have to go through that process all over again. However, because we automated each process, we can easily rerun the above steps on new data, so our investment in time would pay off going forward.</p>
 <p>Now that we have each of the four data sources separately, in the next lesson we will merge these into one dataset that we can then plot.</p>
 </section>
