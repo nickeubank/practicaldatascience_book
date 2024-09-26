@@ -2,6 +2,13 @@
 
 The files here are hosted at the domain [here](https://nickeubank.github.io/practicaldatascience_book/intro.html).
 
+## Installs
+
+To be able to run (for building — this doesn't cover exercise libraries), install:
+
+`conda install jupyter-book`
+`pip install sphinx_markdown_tables`
+
 ## Building Book
 
 - set `cd` to this repo
