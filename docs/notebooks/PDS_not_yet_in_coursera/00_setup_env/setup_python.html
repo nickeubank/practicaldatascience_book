@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Installing Python and Miniconda &#8212; Practical Data Science with Python</title>
+    <title>Installing Python and conda &#8212; Practical Data Science with Python</title>
   
   
   
@@ -511,7 +511,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Installing Python and Miniconda</h1>
+    <h1>Installing Python and conda</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -523,11 +523,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-ll-be-setting-up">What We’ll Be Setting Up</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-these-setup-instructions">Reading These Setup Instructions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-python-with-miniconda">Installing Python with Miniconda</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-miniconda">Why Miniconda?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-python-with-miniforge">Installing Python with Miniforge</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-miniforge">Why Miniforge?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-important-note-on-pyenv">An <strong>IMPORTANT</strong> Note on Pyenv</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-default-repository">Changing the Default Repository</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#and-that-s-it">And that’s it!</a></li>
@@ -542,8 +541,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="installing-python-and-miniconda">
-<h1>Installing Python and Miniconda<a class="headerlink" href="#installing-python-and-miniconda" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="installing-python-and-conda">
+<h1>Installing Python and conda<a class="headerlink" href="#installing-python-and-conda" title="Link to this heading">#</a></h1>
 <p>One of the major learning goals of this class is for you to be comfortable managing all the software and settings required for you to do data science on your own computer.</p>
 <p>Why deal with all the headaches of setting up your own environment, you may ask? Why not just use a cloud platform like Google Colab or a virtual machine with everything already set up?</p>
 <p>Getting data science tools installed and working together is, for better or worse, a pretty core part of the day-to-day life of data scientists, and learning how to troubleshoot problems quickly is an important skill for being productive in the profession. But it is a skill that takes time and energy to learn, and so in most classes — which want to focus on teaching topics like statistical analysis or programming concepts — instructors choose to provide students with clean, ready-to-use environments so everyone can focus on those topics. For example, if the MIDS Python Bootcamp included a module on setting up Python environments instead of providing you with a clean virtual machine, you’d probably end up learning ~25% less programming!</p>
@@ -563,81 +562,54 @@ document.write(`
 <h2>Reading These Setup Instructions<a class="headerlink" href="#reading-these-setup-instructions" title="Link to this heading">#</a></h2>
 <p>As you work through these set up readings, be certain to <strong>follow the directions very carefully!</strong> As a data scientist you are working at the frontier of software, which often means that there are little quirks and issues with the tools that we use that are just waiting to trap you. <em>Every</em> note you find in these readings I put there because either I ran into a problem or one of my students has, so please take your time and try to be very methodical!</p>
 </section>
-<section id="installing-python-with-miniconda">
-<h2>Installing Python with Miniconda<a class="headerlink" href="#installing-python-with-miniconda" title="Link to this heading">#</a></h2>
+<section id="installing-python-with-miniforge">
+<h2>Installing Python with Miniforge<a class="headerlink" href="#installing-python-with-miniforge" title="Link to this heading">#</a></h2>
 <p>The first thing you’ll likely want to do on any computer you work with is install both Python and the package manager conda. This is necessary because unlike a language like R where you can install packages with the <code class="docutils literal notranslate"><span class="pre">install.packages()</span></code> command, Python doesn’t have an internal tool for installing packages. This means that we need a tool like conda if we want to use anything other than vanilla Python (e.g., tools for plotting, numpy, pandas, etc.).</p>
 <p>Python has two main package managers: <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">conda</span></code>. While most software engineers use pip, most data scientists like conda. That’s because while pip is good at installing Python libraries, conda is better at installing many of the big dependencies that underlie data science tools. Plus, if we install conda, it will come with pip, so we get the best of both worlds!</p>
-<section id="why-miniconda">
-<h3>Why Miniconda?<a class="headerlink" href="#why-miniconda" title="Link to this heading">#</a></h3>
-<p>So the first thing we need to do to get started with Python is go to the <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda download page</a> and download the most recent installer for our system (that’s Conda 24.5.0 and Python 3.12.4 as of August 2024).</p>
-<p>Note that there are actually two well-known ways to get conda on your system — installing Anaconda from <a class="reference external" href="http://anaconda.com">anaconda.com</a>, and installing Miniconda from <a class="reference external" href="http://docs.conda.io">docs.conda.io</a>. It is my <strong>strong</strong> recommendation that you use Miniconda. That’s because if you install Anaconda from <a class="reference external" href="http://anaconda.com">anaconda.com</a>, you get not only Python and the conda package manager, but also dozens of pre-loaded packages. And while that sounds great, the reality is that it tends to cause lots of package conflicts once you start adding anything new to your installation. Miniconda, as the name implies, is the “mini” version of the Anaconda package, and basically only includes Python and a couple core utilities (conda, pip, etc.). As a result, a Miniconda installation is much less likely to cause package conflict problems down the road.</p>
-<p><strong>If you already have a conda installation:</strong> My recommendation is to delete it and start fresh. Deleting your Python installation can feel scary once you’ve set stuff up, but you don’t want to get in the practice of being too precious about your Python installations, as you’ll often have to just delete it all to deal with software conflicts.</p>
-<p>Thankfully, deleting Anaconda/Miniconda is easy — just delete the <code class="docutils literal notranslate"><span class="pre">miniconda3</span></code> / <code class="docutils literal notranslate"><span class="pre">anaconda3</span></code> folder you created during installation! The great thing about conda is that everything lives in that folder, so you can easily delete it and start fresh!</p>
+<section id="why-miniforge">
+<h3>Why Miniforge?<a class="headerlink" href="#why-miniforge" title="Link to this heading">#</a></h3>
+<p>So the first thing we need to do to get started with Python is go to the <a class="reference external" href="https://conda-forge.org/download/">Miniforge download page</a> and download the most recent installer for our system (that’s Conda 24.5.0 and Python 3.12.4 as of August 2024). Clicking the appropriate link on this page should cause a file to be downloaded with a name like <code class="docutils literal notranslate"><span class="pre">Miniforge3-MacOSX-arm64.sh</span></code>. Don’t open that yet.</p>
+<p>Note that there are actually two well-known ways to get conda on your system — installing Anaconda from <a class="reference external" href="http://anaconda.com">anaconda.com</a>, installing Miniconda from <a class="reference external" href="http://docs.conda.io">docs.conda.io</a>, or installing miniforge. It is my <strong>strong</strong> recommendation that you use miniforge. That’s because if you install Anaconda from <a class="reference external" href="http://anaconda.com">anaconda.com</a>, you get not only Python and the conda package manager, but also dozens of pre-loaded packages. And while that sounds great, the reality is that it tends to cause lots of package conflicts once you start adding anything new to your installation.</p>
+<p>Miniforge, as the name implies, is the “mini” version of the Anaconda package, and basically only includes Python and a couple core utilities (conda, pip, etc.). As a result, a Miniforge installation is much less likely to cause package conflict problems down the road.</p>
+<p>In addition, miniforge (as opposed to miniconda) is set up to download packages from the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> channel (essentially, a “channel” is a repository with copies of packages). In my experience, this is the best place to get your packages to avoid conflicts.</p>
+<p><strong>If you already have a conda installation:</strong> Delete it and start fresh. Deleting your Python installation can feel scary once you’ve set stuff up, but you don’t want to get in the practice of being too precious about your Python installations, as you’ll often have to just delete it all to deal with software conflicts.</p>
+<p>Thankfully, deleting Anaconda/Miniconda/Miniforge is easy — just delete the <code class="docutils literal notranslate"><span class="pre">miniconda3</span></code> / <code class="docutils literal notranslate"><span class="pre">anaconda3</span></code> / <code class="docutils literal notranslate"><span class="pre">miniforge3</span></code> folder you created during installation! The great thing about conda is that everything lives in that folder, so you can easily delete it and start fresh!</p>
 </section>
 <section id="an-important-note-on-pyenv">
 <h3>An <strong>IMPORTANT</strong> Note on Pyenv<a class="headerlink" href="#an-important-note-on-pyenv" title="Link to this heading">#</a></h3>
 <blockquote>
-<div><p>miniconda is a SUBSTITUTE for a tool like <code class="docutils literal notranslate"><span class="pre">pyenv</span></code> / <code class="docutils literal notranslate"><span class="pre">venv</span></code> that may be suggested in some other courses (like our MIDS NLP class). Do <strong>NOT</strong> install pyenv / venv <em>and</em> miniconda, just install miniconda. (This is the coordinated recommendation of myself and the Duke MIDS NLP Professor Patrick Wang!)</p>
+<div><p>miniforge is a SUBSTITUTE for a tool like <code class="docutils literal notranslate"><span class="pre">pyenv</span></code> / <code class="docutils literal notranslate"><span class="pre">venv</span></code> that may be suggested in some other courses (like our MIDS NLP class). Do <strong>NOT</strong> install pyenv / venv <em>and</em> miniforge, just install miniforge. (This is the coordinated recommendation of myself and the Duke MIDS NLP Professor Patrick Wang!)</p>
 </div></blockquote>
-<p>Miniconda comes with two tools for installing packages that you can use together: <code class="docutils literal notranslate"><span class="pre">conda</span></code> and <code class="docutils literal notranslate"><span class="pre">pip</span></code>. As we’ll discuss in a later reading, my suggestion is to always <em>try</em> to install things with <code class="docutils literal notranslate"><span class="pre">conda</span></code> first (e.g., run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">numpy</span></code>), and if that fails try <code class="docutils literal notranslate"><span class="pre">pip</span></code> (e.g., run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">numpy</span></code>).</p>
-<p>conda can also manage multiple environments and something called “environments”, so I promise anything pyenv can do conda can do too (and much more!), so install miniconda but not pyenv.</p>
+<p>Miniforge comes with two tools for installing packages that you can use together: <code class="docutils literal notranslate"><span class="pre">conda</span></code> and <code class="docutils literal notranslate"><span class="pre">pip</span></code>. As we’ll discuss in a later reading, my suggestion is to always <em>try</em> to install things with <code class="docutils literal notranslate"><span class="pre">conda</span></code> first (e.g., run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">numpy</span></code>), and if that fails try <code class="docutils literal notranslate"><span class="pre">pip</span></code> (e.g., run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">numpy</span></code>).</p>
+<p>conda can also manage multiple environments and something called “environments”, so I promise anything pyenv can do conda can do too (and much more!), so install miniforge but not pyenv.</p>
 </section>
 <section id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p>Go to the <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">miniconda install page</a>.</p></li>
-<li><p>Download a 64-bit version of Miniconda. The latest Python 3.x package is probably best.</p>
-<ul class="simple">
-<li><p>If you have a Mac:</p>
-<ul>
-<li><p>Go with the <code class="docutils literal notranslate"><span class="pre">pkg</span></code> installer that’s appropriate for the processor on your computer—if you have a new mac with an M-series processor, choose the “Apple M1 64-bit pkg” installer (regardless of whether you have an M1 or M2, etc.).</p></li>
-<li><p>If your mac is much older, use the “Intel x86 pkg” installer.</p></li>
-<li><p>Not sure which you have? Go to the Apple menu in the top left of your computer and select “About This Mac” and see if M1/M2 or Intel appears in the Processor line.</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Run the installer, paying attention to the following options:</p>
-<ul class="simple">
-<li><p><strong>If you have a mac:</strong> If you’re asked whether to “Install for all users of this computer” or “Install in a specific location,” just choose “install for all users.” This will result in conda being installed in the <code class="docutils literal notranslate"><span class="pre">/opt</span></code> directory (dont worry if you aren’t sure what that means).</p></li>
-<li><p><strong>If you have Windows:</strong>,</p>
-<ul>
-<li><p>you’ll be asked if you want to Install for “Just Me (recommended)” or “All Users.” Choose “Just Me.”</p></li>
-<li><p>In the advanced installation options: Select BOTH “Register Miniconda3 as my default Python 3.12” option <strong>AND the “Add Miniconda3 to my PATH environment variable” (even though this is not recommended! It’s important to ensure we can use the command line tool we want to use).</strong></p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Miniconda is installed!</p></li>
+<li><p>Go to the <a class="reference external" href="https://conda-forge.org/download/">miniforge install page</a>. Click the link for your operating system. Clicking the appropriate link on this page should cause a file to be downloaded with a name like <code class="docutils literal notranslate"><span class="pre">Miniforge3-MacOSX-arm64.sh</span></code> (on a mac) or <code class="docutils literal notranslate"><span class="pre">Miniforge3-Windows-x86_64.exe</span></code> (windows).</p></li>
+<li><p><strong>If you’re on a mac:</strong></p>
+<ol class="arabic simple">
+<li><p>Move that file that ends in <code class="docutils literal notranslate"><span class="pre">.sh</span></code> to your desktop.</p></li>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">Terminal</span></code>. It’s in <code class="docutils literal notranslate"><span class="pre">Applications</span> <span class="pre">&gt;</span> <span class="pre">Utilities</span></code>. This may feel scary, but I promise you can do it!</p></li>
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/desktop</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p></li>
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">Miniforge3-MacOSX-arm64.sh</span></code> (if your file name is different — for example if your computer has an Intel chip, it might be called <code class="docutils literal notranslate"><span class="pre">Miniforge3-MacOSX-x86_64.sh</span></code> — use that file name). Hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code>. That will launch the installer.</p>
+<ol class="arabic simple">
+<li><p>When asked to review agreement, hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code>. A new screen will come up with lots of text. At the bottom you’ll see a <code class="docutils literal notranslate"><span class="pre">:</span></code>. Just type <code class="docutils literal notranslate"><span class="pre">q</span></code> and it will go away.</p></li>
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">yes</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> when asked if you’ll accept the agreement.</p></li>
+<li><p>Hit enter to accept default installation location.</p></li>
+<li><p>After installation, you’ll be asked <code class="docutils literal notranslate"><span class="pre">Do</span> <span class="pre">you</span> <span class="pre">wish</span> <span class="pre">to</span> <span class="pre">update</span> <span class="pre">your</span> <span class="pre">shell</span> <span class="pre">profile</span> <span class="pre">to</span> <span class="pre">automatically</span> <span class="pre">initialize</span> <span class="pre">conda?</span></code> followed by some additional information. Type <code class="docutils literal notranslate"><span class="pre">yes</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p></li>
 </ol>
-<p>Why did we want to install it “for me only” in step 3? To install software for all users, you have to install software at the level of your operating system so it’s visible to all users. And your computer is <em>very</em> protective of anything installed at the level of the operating system because of the dangers of computer viruses, so anything installed there can run into “permission” problems when it tries to run. Anything installed “for me only” gets installed in your user folder which your computer is less paranoid about, leading to fewer problems.</p>
-</section>
-<section id="changing-the-default-repository">
-<h3>Changing the Default Repository<a class="headerlink" href="#changing-the-default-repository" title="Link to this heading">#</a></h3>
-<p>Now we also want to change one setting in Miniconda: the default “channel” it uses to get packages.</p>
-<p>When you install packages using conda, conda can actually pull from a number of different package repositories (called “channels”). The default for this is the “anaconda” channel, but the best channel is actually called <a class="reference external" href="https://conda-forge.org/">conda-forge</a>. To set this as the default:</p>
-<ul class="simple">
-<li><p>Open the default command line on your computer (on a Mac, it’s <code class="docutils literal notranslate"><span class="pre">Terminal</span></code> in <code class="docutils literal notranslate"><span class="pre">Applications</span> <span class="pre">&gt;</span> <span class="pre">Utilities</span></code>; on Windows, you can use <code class="docutils literal notranslate"><span class="pre">PowerShell</span></code>, which you can get by just putting PowerShell in the search bar), and run the following three commands:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">config</span> <span class="pre">--add</span> <span class="pre">channels</span> <span class="pre">conda-forge</span></code> (you may be told you already have it listed)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">config</span> <span class="pre">--set</span> <span class="pre">channel_priority</span> <span class="pre">strict</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">config</span> <span class="pre">--set</span> <span class="pre">solver</span> <span class="pre">classic</span></code></p>
-<ul>
-<li><p>Why? Long story, but miniconda started using a fancy tool for figuring out which packages to install as the default, but that causes issues if that setting is in place before you install your first package.</p></li>
-</ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">python=3.12</span></code></p></li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>The first of two of these just change where conda looks for packages. Different channels are just different collections of copies of packages (different repositories, if you will), and <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> is the most reliable.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">solver</span></code> setting is odd, but gets around a bug in 2024.</p>
-<p>Installing Python explicitly ensures that all your packages are from <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>.</p>
-<p>In addition, if you want, you can install and setup a faster package installer called “libmamba” with the following commands:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">conda-libmamba-solver</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">config</span> <span class="pre">--set</span> <span class="pre">solver</span> <span class="pre">libmamba</span></code></p></li>
-</ul>
+<li><p><strong>If you’re on windows:</strong> Run the <code class="docutils literal notranslate"><span class="pre">.exe</span></code> file that was downloaded (probably something like <code class="docutils literal notranslate"><span class="pre">Miniforge3-Windows-x86_64.exe</span></code>).</p>
+<ol class="arabic simple">
+<li><p>When asked whether to install it for just the current user or all users, select “Just for me (recommended).”</p></li>
+<li><p>When asked where to install miniforge3, the default (in your user folder) is great.</p></li>
+<li><p>You’ll then be faced with a handful of check boxes. Check the one to <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">Miniforge</span> <span class="pre">3</span> <span class="pre">to</span> <span class="pre">my</span> <span class="pre">PATH</span> <span class="pre">environment</span> <span class="pre">variable</span></code> (even if it says it isn’t recommended) and the one to <code class="docutils literal notranslate"><span class="pre">Register</span> <span class="pre">Miniforge3</span> <span class="pre">as</span> <span class="pre">my</span> <span class="pre">default</span> <span class="pre">Python</span> <span class="pre">3.12</span></code>. The box for removing the cache is a good one to check too (but isn’t necessary), and you can create a shortcut if you want (but you won’t use it).</p></li>
+</ol>
+</li>
+</ol>
 </section>
 </section>
 <section id="and-that-s-it">
@@ -712,11 +684,10 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-ll-be-setting-up">What We’ll Be Setting Up</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-these-setup-instructions">Reading These Setup Instructions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-python-with-miniconda">Installing Python with Miniconda</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-miniconda">Why Miniconda?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-python-with-miniforge">Installing Python with Miniforge</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-miniforge">Why Miniforge?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-important-note-on-pyenv">An <strong>IMPORTANT</strong> Note on Pyenv</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-default-repository">Changing the Default Repository</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#and-that-s-it">And that’s it!</a></li>
