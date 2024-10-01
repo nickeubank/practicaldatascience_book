@@ -522,7 +522,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-matplotlib">Why use <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-plotting">Basic Plotting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-plotting">Basic Plotting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-resolution">Managing Resolution</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-plots-on-the-same-axes">Multiple plots on the same Axes</a></li>
 </ul>
             </nav>
@@ -535,14 +538,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<section class="tex2jax_ignore mathjax_ignore" id="plotting-with-matplotlib">
+  <section class="tex2jax_ignore mathjax_ignore" id="plotting-with-matplotlib">
 <h1>Plotting with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code><a class="headerlink" href="#plotting-with-matplotlib" title="Link to this heading">#</a></h1>
 <section id="why-use-matplotlib">
 <h2>Why use <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>?<a class="headerlink" href="#why-use-matplotlib" title="Link to this heading">#</a></h2>
@@ -578,7 +574,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../../../_images/e524b5eb01fc28e77e61a749b4e365868cb17fa80b111fd31dbadb6789b2c792.png"><img alt="../../../_images/e524b5eb01fc28e77e61a749b4e365868cb17fa80b111fd31dbadb6789b2c792.png" src="../../../_images/e524b5eb01fc28e77e61a749b4e365868cb17fa80b111fd31dbadb6789b2c792.png" style="width: 546px; height: 413px;" /></a>
+<img alt="../../../_images/fa75b9b4d8aa564bca1ae0174956f061dce2415e4c0bf1726ac7ad203a6e8a7b.png" src="../../../_images/fa75b9b4d8aa564bca1ae0174956f061dce2415e4c0bf1726ac7ad203a6e8a7b.png" />
 </div>
 </div>
 <p>That’s it! Your first plot is complete.</p>
@@ -592,7 +588,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../../../_images/419d126c2ead46880fb9a300f8687016ea228b49c42e7b4c8c91bef21ef7891f.png"><img alt="../../../_images/419d126c2ead46880fb9a300f8687016ea228b49c42e7b4c8c91bef21ef7891f.png" src="../../../_images/419d126c2ead46880fb9a300f8687016ea228b49c42e7b4c8c91bef21ef7891f.png" style="width: 546px; height: 413px;" /></a>
+<img alt="../../../_images/3a9677243f18ba4039346faaef2799dd3cb9570c60d9fddb33ad58ec91ab5bed.png" src="../../../_images/3a9677243f18ba4039346faaef2799dd3cb9570c60d9fddb33ad58ec91ab5bed.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -604,9 +600,30 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../../../_images/6cb45a7b34f4e6dfe171fa3afbd736b0cba73b90b9deba25f89d97246e3f027d.png"><img alt="../../../_images/6cb45a7b34f4e6dfe171fa3afbd736b0cba73b90b9deba25f89d97246e3f027d.png" src="../../../_images/6cb45a7b34f4e6dfe171fa3afbd736b0cba73b90b9deba25f89d97246e3f027d.png" style="width: 546px; height: 413px;" /></a>
+<img alt="../../../_images/1dabfb66da08423bd792f112e74ff6d11ca5edca8698d3105fe8db304dad9d99.png" src="../../../_images/1dabfb66da08423bd792f112e74ff6d11ca5edca8698d3105fe8db304dad9d99.png" />
 </div>
 </div>
+<section id="managing-resolution">
+<h3>Managing Resolution<a class="headerlink" href="#managing-resolution" title="Link to this heading">#</a></h3>
+<p>Many people like to increase the default resolution of matplotlib plots when they appear in Jupyter Notebook by adding the following IPython Magic command (note these have to include the <code class="docutils literal notranslate"><span class="pre">%</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s1">&#39;retina&#39;</span>
+</pre></div>
+</div>
+<p>However, this will cause issues if your code gets exported from the jupyter notebook (e.g., in an autograder), so I prefer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s2">&quot;retina&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>instead.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s2">&quot;retina&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="multiple-plots-on-the-same-axes">
 <h2>Multiple plots on the same Axes<a class="headerlink" href="#multiple-plots-on-the-same-axes" title="Link to this heading">#</a></h2>
@@ -626,7 +643,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../../../_images/e0e3833b5eb23d2970e5945eb7d99872b6cb15a8e312bbf69ba02c1b8b8ae9fd.png"><img alt="../../../_images/e0e3833b5eb23d2970e5945eb7d99872b6cb15a8e312bbf69ba02c1b8b8ae9fd.png" src="../../../_images/e0e3833b5eb23d2970e5945eb7d99872b6cb15a8e312bbf69ba02c1b8b8ae9fd.png" style="width: 546px; height: 413px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/3add851f7460d73854136b5bc46ad44fb626916c6307df9e02de322331035f30.png"><img alt="../../../_images/3add851f7460d73854136b5bc46ad44fb626916c6307df9e02de322331035f30.png" src="../../../_images/3add851f7460d73854136b5bc46ad44fb626916c6307df9e02de322331035f30.png" style="width: 546px; height: 413px;" /></a>
 </div>
 </div>
 <p>We can also have multiple types of plotting objects on the same set of axes. Let’s mix together all three of the elements we’ve seen so far (lines, scatter plots, and bars) into a single plot.</p>
@@ -647,7 +664,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../../../_images/fb90f0c46b5ccfe2ebfda0c91c3dbbb363ec78d5451a4ad1845a6425ee9dd213.png"><img alt="../../../_images/fb90f0c46b5ccfe2ebfda0c91c3dbbb363ec78d5451a4ad1845a6425ee9dd213.png" src="../../../_images/fb90f0c46b5ccfe2ebfda0c91c3dbbb363ec78d5451a4ad1845a6425ee9dd213.png" style="width: 534px; height: 413px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/4f4d8f11c40235171f182feee9577fe501c72cb6072395a66c16a5c40cee4d0e.png"><img alt="../../../_images/4f4d8f11c40235171f182feee9577fe501c72cb6072395a66c16a5c40cee4d0e.png" src="../../../_images/4f4d8f11c40235171f182feee9577fe501c72cb6072395a66c16a5c40cee4d0e.png" style="width: 534px; height: 413px;" /></a>
 </div>
 </div>
 <p>There are two things we’ll note here.</p>
@@ -670,7 +687,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../../../_images/3bd975ccc276640ed4dd3e0a63b74db6d43a90d1aebf31af149b0ededa5ffa02.png"><img alt="../../../_images/3bd975ccc276640ed4dd3e0a63b74db6d43a90d1aebf31af149b0ededa5ffa02.png" src="../../../_images/3bd975ccc276640ed4dd3e0a63b74db6d43a90d1aebf31af149b0ededa5ffa02.png" style="width: 534px; height: 413px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/36dac0ebbfc975814f86c30a13dfa7fc1db4e3a472f5d386d8d15429d0ac35c2.png"><img alt="../../../_images/36dac0ebbfc975814f86c30a13dfa7fc1db4e3a472f5d386d8d15429d0ac35c2.png" src="../../../_images/36dac0ebbfc975814f86c30a13dfa7fc1db4e3a472f5d386d8d15429d0ac35c2.png" style="width: 534px; height: 413px;" /></a>
 </div>
 </div>
 <p>The second issue with the plot above is that the order of the plots is not what we prefer since the bar plot is covering up some of the scatter plot points. This is another easy fix that we can make by setting the <code class="docutils literal notranslate"><span class="pre">zorder</span></code> keyword argument for each plot. Plots with higher <code class="docutils literal notranslate"><span class="pre">zorder</span></code> values will show up above those with lower <code class="docutils literal notranslate"><span class="pre">zorder</span></code> values. We’ll set the zorder for the scatter plot to be on top (we’ll set it to 3) and the bar plot to be on the bottom (set it to 1).</p>
@@ -691,7 +708,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../../../_images/6a53895fdb3cd64efd0b2574ebff18f8bb4f2dd09981379dca2d93faea8fbe7c.png"><img alt="../../../_images/6a53895fdb3cd64efd0b2574ebff18f8bb4f2dd09981379dca2d93faea8fbe7c.png" src="../../../_images/6a53895fdb3cd64efd0b2574ebff18f8bb4f2dd09981379dca2d93faea8fbe7c.png" style="width: 534px; height: 413px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/f80a02bcf40f7d409f0828fbb89910b943e7ee0123f691e6bee7ed21cc247f97.png"><img alt="../../../_images/f80a02bcf40f7d409f0828fbb89910b943e7ee0123f691e6bee7ed21cc247f97.png" src="../../../_images/f80a02bcf40f7d409f0828fbb89910b943e7ee0123f691e6bee7ed21cc247f97.png" style="width: 534px; height: 413px;" /></a>
 </div>
 </div>
 <p>Now we can read this more easily and see all of our data plotted on the same set of axes!</p>
@@ -746,7 +763,10 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-matplotlib">Why use <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-plotting">Basic Plotting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-plotting">Basic Plotting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-resolution">Managing Resolution</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-plots-on-the-same-axes">Multiple plots on the same Axes</a></li>
 </ul>
   </nav></div>
