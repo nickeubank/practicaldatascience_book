@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -604,15 +604,13 @@ document.write(`
 <h3>1. Be honest<a class="headerlink" href="#be-honest" title="Link to this heading">#</a></h3>
 <p>Plots can be compelling forms of communication and it’s easy to mislead. Make sure your data are accurate AND are accurately portrayed. Plotting should share information ethically and never seek to deceive or cover up truth.</p>
 <p>Consider the example below where we have two bar plots, A and B, both displaying the same data. The one on the left sets the baseline at 30 rather than 0. The visual impact is that almost all the voters appear to be against the measure, when in reality (as more accurately conveyed in B), the gap between those for and against is only 4 points and over 30% of voters are undecided. Showing plot A is deceptive. Plot B honestly conveys the data. In almost all cases, the value of 0 should be used as the baseline for bar plots, and many others, when possible.</p>
-<div>
-<img src="img/5.1-bar-baselines.png" width="500"/>
-</div></section>
+<p><img alt="deceptive bars" src="../../../_images/5.1-bar-baselines.png" /></p>
+</section>
 <section id="be-aware-of-the-human-reading-the-chart-follow-the-science-of-visualization">
 <h3>2. Be aware of the human reading the chart: follow the science of visualization<a class="headerlink" href="#be-aware-of-the-human-reading-the-chart-follow-the-science-of-visualization" title="Link to this heading">#</a></h3>
 <p>The human visual system is an incredible pattern detection system and can quickly interpret visual data. It can also be easily fooled into misreading information if faced with common illusions. For example, not using 0 as a baseline for bar charts (and many other forms of plots) can misrepresent the data in the chart. Follow the science of human perception as it relates to data visualization. We share several resources on this topic in the references. For example, humans have a hierarchy of efficacy around how well we’re able to perceive differences. Cleveland and McGill (1985) measured the perceptual differences between different ways of perceiving information and how accurately humans can interpret the information presented. This has led to a clear ranking, as shown below with position along a scale and length differences being the best (lending credence to the ubiquity of line and bar plots) and at the bottom end of the scale are differences in color, which is why we need to be cautious in how we use color to encode information. Use this knowledge to choose options that are the most effective for interpretation.</p>
-<div>
-<img src="img/5.1-visual-hierarchy.png" width="650"/>
-</div></section>
+<p><img alt="visual hierarchy" src="../../../_images/5.1-visual-hierarchy.png" /></p>
+</section>
 <section id="label-everything-always">
 <h3>3. Label everything, always<a class="headerlink" href="#label-everything-always" title="Link to this heading">#</a></h3>
 <p>Don’t hesitate, don’t think about it - always include a label for both the x and y axes of your plot and a legend if you’re plotting more than one thing. There should be no ambiguity of meaning. For your x and y axis labels, include precise units whenever possible, and for the legend use human-readable language. Your plotting tool may use your variable name of ‘popa45’ that was present in your data, but that’s a terrible legend entry since no one will know what it means. Instead, use a human-readable label like ‘population above age 45’. We also recommend a descriptive caption to go with your figure if you’re including this in a report.</p>
@@ -620,9 +618,8 @@ document.write(`
 <section id="keep-it-simple-use-as-little-ink-as-possible-to-accurately-create-your-plot">
 <h3>4. Keep it simple: use as little “ink” as possible to accurately create your plot<a class="headerlink" href="#keep-it-simple-use-as-little-ink-as-possible-to-accurately-create-your-plot" title="Link to this heading">#</a></h3>
 <p>Edward Tufte coined the phrase “data-to-ink” ratio which is the ratio of the amount of ink required to print a chart divided by the quantity of information included in the chart. The idea behind maximizing the data-to-ink ratio is to make the chart as simple as possible in terms of the number of elements used while accurately conveying the information you wish to share. Let’s explore two terrible, terrible examples:</p>
-<div>
-<img src="img/5.1-chartjunk-combined.png"/>
-</div><p>First of all, both plots accurately contain the information desired. Figure A contains a litany of poor practices that include:</p>
+<p><img alt="bad charts" src="../../../_images/5.1-chartjunk-combined.png" /></p>
+<p>First of all, both plots accurately contain the information desired. Figure A contains a litany of poor practices that include:</p>
 <ol class="arabic simple">
 <li><p>It uses 3D plotting when the data are able to be presented in 2D.</p></li>
 <li><p>The choice of 3D representation distorts the volume and misleads the reader on interpreting the data since there is more “volume” near the bottom of the pyramids then on the top.</p></li>
@@ -686,12 +683,10 @@ document.write(`
 </div>
 <p>Now, the reader’s eye is immediately drawn to Zoo A and our point becomes clearer, and our data visualization more effective. It’s effective because the color has meaning. For more examples of using color to highlight data, see this <a class="reference external" href="https://blog.datawrapper.de/emphasize-with-color-in-data-visualizations/">DataWrapper discussion of color for emphasis</a> with numerous examples.</p>
 <p>Here are a few tips for optimizing the use of colors:</p>
-<div>
-<img src="img/5.1-colors.png" width="650"/>
-</div><p>Another important consideration is the particular color palette that you use. Always keep in mind that human brains will be reading your plots and whenever we can make it easier for people to understand the content, we should. To that end, when using many colors, as in a heatmap, always use perceptually uniform color palettes that map uniform steps in the data to uniform perceived step changes in the color. The now-default colormap in matplotlib is viridis, which is a perceptually uniform colormap and is a good default option. There are many other <a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">colormaps</a> that are predefined in matplotlib, including the other examples shared below viridis, and these are all reasonable options for your plotting needs.</p>
-<div>
-<img src="img/5.1-colormaps.png" width="650"/>
-</div><p>In particular, cividis is worth noting as it is a colorblind-friendly colormap and therefore a recommended option if you are sharing a visualization with a larger audience.</p>
+<p><img alt="different colors" src="../../../_images/5.1-colors.png" /></p>
+<p>Another important consideration is the particular color palette that you use. Always keep in mind that human brains will be reading your plots and whenever we can make it easier for people to understand the content, we should. To that end, when using many colors, as in a heatmap, always use perceptually uniform color palettes that map uniform steps in the data to uniform perceived step changes in the color. The now-default colormap in matplotlib is viridis, which is a perceptually uniform colormap and is a good default option. There are many other <a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">colormaps</a> that are predefined in matplotlib, including the other examples shared below viridis, and these are all reasonable options for your plotting needs.</p>
+<p><img alt="example colorramps" src="../../../_images/5.1-colormaps.png" /></p>
+<p>In particular, cividis is worth noting as it is a colorblind-friendly colormap and therefore a recommended option if you are sharing a visualization with a larger audience.</p>
 <p>There are also numerous tools for helping you to pick aesthetically pleasing color schemes that provide options for selecting or designing colorblind-friendly palettes:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://colorbrewer2.org/#type=sequential&amp;amp;scheme=BuGn&amp;amp;n=3">Color Brewer</a></p></li>
