@@ -278,6 +278,11 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15.1_combining_merging_continued.html">Combining datasets: merging</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15.2_combining_merging_practical_example.html">Practical Example</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15.3_validating_a_merge.html">Validating Merges</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
 </ul>
@@ -590,11 +595,19 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="maternal-smoking-and-birth-weight">
 <h1>Maternal Smoking and Birth Weight<a class="headerlink" href="#maternal-smoking-and-birth-weight" title="Link to this heading">#</a></h1>
+<p><strong>Note</strong>:</p>
+<blockquote>
+<div><p>This exercise has been written out in something called a Jupyter Notebook. We’ll discuss Jupyter Notebooks in more detail later in this specialization—they are very a powerful tool for data science communication!—but for the time being, the notebook is just a convenient way for us to write out the exercise. You don’t need to <em>do</em> anything with the notebook except read its contents—just use write your Python code in a regular <code class="docutils literal notranslate"><span class="pre">.py</span></code> file.</p>
+</div></blockquote>
+<p><strong>WARNING:</strong></p>
+<blockquote>
+<div><p>When asked to round your answers to a certain number of decimals, do <em>not</em> round any results until you’ve finished your computations and have your final answer! For example, if you were to calculate the average hourly wage for workers, and you did so by first calculating the average weekly salary of workers and the average hours worked per week, then divided the first number by the second, you should NOT round the average weekly salary of workers or the average hours worked per week. Rounding intermediate results can lead to compounding errors that cause problems for the autograder.</p>
+</div></blockquote>
 <p>These days, it is widely understood that mothers who smoke during pregnancy risk exposing their babies to many health problems. This was not common knowledge fifty years ago. One of the first studies that addressed the issue of pregnancy and smoking was the Child Health and Development Studies, a comprehensive study of all babies born between 1960 and 1967 at the Kaiser Foundation Hospital in Oakland, CA. The original reference for the study is Yerushalmy (1964, American Journal of Obstetrics and Gynecology, pp. 505-518). The data and a summary of the study are in Nolan and Speed (2000, Stat Labs, Chapter 10) and can be found at <a class="reference external" href="https://www.stat.berkeley.edu/users/statlabs/">the book’s website.</a></p>
 <p>There were about 15,000 families in the study. We will only analyze a subset of the data, in particular 869 male single births where the baby lived at least 28 days. The researchers interviewed mothers early in their pregnancy to collect information on socioeconomic and demographic characteristics, including an indicator of whether the mother smoked during pregnancy. The variables in the dataset are described in the <code class="docutils literal notranslate"><span class="pre">birthweight_codebook.txt</span></code> code book. In this exercise, we will attempt to use this data to better understand whether mothers who smoke tend to give birth to babies with lower weights than mothers who do not smoke?</p>
 <section id="exercise-1">
 <h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
-<p>Load the data “smoking.csv.” This data includes information on both newborns and also mothers (variables prefixed with the letter <code class="docutils literal notranslate"><span class="pre">m</span></code> are attributes of the mother).</p>
+<p>Load the data <code class="docutils literal notranslate"><span class="pre">smoking.csv</span></code> in the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder. This data includes information on both newborns and also mothers (variables prefixed with the letter <code class="docutils literal notranslate"><span class="pre">m</span></code> are attributes of the mother).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -1013,7 +1026,7 @@ Name: proportion, dtype: float64
 </div>
 </div>
 <blockquote>
-<div><p>0.74</p>
+<div><p>0.73</p>
 </div></blockquote>
 </section>
 <section id="exercise-6">

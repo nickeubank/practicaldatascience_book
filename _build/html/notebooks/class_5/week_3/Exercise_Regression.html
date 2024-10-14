@@ -57,9 +57,7 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_5/week_3/Exercise_Regression_w_solutions';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_5/week_3/Exercise_Regression';</script>
     <link rel="icon" href="../../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -447,7 +445,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_5/week_3/Exercise_Regression_w_solutions.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_5/week_3/Exercise_Regression.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -477,7 +475,7 @@
       
       
       
-      <li><a href="../../../_sources/notebooks/class_5/week_3/Exercise_Regression_w_solutions.ipynb" target="_blank"
+      <li><a href="../../../_sources/notebooks/class_5/week_3/Exercise_Regression.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -608,137 +606,6 @@ document.write(`
 <section id="exercise-1">
 <h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
 <p>Load the data <code class="docutils literal notranslate"><span class="pre">smoking.csv</span></code> in the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder. This data includes information on both newborns and also mothers (variables prefixed with the letter <code class="docutils literal notranslate"><span class="pre">m</span></code> are attributes of the mother).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-
-<span class="n">smoking_and_bw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/smoking.csv&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_bw</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>date</th>
-      <th>gestation</th>
-      <th>bwt_oz</th>
-      <th>parity</th>
-      <th>mrace</th>
-      <th>mage</th>
-      <th>med</th>
-      <th>mht</th>
-      <th>mpregwt</th>
-      <th>inc</th>
-      <th>smoke</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>8038</td>
-      <td>1665</td>
-      <td>256</td>
-      <td>108</td>
-      <td>0</td>
-      <td>1</td>
-      <td>26</td>
-      <td>5</td>
-      <td>67</td>
-      <td>130</td>
-      <td>3</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>6251</td>
-      <td>1408</td>
-      <td>256</td>
-      <td>78</td>
-      <td>0</td>
-      <td>8</td>
-      <td>29</td>
-      <td>5</td>
-      <td>65</td>
-      <td>123</td>
-      <td>7</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>6611</td>
-      <td>1453</td>
-      <td>257</td>
-      <td>102</td>
-      <td>1</td>
-      <td>4</td>
-      <td>25</td>
-      <td>1</td>
-      <td>66</td>
-      <td>135</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>6177</td>
-      <td>1416</td>
-      <td>257</td>
-      <td>138</td>
-      <td>1</td>
-      <td>0</td>
-      <td>38</td>
-      <td>2</td>
-      <td>67</td>
-      <td>138</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>6017</td>
-      <td>1428</td>
-      <td>258</td>
-      <td>102</td>
-      <td>0</td>
-      <td>7</td>
-      <td>22</td>
-      <td>4</td>
-      <td>65</td>
-      <td>135</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
 </section>
 <section id="exercise-2">
 <h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
@@ -747,227 +614,16 @@ document.write(`
 <p>Using <code class="docutils literal notranslate"><span class="pre">ols</span></code> from <code class="docutils literal notranslate"><span class="pre">statsmodels.formula.api</span></code>, regress birthweight on whether the infant’s mother smoked. What is the average difference in the weight of newborns for mothers who did not smoke as compared to mothers who smoke?</p>
 <p>When interpreting the coefficient of your model, remember that the reported coefficient is equal to the average value of birthweight <em>when the indicator variable is equal to 1</em> minus the average value of birthweight <em>when the indicator variable is equal to 0</em>.</p>
 <p><strong>Please round your answer to 2 decimal places.</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
-
-<span class="n">s_and_bw_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;bwt_oz ~ smoke&quot;</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">s_and_bw_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><table class="simpletable">
-<caption>OLS Regression Results</caption>
-<tr>
-  <th>Dep. Variable:</th>         <td>bwt_oz</td>      <th>  R-squared:         </th> <td>   0.055</td>
-</tr>
-<tr>
-  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.054</td>
-</tr>
-<tr>
-  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   47.62</td>
-</tr>
-<tr>
-  <th>Date:</th>             <td>Tue, 06 Aug 2024</td> <th>  Prob (F-statistic):</th> <td>1.04e-11</td>
-</tr>
-<tr>
-  <th>Time:</th>                 <td>11:23:49</td>     <th>  Log-Likelihood:    </th> <td> -3438.4</td>
-</tr>
-<tr>
-  <th>No. Observations:</th>      <td>   814</td>      <th>  AIC:               </th> <td>   6881.</td>
-</tr>
-<tr>
-  <th>Df Residuals:</th>          <td>   812</td>      <th>  BIC:               </th> <td>   6890.</td>
-</tr>
-<tr>
-  <th>Df Model:</th>              <td>     1</td>      <th>                     </th>     <td> </td>   
-</tr>
-<tr>
-  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>   
-</tr>
-</table>
-<table class="simpletable">
-<tr>
-      <td></td>         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
-</tr>
-<tr>
-  <th>Intercept</th> <td>  123.3824</td> <td>    0.787</td> <td>  156.732</td> <td> 0.000</td> <td>  121.837</td> <td>  124.928</td>
-</tr>
-<tr>
-  <th>smoke</th>     <td>   -8.0356</td> <td>    1.164</td> <td>   -6.901</td> <td> 0.000</td> <td>  -10.321</td> <td>   -5.750</td>
-</tr>
-</table>
-<table class="simpletable">
-<tr>
-  <th>Omnibus:</th>       <td> 8.836</td> <th>  Durbin-Watson:     </th> <td>   1.757</td>
-</tr>
-<tr>
-  <th>Prob(Omnibus):</th> <td> 0.012</td> <th>  Jarque-Bera (JB):  </th> <td>  11.208</td>
-</tr>
-<tr>
-  <th>Skew:</th>          <td> 0.127</td> <th>  Prob(JB):          </th> <td> 0.00368</td>
-</tr>
-<tr>
-  <th>Kurtosis:</th>      <td> 3.516</td> <th>  Cond. No.          </th> <td>    2.53</td>
-</tr>
-</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</div></div>
-</div>
-<blockquote>
-<div><p>Answer: 8.04 ounces.</p>
-</div></blockquote>
 </section>
 <section id="exercise-3">
 <h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h2>
 <p>The longer a pregnancy, the heavier a newborn will tend to be. Suppose we are interested in whether the newborns of mothers who don’t smoke are heavier than newborns of mothers who do smoke <em>when their pregnancies are the same duration.</em> To answer this question, please add <code class="docutils literal notranslate"><span class="pre">gestation</span></code> as a second variable in our model.</p>
 <p>Now what is the average difference in the weight of newborns for mothers who did not smoke as compared to mothers who smoke <em>for pregnancies of the same length</em>?</p>
 <p><strong>Please round your answer to two decimal places.</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_and_bw_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;bwt_oz ~ smoke + gestation&quot;</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">s_and_bw_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><table class="simpletable">
-<caption>OLS Regression Results</caption>
-<tr>
-  <th>Dep. Variable:</th>         <td>bwt_oz</td>      <th>  R-squared:         </th> <td>   0.145</td>
-</tr>
-<tr>
-  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.143</td>
-</tr>
-<tr>
-  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   68.74</td>
-</tr>
-<tr>
-  <th>Date:</th>             <td>Tue, 06 Aug 2024</td> <th>  Prob (F-statistic):</th> <td>2.64e-28</td>
-</tr>
-<tr>
-  <th>Time:</th>                 <td>11:28:58</td>     <th>  Log-Likelihood:    </th> <td> -3397.9</td>
-</tr>
-<tr>
-  <th>No. Observations:</th>      <td>   814</td>      <th>  AIC:               </th> <td>   6802.</td>
-</tr>
-<tr>
-  <th>Df Residuals:</th>          <td>   811</td>      <th>  BIC:               </th> <td>   6816.</td>
-</tr>
-<tr>
-  <th>Df Model:</th>              <td>     2</td>      <th>                     </th>     <td> </td>   
-</tr>
-<tr>
-  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>   
-</tr>
-</table>
-<table class="simpletable">
-<tr>
-      <td></td>         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
-</tr>
-<tr>
-  <th>Intercept</th> <td>   -0.3847</td> <td>   13.449</td> <td>   -0.029</td> <td> 0.977</td> <td>  -26.785</td> <td>   26.015</td>
-</tr>
-<tr>
-  <th>smoke</th>     <td>   -7.4319</td> <td>    1.111</td> <td>   -6.692</td> <td> 0.000</td> <td>   -9.612</td> <td>   -5.252</td>
-</tr>
-<tr>
-  <th>gestation</th> <td>    0.4393</td> <td>    0.048</td> <td>    9.217</td> <td> 0.000</td> <td>    0.346</td> <td>    0.533</td>
-</tr>
-</table>
-<table class="simpletable">
-<tr>
-  <th>Omnibus:</th>       <td> 8.849</td> <th>  Durbin-Watson:     </th> <td>   1.956</td>
-</tr>
-<tr>
-  <th>Prob(Omnibus):</th> <td> 0.012</td> <th>  Jarque-Bera (JB):  </th> <td>  10.993</td>
-</tr>
-<tr>
-  <th>Skew:</th>          <td> 0.136</td> <th>  Prob(JB):          </th> <td> 0.00410</td>
-</tr>
-<tr>
-  <th>Kurtosis:</th>      <td> 3.501</td> <th>  Cond. No.          </th> <td>6.85e+03</td>
-</tr>
-</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[2] The condition number is large, 6.85e+03. This might indicate that there are<br/>strong multicollinearity or other numerical problems.</div></div>
-</div>
-<blockquote>
-<div><p>7.43 ounces.</p>
-</div></blockquote>
 </section>
 <section id="exercise-4">
 <h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h2>
 <p>Now fit the same model you just fit (with <code class="docutils literal notranslate"><span class="pre">gestation</span></code> and <code class="docutils literal notranslate"><span class="pre">smoke</span></code>) but do so using <code class="docutils literal notranslate"><span class="pre">patsy</span></code> and the <code class="docutils literal notranslate"><span class="pre">OLS</span></code> method from <code class="docutils literal notranslate"><span class="pre">statsmodels.api</span></code> (<em>not</em> the <code class="docutils literal notranslate"><span class="pre">ols</span></code> method from <code class="docutils literal notranslate"><span class="pre">statsmodels.formula.api</span></code>).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">import</span> <span class="nn">patsy</span>
-
-<span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;bwt_oz ~ smoke + gestation&quot;</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><table class="simpletable">
-<caption>OLS Regression Results</caption>
-<tr>
-  <th>Dep. Variable:</th>         <td>bwt_oz</td>      <th>  R-squared:         </th> <td>   0.145</td>
-</tr>
-<tr>
-  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.143</td>
-</tr>
-<tr>
-  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   68.74</td>
-</tr>
-<tr>
-  <th>Date:</th>             <td>Tue, 06 Aug 2024</td> <th>  Prob (F-statistic):</th> <td>2.64e-28</td>
-</tr>
-<tr>
-  <th>Time:</th>                 <td>11:40:36</td>     <th>  Log-Likelihood:    </th> <td> -3397.9</td>
-</tr>
-<tr>
-  <th>No. Observations:</th>      <td>   814</td>      <th>  AIC:               </th> <td>   6802.</td>
-</tr>
-<tr>
-  <th>Df Residuals:</th>          <td>   811</td>      <th>  BIC:               </th> <td>   6816.</td>
-</tr>
-<tr>
-  <th>Df Model:</th>              <td>     2</td>      <th>                     </th>     <td> </td>   
-</tr>
-<tr>
-  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>   
-</tr>
-</table>
-<table class="simpletable">
-<tr>
-      <td></td>         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
-</tr>
-<tr>
-  <th>Intercept</th> <td>   -0.3847</td> <td>   13.449</td> <td>   -0.029</td> <td> 0.977</td> <td>  -26.785</td> <td>   26.015</td>
-</tr>
-<tr>
-  <th>smoke</th>     <td>   -7.4319</td> <td>    1.111</td> <td>   -6.692</td> <td> 0.000</td> <td>   -9.612</td> <td>   -5.252</td>
-</tr>
-<tr>
-  <th>gestation</th> <td>    0.4393</td> <td>    0.048</td> <td>    9.217</td> <td> 0.000</td> <td>    0.346</td> <td>    0.533</td>
-</tr>
-</table>
-<table class="simpletable">
-<tr>
-  <th>Omnibus:</th>       <td> 8.849</td> <th>  Durbin-Watson:     </th> <td>   1.956</td>
-</tr>
-<tr>
-  <th>Prob(Omnibus):</th> <td> 0.012</td> <th>  Jarque-Bera (JB):  </th> <td>  10.993</td>
-</tr>
-<tr>
-  <th>Skew:</th>          <td> 0.136</td> <th>  Prob(JB):          </th> <td> 0.00410</td>
-</tr>
-<tr>
-  <th>Kurtosis:</th>      <td> 3.501</td> <th>  Cond. No.          </th> <td>6.85e+03</td>
-</tr>
-</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[2] The condition number is large, 6.85e+03. This might indicate that there are<br/>strong multicollinearity or other numerical problems.</div></div>
-</div>
 </section>
 <section id="exercise-5">
 <h2>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h2>
@@ -986,48 +642,6 @@ document.write(`
 <p>(As you can tell, people in the 1960s were not as thoughtful about collecting detailed data on race and ethnicity as most modern researchers, and nor did they go out of their way to ensure their data included enough data on non-White groups to allow detailed sub-population analyses.)</p>
 <p>What share (a value between 0 and 1) of mothers in the data are identified as White?</p>
 <p><strong>Please round your answer to two decimal places</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">&quot;mrace&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mrace
-0    0.460688
-7    0.181818
-5    0.111794
-3    0.052826
-4    0.049140
-1    0.040541
-8    0.039312
-6    0.027027
-2    0.019656
-9    0.017199
-Name: proportion, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">&quot;mrace&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">&quot;mrace&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>white
-True     0.734644
-False    0.265356
-Name: proportion, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<blockquote>
-<div><p>0.73</p>
-</div></blockquote>
 </section>
 <section id="exercise-6">
 <h2>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h2>
@@ -1036,19 +650,6 @@ Name: proportion, dtype: float64
 <p>What is the coefficient on <code class="docutils literal notranslate"><span class="pre">smoke</span></code>?</p>
 <p>This time, please extract the coefficient on <code class="docutils literal notranslate"><span class="pre">smoke</span></code> from the model using Python, then round it with <code class="docutils literal notranslate"><span class="pre">np.round()</span></code> (so you can get some practice accessing model coefficients).</p>
 <p><strong>Please round your answer to two decimal places.</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_and_bw_model3</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;bwt_oz ~ gestation + C(white)*smoke&quot;</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;smoke&quot;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-7.59
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="bonus-exercises">
 <h2>Bonus Exercises<a class="headerlink" href="#bonus-exercises" title="Link to this heading">#</a></h2>
@@ -1056,9 +657,6 @@ Name: proportion, dtype: float64
 <section id="exercise-7">
 <h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
 <p>Based on the regression you ran in Exercise 6, is the impact of smoking greater for White mothers than non-White mothers? (We are ignoring the question of whether this difference is statistically significant for the moment, if you know what that means — just focus on the coefficients in the model.)</p>
-<blockquote>
-<div><p>The impact is greater.</p>
-</div></blockquote>
 </section>
 <section id="exercise-8">
 <h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
@@ -1066,21 +664,6 @@ Name: proportion, dtype: float64
 <p>For White mothers, what is the average difference in the weight of newborns between mothers who do NOT smoke and those who DO smoke, assuming their pregnancies lasted the same amount of time?</p>
 <p>Please do not do any math by hand — extract the coefficients from the model using Python.</p>
 <p><strong>Please round your answer to two decimal places.</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;smoke&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;C(white)[T.True]:smoke&quot;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-7.926048814780051
-</pre></div>
-</div>
-</div>
-</div>
-<blockquote>
-<div><p>7.93</p>
-</div></blockquote>
 </section>
 </section>
 </section>
