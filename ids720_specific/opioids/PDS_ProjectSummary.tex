@@ -121,11 +121,11 @@ Two sources of data you will definitely need for this analysis are information o
 
 \subsubsection*{Opioid Prescriptions}
 
-A core component of this project will be a recently released dataset of all prescription opioid drug shipments in the United States from 2006 to 2019. This was only recently released (in 2020) by the \emph{Washington Post}, which obtained the data through a Freedom of Information Act (FOIA) request to the US Drug Enforcement Agency.
+A core component of this project will be a recently released dataset of all prescription opioid drug shipments in the United States from 2006 to 2014. This was only recently released (in 2020) by the \emph{Washington Post}, which obtained the data through a Freedom of Information Act (FOIA) request to the US Drug Enforcement Agency.
 
 \begin{itemize}
-  \item \href{https://www.washingtonpost.com/graphics/2019/investigations/dea-pain-pill-database/}{Read about data here.}
-  \item \href{https://www.washingtonpost.com/national/2019/07/18/how-download-use-dea-pain-pills-database/?arc404=true}{Download here. Please use the \emph{Click here to download the national data from The Washington Post} link in the fourth bullet point under ``How to download this data'' to get the most updated data.}
+  \item \href{https://github.com/nickeubank/practicaldatascience_book/blob/main/ids720_specific/opioids/MoreThan100billionPainPillsSaturatedTheNationOverNineYears.pdf}{Read about data here.}
+  \item \href{https://gfx-data.news-engineering.aws.wapo.pub/ne-static/arcos/v2/bulk/arcos_all.zip}{Download the data here.} It should be about 
   \item \href{https://github.com/wpinvestigative/arcos-api/blob/master/data/data_dictionary.csv}{More about variables in the data here.}
 \end{itemize}
 
@@ -182,7 +182,7 @@ Things to know about counties:
 
 \subsection*{Policy Changes}
 
-In this analysis, we'll be analyzing \emph{three} policy changes:
+In this analysis, we'll be analyzing \emph{two} policy changes:
 
 \begin{itemize}
 
@@ -191,10 +191,6 @@ In this analysis, we'll be analyzing \emph{three} policy changes:
   \item \textbf{Changes:} ``Florida gained notoriety after 2007 because of the proliferation of pain clinics in the state that were prescribing large quantities of drugs for pain with little medical justification and were being used primarily by persons abusing or diverting opioid analgesics, benzodiazepines, and muscle relaxants. In 2010, Florida was also home to 98 of the 100 U. S. physicians who dispensed the highest quantities of oxycodone directly from their offices. In response, Florida enacted several measures to address prescribing that was inconsistent with best practices. The Florida legislature required that pain clinics treating pain with controlled substances register with the state by January 4, 2010. In February 2010, the Drug Enforcement Administration and various Florida law enforcement agencies began to work together in Operation Pill Nation. Pain clinic regulations were further expanded later in 2010. In February 2011, law enforcement conducted statewide raids, resulting in numerous arrests, seizures of assets, and pain clinic closures. In July of that year, coinciding with a public health emergency declaration by the Florida Surgeon General, the state legislature prohibited physician dispensing of schedule II or III drugs from their offices and activated regional strike forces to address the emergency. Mandatory dispenser reporting to the newly established prescription drug monitoring program began in September 2011. Finally, in 2012, the legislature expanded regulation of wholesale drug distributors and created the Statewide Task Force on Prescription Drug Abuse and Newborns.''\footnote{Source: Johnson, Paulozzi, Porucznik, Mack, and Herter, 2014.}
   \item \textbf{Note:} Obviously what we have here is a \emph{series} of changes rather than one single large change. Nevertheless, this analysis just operationalize the policy change as having taken place in February 2010.
 \end{itemize}
-  \item Texas, Effective January 4, 2007
-  \begin{itemize}
-    \item \textbf{Changes:} ``In 2007, the Texas Medical Board adopted regulations with regard to treating pain with controlled substances. The guidelines include performing a patient evaluation before prescribing opioids (including reviewing prescription data and history related to the patient contained in the state's prescription drug monitoring program (PDMP)), obtaining informed consent from the patient for opioid treatment, conduct periodic review of the opioid treatment, and maintain a complete medical record of the patient's treatment.''\footnote{Source: The Network for Public Health Law, \href{https://azdhs.gov/documents/prevention/womens-childrens-health/injury-prevention/opioid-prevention/appendix-b-state-by-state-summary.pdf}{Appendix B}}. \href{https://texreg.sos.state.tx.us/public/readtac$ext.TacPage?sl=R&app=9&p_dir=&p_rloc=&p_tloc=&p_ploc=&pg=1&p_tac=&ti=22&pt=9&ch=170&rl=3}{Link to law.}
-  \end{itemize}
   \item Washington (the State, not Washington, DC), Effective Jan 2, 2012.
   \begin{itemize}
     \item \textbf{Changes:} In 2011, the Washington Department of Health adopted a rule regulating the prescribing of opioids for pain treatment. Some of the prescribing requirements include:\footnote{Source: The Network for Public Health Law, \href{https://azdhs.gov/documents/prevention/womens-childrens-health/injury-prevention/opioid-prevention/appendix-b-state-by-state-summary.pdf}{Appendix B}}
@@ -221,11 +217,9 @@ Your task is to complete both:
   \item a difference-in-difference analysis
 \end{itemize}
 
-for all three of these policy changes. You can present your results in the graphical format modeled above. While there are many statistical methods of doing things like adding controls for various observable factors, the emphasis of this analysis is on data wrangling and transparent analysis, so those plots will be sufficient.
+for both of these policy changes. You can present your results in the graphical format modeled above. While there are many statistical methods of doing things like adding controls for various observable factors, the emphasis of this analysis is on data wrangling and transparent analysis, so those plots will be sufficient.
 
 For the Florida and Washington cases, you must analyze the effect of its policy change on \emph{BOTH} opioid shipments and overdose deaths.
-
-For Texas, you only need to analyze overdose deaths. This is because our opioid shipment data only runs from 2006, meaning that you only have one year of data on either side of the policy change, making evaluation of trends difficult. The overdose data I have provided, by contrast, runs from 2003-2015. With that said, \emph{any group that would like to analyze opioid shipment data \emph{by month} instead of by year for Texas (which would get you 12 observations with which to measure trends) would get extra credit for their project.}
 
 For this project, you must:
 
@@ -236,28 +230,10 @@ For this project, you must:
   \begin{itemize}
     \item All team members must make substantial commits to the project.
     \item All team members must also actively review at least one PR for another team member. \textbf{You will be graded on your own code review. \emph{Your} code review is where YOU review the code of someone else, not where you have your code reviewed!}
+    \item \textbf{You muse work with \emph{.py} files, not Jupyter notebooks.}
   \end{itemize}
-  \item Present \textbf{TWO} final reports, one for me, one for an imaginary policy maker (who is \emph{not} a statistician).
-  \item In the report for me, include:
-  \begin{itemize}
-    \item The motivation for the project,
-    \item The motivation for the research design being used,
-    \item Details of the data used and how different datasets have been related to one another,
-    \item Summary statistics for your data,
-    \item Your analysis,
-    \item Your interpretation of that analysis.
-  \end{itemize}
-  \item In the report for a policymaker (someone who is NOT trained in statistics), include:
-  \begin{itemize}
-    \item The motivation for the project,
-    \item Overview of the data being used,
-    \item Your analysis (presented for a non-statistician),
-    \item Your \emph{interpretation} of that analysis (again, laying out strengths and weaknesses without using statistical jargon).
-  \end{itemize}
+  \item Present a final report to a stakeholder you may assume is mostly interested in understanding the effects of these policies (\emph{not}) the nuances of your data wrangling. I will provide more guidance on report writing soon, but you can find \href{https://ds4humans.com/40_in_practice/25_writing_to_stakeholders.html}{the guide we'll use here}.
 \end{itemize}
-
-
-In writing your report, remember that much of the focus of this project is on \emph{data wrangling}, so spend lots of time on your data section for me discussing where your data came from, what assumptions you've made in working with it, and how you handled issues you ran into.
 
 \subsection*{Due Dates}
 \begin{itemize}

@@ -276,6 +276,11 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15.1_combining_merging_continued.html">Combining datasets: merging</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15.2_combining_merging_practical_example.html">Practical Example</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15.3_validating_a_merge.html">Validating Merges</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
 </ul>
@@ -341,6 +346,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../20_programming_concepts/defensive_programming.html">Defensive Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../20_programming_concepts/defensive_programming_tests.html">Testing in a Data Analysis Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../20_programming_concepts/defensive_programming_readability.html">Readability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../20_programming_concepts/defensive_programming_duplicate.html">Don’t Duplicate Information</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
 </ul>
 </details></li>
@@ -589,7 +597,7 @@ document.write(`
 <p>Before we get into big data and strategies for working with it, we need to take a short digression into computer architecture.</p>
 <p>When your computer executes code—for example, adding up all the entries in a vector—it doesn’t all happen in one place. Your computer stores data (like your vector) in main memory (again, this is the term used for what you buy as RAM) where it has several gigabytes of space to put things. But actual mathematical operations happen in the processor, which is physically located in a different place in your computer. So to add two numbers, your computer must move those numbers from main memory into a <em>tiny</em> set of memory banks inside your processor from which they can be accessed, added, and the result stored. (Most modern processor cores have 16 innermost memory slots called “registers”, each of which can only store 64 bits of data—i.e. a single number.)</p>
 <p>This is important because in data science, moving data back and forth from memory takes <em>much</em> longer than doing actual calculations. Indeed, in a normal data science workflow, moving data back and forth from memory is a <em>huge</em> portion of what takes up the time your computer spends “working”, not doing actual calculations.</p>
-<p>This makes memory management important in general, but the problem becomes more acute when you can’t store your data in main memory. That’s because while you <em>can</em> store data on your hard drive, and move data directly from your hard drive to your processor and back, that process is <em>unimaginably</em> slow.</p>
+<p>This makes memory management important in general, but the problem becomes more acute when you can’t store your data in main memory. That’s because while you <em>can</em> store data on your hard drive, and move the data from your hard drive to your processor, do calculations, and then return it to the disk, that process is <em>unimaginably</em> slow.</p>
 <p>How much slower? Data can move from main memory to the processor at a rate ~1,000 times faster than from a spinning hard drive, over 100 times faster than from SATA SSDs, and over 25 times faster than from m2 SSDs. (speeds estimated from transfer speed estimates <a class="reference external" href="https://en.wikipedia.org/wiki/Memory_hierarchy#Examples">here</a>).</p>
 <p>But even those transfer speeds are only half the story—hard drives also have higher <em>latency</em>, meaning that with hard drives, there’s a much longer lag between when you <em>ask</em> for data and when the data transfer begins than with main memory. How much slower? This table re-scales actual latency times (the time between when you ask for a byte of data and when it arrives at the processor) to human time scales (don’t worry about the cache entries yet) (<a class="reference external" href="https://www.formulusblack.com/blog/compute-performance-distance-of-data-as-a-measure-of-latency/">from this excellent post</a>).</p>
 <p><img alt="human_time" src="../../../_images/human_time.png" /></p>
