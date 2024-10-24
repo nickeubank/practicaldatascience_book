@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -61,6 +61,8 @@
     <link rel="icon" href="../../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="The Iceberg Principle" href="iceberg_principle.html" />
+    <link rel="prev" title="Don’t Duplicate Information" href="defensive_programming_duplicate.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -122,8 +124,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -340,15 +340,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../30_big_data/70_dask.html">Distributed Computing with dask</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="10_debugging_principles.html">Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="defensive_programming.html">Defensive Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="defensive_programming.html">Defensive Programming</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_tests.html">Testing in a Data Analysis Workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_readability.html">Readability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_duplicate.html">Don’t Duplicate Information</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Collaboration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iceberg_principle.html">The Iceberg Principle</a></li>
 </ul>
 </details></li>
@@ -584,6 +585,7 @@ document.write(`
 <p>I am aware of three strategies for avoiding these types of problems:</p>
 <p>The first and most conservative solution to this is <strong>full replication</strong>, where each team member conducts the full analysis independently and members then compare results. If results match, authors can feel confident there are no problems in their code. But this strategy requires a massive duplication of effort – offsetting many of the benefits of working on teams – and requires both authors be <em>able</em> to conduct the entire analysis, which is not always the case.</p>
 <p>The second strategy is <strong>compartmentalization</strong>, in which each author is assigned responsibility for coding specific parts of the analysis. Author A, for example, may be responsible for importing, cleaning, and formatting data from an outside source while Author B is responsible for subsequent analysis. In this system, if Author B finds she need an additional variable for the analysis, she ask Author A to modify Author A’s code rather than making modifications herself. This ensures responsibility for each block of code is clearly delimited, and changes are unlikely to sneak into an Author’s code without their knowledge. In addition, authors can also then review one another’s code prior to project finalization. But there is no process for continuous review of code, and if Author A modifies a variable that later gets passed to Author B and somehow the communication about what is being passed from person to person break down… bad things can happen.</p>
+<p>If you are interested in compartmentalization, consider defining exactly how data will be handed off <em>in advance</em> (what variables, what they’ll be called, unit of observation, etc.) so that the second Author in a chain can start working on their code. This can be hard when working with big, complicated tabular data, but if the data is simpler (and you can mock up a little sample of synthetic data), Author A and B can work on their code simultaneously. The more a system can be broken down into components with predefined interfaces, the easier it is to parallelize work, and the components are easier to build, understand, and test.</p>
 <p>The final strategy is to <strong>use version control</strong> (i.e. git and github), which is by far the most robust solution and the one most used by computer scientists, but also the one that requires the most upfront investment in learning a new skill.</p>
 <p>Version control does several things for preventing errors. First, as the name implies, it keeps track of <em>every</em> version of your code that has ever existed and makes it easy to go back to old versions. This service is often provided by services like Dropbox, it is much easier to review old versions and identifying differences between old and new versions in <code class="docutils literal notranslate"><span class="pre">git</span></code> than through a service like Dropbox, whose interface is sufficiently cumbersome and most of us never use it unless we accidentally delete an important file.</p>
 <p>But what really makes version control exceptional is that it makes it easy to (a) keep track of what differs between any two versions, and to (b) “propose” changes to code in a way that other authors can easily review before those changes are fully integrated. If Author A wants to modify code in version control, she first creates a “branch” – a kind of working version of the project. She then makes her changes on that branch and propose the branch be re-integrated into the main code. Version control is then able to present this proposed change in a very clear way, highlighting every change that the new branch would make to the code base to ensure no changes – no matter how small – go unnoticed. The author that made the proposed changes can then ask their co-author to review the changes before they are integrated into the code base. To illustrate, Figure 1 shows an example of what a simple proposed change to code looks like on <em>GitHub</em>, a popular site for managing <code class="docutils literal notranslate"><span class="pre">git</span></code> projects online:</p>
@@ -621,6 +623,24 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="defensive_programming_duplicate.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Don’t Duplicate Information</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="iceberg_principle.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Iceberg Principle</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               

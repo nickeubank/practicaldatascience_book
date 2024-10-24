@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -63,7 +63,7 @@
     <link rel="icon" href="../../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="The Iceberg Principle" href="iceberg_principle.html" />
+    <link rel="next" title="Collaboration" href="defensive_programming_collaboration.html" />
     <link rel="prev" title="Readability" href="defensive_programming_readability.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -351,6 +351,7 @@
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_tests.html">Testing in a Data Analysis Workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_readability.html">Readability</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Don’t Duplicate Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="defensive_programming_collaboration.html">Collaboration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iceberg_principle.html">The Iceberg Principle</a></li>
 </ul>
 </details></li>
@@ -725,13 +726,13 @@ document.write(`
 <section id="never-transcribe">
 <h2>Never Transcribe<a class="headerlink" href="#never-transcribe" title="Link to this heading">#</a></h2>
 <p>This one is more relevant for academics, but it’s important anyway: never transcribe numbers into a report or paper if you can possibly avoid it.</p>
-<p>We’ve already covered tricks to maximize the probability we catch our mistakes, but how do we minimize the probability they will occur? If there is anything I learned working as the Replication Assistant at the <em>Quarterly Journal of Political Science</em> testing people’s replication packages, it is that authors should <strong>never</strong> transcribe numbers from their statistical software into their papers by hand. This was <em>easily</em> the largest source of replication issues we encountered, as doing so introduced two types of errors:</p>
+<p>We’ve already covered tricks to maximize the probability we catch our mistakes, but how do we minimize the likelihood they will occur? If there is anything I learned working as the Replication Assistant at the <em>Quarterly Journal of Political Science</em> testing people’s replication packages, it is that authors should <strong>never</strong> transcribe numbers from their statistical software into their papers by hand. This was <em>easily</em> the largest source of replication issues we encountered, as doing so introduced two types of errors:</p>
 <ul class="simple">
-<li><p><strong>Mis-transcriptions:</strong> Humans just aren’t built to transcribe dozens of numbers by hand reliably. If the error is in the last decimal place, it doesn’t mean much, but when a decimal point drifts or a negative sign is dropped, the results are often quite substantively important.</p></li>
+<li><p><strong>Mis-transcriptions:</strong> Humans just aren’t built to reliably transcribe dozens of numbers by hand. If the error is in the last decimal place, it doesn’t mean much, but when a decimal point drifts, or a negative sign is dropped, the results are often quite substantively important.</p></li>
 <li><p><strong>Failures to Update:</strong> We are constantly updating our code, and authors who hand transcribe their results often update their code and forget to update all of their results, leaving old results in their paper.</p></li>
 </ul>
 <p>So, how do you avoid this problem? Use tools that will directly export your results into plain text or formatted tables you can use in the program where you are working. For example, <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> in Python <a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.iolib.table.SimpleTable.html#statsmodels.iolib.table.SimpleTable">can export regression tables to lots of formats</a>, <a class="reference external" href="https://www.rdocumentation.org/packages/stargazer/versions/5.2.2/topics/stargazer">R has stargazer</a>, and Stata has <a class="reference external" href="http://repec.org/bocode/e/estout/esttab.html">estout</a>.</p>
-<p>I also suggest users not only do this for tables - which is increasingly common - but also statistics that appear in text. For example, to put a single number into <span class="math notranslate nohighlight">\(\LaTeX\)</span>, you just generate the number you want to put in your paper, convert it to a string, and save it to disk as a <code class="docutils literal notranslate"><span class="pre">.tex</span></code> file (e.g. <code class="docutils literal notranslate"><span class="pre">exported_statistic.tex</span></code>). Then in your paper, simply add a <code class="docutils literal notranslate"><span class="pre">\input{exported_statistic.tex}</span></code>call, and LaTeX will insert the contents of that <code class="docutils literal notranslate"><span class="pre">.tex</span></code> file verbatim into your paper.</p>
+<p>I suggest users not only do this for tables - which is increasingly common - but also for statistics that appear in text. For example, to put a single number into <span class="math notranslate nohighlight">\(\LaTeX\)</span>, you just generate the number you want to put in your paper, convert it to a string, and save it to disk as a <code class="docutils literal notranslate"><span class="pre">.tex</span></code> file (e.g., <code class="docutils literal notranslate"><span class="pre">exported_statistic.tex</span></code>). Then, in your paper, simply add a <code class="docutils literal notranslate"><span class="pre">\input{exported_statistic.tex}</span></code>call, and LaTeX will insert the contents of that <code class="docutils literal notranslate"><span class="pre">.tex</span></code> file verbatim into your paper.</p>
 <p>For example, here’s a way to save a single number to put into LaTeX:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -756,7 +757,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>While this type of integration works best for LaTeX, it can still be accomplished with many other programs like Word. For example, most packages that generate<code class="docutils literal notranslate"><span class="pre">.tex</span></code> files that can be easily integrated into LaTeX also often have options to export to <code class="docutils literal notranslate"><span class="pre">.txt</span></code> or <code class="docutils literal notranslate"><span class="pre">.rtf</span></code> files that you can easily use in Word. These tools can be used to generate tables can either be (a) copied whole-cloth into Word by hand (minimizing the risk of mis-transcriptions that may occur when typing individual values), or (b) using Word’s <a class="reference external" href="https://support.office.com/en-us/article/Insert-an-object-in-Word-or-Outlook-8fc1ea53-0e01-4603-a4cf-98c49b6ea3f5">Link to Existing File</a> feature to connect your Word document to the output of your code in a way that ensures the Word doc loads the most recent version of the table every time Word is opened. Some great tips for combining R with Word <a class="reference external" href="http://stanford.edu/~ejdemyr/r-tutorials/tables-in-r/">can be found here</a>.</p>
+<p>While this type of integration works best for LaTeX, it can still be accomplished with many other programs like Word. For example, most packages that generate <code class="docutils literal notranslate"><span class="pre">.tex</span></code> files that can be easily integrated into LaTeX also often have options to export to <code class="docutils literal notranslate"><span class="pre">.txt</span></code> or <code class="docutils literal notranslate"><span class="pre">.rtf</span></code> files that you can easily use in Word. These tools can be used to generate tables that can either be (a) copied whole-cloth into Word by hand (minimizing the risk of mis-transcriptions that may occur when typing individual values) or (b) using Word’s <a class="reference external" href="https://support.office.com/en-us/article/Insert-an-object-in-Word-or-Outlook-8fc1ea53-0e01-4603-a4cf-98c49b6ea3f5">Link to Existing File</a> feature to connect your Word document to the output of your code in a way that ensures the Word doc loads the most recent version of the table every time Word is opened. Some great tips for combining R with Word <a class="reference external" href="http://stanford.edu/~ejdemyr/r-tutorials/tables-in-r/">can be found here</a>.</p>
 </section>
 </section>
 
@@ -800,11 +801,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="iceberg_principle.html"
+       href="defensive_programming_collaboration.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The Iceberg Principle</p>
+        <p class="prev-next-title">Collaboration</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
