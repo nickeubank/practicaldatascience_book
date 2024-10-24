@@ -590,13 +590,13 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="testing-in-a-data-analysis-workflow">
 <h1>Testing in a Data Analysis Workflow<a class="headerlink" href="#testing-in-a-data-analysis-workflow" title="Link to this heading">#</a></h1>
-<p>It’s hard to do much programming without come across the concept of <em>testing</em> — the practice of writing code whose sole purpose is to verify the programs you write actually do what you expect them to do. Indeed, testing is such a core part of programming that few people would consider posting their code publicly on a service like github without including a suite of tests, and some programmers have even adopted a practice known as <em>test-driven development</em> in which they <em>start</em> a project by writing tests that they want the code the plan to write to eventually be able to pass and then work until those tests pass.</p>
-<p>But while testing is deeply engrained in the practice of writing software, all too often data scientists assume testing isn’t relevant when they are writing simple scripts that are meant to run linearly to do things like run load, clean, merge, reshape, and analyze datasets using canned library functions. After all, if the point of tests is to ensure that the code you write is working correctly, and all you use in your simple scripts is functions that come from libraries like numpy and pandas (that are tested by the library maintainers), why would you need to use tests?</p>
-<p>The answer is twofold. First, it’s easy to make coding mistakes even when you aren’t writing complicated programs. Operations like merging, grouping, and reshaping are easy to get wrong, so it’s good to verify that the results of those operations are what you expect.</p>
-<p>But the second and bigger reason is that tests are needed in data analysis workflows to <strong>test that what you think is true about your data is actually correct</strong>. In other words, writing tests in a data analysis workflow is often not about ensuring you wrote the code you think you wrote, and rather ensuring that your assumptions about the structure and properties of your data — and thus the behavior of the code you write — are correct.</p>
+<p>It’s hard to do much programming without coming across the concept of <em>testing</em> — the practice of writing code whose sole purpose is to verify the programs you write actually do what you expect them to do. Indeed, testing is such a core part of programming that few people would consider posting their code publicly on a service like github without including a suite of tests. Some programmers have even adopted a practice known as <em>test-driven development</em> in which they <em>start</em> a project by writing tests that they want the code the plan to write to eventually be able to pass and then work until those tests pass.</p>
+<p>But while testing is deeply engrained in the practice of writing software, all too often, data scientists assume testing isn’t relevant when they are writing simple scripts that are meant to run linearly to do things like run load, clean, merge, reshape, and analyze datasets using canned library functions. After all, if the point of tests is to ensure that the code you write is working correctly, and all you use in your simple scripts are functions that come from libraries like numpy and pandas (that are tested by the library maintainers), why would you need to use tests?</p>
+<p>The answer is twofold. First, it’s easy to make coding mistakes even when you aren’t writing complicated programs. Operations like merging, grouping, and reshaping can easily get wrong, so it’s good to verify that the results of those operations are what you expect.</p>
+<p>But the second and bigger reason is that tests are needed in data analysis workflows to <strong>test that what you think is true about your data is actually correct</strong>. In other words, writing tests in a data analysis workflow is often not about ensuring you wrote the code you think you wrote, but rather about verifying your assumptions about the structure and properties of your data — and thus the behavior of the code you write — are correct.</p>
 <section id="a-simple-example">
 <h2>A Simple Example<a class="headerlink" href="#a-simple-example" title="Link to this heading">#</a></h2>
-<p>To illustrate, consider the following simple example in which I load a small subset of data from the World Bank World Development Indicators. The data includes data on countries, their GDP per capita, and Polity Scores (a measure of political freedom).</p>
+<p>To illustrate, consider the following simple example: I load a small subset of data from the World Bank World Development Indicators. The data includes data on countries, their GDP per capita, and Polity Scores (a measure of political freedom).</p>
 <p>In the code, I then try to compare the average Polity score for large oil producers to all other countries:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -797,9 +797,9 @@ Name: country, dtype: object
 <p>Oops! What happened? Well, if we compare the list of country names we for which <code class="docutils literal notranslate"><span class="pre">large_oil_producers</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> to our original list, we can see what country is missing:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="n">wdi</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">wdi</span><span class="p">[</span><span class="s2">&quot;large_oil_producers&quot;</span><span class="p">],</span> <span class="s2">&quot;country&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span>
-    <span class="n">list_of_top10_oil_producers</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">big_producers_in_df</span> <span class="o">=</span> <span class="n">wdi</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">wdi</span><span class="p">[</span><span class="s2">&quot;large_oil_producers&quot;</span><span class="p">],</span> <span class="s2">&quot;country&quot;</span><span class="p">]</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="n">big_producers_in_df</span><span class="p">)</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">list_of_top10_oil_producers</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -836,7 +836,7 @@ Name: country, dtype: object
 </div>
 </div>
 </div>
-<p>If this feels contrived, I can promise it’s not! “Messy data” is a <em>constant</em> in data science, especially when you’re trying to answer a question no one has ever answered before, and are thus working with data in ways other people haven’t explored before!</p>
+<p>If this feels contrived, I can promise it’s not! “Messy data” is a <em>constant</em> in data science, especially when you’re trying to answer a question no one has ever answered before and are thus working with data in ways other people haven’t explored before!</p>
 <p>So now let’s correct that problem <em>and</em> write a test to ensure we fixed it correctly!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -856,14 +856,12 @@ Name: country, dtype: object
 
 <span class="n">wdi</span><span class="p">[</span><span class="s2">&quot;large_oil_producers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wdi</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">list_of_top10_oil_producers</span><span class="p">)</span>
 
+<span class="n">big_producers_in_df</span> <span class="o">=</span> <span class="n">wdi</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">wdi</span><span class="p">[</span><span class="s2">&quot;large_oil_producers&quot;</span><span class="p">],</span> <span class="s2">&quot;country&quot;</span><span class="p">]</span>
+
+
 <span class="c1"># Check all oil producers found in wdi</span>
 <span class="k">assert</span> <span class="p">(</span>
-    <span class="nb">len</span><span class="p">(</span>
-        <span class="nb">set</span><span class="p">(</span><span class="n">wdi</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">wdi</span><span class="p">[</span><span class="s2">&quot;large_oil_producers&quot;</span><span class="p">],</span> <span class="s2">&quot;country&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span>
-            <span class="n">list_of_top10_oil_producers</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="o">==</span> <span class="mi">0</span>
+    <span class="nb">set</span><span class="p">(</span><span class="n">big_producers_in_df</span><span class="p">)</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">list_of_top10_oil_producers</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">()</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -871,24 +869,23 @@ Name: country, dtype: object
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Catching these types of errors is <em>critically</em> important when doing data analysis data science because of a challenge inherent to data analysis: the only way to know if the answer you’ve gotten from the data is right is by being sure all your intermediate steps were correct. Why? Because the whole reason your are taking the time to analyze data is to answer a question no one has answered before, meaning you <em>can’t ever be sure if your answer is correct just by looking at it!</em></p>
-<p>Yes, sometimes you’ll get an answer that’s clearly non-sensical. But if your answer is reasonable, the only way you can have confidence it’s correct is by having confidence in how you got to your answer.</p>
+<p>Catching errors in your intermediate code is especially important when doing data analysis data science. Why? Because when analyzing data, you’re trying to answer a question no one has answered before, meaning it’s <strong>inherent</strong> to the undertaking that you can’t verify your final answer directly! The only way to have confidence in your answer is by having confidence in the steps you took to get to it.</p>
 </div>
 </section>
 <section id="i-check-my-code-why-test">
 <h2>I check my code, why test?<a class="headerlink" href="#i-check-my-code-why-test" title="Link to this heading">#</a></h2>
-<p>Most data analysts, in my experience, do check that things are working correctly <em>interactively</em> as they go. For example, they might do exactly what I did above — type <code class="docutils literal notranslate"><span class="pre">len(wdi.loc[wdi[&quot;large_oil_producers&quot;],</span> <span class="pre">&quot;country&quot;])</span></code> and look at the result. But that’s not a <em>test</em>. A test has to check something and alert you to the problem <em>automatically</em>, and that requires, at least, an <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement. Why?</p>
+<p>In my experience, most data analysts check that things are working correctly <em>interactively</em> as they go. For example, they might do exactly what I did above — type <code class="docutils literal notranslate"><span class="pre">len(wdi.loc[wdi[&quot;large_oil_producers&quot;],</span> <span class="pre">&quot;country&quot;])</span></code> and look at the result. But that’s not a <em>test</em>. A test has to check something and alert you to the problem <em>automatically</em>, which requires, at the very least, an <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement. Why?</p>
 <ol class="arabic simple">
-<li><p><strong>Tests are executed <em>every time your code is run</em>.</strong> Most of us check things the first time we write a piece of code. But days, weeks, or months later, we may come back, modify code the occurs earlier in our code stream, and then just re-run the code. If those changes lead to problems in later files, we don’t know about them. If you have tests in place, then those early changes will result in an error in the later files, and you can track down the problem.</p></li>
-<li><p><strong>It gets you in the habit of always checking.</strong> Most of us only stop to check aspects of our data when we suspect problems. But if you become accustomed to writing a handful of tests at the bottom of every file – or after every execution of a certain operation (I’m trying to always including them after a merge), we get into the habit of <em>always</em> stopping to think about what our data should look like.</p></li>
-<li><p><strong>Catch your problems faster.</strong> This is less about code integrity than sanity, but a great upside to tests is that they ensure that if a mistake slips into your code, you become aware of it quickly, making it easier to identify and fix the changes that caused the problem.</p></li>
-<li><p><strong>Tests catch more than anticipated problems.</strong> When problems emerge in code, they often manifest in lots of different ways. Duplicate observations, for example, will not only lead to inaccurate observation counts, but may also give rise to bizarre summary statistics, bad subsequent merges, etc. Thus adding tests not only guards against errors we’ve thought of, but may also guard against errors we don’t anticipate during the test writing process.</p></li>
+<li><p><strong>Tests are executed <em>every time your code is run</em>.</strong> Most of us check things the first time we write a piece of code. But days, weeks, or months later, we may come back, modify the code that occurs earlier in our code stream, and then just re-run the code. If those changes lead to problems in later files, we may not be aware of them. But if you have tests in place, then those early changes will result in an error in the later files, and you can track down the problem.</p></li>
+<li><p><strong>It gets you in the habit of always checking.</strong> Most of us only stop to check aspects of our data when we suspect problems. But if you become accustomed to writing a handful of tests at the bottom of every file – or after every execution of a certain operation (e.g., I always include tests after a merge or reshape), we get into the habit of <em>always</em> stopping to think about what our data should look like.</p></li>
+<li><p><strong>It helps you catch your problems faster.</strong> This is less about code integrity than sanity, but a great upside to tests is that they ensure that if a mistake slips into your code, you become aware of it quickly, making it easier to identify and fix the changes that caused the problem.</p></li>
+<li><p><strong>Tests catch more than anticipated problems.</strong> When problems emerge in code, they often manifest in lots of different ways. Duplicate observations, for example, will not only lead to inaccurate observation counts but may also give rise to bizarre summary statistics, bad subsequent merges, etc. Thus, adding tests not only guards against errors we’ve thought of but may also guard against errors we don’t anticipate during the test writing process.</p></li>
 </ol>
 </section>
 <section id="writing-tests">
 <h2>Writing Tests<a class="headerlink" href="#writing-tests" title="Link to this heading">#</a></h2>
-<p>Tests are easy to write in any language, but given this courses’ focus on Python, will discuss Python here. For examples of tests in Stata and R, you can see <a class="reference external" href="http://www.nickeubank.com/replication">some resources I created towards the bottom of this site</a>.</p>
-<p>In Python, tests are written using the <code class="docutils literal notranslate"><span class="pre">assert</span></code> keyword:</p>
+<p>Tests are easy to write in any language, but given this course’s focus on Python, I will discuss Python here. For examples of tests in Stata and R, you can see <a class="reference external" href="http://www.nickeubank.com/replication">some resources I created towards the bottom of this site</a>.</p>
+<p>In Python, the easiest way to add tests to a data analysis script is with the <code class="docutils literal notranslate"><span class="pre">assert</span></code> keyword:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">7</span>
@@ -917,7 +914,7 @@ Name: country, dtype: object
 </div>
 </div>
 </div>
-<p>If you don’t use <code class="docutils literal notranslate"><span class="pre">.all()</span></code> or <code class="docutils literal notranslate"><span class="pre">.any()</span></code>, you will get this error saying “the truth value of a Series is ambiguous,” meaning “how do you want me to go from a vector of <code class="docutils literal notranslate"><span class="pre">True</span></code>s and <code class="docutils literal notranslate"><span class="pre">False</span></code>s to a single <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>?”</p>
+<p>If you don’t use <code class="docutils literal notranslate"><span class="pre">.all()</span></code> or <code class="docutils literal notranslate"><span class="pre">.any()</span></code>, you will get this error saying “the truth value of a Series is ambiguous,” meaning “This vector may have both <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> values, but <code class="docutils literal notranslate"><span class="pre">assert</span></code> is looking for a single <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. How should I interpret a mix of Trues and Falses?”</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">wdi</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
 <span class="o">---------------------------------------------------------------------------</span>
@@ -940,12 +937,14 @@ Name: country, dtype: object
 </section>
 <section id="when-should-i-write-tests">
 <h2>When Should I Write Tests?<a class="headerlink" href="#when-should-i-write-tests" title="Link to this heading">#</a></h2>
-<p>The best way to get into writing tests is to think about how you check your data interactively to make stuff work. After a <code class="docutils literal notranslate"><span class="pre">merge</span></code> or a <code class="docutils literal notranslate"><span class="pre">groupby</span></code> command, most people pause to browse the data and/or watch the code step by step, or do a set of quick tabs or plots.  But these are not systematic, and you generally only do them once (when you’re first writing the code).</p>
-<p>A great way to write tests is to think about what you’re looking for when you do these interactive tests and convert the logic of those interactive interrogations into systematic assert statements. That way they’ll be baked into your code, and will be executed every time your code runs!1</p>
+<p>The best way to get into writing tests is to think about how you check your data interactively to make stuff work. After a <code class="docutils literal notranslate"><span class="pre">merge</span></code> or a <code class="docutils literal notranslate"><span class="pre">groupby</span></code> command, most people pause to browse the data and/or watch the code step by step or do a set of quick tabs or plots.  But these are not systematic, and you generally only do them once (when first writing the code).</p>
+<p>So, a good starting point is to examine what you do when you check your data interactively and convert the logic of those interactive interrogations into systematic assert statements.
+The best way to get into writing tests is to think about how you check your data interactively to make stuff work. After a <code class="docutils literal notranslate"><span class="pre">merge</span></code> or a <code class="docutils literal notranslate"><span class="pre">groupby</span></code> command, most people pause to browse the data and/or watch the code step by step or do a set of quick tabs or plots.  But these are not systematic, and you generally only do them once (when first writing the code).</p>
+<p>So, a good starting point is to examine what you do when you check your data interactively and convert the logic of those interactive interrogations into systematic assert statements.</p>
+<p>After <code class="docutils literal notranslate"><span class="pre">merge</span></code>: Nowhere are problems with data made clearer than in a merge. ALWAYS add tests after a merge!</p>
 <ul class="simple">
-<li><p>After <code class="docutils literal notranslate"><span class="pre">merge</span></code>: No where are problems with data made more clear then in a merge. ALWAYS add tests after a merge! More on that below.</p></li>
-<li><p>After complicated manipulations: If you have to think more than a little about how to get Python or Pandas to do something, there’s a chance you missed something. Add a test or two to make sure you did it right! Personally, for example, I almost never use <code class="docutils literal notranslate"><span class="pre">groupby</span></code> commands without adding tests — it’s just not a natural way to think about things, so I know I may have screwed up (and often have!).</p></li>
-<li><p>Before dropping observations: Dropping observations masks problems. Before you drop variables, add a test to, say, count the number of observations you expect to drop.</p></li>
+<li><p>After complicated manipulations: If you have to think more than a little about how to get Python or Pandas to do something, there’s a chance you missed something. Add a test or two to make sure you did it right! Personally, for example, I seldom use <code class="docutils literal notranslate"><span class="pre">groupby</span></code> commands without adding tests — it’s just not a natural way to think about things, so I know I may have screwed up (and often have!).</p></li>
+<li><p>Before dropping observations: Dropping observations masks problems. Before you drop variables, add a test to count the number of observations you expect to drop or retain.</p></li>
 </ul>
 </section>
 <section id="common-test-examples">
@@ -987,43 +986,43 @@ Name: country, dtype: object
   </thead>
   <tbody>
     <tr>
-      <th>72</th>
-      <td>Kyrgyzstan</td>
-      <td>C&amp;E Europe</td>
-      <td>2188</td>
-      <td>7.0</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>Albania</td>
-      <td>C&amp;E Europe</td>
-      <td>7715</td>
-      <td>17.8</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>137</th>
-      <td>United States</td>
-      <td>N. America</td>
-      <td>46716</td>
-      <td>20.0</td>
+      <th>16</th>
+      <td>Brazil</td>
+      <td>S. America</td>
+      <td>10296</td>
+      <td>18.0</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>77</th>
-      <td>Libya</td>
+      <th>67</th>
+      <td>Jordan</td>
       <td>Middle East</td>
-      <td>15402</td>
-      <td>3.0</td>
+      <td>5283</td>
+      <td>8.0</td>
       <td>False</td>
     </tr>
     <tr>
-      <th>117</th>
-      <td>Solomon Islands</td>
-      <td>Asia-Pacific</td>
-      <td>2610</td>
-      <td>18.0</td>
+      <th>78</th>
+      <td>Lithuania</td>
+      <td>C&amp;E Europe</td>
+      <td>18824</td>
+      <td>20.0</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>France</td>
+      <td>W. Europe</td>
+      <td>34045</td>
+      <td>19.0</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>Haiti</td>
+      <td>S. America</td>
+      <td>1177</td>
+      <td>8.0</td>
       <td>False</td>
     </tr>
   </tbody>
@@ -1064,7 +1063,7 @@ Name: country, dtype: object
 <p>Make sure values of GDP Per Capita have a reasonable value. Note this is a “reasonableness” test, not an absolute test. It’s possible this would fail and the data is ok, but this way if there’s a problem your attention will be flagged so you can check.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">((</span><span class="mi">100</span> <span class="o">&lt;</span> <span class="n">wdi</span><span class="o">.</span><span class="n">gdppcap08</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">wdi</span><span class="o">.</span><span class="n">gdppcap08</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">wdi</span><span class="o">.</span><span class="n">gdppcap08</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
