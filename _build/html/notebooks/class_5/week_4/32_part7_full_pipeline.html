@@ -550,7 +550,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -566,6 +568,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-reminder-about-the-paths-for-your-project">A reminder about the paths for your project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-way-among-many-but-always-check-your-work">One way among many, but always check your work</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -582,10 +593,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Source data files</span>
-<span class="n">raw_co2_file</span> <span class="o">=</span> <span class="s2">&quot;data/co2_emissions_tonnes_per_person.csv&quot;</span>
-<span class="n">raw_income_file</span> <span class="o">=</span> <span class="s2">&quot;data/income_per_person_gdppercapita_ppp_inflation_adjusted.csv&quot;</span>
-<span class="n">raw_population_file</span> <span class="o">=</span> <span class="s2">&quot;data/population_total.csv&quot;</span>
-<span class="n">raw_continents_file</span> <span class="o">=</span> <span class="s2">&quot;data/united_nations_continents.csv&quot;</span>
+<span class="n">raw_co2_file</span> <span class="o">=</span> <span class="s2">&quot;data/raw/co2_emissions_tonnes_per_person.csv&quot;</span>
+<span class="n">raw_income_file</span> <span class="o">=</span> <span class="s2">&quot;data/raw/income_per_person_gdppercapita_ppp_inflation_adjusted.csv&quot;</span>
+<span class="n">raw_population_file</span> <span class="o">=</span> <span class="s2">&quot;data/raw/population_total.csv&quot;</span>
+<span class="n">raw_continents_file</span> <span class="o">=</span> <span class="s2">&quot;data/raw/united_nations_continents.csv&quot;</span>
 
 <span class="c1"># Intermediate files</span>
 <span class="n">co2_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/co2.csv&#39;</span>
@@ -616,7 +627,9 @@ document.write(`
 </div>
 <p>Let’s show the resulting plot from this process:</p>
 <p><img alt="" src="../../../_images/finished-product.png" /></p>
-<p>For the approach to work, you’ll need to make sure that <code class="docutils literal notranslate"><span class="pre">project.py</span></code> is in your current path. You can check what your current path is by executing the following code:</p>
+<section id="a-reminder-about-the-paths-for-your-project">
+<h2>A reminder about the paths for your project<a class="headerlink" href="#a-reminder-about-the-paths-for-your-project" title="Link to this heading">#</a></h2>
+<p>For the above approach to work, you’ll need to make sure that <code class="docutils literal notranslate"><span class="pre">project.py</span></code> is in your current path. You can check what your current path is by executing the following code:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -626,8 +639,13 @@ document.write(`
 </div>
 </div>
 <p>The path above should contain your <code class="docutils literal notranslate"><span class="pre">.py</span></code> file so that Python can access it.</p>
-<p>This approach of collecting components of a project for reuse is exceptionally valuable. It allows you to rerun the analysis with ease and makes the analysis easier to share with others and collaborate on the development together.</p>
-<p>There are often multiple ways to solve a problem, and what was presented here is but one. For example, you may choose not to save each intermediate product to file as we did here for co2, income, population, etc. Instead, you may directly feed the data in memory from one stage of the analysis to the next. I can’t stress enough how important checking your data at every step of the process and inspecting it can be. We all make mistakes and instituting tests and checks to ensure the quality of each step will greatly enhance your ability to be productive with programming tools for data-intensive applications.</p>
+<p>This approach of collecting these modular components of a project for reuse is exceptionally valuable. It allows you to rerun the analysis with ease and makes the analysis easier to share with others and collaborate on the development together.</p>
+</section>
+<section id="one-way-among-many-but-always-check-your-work">
+<h2>One way among many, but always check your work<a class="headerlink" href="#one-way-among-many-but-always-check-your-work" title="Link to this heading">#</a></h2>
+<p>There are often multiple ways to solve a problem, and what was presented here is but one. For example, you may choose not to save each intermediate product to file as we did here for co2, income, population, etc. Instead, you may directly feed the data in memory from one stage of the analysis to the next.</p>
+<p>Regardless of the particular strategy you use, I can’t stress enough how important it is to check your data at every step of the process and inspecting it every time you make a change. We all make mistakes and instituting tests and checks to ensure the quality of each step the your analysis will greatly enhance your ability to be productive with programming tools for data-intensive applications.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -666,6 +684,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-reminder-about-the-paths-for-your-project">A reminder about the paths for your project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-way-among-many-but-always-check-your-work">One way among many, but always check your work</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
