@@ -658,9 +658,6 @@ document.write(`
 <p>But what most of us think of as processors today often have many cores (the Intel i9 on my laptop has 8 cores, each capable of working relatively independently). Here’s a labeled image of the inside of a core i7 processor with four distinct “cores”:</p>
 <p><img alt="core_i7" src="../../../_images/core_i7.gif" /></p>
 <p>And while most of us refer to the chip as a processor, and these cores as… cores, computer scientists have a tendency to use the term “processors” and “core” interchangeable to refer to what most of us call “cores”.</p>
-<p>And the question of “how many processors / cores do I have” gets even more confusing for two reasons:</p>
-<p>First, many desktops have two separate chips (i.e. two Intel i7s, or two Intel i9s), leading some people to call these multi-processor machines. :/</p>
-<p>Second, many modern processors (especially Intel processors) have a feature called “hyperthreading”, which is where two tasks can be assigned to the same individual core. That core can’t do both tasks at the same time, but it can try and switch between them efficiently. For example, if the first task stalls out while it’s waiting to get more data from memory (remember how <a class="reference internal" href="#performance_understanding.ipynb"><span class="xref myst">slow memory is</span></a>), the core can switch to working on the second task instead of just sitting around. This <em>can</em> offer additional performance, but much less than actually having an actual additional independent core, and actual performance depends on the nature of the job being run (I’ve heard data science people say if two cores gets you 2x performance, then hyperthreading gets you about 1.25x performance, which seems roughly consistent with my experience. But again this depends <em>hugely</em> on the nature of the job you’re parallelizing).</p>
 </section>
 <section id="an-example-parallel-processing-with-joblib">
 <h2>An Example: Parallel Processing with Joblib<a class="headerlink" href="#an-example-parallel-processing-with-joblib" title="Link to this heading">#</a></h2>
@@ -914,11 +911,11 @@ Wall time: 15.3 s
 <section id="parallelism-and-distributed-computing">
 <h2>Parallelism and Distributed Computing<a class="headerlink" href="#parallelism-and-distributed-computing" title="Link to this heading">#</a></h2>
 <p>In this reading, we’ve mostly focused on discussing the <em>principles</em> of parallelism – the goal, the fundamental problems, and some basic examples of parallelism.</p>
-<p>In a future class, we’ll discuss some packages that are designed to make parallelism as easy as possible in situations where you really need parallelism. In particular, we’ll focus on tools for <em>distributed computer</em>: situations where you don’t just want to parallelize across the cores in your computer, but across many computers (e.g. in the cloud). But when we get to these tools – like <code class="docutils literal notranslate"><span class="pre">pyspark</span></code> and <code class="docutils literal notranslate"><span class="pre">dask</span></code> – try to keep in mind the lessons we’ve learned here, because everything you’ve learned here applies to those packages as well!</p>
+<p>In a future class, we’ll discuss some packages that are designed to make parallelism as easy as possible in situations where you really need parallelism. In particular, we’ll focus on tools for <em>distributed computer</em>: situations where you don’t just want to parallelize across the cores in your computer, but across many computers (e.g. in the cloud). But when we get to these tools – like <code class="docutils literal notranslate"><span class="pre">modin</span></code>, <code class="docutils literal notranslate"><span class="pre">pyspark</span></code> and <code class="docutils literal notranslate"><span class="pre">dask</span></code> – try to keep in mind the lessons we’ve learned here, because everything you’ve learned here applies to those packages as well!</p>
 </section>
 <section id="want-to-learn-more">
 <h2>Want to Learn More?<a class="headerlink" href="#want-to-learn-more" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://www.youtube.com/watch?v=zX4ZNfvw1cw">Check out this terrific talk by Sophie Wilson!</a></p>
+<p>This is optional, but consider this <a class="reference external" href="https://www.youtube.com/watch?v=zX4ZNfvw1cw">terrific talk by Sophie Wilson!</a></p>
 </section>
 </section>
 

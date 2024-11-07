@@ -595,6 +595,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-stability">Type Stability</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-modin">Use Modin</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-julia">Use Julia</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelization">Parallelization</a></li>
 </ul>
@@ -1042,6 +1043,10 @@ def cython_w_overflow_avg_numbers_up_to(long N):
 </div>
 </section>
 </section>
+<section id="use-modin">
+<h2>Use Modin<a class="headerlink" href="#use-modin" title="Link to this heading">#</a></h2>
+<p>If the code you want to speed up is pandas code, consider trying <a class="reference external" href="https://modin.readthedocs.io/en/stable/">modin</a>. It’s a drop-in replacement for pandas (you literally just write <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">modin</span> <span class="pre">as</span> <span class="pre">pd</span></code> instead of <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code>), and it will give you a parallelized implementation of your code. Basically it’s a really easy-to-use wrapper for some other distributed libraries (especially dask, which will cover soon), and I hear it’s quite nice.</p>
+</section>
 <section id="use-julia">
 <h2>Use Julia<a class="headerlink" href="#use-julia" title="Link to this heading">#</a></h2>
 <p>I would be remiss at this point to not mention one other option for getting more speed: use the programming language <a class="reference external" href="https://julialang.org/">Julia</a>. Julia is a very new language that has syntax that is <em>very</em> similar to Python, but which <a class="reference external" href="https://julialang.org/benchmarks/">runs tens or hundreds of times faster out of the box</a>. Basically, it’s kinda like an entire language built around the technology also used by <code class="docutils literal notranslate"><span class="pre">numba</span></code>, but where <code class="docutils literal notranslate"><span class="pre">numba</span></code> is kind of finiky because it’s been tacked on to a language that was never built for speed, Julia was designed from the ground up for speed.</p>
@@ -1133,6 +1138,7 @@ def cython_w_overflow_avg_numbers_up_to(long N):
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-stability">Type Stability</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-modin">Use Modin</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-julia">Use Julia</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelization">Parallelization</a></li>
 </ul>
