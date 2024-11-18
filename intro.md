@@ -4,6 +4,10 @@ Welcome to Practical Data Science! This is the beginning of a textbook based on 
 
 We are in the process of developing this content into both a Coursera [Python Data Science Foundations Specialization](https://www.coursera.org/specializations/python-data-science) on Coursera (in combination with Drew Hilton and Genevieve Lipp) and a stand-alone textbook. At the same time, I will also continue to use this site for my IDS 720 class, so if you're not in the class, feel free to jump ahead to whatever interests you!
 
+## Are You An Instructor Using This Material In A Class?
+
+Feel free to reach out and we can provide you some additional resources.
+
 ## Duke MIDS Practical Data Science IDS 720
 
 *Interested in enrolling in IDS 720 but not a MIDS student? [Read this!](ids720_specific/not_a_mids_student)*
