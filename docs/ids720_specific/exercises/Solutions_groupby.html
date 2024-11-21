@@ -1,0 +1,4135 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Groupby and Arrest Data &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ids720_specific/exercises/Solutions_groupby';</script>
+    <link rel="icon" href="../../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Practical Data Science with Python - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Practical Data Science with Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">IDS 720</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../class_schedule.html">Class Schedule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/10_commandline/git_and_github.html">Git and Github</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_2/week_2/10_why_numpy.html">Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_2/week_3/10_views_and_copies.html">Views and Copies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_2/week_3/00_welcome_to_week_3.html">Matrices</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_2/week_3/40_nd_arrays.html">Arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_2/18_object_dtype.html">The <code class="docutils literal notranslate"><span class="pre">object</span></code> Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_2/45_categorical_dtype.html">The Categorical Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/class_3/week_3/07_indices.html">Indexes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_3/week_3/03_plaintext_files.html">Reading Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_4/15.1_combining_merging_continued.html">Combining datasets: merging</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_4/15.2_combining_merging_practical_example.html">Practical Example</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_4/15.3_validating_a_merge.html">Validating Merges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_5/week_1/1.1.2_effective_plotting_practices.html">Matplotlib Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.1_basic_plotting_with_matplotlib.html">Plotting with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.2_ten_figure_pieces.html">A figure in 10 pieces</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.4.5_explicit_vs_implicit_syntax.html">Implicit vs explicit syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.4.4_saving_to_file.html">Saving to file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.5.1_plotting_zoo.html">Plotting Zoo: multiple ways to visualize the same set of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.6.1_plotting_with_pandas.html">Plotting with Pandas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.4_bar_plots_deep_dive.html">Different Types of Plots</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.3_text.html">Plotting text (and a side note on axis scaling)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.5_stack_plots.html">Stack Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.6_pie_charts.html">Pie charts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.7.1_subplots.html">Subplots</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.7.2_subplots_deep_dive.html">Subplots: a deeper dive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.7.EXS_timeseries_worked_example.html">Exercise: Creating a subplot of timeseries (solution)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.7.EX_timeseries_worked_example.html">Exercise: Creating a subplot of timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.7_scatter_plots_deep_dive.html">Doing more with scatter plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.8_errorbars.html">Visualizing ranges and uncertainty</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.2.9_heat_maps.html">Heat maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.3.1.EXS_histograms_solutions.html">Exercise: Analyzing Poker Hand Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.3.1.EX_histograms.html">Exercise: Analyzing Poker Hand Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.3.1_histograms.html">Histograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/1.3.2_2d_histograms.html">Two Dimensional Histograms</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_5/week_1/2.1.1_the_matplotlib_model.html">Advanced Matplotlib</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/2.1.2_customizing_plot_styles.html">Customizing styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/2.1.3_plotting_zoo_restyled.html">Plotting Zoo - with style!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/2.2.1_making_plots_pretty_1.html">Making Plots Pretty Part 1: laying the foundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/2.2.2_making_plots_pretty_2.html">Making pretty plots in Python: customizing plots in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/class_5/week_1/2.3.1_plotting_with_seaborn.html">Seaborn Objects and GoG</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/class_5/week_1/2.3.2_seaborn_recipes.html">Seaborn Object Recipes</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">Defensive Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_tests.html">Testing in a Data Analysis Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_readability.html">Readability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_duplicate.html">Don’t Duplicate Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_collaboration.html">Collaboration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/class_5/week_3/20_inference_v_prediction.html">Inference vs. Prediction Data Science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/class_5/week_3/30_linear_regression_in_python.html">Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/class_5/week_3/15_brief_intro_categorical_variables.html">Categorical Variables, Indicator Variables and Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/class_5/week_3/35_pandas_to_numpy_with_patsy.html">Pulling Back the Curtain: Pandas to Numpy with patsy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/class_5/week_3/40_linear_regression_extensions.html">OPTIONAL: Beyond The Basic Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids720_specific/exercises/Solutions_groupby.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/ids720_specific/exercises/Solutions_groupby.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Groupby and Arrest Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradescope-autograding">Gradescope Autograding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-limits">Submission Limits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-group-structure-of-your-data">Learning the Group Structure of Your Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-your-assumptions">Testing Your Assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-with-duplicated">Testing with .duplicated()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#racial-arrest-composition">Racial Arrest Composition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10">Exercise 10</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11">Exercise 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12">Exercise 12</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="groupby-and-arrest-data">
+<h1>Groupby and Arrest Data<a class="headerlink" href="#groupby-and-arrest-data" title="Link to this heading">#</a></h1>
+<p>In our merging exercises, we examined the relationship between county-level violent arrest totals and county-level drug arrest totals. In those exercises, you were given a dataset that provided you with county-level arrest totals. But that’s not actually how the data is provided by the state of California. This week we will work with the <em>raw</em> California arrest data, which is not organized by county or even county-year.</p>
+<section id="gradescope-autograding">
+<h2>Gradescope Autograding<a class="headerlink" href="#gradescope-autograding" title="Link to this heading">#</a></h2>
+<p>Please follow <a class="reference external" href="https://www.practicaldatascience.org/html/autograder_guidelines.html">all standard guidance</a> for submitting this assignment to the Gradescope autograder, including storing your solutions in a dictionary called <code class="docutils literal notranslate"><span class="pre">results</span></code> and ensuring your notebook runs from the start to completion without any errors.</p>
+<p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_groupby.ipynb</span></code> before uploading.</p>
+<p>You can check that you have answers for all questions in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary with this code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">{</span>
+    <span class="s2">&quot;ex4_num_rows&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex5_collapsed_vars&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex7_alameda_1980_share_violent_arrestees_black&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex11_white_drug_share&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex11_black_drug_share&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex12_proportionate&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="submission-limits">
+<h3>Submission Limits<a class="headerlink" href="#submission-limits" title="Link to this heading">#</a></h3>
+<p>Please remember that you are <strong>only allowed three submissions to the autograder.</strong> Your last submission (if you submit 3 or fewer times), or your third submission (if you submit more than 3 times) will determine your grade Submissions that error out will <strong>not</strong> count against this total.</p>
+</section>
+<section id="exercise-1">
+<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
+<p>Import the raw California arrest data from the State Attorney General’s office. Please use <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/OnlineArrestData1980-2021.csv">this link</a> (the original is here <a class="reference external" href="https://openjustice.doj.ca.gov/data">here</a>, but they keep updating it and I get tired of updating solutions, so… please use my copy!)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+
+<span class="n">arrests</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;https://github.com/nickeubank/MIDS_Data/&quot;</span>
+    <span class="s2">&quot;raw/master/OnlineArrestData1980-2021.csv&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arrests</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(102245, 13)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arrests</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>GENDER</th>
+      <th>RACE</th>
+      <th>AGE_GROUP</th>
+      <th>COUNTY</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>F_TOTAL</th>
+      <th>M_TOTAL</th>
+      <th>S_TOTAL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1980</td>
+      <td>Male</td>
+      <td>Black</td>
+      <td>Under 18</td>
+      <td>Alameda County</td>
+      <td>505</td>
+      <td>1351</td>
+      <td>188</td>
+      <td>26</td>
+      <td>79</td>
+      <td>2149</td>
+      <td>2286</td>
+      <td>295</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1980</td>
+      <td>Male</td>
+      <td>Black</td>
+      <td>18 to 19</td>
+      <td>Alameda County</td>
+      <td>205</td>
+      <td>465</td>
+      <td>183</td>
+      <td>8</td>
+      <td>48</td>
+      <td>909</td>
+      <td>1333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1980</td>
+      <td>Male</td>
+      <td>Black</td>
+      <td>20 to 29</td>
+      <td>Alameda County</td>
+      <td>949</td>
+      <td>1593</td>
+      <td>606</td>
+      <td>27</td>
+      <td>178</td>
+      <td>3353</td>
+      <td>7974</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1980</td>
+      <td>Male</td>
+      <td>Black</td>
+      <td>30 to 39</td>
+      <td>Alameda County</td>
+      <td>450</td>
+      <td>755</td>
+      <td>241</td>
+      <td>18</td>
+      <td>110</td>
+      <td>1574</td>
+      <td>4876</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1980</td>
+      <td>Male</td>
+      <td>Black</td>
+      <td>40 to 69</td>
+      <td>Alameda County</td>
+      <td>172</td>
+      <td>218</td>
+      <td>117</td>
+      <td>11</td>
+      <td>66</td>
+      <td>584</td>
+      <td>3836</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arrests</span><span class="o">.</span><span class="n">RACE</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RACE
+White       28621
+Hispanic    25629
+Other       25143
+Black       22852
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arrests</span><span class="o">.</span><span class="n">AGE_GROUP</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AGE_GROUP
+20 to 29       18801
+30 to 39       18612
+40 to 69       18437
+Under 18       17488
+18 to 19       17231
+70 and over    11676
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="learning-the-group-structure-of-your-data">
+<h2>Learning the Group Structure of Your Data<a class="headerlink" href="#learning-the-group-structure-of-your-data" title="Link to this heading">#</a></h2>
+<section id="exercise-2">
+<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h3>
+<p>What is the unit of observation for this dataset? In other words, when row zero says that there were 505 arrests for <code class="docutils literal notranslate"><span class="pre">VIOLENT</span></code> crimes, what exactly is that telling you—505 arrests in 1980? 505 arrests in Alameda County?</p>
+<p>(Please answer in Markdown)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arrests</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>YEAR                    1980
+GENDER                  Male
+RACE                   Black
+AGE_GROUP           Under 18
+COUNTY        Alameda County
+VIOLENT                  505
+PROPERTY                1351
+F_DRUGOFF                188
+F_SEXOFF                  26
+F_ALLOTHER                79
+F_TOTAL                 2149
+M_TOTAL                 2286
+S_TOTAL                  295
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>One row is the number of arrests in a given county for individuals of a given gender, race, and age category.</p>
+</div></blockquote>
+</section>
+<section id="testing-your-assumptions">
+<h3>Testing Your Assumptions<a class="headerlink" href="#testing-your-assumptions" title="Link to this heading">#</a></h3>
+<p>It’s important to be able to test whether the data you are working with really is organized the way you think it is, especially when working with groupby. Let’s discuss how to check your answer to Exercise 2 with the <code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> method.</p>
+<p>Consider the following toy data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;social_security_numbers&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="mi">111111111</span><span class="p">,</span>
+            <span class="mi">222222222</span><span class="p">,</span>
+            <span class="mi">222222222</span><span class="p">,</span>
+            <span class="mi">333333333</span><span class="p">,</span>
+            <span class="mi">333333333</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;second_column&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>social_security_numbers</th>
+      <th>second_column</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>111111111</td>
+      <td>a</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>222222222</td>
+      <td>a</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>222222222</td>
+      <td>a</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>333333333</td>
+      <td>a</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>333333333</td>
+      <td>b</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>If we want to see if there are any duplicate rows in the dataset, we can use the <code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    False
+1    False
+2     True
+3    False
+4    False
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see, <code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> looks at each row and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if it has seen the row it is looking at before.</p>
+<p>Notice that <code class="docutils literal notranslate"><span class="pre">.duplicted()</span></code> doesn’t return <code class="docutils literal notranslate"><span class="pre">True</span></code> for <em>all</em> rows that look the same as another row in the data—it treats the first instance of a row as unique, and only tags <em>subsequent</em> repetitions as “duplicates” (You can change this behavior with the <code class="docutils literal notranslate"><span class="pre">keep</span></code> keyword argument if you want).</p>
+<p><code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> can also be used to test for rows that are duplicates in terms of a sub-set of columns. For example, <code class="docutils literal notranslate"><span class="pre">df.duplicated([&quot;social_security_numbers&quot;])</span></code> identifies rows with duplicate values of the variable <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    False
+1    False
+2     True
+3    False
+4     True
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>Since <code class="docutils literal notranslate"><span class="pre">duplicated</span></code> is now only looking at <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> (not all values in a row), the last row is now a duplicate (because <code class="docutils literal notranslate"><span class="pre">333333333</span></code> is duplicated), where when we considered all columns, it was not a duplicate.</p>
+</section>
+<section id="testing-with-duplicated">
+<h3>Testing with .duplicated()<a class="headerlink" href="#testing-with-duplicated" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> can be paired with the <code class="docutils literal notranslate"><span class="pre">.any()</span></code> method to write <code class="docutils literal notranslate"><span class="pre">assert</span></code> tests to detect the presence of duplicates in our dataset and to validate our assumptions about whether certain variables uniquely identify observations in our data.</p>
+<p>When you run <code class="docutils literal notranslate"><span class="pre">.any()</span></code> on an array of Booleans, it returns a single value of <code class="docutils literal notranslate"><span class="pre">True</span></code> if <em>any</em> entries are <code class="docutils literal notranslate"><span class="pre">True</span></code>, and a single value of <code class="docutils literal notranslate"><span class="pre">False</span></code> if <em>no</em> entries are <code class="docutils literal notranslate"><span class="pre">True</span></code>. (You can also use <code class="docutils literal notranslate"><span class="pre">.all()</span></code> to test if all entries are <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
+<p>Thus the command <code class="docutils literal notranslate"><span class="pre">df.duplicated(['social_security_numbers'])</span></code> will return <code class="docutils literal notranslate"><span class="pre">False</span></code> if <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> uniquely identifies every row in our dataset (since there are no duplicates)! But if there <em>are</em> any duplicates, it will return <code class="docutils literal notranslate"><span class="pre">True</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.True_
+</pre></div>
+</div>
+</div>
+</div>
+<p>So if I wanted a test that would raise an <code class="docutils literal notranslate"><span class="pre">Error</span></code> if it turned out that <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> <em>didn’t</em> uniquely identify observations, I would combine that code with <code class="docutils literal notranslate"><span class="pre">assert</span> <span class="pre">not</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+
+<span class="o">---------------------------------------------------------------------------</span>
+<span class="ne">AssertionError</span>                            <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+
+<span class="ne">AssertionError</span><span class="p">:</span> 
+</pre></div>
+</div>
+<p>(which in this case raises an Error because <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> <em>isn’t</em> unique!)</p>
+<p>BTW, if this feels oddly familiar, that’s probably because we talked about this same idea when discussing merging. A <code class="docutils literal notranslate"><span class="pre">1:1</span></code> merge is one in which the merging variables uniquely identify observations in both datasets.</p>
+</section>
+<section id="exercise-3">
+<h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">duplicated</span></code> to test if the variables <em>you</em> think uniquely identify rows in your data really do uniquely identify rows. If you were wrong, update your beliefs (and your code) until you have an <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement that passes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">arrests</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;YEAR&quot;</span><span class="p">,</span> <span class="s2">&quot;GENDER&quot;</span><span class="p">,</span> <span class="s2">&quot;RACE&quot;</span><span class="p">,</span> <span class="s2">&quot;AGE_GROUP&quot;</span><span class="p">,</span> <span class="s2">&quot;COUNTY&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4">
+<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
+<p>Once you have a handle on how the data looks now, please <strong>collapse the data</strong> to be one observation per county-year-racial group. Store the number of rows in the resulting dataframe in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary under the key <code class="docutils literal notranslate"><span class="pre">&quot;ex4_num_rows&quot;</span></code>.</p>
+<p><strong>Hint:</strong> Think carefully about the most appropriate <em>aggregation function</em> (e.g., mean, median, sum, count) given the data we’re working with!</p>
+<p><strong>Hint 2:</strong> When using <code class="docutils literal notranslate"><span class="pre">groupby</span></code>, I am a HUGE fan of the <code class="docutils literal notranslate"><span class="pre">as_index=False</span></code> keyword argument (e.g., <code class="docutils literal notranslate"><span class="pre">df.groupby(&quot;col1&quot;,</span> <span class="pre">as_index=False).mean()</span></code>). By default when you use groupby, pandas likes to make a new index out of the grouping columns. As you know, I HATE indices, and this keyword argument prevents pandas from this behavior. To illustrate:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;social_security_numbers&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="mi">111111111</span><span class="p">,</span>
+            <span class="mi">222222222</span><span class="p">,</span>
+            <span class="mi">222222222</span><span class="p">,</span>
+            <span class="mi">222222222</span><span class="p">,</span>
+            <span class="mi">333333333</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;second_column&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;third_column&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>social_security_numbers</th>
+      <th>second_column</th>
+      <th>third_column</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>111111111</td>
+      <td>a</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>222222222</td>
+      <td>a</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>222222222</td>
+      <td>b</td>
+      <td>300</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>222222222</td>
+      <td>a</td>
+      <td>400</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>333333333</td>
+      <td>b</td>
+      <td>500</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Without as_index=False</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">,</span> <span class="s2">&quot;second_column&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>third_column</th>
+    </tr>
+    <tr>
+      <th>social_security_numbers</th>
+      <th>second_column</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>111111111</th>
+      <th>a</th>
+      <td>100.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">222222222</th>
+      <th>a</th>
+      <td>300.0</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>300.0</td>
+    </tr>
+    <tr>
+      <th>333333333</th>
+      <th>b</th>
+      <td>500.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># With as_index=False</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">,</span> <span class="s2">&quot;second_column&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>social_security_numbers</th>
+      <th>second_column</th>
+      <th>third_column</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>111111111</td>
+      <td>a</td>
+      <td>100.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>222222222</td>
+      <td>a</td>
+      <td>300.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>222222222</td>
+      <td>b</td>
+      <td>300.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>333333333</td>
+      <td>b</td>
+      <td>500.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">arrests_collapsed</span> <span class="o">=</span> <span class="n">arrests</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;YEAR&quot;</span><span class="p">,</span> <span class="s2">&quot;RACE&quot;</span><span class="p">,</span> <span class="s2">&quot;COUNTY&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex4_num_rows&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+      <th>GENDER</th>
+      <th>AGE_GROUP</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>F_TOTAL</th>
+      <th>M_TOTAL</th>
+      <th>S_TOTAL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Alameda County</td>
+      <td>MaleMaleMaleMaleMaleMaleFemaleFemaleFemaleFema...</td>
+      <td>Under 1818 to 1920 to 2930 to 3940 to 6970 and...</td>
+      <td>2594</td>
+      <td>5138</td>
+      <td>1489</td>
+      <td>94</td>
+      <td>541</td>
+      <td>9856</td>
+      <td>24081</td>
+      <td>555</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Butte County</td>
+      <td>MaleMaleMaleMaleMaleFemaleFemaleFemaleFemaleFe...</td>
+      <td>Under 1818 to 1920 to 2930 to 3940 to 69Under ...</td>
+      <td>32</td>
+      <td>33</td>
+      <td>5</td>
+      <td>0</td>
+      <td>7</td>
+      <td>77</td>
+      <td>139</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Calaveras County</td>
+      <td>MaleMaleMaleMale</td>
+      <td>Under 1820 to 2930 to 3940 to 69</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Colusa County</td>
+      <td>MaleMaleMaleMaleFemale</td>
+      <td>18 to 1920 to 2930 to 3940 to 6920 to 29</td>
+      <td>0</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5</td>
+      <td>13</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Contra Costa County</td>
+      <td>MaleMaleMaleMaleMaleMaleFemaleFemaleFemaleFema...</td>
+      <td>Under 1818 to 1920 to 2930 to 3940 to 6970 and...</td>
+      <td>720</td>
+      <td>1422</td>
+      <td>368</td>
+      <td>24</td>
+      <td>257</td>
+      <td>2791</td>
+      <td>5201</td>
+      <td>40</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arrests_collapsed</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GENDER&quot;</span><span class="p">,</span> <span class="s2">&quot;AGE_GROUP&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The collapsed data has </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ex4_num_rows&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The collapsed data has 9,702 rows.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-5">
+<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
+<p>You should notice that there are significantly fewer rows in the data now. Given your answer from 3, what groups were you <em>collapsing</em> in question 4 (in other words, which different groups were previously split out into separate rows but have now been aggregated into the same rows)?</p>
+<p>Store the names of those variables <strong>in a <code class="docutils literal notranslate"><span class="pre">list</span></code> in alphabetical order</strong> in <code class="docutils literal notranslate"><span class="pre">results</span></code> as <code class="docutils literal notranslate"><span class="pre">&quot;ex5_collapsed_vars&quot;</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex5_collapsed_vars&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AGE_GROUP&quot;</span><span class="p">,</span> <span class="s2">&quot;GENDER&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="racial-arrest-composition">
+<h2>Racial Arrest Composition<a class="headerlink" href="#racial-arrest-composition" title="Link to this heading">#</a></h2>
+<p>The next question we want to ask is: does the racial composition of arrests in each county vary by arrest type? In other words, do Blacks, Hispanics, Whites, and Other make up substantially different portions of the people arrested for drug offenses and violent offenses?</p>
+<p>To answer this question, we need to be able to say what proportion of all drug arrestees were Black/White/Hispanic/Other and what proportion of all violent arrestees were Black/White/Hispanic/Other <em>for each county and for each year</em>.</p>
+<p>In trying to do this, we’ll need to break the problem down into pieces, starting from our goal (these quantities) and working backwards.</p>
+<section id="exercise-6">
+<h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
+<p>To calculate the share of all drug and violent arrestees who come from each racial group, what quantities do we need?</p>
+<p>Expressed differently, what two variables (one for drug arrests, one for violent arrests) do we need to add to our data to it allow us to calculate the share of arrestees in each county-year that come from a given racial group?</p>
+<p>Calculate these two variables (one variable for drug arrests, one for violent arrests).</p>
+<p><strong>Hint:</strong> <code class="docutils literal notranslate"><span class="pre">transform</span></code> should probably make an appearance here.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;VIOLENT&quot;</span><span class="p">,</span> <span class="s2">&quot;F_DRUGOFF&quot;</span><span class="p">]:</span>
+    <span class="n">arrests_collapsed</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_TOTAL&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;YEAR&quot;</span><span class="p">,</span> <span class="s2">&quot;COUNTY&quot;</span><span class="p">]</span>
+    <span class="p">)[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">)</span>
+
+<span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_20340/3595620725.py:4: FutureWarning: The provided callable &lt;function sum at 0x1252305e0&gt; is currently using SeriesGroupBy.sum. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;sum&quot; instead.
+  )[i].transform(np.sum)
+/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_20340/3595620725.py:4: FutureWarning: The provided callable &lt;function sum at 0x1252305e0&gt; is currently using SeriesGroupBy.sum. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;sum&quot; instead.
+  )[i].transform(np.sum)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>F_TOTAL</th>
+      <th>M_TOTAL</th>
+      <th>S_TOTAL</th>
+      <th>VIOLENT_TOTAL</th>
+      <th>F_DRUGOFF_TOTAL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Alameda County</td>
+      <td>2594</td>
+      <td>5138</td>
+      <td>1489</td>
+      <td>94</td>
+      <td>541</td>
+      <td>9856</td>
+      <td>24081</td>
+      <td>555</td>
+      <td>4504</td>
+      <td>3569</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Butte County</td>
+      <td>32</td>
+      <td>33</td>
+      <td>5</td>
+      <td>0</td>
+      <td>7</td>
+      <td>77</td>
+      <td>139</td>
+      <td>0</td>
+      <td>306</td>
+      <td>149</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Calaveras County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7</td>
+      <td>0</td>
+      <td>52</td>
+      <td>83</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Colusa County</td>
+      <td>0</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5</td>
+      <td>13</td>
+      <td>0</td>
+      <td>28</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Contra Costa County</td>
+      <td>720</td>
+      <td>1422</td>
+      <td>368</td>
+      <td>24</td>
+      <td>257</td>
+      <td>2791</td>
+      <td>5201</td>
+      <td>40</td>
+      <td>1596</td>
+      <td>1089</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Hint:</strong> This types of groupby manipulations are an easy place to do things wrong, so it’s important to eye-ball your data to be sure you did things right!</p>
+<p>Take a look at the data for, say, Alameda County in 1980, and compare the values that you calculate above with what you get if you try to calculate those same numbers by hand using the raw data from Exercise 5?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arrests_collapsed</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;YEAR&quot;</span><span class="p">,</span> <span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span> <span class="s2">&quot;RACE&quot;</span><span class="p">])</span>
+<span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>F_TOTAL</th>
+      <th>M_TOTAL</th>
+      <th>S_TOTAL</th>
+      <th>VIOLENT_TOTAL</th>
+      <th>F_DRUGOFF_TOTAL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Alameda County</td>
+      <td>2594</td>
+      <td>5138</td>
+      <td>1489</td>
+      <td>94</td>
+      <td>541</td>
+      <td>9856</td>
+      <td>24081</td>
+      <td>555</td>
+      <td>4504</td>
+      <td>3569</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>1980</td>
+      <td>Hispanic</td>
+      <td>Alameda County</td>
+      <td>592</td>
+      <td>903</td>
+      <td>361</td>
+      <td>34</td>
+      <td>279</td>
+      <td>2169</td>
+      <td>10120</td>
+      <td>333</td>
+      <td>4504</td>
+      <td>3569</td>
+    </tr>
+    <tr>
+      <th>112</th>
+      <td>1980</td>
+      <td>Other</td>
+      <td>Alameda County</td>
+      <td>139</td>
+      <td>233</td>
+      <td>69</td>
+      <td>10</td>
+      <td>64</td>
+      <td>515</td>
+      <td>2686</td>
+      <td>92</td>
+      <td>4504</td>
+      <td>3569</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>1980</td>
+      <td>White</td>
+      <td>Alameda County</td>
+      <td>1179</td>
+      <td>3103</td>
+      <td>1650</td>
+      <td>119</td>
+      <td>767</td>
+      <td>6818</td>
+      <td>34455</td>
+      <td>1358</td>
+      <td>4504</td>
+      <td>3569</td>
+    </tr>
+    <tr>
+      <th>113</th>
+      <td>1980</td>
+      <td>Other</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>171</th>
+      <td>1980</td>
+      <td>White</td>
+      <td>Alpine County</td>
+      <td>1</td>
+      <td>9</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>13</td>
+      <td>117</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>1980</td>
+      <td>Hispanic</td>
+      <td>Amador County</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>3</td>
+      <td>18</td>
+      <td>1</td>
+      <td>10</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>114</th>
+      <td>1980</td>
+      <td>Other</td>
+      <td>Amador County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>10</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>172</th>
+      <td>1980</td>
+      <td>White</td>
+      <td>Amador County</td>
+      <td>9</td>
+      <td>58</td>
+      <td>12</td>
+      <td>3</td>
+      <td>5</td>
+      <td>87</td>
+      <td>283</td>
+      <td>0</td>
+      <td>10</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Butte County</td>
+      <td>32</td>
+      <td>33</td>
+      <td>5</td>
+      <td>0</td>
+      <td>7</td>
+      <td>77</td>
+      <td>139</td>
+      <td>0</td>
+      <td>306</td>
+      <td>149</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>1980</td>
+      <td>Hispanic</td>
+      <td>Butte County</td>
+      <td>33</td>
+      <td>29</td>
+      <td>8</td>
+      <td>2</td>
+      <td>13</td>
+      <td>85</td>
+      <td>321</td>
+      <td>0</td>
+      <td>306</td>
+      <td>149</td>
+    </tr>
+    <tr>
+      <th>115</th>
+      <td>1980</td>
+      <td>Other</td>
+      <td>Butte County</td>
+      <td>6</td>
+      <td>7</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>16</td>
+      <td>147</td>
+      <td>0</td>
+      <td>306</td>
+      <td>149</td>
+    </tr>
+    <tr>
+      <th>173</th>
+      <td>1980</td>
+      <td>White</td>
+      <td>Butte County</td>
+      <td>235</td>
+      <td>614</td>
+      <td>136</td>
+      <td>18</td>
+      <td>184</td>
+      <td>1187</td>
+      <td>3897</td>
+      <td>3</td>
+      <td>306</td>
+      <td>149</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Calaveras County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7</td>
+      <td>0</td>
+      <td>52</td>
+      <td>83</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>1980</td>
+      <td>Hispanic</td>
+      <td>Calaveras County</td>
+      <td>4</td>
+      <td>4</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+      <td>12</td>
+      <td>31</td>
+      <td>0</td>
+      <td>52</td>
+      <td>83</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check Alameda County violent total against</span>
+<span class="c1"># hand sum for 1980</span>
+
+<span class="mi">2594</span> <span class="o">+</span> <span class="mi">592</span> <span class="o">+</span> <span class="mi">139</span> <span class="o">+</span> <span class="mi">1179</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4504
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-7">
+<h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
+<p>Now calculate the share of violent and drug arrestees in each county and year from each racial group.</p>
+<p>To ensure you’re on the right track, store the share (between zero and one) of violent arrestees in Alameda County in 1980 who were Black as <code class="docutils literal notranslate"><span class="pre">ex7_alameda_1980_share_violent_arrestees_black</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;VIOLENT&quot;</span><span class="p">,</span> <span class="s2">&quot;F_DRUGOFF&quot;</span><span class="p">]:</span>
+    <span class="n">arrests_collapsed</span><span class="p">[</span><span class="s2">&quot;SHARE_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">arrests_collapsed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">arrests_collapsed</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_TOTAL&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span>
+    <span class="p">)</span>
+<span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex7_alameda_1980_share_violent_arrestees_black&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">YEAR</span> <span class="o">==</span> <span class="mi">1980</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">COUNTY</span> <span class="o">==</span> <span class="s2">&quot;Alameda County&quot;</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">RACE</span> <span class="o">==</span> <span class="s2">&quot;Black&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;SHARE_VIOLENT&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex7_alameda_1980_share_violent_arrestees_black&quot;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;In Alameda County in 1980, </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ex7_alameda_1980_share_violent_arrestees_black&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2"> of arrestees were Black.&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In Alameda County in 1980, 57.59% of arrestees were Black.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-8">
+<h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
+<p>We’re about to start studying this data by plotting the share of violent arrestees that are Black against the share of felony drug arrestees that are Black. But the moment where you finish your data manipulations and are about to start you data analysis is a <em>great</em> time to just make sure everything in your data looks good. Let’s run a few checks:</p>
+<ul class="simple">
+<li><p>Are your values of the share of felony arrestees who were arrested for violent crimes sensible?</p></li>
+<li><p>You’re about to analyze the data using only the rows for the Black racial group. How many unique counties are there with data for Black arrestees? How many for White arrestees? Do you remember how many counties there are in CA (google is your friend if not!)?</p></li>
+</ul>
+<p>Include assert statements to check all these features of your data.</p>
+<p>(Reminder: the autograder will only work if you are entire notebook runs without errors.)</p>
+<p>If you encounter any problems, make sure you understand why they are happening, and fix them (if a fix is appropriate!).</p>
+<p>First, check arrest shares make sense:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check range.</span>
+<span class="c1"># I got problems initially, so now add a try-except loop:</span>
+<span class="c1"># tries the thing in `try`, if it raises an error, then does the thing</span>
+<span class="c1"># in `except`</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;SHARE_VIOLENT&quot;</span><span class="p">,</span> <span class="s2">&quot;SHARE_F_DRUGOFF&quot;</span><span class="p">]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="p">((</span><span class="n">arrests_collapsed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">arrests_collapsed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;problem with </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                <span class="o">~</span><span class="p">((</span><span class="n">arrests_collapsed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">arrests_collapsed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)),</span>
+                <span class="p">[</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span> <span class="s2">&quot;RACE&quot;</span><span class="p">,</span> <span class="s2">&quot;YEAR&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>problem with SHARE_F_DRUGOFF
+             COUNTY      RACE  YEAR  SHARE_F_DRUGOFF
+569   Alpine County     Other  1982              NaN
+627   Alpine County     White  1982              NaN
+742   Alpine County  Hispanic  1983              NaN
+800   Alpine County     Other  1983              NaN
+858   Alpine County     White  1983              NaN
+1258  Alpine County     Other  1985              NaN
+1316  Alpine County     White  1985              NaN
+1486  Alpine County     Other  1986              NaN
+1544  Alpine County     White  1986              NaN
+8311  Alpine County     Black  2016              NaN
+8369  Alpine County  Hispanic  2016              NaN
+8427  Alpine County     Other  2016              NaN
+8485  Alpine County     White  2016              NaN
+9239  Alpine County     Black  2020              NaN
+9297  Alpine County  Hispanic  2020              NaN
+9355  Alpine County     Other  2020              NaN
+9413  Alpine County     White  2020              NaN
+</pre></div>
+</div>
+</div>
+</div>
+<p>OK, so something up with alpine county! Let’s look at one of these years:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arrests_collapsed</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">COUNTY</span> <span class="o">==</span> <span class="s2">&quot;Alpine County&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">YEAR</span> <span class="o">==</span> <span class="mi">2016</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>F_TOTAL</th>
+      <th>M_TOTAL</th>
+      <th>S_TOTAL</th>
+      <th>VIOLENT_TOTAL</th>
+      <th>F_DRUGOFF_TOTAL</th>
+      <th>SHARE_VIOLENT</th>
+      <th>SHARE_F_DRUGOFF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>8311</th>
+      <td>2016</td>
+      <td>Black</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8369</th>
+      <td>2016</td>
+      <td>Hispanic</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8427</th>
+      <td>2016</td>
+      <td>Other</td>
+      <td>Alpine County</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0.2</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8485</th>
+      <td>2016</td>
+      <td>White</td>
+      <td>Alpine County</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>7</td>
+      <td>37</td>
+      <td>0</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0.8</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Ah, ok – it’s because no drug arrests! I guess np.nan is fine for those – after all, I’m trying to calculate “share of drug arrests that were Black arrestees” – if there are no drug arrests, then that’s just undefined (not zero). Make sure that’s only problem:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;VIOLENT&quot;</span><span class="p">,</span> <span class="s2">&quot;F_DRUGOFF&quot;</span><span class="p">]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">non_zeros</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="p">[</span><span class="n">arrests_collapsed</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">_TOTAL&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="p">((</span><span class="n">non_zeros</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;SHARE_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">non_zeros</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;SHARE_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;problem with </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                <span class="o">~</span><span class="p">((</span><span class="n">arrests_collapsed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">arrests_collapsed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)),</span>
+                <span class="p">[</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span> <span class="s2">&quot;RACE&quot;</span><span class="p">,</span> <span class="s2">&quot;YEAR&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can check if we have same county counts:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_counties</span> <span class="o">=</span> <span class="mi">58</span>  <span class="c1"># Says wikipedia</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Black&quot;</span><span class="p">,</span> <span class="s2">&quot;White&quot;</span><span class="p">]:</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="n">arrests_collapsed</span><span class="p">[</span><span class="n">arrests_collapsed</span><span class="p">[</span><span class="s2">&quot;RACE&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">COUNTY</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+        <span class="o">==</span> <span class="n">num_counties</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-9">
+<h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
+<p>Now check to see if you have the same number of counties <em>in each year for each racial group</em>.</p>
+<p>Can you figure out why there aren’t? (Hint: this isn’t trivial to figure out! You’ll probably have to do some detective work, and even then you’ll have to make a bit of a “best guess” at what’s going on!)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_years</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">YEAR</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+<span class="n">num_counties</span> <span class="o">=</span> <span class="mi">58</span>
+<span class="n">num_racial_groups</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">RACE</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+
+<span class="c1"># THIS FAILS</span>
+<span class="c1"># assert (</span>
+<span class="c1">#     arrests_collapsed.groupby([&quot;YEAR&quot;, &quot;RACE&quot;])[&quot;COUNTY&quot;].count()</span>
+<span class="c1">#     == num_years * num_counties * num_racial_groups</span>
+<span class="c1"># ).all()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Uh oh! Let’s poke around to see what’s up:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;YEAR&quot;</span><span class="p">,</span> <span class="s2">&quot;RACE&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1980</td>
+      <td>Hispanic</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1980</td>
+      <td>Other</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1980</td>
+      <td>White</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1981</td>
+      <td>Black</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>163</th>
+      <td>2020</td>
+      <td>White</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>164</th>
+      <td>2021</td>
+      <td>Black</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>165</th>
+      <td>2021</td>
+      <td>Hispanic</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>166</th>
+      <td>2021</td>
+      <td>Other</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>167</th>
+      <td>2021</td>
+      <td>White</td>
+      <td>58</td>
+    </tr>
+  </tbody>
+</table>
+<p>168 rows × 3 columns</p>
+</div></div></div>
+</div>
+<p>K, so we can see problem in 1980. Let’s dig in:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bad_year</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="p">[</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">YEAR</span> <span class="o">==</span> <span class="mi">1980</span><span class="p">]</span>
+<span class="n">bad_year</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">])[</span><span class="s2">&quot;RACE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COUNTY
+Alameda County            4
+Alpine County             2
+Amador County             3
+Butte County              4
+Calaveras County          4
+Colusa County             4
+Contra Costa County       4
+Del Norte County          4
+El Dorado County          4
+Fresno County             4
+Glenn County              4
+Humboldt County           4
+Imperial County           4
+Inyo County               4
+Kern County               4
+Kings County              4
+Lake County               4
+Lassen County             4
+Los Angeles County        4
+Madera County             4
+Marin County              4
+Mariposa County           4
+Mendocino County          4
+Merced County             4
+Modoc County              4
+Mono County               4
+Monterey County           4
+Napa County               4
+Nevada County             4
+Orange County             4
+Placer County             4
+Plumas County             4
+Riverside County          4
+Sacramento County         4
+San Benito County         4
+San Bernardino County     4
+San Diego County          4
+San Francisco County      4
+San Joaquin County        4
+San Luis Obispo County    4
+San Mateo County          4
+Santa Barbara County      4
+Santa Clara County        4
+Santa Cruz County         4
+Shasta County             4
+Sierra County             3
+Siskiyou County           4
+Solano County             4
+Sonoma County             4
+Stanislaus County         4
+Sutter County             4
+Tehama County             4
+Trinity County            4
+Tulare County             4
+Tuolumne County           4
+Ventura County            4
+Yolo County               4
+Yuba County               4
+Name: RACE, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>K, Alpine obviously missing one. Let’s look:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bad_year</span><span class="p">[</span><span class="n">bad_year</span><span class="o">.</span><span class="n">COUNTY</span> <span class="o">==</span> <span class="s2">&quot;Alpine County&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>F_TOTAL</th>
+      <th>M_TOTAL</th>
+      <th>S_TOTAL</th>
+      <th>VIOLENT_TOTAL</th>
+      <th>F_DRUGOFF_TOTAL</th>
+      <th>SHARE_VIOLENT</th>
+      <th>SHARE_F_DRUGOFF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>113</th>
+      <td>1980</td>
+      <td>Other</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>171</th>
+      <td>1980</td>
+      <td>White</td>
+      <td>Alpine County</td>
+      <td>1</td>
+      <td>9</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>13</td>
+      <td>117</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Huh, missing Hispanic and Black. Wonder why…</p>
+<p>OK, digging around on the internet (and looking at the number of arrests Alpine reported), looks like Alpine county is a small and very White county, so perhaps they didn’t have any Hispanic arrests, so didn’t report them.</p>
+<p>Indeed, that’s also true for the other counties with fewer rows than they should have in 1984 – if we go to <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_counties_in_California">wikipedia</a> and sort by population, we find these are some of the smallest counties:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bad_year</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="n">bad_year</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">])[</span><span class="s2">&quot;RACE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;COUNTY&quot;</span>
+<span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>113    Alpine County
+56     Amador County
+99     Sierra County
+Name: COUNTY, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, this isn’t a slam dunk case – it does appear counties sometimes report rows that are all zeros, even some of our smaller counties:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arrests_collapsed</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">F_TOTAL</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">M_TOTAL</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">S_TOTAL</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>F_TOTAL</th>
+      <th>M_TOTAL</th>
+      <th>S_TOTAL</th>
+      <th>VIOLENT_TOTAL</th>
+      <th>F_DRUGOFF_TOTAL</th>
+      <th>SHARE_VIOLENT</th>
+      <th>SHARE_F_DRUGOFF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1416</th>
+      <td>1986</td>
+      <td>Black</td>
+      <td>Sierra County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8</td>
+      <td>15</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3010</th>
+      <td>1993</td>
+      <td>Black</td>
+      <td>Mono County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>37</td>
+      <td>26</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3492</th>
+      <td>1995</td>
+      <td>Black</td>
+      <td>Sierra County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>13</td>
+      <td>8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4425</th>
+      <td>1999</td>
+      <td>Black</td>
+      <td>Trinity County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>103</td>
+      <td>76</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4859</th>
+      <td>2001</td>
+      <td>Black</td>
+      <td>Modoc County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>54</td>
+      <td>10</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4996</th>
+      <td>2001</td>
+      <td>Other</td>
+      <td>Sierra County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>21</td>
+      <td>14</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>7212</th>
+      <td>2011</td>
+      <td>Hispanic</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8</td>
+      <td>4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>7386</th>
+      <td>2012</td>
+      <td>Black</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5</td>
+      <td>7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8137</th>
+      <td>2015</td>
+      <td>Hispanic</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>6</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8123</th>
+      <td>2015</td>
+      <td>Black</td>
+      <td>Sierra County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>13</td>
+      <td>12</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>9239</th>
+      <td>2020</td>
+      <td>Black</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>But this is the kind of detective work sometimes required for data science, and I think it’s reasonable to infer that these are cases where there just were no arrests for a given racial group, and so nothing was reported. This is real world, government-agency-reported data – there are gonna be issues.</p>
+</section>
+<section id="exercise-10">
+<h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Link to this heading">#</a></h3>
+<p>Once you think you have a theory of the case, fix the problem. Again, this will NOT be trivial.</p>
+<p>So let’s fill in those cells with zeros, since without them we’d be systematically dropping observations where 0 of the arrests in a given category were of a given racial group (e.g. Black), and systematically dropping situations where the pct of arrestees who were Black would obviously bias our conclusions.</p>
+<p>Fixing this can actually be done in several ways, but here’s what feels “intuitive” (nothing with groupby is intuitive, but this works) to me:</p>
+<ol class="arabic simple">
+<li><p>Identify the county-years missing Black entries (we’re only working with Black and White later, so I don’t need to worry about filling in zeros for Other and Hispanic. If I were working with all groups, I would).</p></li>
+<li><p>Add in rows will all zeros for these entries.</p></li>
+</ol>
+<p><strong>Part 1: Identify county-years missing Black entries</strong></p>
+<p>Here we’re going to use a trick that’s actually something I use a lot: to figure out which groups contain observations of a given type, make a new variable that identifies which <em>rows</em> are of a type with a 1 (0 otherwise), then take the max of that variable for a group. Groups that include a row of the type we’re looking for will have a max value of 1, those that don’t will have a max value of 0.</p>
+<p>This works for finding, say, surveyed groups with men, or countries that experience a disaster in one year of your data, or customers whose purchases include the purchase of a given good:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Identify county-yeras with no black arrests</span>
+<span class="n">arrests_collapsed</span><span class="p">[</span><span class="s2">&quot;black_row&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">RACE</span> <span class="o">==</span> <span class="s2">&quot;Black&quot;</span><span class="p">,</span> <span class="s2">&quot;black_row&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">arrests_collapsed</span><span class="p">[</span><span class="s2">&quot;has_black_row&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span> <span class="s2">&quot;YEAR&quot;</span><span class="p">])[</span>
+    <span class="s2">&quot;black_row&quot;</span>
+<span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="nb">max</span><span class="p">)</span>
+
+<span class="c1"># Do an eyeball check to see if I did this right:</span>
+<span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">YEAR</span> <span class="o">==</span> <span class="mi">1980</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">&quot;YEAR&quot;</span><span class="p">,</span> <span class="s2">&quot;RACE&quot;</span><span class="p">,</span> <span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span> <span class="s2">&quot;black_row&quot;</span><span class="p">,</span> <span class="s2">&quot;has_black_row&quot;</span><span class="p">],</span>
+<span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_20340/1130573278.py:6: FutureWarning: The provided callable &lt;built-in function max&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+  ].transform(max)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+      <th>black_row</th>
+      <th>has_black_row</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Alameda County</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>1980</td>
+      <td>Hispanic</td>
+      <td>Alameda County</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>112</th>
+      <td>1980</td>
+      <td>Other</td>
+      <td>Alameda County</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>1980</td>
+      <td>White</td>
+      <td>Alameda County</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>113</th>
+      <td>1980</td>
+      <td>Other</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>171</th>
+      <td>1980</td>
+      <td>White</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>1980</td>
+      <td>Hispanic</td>
+      <td>Amador County</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>114</th>
+      <td>1980</td>
+      <td>Other</td>
+      <td>Amador County</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>172</th>
+      <td>1980</td>
+      <td>White</td>
+      <td>Amador County</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Butte County</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>PART 2: Add in Black rows for these county-years</strong></p>
+<p>Now that we’ve identified the county-years with no Black rows, we want to add in rows with zeros in all the cells we care about. Here there are quite a few solutions, so I’ll do two (and you may have others!)</p>
+<p>First, there are no county-years that lack a white row:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Identify county-yeras with no black arrests</span>
+<span class="n">arrests_collapsed</span><span class="p">[</span><span class="s2">&quot;white_row&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">RACE</span> <span class="o">==</span> <span class="s2">&quot;White&quot;</span><span class="p">,</span> <span class="s2">&quot;white_row&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">arrests_collapsed</span><span class="p">[</span><span class="s2">&quot;has_white_row&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span> <span class="s2">&quot;YEAR&quot;</span><span class="p">])[</span>
+    <span class="s2">&quot;white_row&quot;</span>
+<span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="nb">max</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">arrests_collapsed</span><span class="p">[</span><span class="s2">&quot;has_white_row&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_20340/4206367382.py:6: FutureWarning: The provided callable &lt;built-in function max&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+  ].transform(max)
+</pre></div>
+</div>
+</div>
+</div>
+<p>So what if we:</p>
+<ul class="simple">
+<li><p>Grab a copy of the white rows from all the county-years that don’t have black rows</p></li>
+<li><p>Fill in the values with zeros</p></li>
+<li><p>Flip the race to Black, and</p></li>
+<li><p>Stick those back into our data</p></li>
+</ul>
+<p>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grab county-years missing black</span>
+<span class="n">template_rows</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">RACE</span> <span class="o">==</span> <span class="s2">&quot;White&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">has_black_row</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">template_rows</span><span class="p">[</span><span class="s2">&quot;RACE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Black&quot;</span>
+<span class="n">template_rows</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>F_TOTAL</th>
+      <th>M_TOTAL</th>
+      <th>S_TOTAL</th>
+      <th>VIOLENT_TOTAL</th>
+      <th>F_DRUGOFF_TOTAL</th>
+      <th>SHARE_VIOLENT</th>
+      <th>SHARE_F_DRUGOFF</th>
+      <th>black_row</th>
+      <th>has_black_row</th>
+      <th>white_row</th>
+      <th>has_white_row</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3646</th>
+      <td>1995</td>
+      <td>Black</td>
+      <td>Mono County</td>
+      <td>38</td>
+      <td>44</td>
+      <td>33</td>
+      <td>1</td>
+      <td>15</td>
+      <td>131</td>
+      <td>190</td>
+      <td>0</td>
+      <td>44</td>
+      <td>54</td>
+      <td>0.863636</td>
+      <td>0.611111</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>8065</th>
+      <td>2014</td>
+      <td>Black</td>
+      <td>Sierra County</td>
+      <td>11</td>
+      <td>4</td>
+      <td>9</td>
+      <td>2</td>
+      <td>15</td>
+      <td>41</td>
+      <td>58</td>
+      <td>0</td>
+      <td>13</td>
+      <td>10</td>
+      <td>0.846154</td>
+      <td>0.900000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>171</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Alpine County</td>
+      <td>1</td>
+      <td>9</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>13</td>
+      <td>117</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1316</th>
+      <td>1985</td>
+      <td>Black</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>12</td>
+      <td>28</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>7603</th>
+      <td>2012</td>
+      <td>Black</td>
+      <td>Sierra County</td>
+      <td>10</td>
+      <td>9</td>
+      <td>7</td>
+      <td>2</td>
+      <td>12</td>
+      <td>40</td>
+      <td>87</td>
+      <td>0</td>
+      <td>13</td>
+      <td>8</td>
+      <td>0.769231</td>
+      <td>0.875000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reset arrest counts and percentages to zero</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="s2">&quot;VIOLENT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PROPERTY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;F_DRUGOFF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;F_SEXOFF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;F_ALLOTHER&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SHARE_VIOLENT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SHARE_F_DRUGOFF&quot;</span><span class="p">,</span>
+<span class="p">]:</span>
+    <span class="n">template_rows</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">template_rows</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>F_TOTAL</th>
+      <th>M_TOTAL</th>
+      <th>S_TOTAL</th>
+      <th>VIOLENT_TOTAL</th>
+      <th>F_DRUGOFF_TOTAL</th>
+      <th>SHARE_VIOLENT</th>
+      <th>SHARE_F_DRUGOFF</th>
+      <th>black_row</th>
+      <th>has_black_row</th>
+      <th>white_row</th>
+      <th>has_white_row</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2972</th>
+      <td>1992</td>
+      <td>Black</td>
+      <td>Sierra County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>69</td>
+      <td>143</td>
+      <td>0</td>
+      <td>14</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>671</th>
+      <td>1982</td>
+      <td>Black</td>
+      <td>Sierra County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>45</td>
+      <td>87</td>
+      <td>2</td>
+      <td>4</td>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>171</th>
+      <td>1980</td>
+      <td>Black</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>13</td>
+      <td>117</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2004</th>
+      <td>1988</td>
+      <td>Black</td>
+      <td>Alpine County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>11</td>
+      <td>46</td>
+      <td>0</td>
+      <td>3</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2510</th>
+      <td>1990</td>
+      <td>Black</td>
+      <td>Sierra County</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>92</td>
+      <td>420</td>
+      <td>1</td>
+      <td>10</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># And append:</span>
+<span class="n">corrected_arrests</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">arrests_collapsed</span><span class="p">,</span> <span class="n">template_rows</span><span class="p">])</span>
+<span class="n">corrected_arrests</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>F_TOTAL</th>
+      <th>M_TOTAL</th>
+      <th>S_TOTAL</th>
+      <th>VIOLENT_TOTAL</th>
+      <th>F_DRUGOFF_TOTAL</th>
+      <th>SHARE_VIOLENT</th>
+      <th>SHARE_F_DRUGOFF</th>
+      <th>black_row</th>
+      <th>has_black_row</th>
+      <th>white_row</th>
+      <th>has_white_row</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5092</th>
+      <td>2002</td>
+      <td>Black</td>
+      <td>Mono County</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>3</td>
+      <td>5</td>
+      <td>0</td>
+      <td>32</td>
+      <td>26</td>
+      <td>0.062500</td>
+      <td>0.000000</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>8841</th>
+      <td>2018</td>
+      <td>Hispanic</td>
+      <td>Fresno County</td>
+      <td>2541</td>
+      <td>1071</td>
+      <td>341</td>
+      <td>129</td>
+      <td>1709</td>
+      <td>5791</td>
+      <td>16519</td>
+      <td>20</td>
+      <td>4316</td>
+      <td>555</td>
+      <td>0.588740</td>
+      <td>0.614414</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>460</th>
+      <td>1982</td>
+      <td>Black</td>
+      <td>Colusa County</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>22</td>
+      <td>0</td>
+      <td>41</td>
+      <td>30</td>
+      <td>0.024390</td>
+      <td>0.000000</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4883</th>
+      <td>2001</td>
+      <td>Black</td>
+      <td>Sonoma County</td>
+      <td>105</td>
+      <td>87</td>
+      <td>65</td>
+      <td>9</td>
+      <td>47</td>
+      <td>313</td>
+      <td>631</td>
+      <td>3</td>
+      <td>1548</td>
+      <td>1449</td>
+      <td>0.067829</td>
+      <td>0.044859</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5213</th>
+      <td>2002</td>
+      <td>Other</td>
+      <td>Placer County</td>
+      <td>26</td>
+      <td>38</td>
+      <td>20</td>
+      <td>2</td>
+      <td>28</td>
+      <td>114</td>
+      <td>176</td>
+      <td>2</td>
+      <td>667</td>
+      <td>706</td>
+      <td>0.038981</td>
+      <td>0.028329</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check all counties have same years with black entries:</span>
+<span class="k">assert</span> <span class="p">(</span>
+    <span class="n">corrected_arrests</span><span class="p">[</span><span class="n">corrected_arrests</span><span class="o">.</span><span class="n">RACE</span> <span class="o">==</span> <span class="s2">&quot;Black&quot;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">])[</span><span class="s2">&quot;YEAR&quot;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">count</span><span class="p">()</span>
+    <span class="o">==</span> <span class="n">num_years</span>
+<span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we’re set to go!</p>
+<p>But of course I promised you TWO solutions, so here’s another.</p>
+<p><strong>Option 2: Build up the rows we need by hand</strong></p>
+<p>OK, don’t want to do this weird trick with the White rows? Here’s another strategy:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bad_county_years</span> <span class="o">=</span> <span class="n">arrests_collapsed</span><span class="p">[</span><span class="n">arrests_collapsed</span><span class="o">.</span><span class="n">has_black_row</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">bad_county_years</span> <span class="o">=</span> <span class="n">bad_county_years</span><span class="p">[[</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span> <span class="s2">&quot;YEAR&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="n">bad_county_years</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNTY</th>
+      <th>YEAR</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>113</th>
+      <td>Alpine County</td>
+      <td>1980</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>Amador County</td>
+      <td>1980</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>Sierra County</td>
+      <td>1980</td>
+    </tr>
+    <tr>
+      <th>341</th>
+      <td>Alpine County</td>
+      <td>1981</td>
+    </tr>
+    <tr>
+      <th>327</th>
+      <td>Sierra County</td>
+      <td>1981</td>
+    </tr>
+    <tr>
+      <th>334</th>
+      <td>Trinity County</td>
+      <td>1981</td>
+    </tr>
+    <tr>
+      <th>569</th>
+      <td>Alpine County</td>
+      <td>1982</td>
+    </tr>
+    <tr>
+      <th>534</th>
+      <td>Modoc County</td>
+      <td>1982</td>
+    </tr>
+    <tr>
+      <th>555</th>
+      <td>Sierra County</td>
+      <td>1982</td>
+    </tr>
+    <tr>
+      <th>742</th>
+      <td>Alpine County</td>
+      <td>1983</td>
+    </tr>
+    <tr>
+      <th>990</th>
+      <td>Mariposa County</td>
+      <td>1984</td>
+    </tr>
+    <tr>
+      <th>1014</th>
+      <td>Sierra County</td>
+      <td>1984</td>
+    </tr>
+    <tr>
+      <th>1021</th>
+      <td>Trinity County</td>
+      <td>1984</td>
+    </tr>
+    <tr>
+      <th>1258</th>
+      <td>Alpine County</td>
+      <td>1985</td>
+    </tr>
+    <tr>
+      <th>1486</th>
+      <td>Alpine County</td>
+      <td>1986</td>
+    </tr>
+    <tr>
+      <th>1451</th>
+      <td>Modoc County</td>
+      <td>1986</td>
+    </tr>
+    <tr>
+      <th>1479</th>
+      <td>Trinity County</td>
+      <td>1986</td>
+    </tr>
+    <tr>
+      <th>1657</th>
+      <td>Alpine County</td>
+      <td>1987</td>
+    </tr>
+    <tr>
+      <th>1680</th>
+      <td>Modoc County</td>
+      <td>1987</td>
+    </tr>
+    <tr>
+      <th>1708</th>
+      <td>Trinity County</td>
+      <td>1987</td>
+    </tr>
+    <tr>
+      <th>1888</th>
+      <td>Alpine County</td>
+      <td>1988</td>
+    </tr>
+    <tr>
+      <th>2350</th>
+      <td>Alpine County</td>
+      <td>1990</td>
+    </tr>
+    <tr>
+      <th>2394</th>
+      <td>Sierra County</td>
+      <td>1990</td>
+    </tr>
+    <tr>
+      <th>2581</th>
+      <td>Alpine County</td>
+      <td>1991</td>
+    </tr>
+    <tr>
+      <th>2856</th>
+      <td>Sierra County</td>
+      <td>1992</td>
+    </tr>
+    <tr>
+      <th>3087</th>
+      <td>Sierra County</td>
+      <td>1993</td>
+    </tr>
+    <tr>
+      <th>3530</th>
+      <td>Mono County</td>
+      <td>1995</td>
+    </tr>
+    <tr>
+      <th>3781</th>
+      <td>Sierra County</td>
+      <td>1996</td>
+    </tr>
+    <tr>
+      <th>3968</th>
+      <td>Alpine County</td>
+      <td>1997</td>
+    </tr>
+    <tr>
+      <th>4894</th>
+      <td>Alpine County</td>
+      <td>2001</td>
+    </tr>
+    <tr>
+      <th>5380</th>
+      <td>Modoc County</td>
+      <td>2003</td>
+    </tr>
+    <tr>
+      <th>7256</th>
+      <td>Sierra County</td>
+      <td>2011</td>
+    </tr>
+    <tr>
+      <th>7487</th>
+      <td>Sierra County</td>
+      <td>2012</td>
+    </tr>
+    <tr>
+      <th>7949</th>
+      <td>Sierra County</td>
+      <td>2014</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bad_county_years</span><span class="p">[</span><span class="s2">&quot;RACE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Black&quot;</span>
+
+<span class="c1"># Only ones we care about. Concat below will fill</span>
+<span class="c1"># others with np.nans.</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="s2">&quot;VIOLENT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PROPERTY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;F_DRUGOFF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;F_SEXOFF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;F_ALLOTHER&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SHARE_VIOLENT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SHARE_F_DRUGOFF&quot;</span><span class="p">,</span>
+<span class="p">]:</span>
+    <span class="n">bad_county_years</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">bad_county_years</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNTY</th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>SHARE_VIOLENT</th>
+      <th>SHARE_F_DRUGOFF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>534</th>
+      <td>Modoc County</td>
+      <td>1982</td>
+      <td>Black</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2350</th>
+      <td>Alpine County</td>
+      <td>1990</td>
+      <td>Black</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1451</th>
+      <td>Modoc County</td>
+      <td>1986</td>
+      <td>Black</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>Sierra County</td>
+      <td>1980</td>
+      <td>Black</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7256</th>
+      <td>Sierra County</td>
+      <td>2011</td>
+      <td>Black</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corrected_arrests</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">arrests_collapsed</span><span class="p">,</span> <span class="n">bad_county_years</span><span class="p">])</span>
+<span class="n">corrected_arrests</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YEAR</th>
+      <th>RACE</th>
+      <th>COUNTY</th>
+      <th>VIOLENT</th>
+      <th>PROPERTY</th>
+      <th>F_DRUGOFF</th>
+      <th>F_SEXOFF</th>
+      <th>F_ALLOTHER</th>
+      <th>F_TOTAL</th>
+      <th>M_TOTAL</th>
+      <th>S_TOTAL</th>
+      <th>VIOLENT_TOTAL</th>
+      <th>F_DRUGOFF_TOTAL</th>
+      <th>SHARE_VIOLENT</th>
+      <th>SHARE_F_DRUGOFF</th>
+      <th>black_row</th>
+      <th>has_black_row</th>
+      <th>white_row</th>
+      <th>has_white_row</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5732</th>
+      <td>2004</td>
+      <td>White</td>
+      <td>Nevada County</td>
+      <td>239</td>
+      <td>231</td>
+      <td>202</td>
+      <td>14</td>
+      <td>196</td>
+      <td>882.0</td>
+      <td>2599.0</td>
+      <td>99.0</td>
+      <td>276.0</td>
+      <td>215.0</td>
+      <td>0.865942</td>
+      <td>0.939535</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>5859</th>
+      <td>2005</td>
+      <td>Hispanic</td>
+      <td>San Luis Obispo County</td>
+      <td>200</td>
+      <td>191</td>
+      <td>211</td>
+      <td>24</td>
+      <td>124</td>
+      <td>750.0</td>
+      <td>2154.0</td>
+      <td>16.0</td>
+      <td>676.0</td>
+      <td>812.0</td>
+      <td>0.295858</td>
+      <td>0.259852</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1017</th>
+      <td>1984</td>
+      <td>Hispanic</td>
+      <td>Sonoma County</td>
+      <td>88</td>
+      <td>143</td>
+      <td>44</td>
+      <td>8</td>
+      <td>40</td>
+      <td>323.0</td>
+      <td>1851.0</td>
+      <td>4.0</td>
+      <td>509.0</td>
+      <td>565.0</td>
+      <td>0.172888</td>
+      <td>0.077876</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>6024</th>
+      <td>2006</td>
+      <td>Black</td>
+      <td>Placer County</td>
+      <td>56</td>
+      <td>98</td>
+      <td>55</td>
+      <td>1</td>
+      <td>69</td>
+      <td>279.0</td>
+      <td>234.0</td>
+      <td>1.0</td>
+      <td>755.0</td>
+      <td>1155.0</td>
+      <td>0.074172</td>
+      <td>0.047619</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>5953</th>
+      <td>2005</td>
+      <td>White</td>
+      <td>Lassen County</td>
+      <td>87</td>
+      <td>59</td>
+      <td>78</td>
+      <td>4</td>
+      <td>52</td>
+      <td>280.0</td>
+      <td>749.0</td>
+      <td>4.0</td>
+      <td>116.0</td>
+      <td>89.0</td>
+      <td>0.750000</td>
+      <td>0.876404</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check our work</span>
+<span class="c1"># Check all counties have same years with black entries:</span>
+<span class="k">assert</span> <span class="p">(</span>
+    <span class="n">corrected_arrests</span><span class="p">[</span><span class="n">corrected_arrests</span><span class="o">.</span><span class="n">RACE</span> <span class="o">==</span> <span class="s2">&quot;Black&quot;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">])[</span><span class="s2">&quot;YEAR&quot;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">count</span><span class="p">()</span>
+    <span class="o">==</span> <span class="n">num_years</span>
+<span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, calcualte the share of drug crimes commited by Whites and Blacks:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pct_drug</span> <span class="o">=</span> <span class="n">corrected_arrests</span><span class="p">[[</span><span class="s2">&quot;RACE&quot;</span><span class="p">,</span> <span class="s2">&quot;SHARE_F_DRUGOFF&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;RACE&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">pct_drug</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SHARE_F_DRUGOFF</th>
+    </tr>
+    <tr>
+      <th>RACE</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Black</th>
+      <td>0.091944</td>
+    </tr>
+    <tr>
+      <th>Hispanic</th>
+      <td>0.243401</td>
+    </tr>
+    <tr>
+      <th>Other</th>
+      <td>0.044782</td>
+    </tr>
+    <tr>
+      <th>White</th>
+      <td>0.620058</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="exercise-11">
+<h3>Exercise 11<a class="headerlink" href="#exercise-11" title="Link to this heading">#</a></h3>
+<p>Now that you have corrected your problem, averaging over the values for each county-year, calculate the average share of drug arrestees who are Black and the average share of drug arrestees who are White. Store the results as <code class="docutils literal notranslate"><span class="pre">&quot;ex11_white_drug_share&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;ex11_black_drug_share&quot;</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex11_white_drug_share&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pct_drug</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;White&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex11_black_drug_share&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pct_drug</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;Black&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;The share of drug arrestees who were White was </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ex11_white_drug_share&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;The share of drug arrestees who were Black was </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ex11_black_drug_share&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The share of drug arrestees who were White was 0.62
+The share of drug arrestees who were Black was 0.0919
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-12">
+<h3>Exercise 12<a class="headerlink" href="#exercise-12" title="Link to this heading">#</a></h3>
+<p>Plot the share of violent arrestees that are Black against the share of felony drug arrestees that are Black. Do they look proportionate? Answer in text here.</p>
+<p>Do Black arrestees make up a greater share of violent arrestees, or a greater share of drug arrestees? Store you answer as <code class="docutils literal notranslate"><span class="pre">&quot;greater</span> <span class="pre">violent&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;greater</span> <span class="pre">drug&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">&quot;ex12_proportionate&quot;</span></code>.</p>
+<p><strong>Hint:</strong> You can add a 45 degree reference line by making a dummy dataset with one point at 0,0 and one point at a location near the top of your data (e.g. 0.7, 0.7). Without a reference line it’s VERY hard to be sure if how your points relate to proportionality.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn.objects</span> <span class="k">as</span> <span class="nn">so</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">style</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+
+<span class="n">black_arrests</span> <span class="o">=</span> <span class="n">corrected_arrests</span><span class="p">[</span><span class="n">corrected_arrests</span><span class="o">.</span><span class="n">RACE</span> <span class="o">==</span> <span class="s2">&quot;Black&quot;</span><span class="p">]</span>
+<span class="n">p</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">black_arrests</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;SHARE_VIOLENT&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;SHARE_F_DRUGOFF&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Dots</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Lines</span><span class="p">(),</span> <span class="n">so</span><span class="o">.</span><span class="n">PolyFit</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Black Arrest Rates&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">theme</span><span class="p">({</span><span class="o">**</span><span class="n">style</span><span class="o">.</span><span class="n">library</span><span class="p">[</span><span class="s2">&quot;seaborn-v0_8-whitegrid&quot;</span><span class="p">]})</span>
+<span class="p">)</span>
+<span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../../_images/e70025989068666f6761b67e3d0fac5b251421525d1673c44c1f32913119861f.png"><img alt="../../_images/e70025989068666f6761b67e3d0fac5b251421525d1673c44c1f32913119861f.png" src="../../_images/e70025989068666f6761b67e3d0fac5b251421525d1673c44c1f32913119861f.png" style="width: 509.15px; height: 378.25px;" /></a>
+</div>
+</div>
+<p>Proportionality is hard to see, so I’m gonna add a 45 degree line:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reference</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;SHARE_VIOLENT&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span> <span class="s2">&quot;SHARE_F_DRUGOFF&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]})</span>
+<span class="n">p</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">black_arrests</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;SHARE_VIOLENT&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;SHARE_F_DRUGOFF&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Dots</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Lines</span><span class="p">(),</span> <span class="n">so</span><span class="o">.</span><span class="n">PolyFit</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Lines</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">),</span> <span class="n">so</span><span class="o">.</span><span class="n">PolyFit</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">reference</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Black Arrest Rates (45 degree reference in red)&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">theme</span><span class="p">({</span><span class="o">**</span><span class="n">style</span><span class="o">.</span><span class="n">library</span><span class="p">[</span><span class="s2">&quot;seaborn-v0_8-whitegrid&quot;</span><span class="p">]})</span>
+<span class="p">)</span>
+<span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../../_images/2c1e9f1afe016b8751a6f104c89cf33e448f9a8b08851e80f0b6c8bbb069414f.png"><img alt="../../_images/2c1e9f1afe016b8751a6f104c89cf33e448f9a8b08851e80f0b6c8bbb069414f.png" src="../../_images/2c1e9f1afe016b8751a6f104c89cf33e448f9a8b08851e80f0b6c8bbb069414f.png" style="width: 509.15px; height: 378.25px;" /></a>
+</div>
+</div>
+<p>Clearly this is below the line of proportionality, meaning that Black arrestees make up a larger share of violent arrestees than drug arrests.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex12_proportionate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;greater violent&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>(A quick note of warning on interpretation: these results can tell you whether Black Californians make up a larger proportion of <em>arrests</em> for certain types of crimes, not whether they make up a larger proportion of people who <em>commit</em> a give type of crime! Those <em>might</em> be the same, but they might not… this data just can’t answer that question.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;ex4_num_rows&#39;, &#39;ex5_collapsed_vars&#39;, &#39;ex7_alameda_1980_share_violent_arrestees_black&#39;, &#39;ex11_white_drug_share&#39;, &#39;ex11_black_drug_share&#39;, &#39;ex12_proportionate&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">{</span>
+    <span class="s2">&quot;ex4_num_rows&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex5_collapsed_vars&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex7_alameda_1980_share_violent_arrestees_black&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex11_white_drug_share&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex11_black_drug_share&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex12_proportionate&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ids720_specific/exercises"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradescope-autograding">Gradescope Autograding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-limits">Submission Limits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-group-structure-of-your-data">Learning the Group Structure of Your Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-your-assumptions">Testing Your Assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-with-duplicated">Testing with .duplicated()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#racial-arrest-composition">Racial Arrest Composition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10">Exercise 10</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11">Exercise 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12">Exercise 12</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

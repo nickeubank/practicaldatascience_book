@@ -1,0 +1,218 @@
+% So we make this "beamer" rather than document!
+
+\documentclass[11pt]{beamer}
+% For handout add ,handout after 11pt
+
+\usetheme[sectionpage=none,numbering=none]{metropolis}           % Use metropolis theme
+	% To do printouts, add ", handout"  after aspectratio.
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{color}
+
+\title{Backwards Design \\ in Data Science}
+\author{\small Nick Eubank}
+\date{\vspace*{.3in} \date}
+
+
+% This is the beginning of a real document!
+\begin{document}
+
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+\begin{frame}[c]{Backwards Design}
+
+Approach to planning data science projects
+  \begin{itemize}
+    \pause \item (Though backwards design isn't unique to DS)
+  \end{itemize}
+Goals:
+\begin{itemize}
+  \item Minimize wasted effort
+  \pause \item Make sure you develop explicit goals
+  \begin{itemize}
+    \item Not get lost in your tools and data
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Backwards Design}
+
+  Start with where you want to end up, then work backwards
+
+\end{frame}
+
+\begin{frame}[c]{Backwards Design}
+  \begin{enumerate}
+    \pause \item Determine Problem / Topic Area
+    \pause \item What \emph{question} are you seeking to answer?
+    \pause \item What does an answer to your question look like?
+    \pause \item What variables do you need to generate that answer?
+    \pause \item What data contains those variables?
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[c]{Step 0: Define the \alert{Problem / Topic}}
+Why are you doing this project? \\
+\pause What \alert{motivates} your investigation?\\
+\vspace*{0.1cm}
+\pause Examples:
+\begin{itemize}
+    \item We don't know how to reduce mass incarceration.
+    \item My business can't identify potential new customers.
+    \item We don't know who is going to develop Alzheimers, so we can't test early interventions.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Step 0: Define the \alert{Problem / Topic}}
+This \emph{seems} like it should be the easiest part of the project! \\
+\pause Why else would you be paying someone to do a project for you? \\
+
+\vspace*{0.2cm}
+\pause But very often you're stakeholder just wants to do ``data science,'' and assumes that you can just throw machine learning at data and make money. \\
+\begin{itemize}
+    \pause \item It is \emph{your} job to ensure that a goal has actually been articulated,
+    \item and make sure you and the stakeholder are clear on what that is.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Step 1: What \alert{question} are you seeking to answer?}
+The tools of data science are fundamentally designed to \alert{answer questions}, \pause so to before you pick your tools, you have to decide \alert{what question you wish to answer.}\\
+\vspace*{0.1cm}
+\pause $\Rightarrow$ The MOST important part of your project\\
+\end{frame}
+
+\begin{frame}[c]{Step 1: What \alert{question} are you seeking to answer?}
+Most important because:
+
+\begin{itemize}
+  \pause \item if you can't define the question you are seeking to answer, \alert{you'll find yourself lost in your data}, or worse
+  \pause \item after finishing your project, you'll realizing the question you answered doesn't help solve the problem that motivated you. \\
+ (or your stakeholder will say it doesn't actually help them.)
+\end{itemize}
+\pause  $\Rightarrow$ Invest in this stage of your project \emph{before} you dive into the data!
+\end{frame}
+
+
+\begin{frame}[c]{Step 1: What \alert{question} are you seeking to answer?}
+
+A critical feature of a good question is that it is \emph{tractable} and \emph{answerable} in a data science project. \\
+\begin{itemize}
+  \item If your question does not directly imply a course of action in your data science project, it's too vague.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Step 1: What \alert{question} are you seeking to answer?}
+Not answerable:
+\begin{itemize}
+  \item What policies reduce mass incarceration?
+  \item Can machine learning help me identify potential customers.
+  \item What indicates Alzheimers?
+\end{itemize}
+\pause
+Answerable:
+\begin{itemize}
+  \item Does the availability of grand juries result in longer sentences?
+  \item What attributes are common to the customers who buy the most from my business?
+  \item Are there lab results common in patients who later develop Alzheimers (diagnosed post-mortem) that we don't see in patients who don't go on to develop Alzheimers?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Step 1: What \alert{question} are you seeking to answer?}
+How do I know if my answer is answerable / tractable?
+
+\begin{enumerate}
+  \pause \item Can you hypothesize an answer to your question? \\
+  i.e. Can you state what you think might be the answer to your question?
+  \pause \item Can you imagine what the answer to your question looks like?
+  \pause \item When you read the question, do you immediately start thinking of what kind of data you want to collect?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[c]{Step 2: What does \alert{an answer} to your question look like?}
+\alert{Write down} what the answer to your question will look like!
+\pause
+\begin{itemize}
+  \item A figure
+  \item A table or regression
+  \item A dataset with predicted values
+\end{itemize}
+\pause
+$\Rightarrow$ Ask yourself: if I gave that to my stakeholder / put it in a paper, would people be pleased?\\
+\pause (OK, they might want robustness, and extensions, but at its core, is this an answer that would help them solve their problem?)
+\end{frame}
+
+
+\begin{frame}[c]{Step 2: What does \alert{an answer} to your question look like?}
+    \begin{itemize}
+      \item Does the availability of grand juries result in longer sentences?
+      \pause \item What attributes are common to the customers who buy the most from my business?
+      \pause \item Are there lab results common in patients who later develop Alzheimers (diagnosed post-mortem) that we don't see in patients who don't go on to develop Alzheimers?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Step 2: What does \alert{an answer} to your question look like?}
+  \begin{itemize}
+    \pause \item \textbf{Incarceration}: A regression that shows differences in sentences for arrestees in counties with standing grand juries as compared to counties without standing grand juries, controlling for details of charges.
+    \pause \item \textbf{Business:} A table showing the performance of a machine learning model that predicts (past) customer behavior using pre-purchase data on customer website interactions (and model parameters).
+    \pause \item \textbf{Alzheimers:} A regression showing a strong correlation between certain test results and receiving a positive diagnosis of Alzheimers in (post-mortem) testing.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Step 2: What does \alert{an answer} to your question look like?}
+But it's not enough to imagine \emph{one} answer. You should be able to imagine what an answer to your question looks like if your hypothesis \alert{is true} and the if your hypothesis \alert{is false}. \\
+\pause Otherwise your question isn't falsifiable! \\
+\vspace*{0.3cm}
+Write down what your answer looks like if your hypothesis is true, \emph{and} if it's false!
+\end{frame}
+
+\begin{frame}[c]{Step 3: What do you need to generate that answer?}
+  Congratulations! You've just specified the goal of your analysis! \\
+  \pause In my view, that is actually the hardest part of being a good data scientist. \\
+  \pause ...Though probably not the part that will take up the majority of your time.
+\end{frame}
+
+\begin{frame}[c]{Step 3: What do you need to generate that answer?}
+  So you now have in mind a table you want to generate. What data and variables do you need to create that result?
+  \pause
+  \pause For each variable, specify:
+  \begin{enumerate}
+    \item What do you need the variable to measure?
+    \item For what population do you need the variable defined?
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[c]{Step 4: Where can you get those variables?}
+  \begin{enumerate}
+    \item Where can you get those variables?, and
+    \item How will you relate your different datasets?
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[c]{Is this what everyone does?}
+  \pause Not that I'm aware of. \\
+  \pause Most people who are \emph{successful} seem to do this implicitly \\
+  \pause People who don't use this, in my experience, tend to flail.
+\end{frame}
+
+\begin{frame}[c]{Final Project}
+  In teams of \emph{up to} three people, \pause you will have to develop \emph{your own project idea} from scratch using this model.
+  \begin{itemize}
+    \item Just as the last project emphasized all the data tasks \emph{before} analysis,
+    \pause \item The goal of this is to emphasize all the things you do \emph{before} you touch your data!
+  \end{itemize}
+  \vspace*{0.1cm}
+  If you're looking for a model... look back at the write up of your assignment for the mid-semester project!
+\end{frame}
+
+\begin{frame}[c]{In Class}
+You have been approached by a campaign to reduce teen vaping.
+
+Over the past year, they've tried several different pilot programs in several cities.
+
+They just got a huge donation, and want to know what they should do with it.
+\end{frame}
+
+\end{document}
