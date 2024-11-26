@@ -585,6 +585,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpret-your-numbers">Interpret Your Numbers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-your-code">Format Your Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-odds-and-ends">Other Odds and Ends</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hiding-away-irrelevant-complexity">Hiding Away Irrelevant Complexity</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-examples">Some Examples</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-grading">Homework Grading</a></li>
 </ul>
@@ -710,6 +711,13 @@ document.write(`
 <li><p><strong>Don’t leave in spaghetti output:</strong> Sometimes when we’re writing our code will do things like print out 40 lines of a DataFrame, or all the column names in a massive dataset. That’s fine while you’re working, but don’t leave that output there for your reader—no one wants to flip through three pages of column names to get back to actual content they care about!</p></li>
 </ul>
 </section>
+<section id="hiding-away-irrelevant-complexity">
+<h2>Hiding Away Irrelevant Complexity<a class="headerlink" href="#hiding-away-irrelevant-complexity" title="Link to this heading">#</a></h2>
+<p>The advice above is all tailored for using notebooks for class exercises. <em>However</em>, there will be times in your career when you are writing notebooks to communicate something to a colleague rather than to an instructor. In those situations, it’s good practice to “tuck away” code — especially function definitions or class definitions — that aren’t <em>directly</em> relevant to what you’re trying to communicate. This can be accomplished by putting those definitions in an associated <code class="docutils literal notranslate"><span class="pre">.py</span></code> file and simply importing those functions and classes into the notebook.</p>
+<p>In other words, if you have a big function called <code class="docutils literal notranslate"><span class="pre">my_big_but_unimportant_function</span></code> that would clutter the notebook, you can define it outside the notebook in a <code class="docutils literal notranslate"><span class="pre">.py</span></code> file called <code class="docutils literal notranslate"><span class="pre">helper_functions.py</span></code>. Then you can load the function with <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">helper_functions</span> <span class="pre">as</span> <span class="pre">hf</span></code> and call it as <code class="docutils literal notranslate"><span class="pre">hf.my_big_but_unimportant_function()</span></code>.</p>
+<p>(This works if <code class="docutils literal notranslate"><span class="pre">helper_functions.py</span></code> is in the same directory as your notebook — you can use <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">sys;sys.path.append([path</span> <span class="pre">to</span> <span class="pre">folder</span> <span class="pre">with</span> <span class="pre">helper</span> <span class="pre">functions</span> <span class="pre">here])</span></code> if you expect the user to put it somewhere else.)</p>
+<p>By tucking away code complexity that isn’t central to the message you are seeking to communicate, you make it easier for the reader to focus on what matters and not get lost trying to follow irrelevant code.</p>
+</section>
 <section id="some-examples">
 <h2>Some Examples<a class="headerlink" href="#some-examples" title="Link to this heading">#</a></h2>
 <p>I don’t want to give away solutions to this or other MIDS classes, so I don’t have a <em>ton</em> of notebooks to share, but here are a couple good example notebooks (all shared with permission):</p>
@@ -720,24 +728,22 @@ document.write(`
 </section>
 <section id="homework-grading">
 <h2>Homework Grading<a class="headerlink" href="#homework-grading" title="Link to this heading">#</a></h2>
-<p>Moving forward, here is an approximate rubric for homeworks:</p>
-<p><strong>A (0.95):</strong></p>
+<p>Moving forward, here is an approximate rubric for homework formatting (which will be one component of the score for a homework, alongside autograded questions and, occassionally, hand-graded questions):</p>
+<p><strong>1</strong></p>
 <p><em>All</em> of the following is true:</p>
 <ul class="simple">
-<li><p>There are no significant errors in the code/analysis.</p></li>
 <li><p>The document is well-formatted and everything the authors are doing are coherently communicated.</p></li>
 <li><p>Numbers are presented in context, and with interpretation where appropriate.</p></li>
 <li><p>All code is well-formatted.</p></li>
 </ul>
-<p><strong>B (0.85):</strong></p>
+<p><strong>0.5</strong></p>
 <p><em>One</em> of the following is true:</p>
 <ul class="simple">
-<li><p>There are <em>some</em> significant errors in the code/analysis,</p></li>
 <li><p>The document is not well-formatted / some of what the authors are doing is not coherently communicated,</p></li>
 <li><p>Some numbers are presented without context, or without interpretation where interpretation would have been appropriate.</p></li>
 <li><p>The code has significant formatting errors.</p></li>
 </ul>
-<p><strong>C (0.75):</strong></p>
+<p><strong>0</strong></p>
 <p><em>Two</em> of the conditions for a B assignment are true.</p>
 <p>(Grades above an A (e.g. above 0.95), or below a C are possible where deemed appropriate by graders.)</p>
 </section>
@@ -811,6 +817,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpret-your-numbers">Interpret Your Numbers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-your-code">Format Your Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-odds-and-ends">Other Odds and Ends</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hiding-away-irrelevant-complexity">Hiding Away Irrelevant Complexity</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-examples">Some Examples</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-grading">Homework Grading</a></li>
 </ul>
