@@ -9,7 +9,7 @@ This content has also been developed into a Coursera [Python Data Science Founda
 
 ## Not a Duke MIDS Student?
 
-*Interested in enrolling in this material but not a MIDS student? [Read this!](ids720_specific/not_a_mids_student)
+*Interested in enrolling in a class covering this material but not a MIDS student?* [Read this!](ids720_specific/not_a_mids_student)
 
 ## Are You An Instructor Using This Material In A Class?
 

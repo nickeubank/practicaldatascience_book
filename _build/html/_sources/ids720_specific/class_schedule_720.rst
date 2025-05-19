@@ -1,5 +1,5 @@
-Class Schedule
-==============
+Class Schedule (720)
+=====================
 
 Office Hours and Links
 --------------------------

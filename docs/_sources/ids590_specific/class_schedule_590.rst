@@ -1,4 +1,4 @@
-IDS 590 Class Schedule
+Class Schedule (590)
 ======================
 
 Office Hours and Links
