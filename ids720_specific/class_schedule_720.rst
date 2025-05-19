@@ -18,6 +18,6 @@ Class Time
 Class will be Tuesdays and Thursdays from 1:25pm-2:40pm (EDT).
 
 .. csv-table::
-   :file: class_schedule.csv
+   :file: class_schedule_720.csv
    :widths: 14, 28, 32, 5
    :header-rows: 1

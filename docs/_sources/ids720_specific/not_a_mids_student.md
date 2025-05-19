@@ -8,9 +8,21 @@ In short:
 - MIDS students have also seen a little bit of the two Python data science packages we'll use a lot in this course: `numpy`, and `pandas`. As a result, this course is not optimally designed for those who have no exposure to these tools. A person who knows Python but has never seen `numpy` and `pandas` can still learn all they need from the materials in this course, but for reasons discussed below, it may be harder than is really necessary. *Guidance for students in this position below.*
 - No experience or past exposure is assumed for topic areas other than a very basic sense of `numpy` and `pandas`.
 
-## Need to Catch Up?
+## No Python Experience?
 
-Great news! You can now work through the exact same Python introductory materials that MIDS students do when they arrive on campus for a three-week in-person bootcamp. These materials assume **zero** past experience with Python or programming!
+Great news! There are now two paths forward. 
+
+### Take IDS 590!
+
+The first — starting in Fall 2025 — is to enroll in IDS 590 with Adriane Fresh and Nick Eubank (T/Th 10:05-11:20 — "Social Science 4 Data Science"). This is a version of the class we're creating for non-MIDS students who will not have completed that summer bootcamp.
+
+**Don't be confused by the 590 numbering! The level will be the same in IDS 590 as in IDS 720.** The two classes primarily differ only in whether the course itself includes the material MIDS students do as a summer bootcamp. 
+
+The fact IDS 720 is a 700 level class and IDS 590 is a 500 level class is not meant to imply one is more serious or rigorous than the other — IDS 720 was created with MIDS in mind, so we scheduled it as a 700-level course number because that makes it "grad only." But because we want to allow advanced undergraduates to take IDS 590, we scheduled it as a 500-level course number because that allows graduate students and advanced undergradutes to take the class.
+
+### Complete the MIDS Summer Bootcamp Material On Your Own On Coursera
+
+If there is space in IDS 720, then the second option is to work through the Python introductory materials that MIDS students do when they arrive on campus for a three-week in-person bootcamp on Coursera. These materials assume **zero** past experience with Python or programming.
 
 Moreover, if you're a Duke student, then provided you create a Coursera account using your `@duke.edu` email address, this material will all be free.
 

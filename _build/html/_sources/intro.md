@@ -1,16 +1,21 @@
 # Practical Data Science in Python
 
-Welcome to Practical Data Science! This is the beginning of a textbook based on content developed, in significant part, for the Duke MIDS *Practical Data Science* course IDS 720 by Kyle Bradbury and Nick Eubank.
+Welcome to Practical Data Science! This is the beginning of a textbook based on content developed, in significant part, for the Duke:
 
-We are in the process of developing this content into both a Coursera [Python Data Science Foundations Specialization](https://www.coursera.org/specializations/python-data-science) on Coursera (in combination with Drew Hilton and Genevieve Lipp) and a stand-alone textbook. At the same time, I will also continue to use this site for my IDS 720 class, so if you're not in the class, feel free to jump ahead to whatever interests you!
+- *Data Science 4 Social Science* course IDS 590 with Adriane Fresh and Nick Eubank, and
+- *Practical Data Science* course IDS 720 with Nick Eubank,
+
+This content has also been developed into a Coursera [Python Data Science Foundations Specialization](https://www.coursera.org/specializations/python-data-science) (in combination with Drew Hilton and Genevieve Lipp) and a stand-alone textbook.
+
+## Not a Duke MIDS Student?
+
+*Interested in enrolling in this material but not a MIDS student? [Read this!](ids720_specific/not_a_mids_student)
 
 ## Are You An Instructor Using This Material In A Class?
 
 Feel free to reach out and we can provide you some additional resources.
 
 ## Duke MIDS Practical Data Science IDS 720
-
-*Interested in enrolling in IDS 720 but not a MIDS student? [Read this!](ids720_specific/not_a_mids_student)*
 
 Data Science is an intrinsically applied field, and yet all too often students are taught the advanced math and statistics behind data science tools, but are left to fend for themselves when it comes to learning the tools we use to do data science on a day-to-day basis or how to manage actual projects. This course is designed to fill that gap.
 
@@ -28,7 +33,8 @@ Practical Data Science is a flipped-classroom, exercise and project-focused cour
 
 ## Class Schedule
 
-[The (tentative) Class Schedule can be found here](ids720_specific/class_schedule.rst)
+- [The (tentative) Class Schedule for 590 can be found here](ids720_specific/class_schedule_590.rst)
+- [The (tentative) Class Schedule for 720 can be found here](ids720_specific/class_schedule_720.rst)
 
 ## Questions or comments?
 
