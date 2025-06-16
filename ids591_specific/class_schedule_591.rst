@@ -3,10 +3,13 @@ PDS II (IDS 591)
 
 Practical Data Science II is a flipped-classroom, exercise and project-focused course. Building on the computational thinking skills developed in Practical Data Science I, this course introduces students to a range of computational inquiry methods, including network analysis, geospatial analysis, advanced plotting, and natural language processing (NLP). Throughout, the focus will be on developing hands-on experience implementing these methods with messy real-world data to ensure students are prepared to deploy these tools to answer the questions they care about. Requirements: Practical Data Science I.
 
-Class Time
-----------
+Syllabus
+--------
 
-Class will be Tuesdays and Thursdays from 10:00am-11:15am (EDT).
+A preliminary syllabus can be found `here <./syllabus/syllabus_ids591.pdf>`_.
+
+Class Schedule (Preliminary)
+----------------------------
 
 .. csv-table::
    :file: class_schedule_591.csv
