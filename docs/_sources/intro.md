@@ -1,40 +1,24 @@
 # Practical Data Science in Python
 
-Welcome to Practical Data Science! This is the beginning of a textbook based on content developed, in significant part, for the Duke:
+Data Science is an intrinsically applied field, and yet all too often students are taught the advanced math and statistics behind data science tools, but are left to fend for themselves when it comes to learning the tools we use to do data science on a day-to-day basis or how to manage actual projects. This site is designed to fill that gap.
 
-- *Data Science 4 Social Science* course IDS 590 with Adriane Fresh and Nick Eubank, and
-- *Practical Data Science* course IDS 720 with Nick Eubank,
+This site is designed to support several Duke Interdisciplinary Data Science Courses, all of which take the form of flipped-classroom, exercise and project-focused courses. These courses — and the material on this site — is designed to give students practical experience manipulating and analyzing real (often messy, error ridden, and poorly documented) data using the full range of bread-and-butter Python data science tools (like the command line, git, python (especially numpy and pandas), jupyter notebooks, and more). 
 
-This content has also been developed into a Coursera [Python Data Science Foundations Specialization](https://www.coursera.org/specializations/python-data-science) (in combination with Drew Hilton and Genevieve Lipp) and a stand-alone textbook.
+The courses supported by these materials are:
 
-## Not a Duke MIDS Student?
+- [Practical Data Science I (IDS 590)](ids590_specific/class_schedule_590.rst): The best choice for most Duke students. This course requires zero prior experience with programming and begins with an introduction to Python, computational thinking, and the principles of good programming using the 7 Steps method. The class focus then shifts to data analysis with an emphasis on the type of analyses of interest to social scientists and public policy students.
+- [Practical Data Science II (IDS 591)](ids591_specific/class_schedule_591.rst): Building on the computational thinking skills developed in Practical Data Science I, this course introduces students to a range of methods of computational inquiry, including network analysis, geospatial analysis, and natural language processing (NLP). Throughout, the focus will be on developing hands-on experience implementing these methods with messy real-world data to ensure students are prepared to deploy these tools to answer the questions they care about. Requirements: Practical Data Science I.
+- [Practical Data Science (MIDS) (IDS 720)](ids720_specific/class_schedule_720.rst): A one semester version of Practical Data Science specifically tailored to Masters of Interdisciplinary Data Science (MIDS) students. As all MIDS students complete a mandatory, 4-week, in-person, intensive summer Python programming bootcamp in August before the start of classes, this class assumes a strong foundational understanding of the Python standard library. Because this class is a one-semester class and MIDS students all take a full NLP class, it skips some topics covered in Practical Data Science II, like NLP and GIS.
 
-*Interested in enrolling in a class covering this material but not a MIDS student?* [Read this!](ids720_specific/not_a_mids_student)
+**The fact Practical Data Science I&II are 500-level and Practical Data Science (MIDS) is 700-level does not reflect a difference in rigor!** IDS 720 was created with MIDS students in mind, so we scheduled it as a 700-level ("graduate student only") course. To make that material in the course accessible to advanced undergraduates, we have chosen to schedule Practical Data Science I & II as 500-level courses so both graduate and undergraduate students can enroll.
+
+For more on each class, click on the appropriate class link on the left hand side menu!
+
+This content is also a major component of a Coursera [Python Data Science Foundations Specialization](https://www.coursera.org/specializations/python-data-science) created by the authors of this site, along with Drew Hilton and Genevieve Lipp.
 
 ## Are You An Instructor Using This Material In A Class?
 
 Feel free to reach out and we can provide you some additional resources.
-
-## Duke MIDS Practical Data Science IDS 720
-
-Data Science is an intrinsically applied field, and yet all too often students are taught the advanced math and statistics behind data science tools, but are left to fend for themselves when it comes to learning the tools we use to do data science on a day-to-day basis or how to manage actual projects. This course is designed to fill that gap.
-
-Practical Data Science is a flipped-classroom, exercise and project-focused course. It is designed to give students practical experience manipulating and analyzing manipulating real (often messy, error ridden, and poorly documented) data using the full range of bread-and-butter Python data science tools (like the command line, git, python (especially numpy and pandas), jupyter notebooks, and more). By the end of the course, students will be able to:
-
-- Manipulate and analyze data in any format, including cleaning, merging, and summarizing all standard tabular formats and levels of cleanliness, as well as large datasets and GIS data,
-- Identify and resolve data issues using defensive programming practices,
-- Setup and manage a data science programming environment on their own computers, including installing Python, managing packages with pip and conda, setting PATH variables, and working with VS Code,
-- Collaborate with colleagues effectively using git and github,
-- Plan and execute a full data science project from planning data manipulations through analysis and presentation of findings.
-
-## Syllabus
-
-[The full syllabus for this course can be downloaded here](https://github.com/nickeubank/practicaldatascience/raw/master/syllabus/Syllabus_PracticalDataScience.pdf). Please note that this syllabus is subject to change.
-
-## Class Schedule
-
-- [The (tentative) Class Schedule for 590 can be found here](ids720_specific/class_schedule_590.rst)
-- [The (tentative) Class Schedule for 720 can be found here](ids720_specific/class_schedule_720.rst)
 
 ## Questions or comments?
 

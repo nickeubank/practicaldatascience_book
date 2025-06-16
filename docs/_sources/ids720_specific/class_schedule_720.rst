@@ -1,4 +1,4 @@
-Class Schedule (720)
+PDS (MIDS) (IDS 720)
 =====================
 
 Office Hours and Links
