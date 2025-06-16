@@ -6,7 +6,7 @@ Practical Data Science II is a flipped-classroom, exercise and project-focused c
 Syllabus
 --------
 
-A preliminary syllabus can be found `here <./syllabus/syllabus_ids591.pdf>`_.
+A preliminary syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/blob/main/ids591_specific/syllabus/Syllabus_IDS591.pdf>`_.
 
 Class Schedule (Preliminary)
 ----------------------------
