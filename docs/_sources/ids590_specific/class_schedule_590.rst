@@ -14,7 +14,12 @@ Class Schedule
 
 Class will be Tuesdays and Thursdays from 1:25pm-2:40pm (EDT).
 
+Key:
+
+- PPF is `Python Programming Fundamentals <https://www.coursera.org/learn/python-programming-fundamentals>`_, and the number that follows is the module number.
+- DSwithNSD is `Data Science with NumPy, Sets, and Dictionaries <https://www.coursera.org/learn/numpy-data-science/>`_, and the number that follows is the module number.
+
 .. csv-table::
    :file: class_schedule_590.csv
-   :widths: 14, 15, 32, 5
+   :widths: 10, 25, 50, 5
    :header-rows: 1
