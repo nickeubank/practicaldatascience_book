@@ -16,5 +16,5 @@ Class will be Tuesdays and Thursdays from 1:25pm-2:40pm (EDT).
 
 .. csv-table::
    :file: class_schedule_590.csv
-   :widths: 14, 28, 32, 5
+   :widths: 14, 15, 32, 5
    :header-rows: 1

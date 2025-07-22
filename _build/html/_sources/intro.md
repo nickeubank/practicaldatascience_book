@@ -1,8 +1,8 @@
 # Practical Data Science in Python
 
-Data Science is an intrinsically applied field, and yet all too often students are taught the advanced math and statistics behind data science tools, but are left to fend for themselves when it comes to learning the tools we use to do data science on a day-to-day basis or how to manage actual projects. This site is designed to fill that gap.
+Data Science is an intrinsically applied field. Yet all too often students are taught the advanced math and statistics behind data science methods, but are left to fend for themselves when it comes to learning the programming skills and software tools we use to do data science on a day-to-day basis or how to manage actual projects.
 
-This site is designed to support several Duke Interdisciplinary Data Science Courses, all of which take the form of flipped-classroom, exercise and project-focused courses. These courses — and the material on this site — is designed to give students practical experience manipulating and analyzing real (often messy, error ridden, and poorly documented) data using the full range of bread-and-butter Python data science tools (like the command line, git, python (especially numpy and pandas), jupyter notebooks, and more). 
+This site is designed to support several Duke Interdisciplinary Data Science Courses, all of which take the form of flipped-classroom, exercise and project-focused courses. These courses — and the material on this site — are designed to give students practical experience manipulating and analyzing real (often messy, error ridden, and poorly documented) data using the full range of bread-and-butter Python data science tools (like the command line, git, python (especially numpy and pandas), jupyter notebooks, and more). 
 
 The courses supported by these materials are:
 
