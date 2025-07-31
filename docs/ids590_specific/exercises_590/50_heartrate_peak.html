@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Maximum Value in a List &#8212; Practical Data Science with Python</title>
+    <title>Finding Heart Rate Peaks &#8212; Practical Data Science with Python</title>
   
   
   
@@ -70,7 +70,7 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/40_listmax';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/50_heartrate_peak';</script>
     <link rel="icon" href="../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -483,7 +483,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/40_listmax.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/50_heartrate_peak.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -513,7 +513,7 @@
       
       
       
-      <li><a href="../../_sources/ids590_specific/exercises_590/40_listmax.ipynb" target="_blank"
+      <li><a href="../../_sources/ids590_specific/exercises_590/50_heartrate_peak.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -597,7 +597,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Maximum Value in a List</h1>
+    <h1>Finding Heart Rate Peaks</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -607,10 +607,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment-overview">Assignment Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-code-for-list-max">Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-locally">Test Locally</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-to-gradescope">Submit to Gradescope</a></li>
 </ul>
             </nav>
         </div>
@@ -622,72 +620,172 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="maximum-value-in-a-list">
-<h1>Maximum Value in a List<a class="headerlink" href="#maximum-value-in-a-list" title="Link to this heading">#</a></h1>
-<p>In this exercise, you will be writing a function to find the largest item in a list.</p>
-<p>Obviously, Python has a built in <code class="docutils literal notranslate"><span class="pre">max()</span></code> function, but the point here is to practice with list operations, not to use that function.</p>
-<p>(Also, be aware that the Python library function <code class="docutils literal notranslate"><span class="pre">max()</span></code> behaves differently for an empty list or <code class="docutils literal notranslate"><span class="pre">None</span></code>, but we have not covered exceptions yet, so <code class="docutils literal notranslate"><span class="pre">list_max</span></code> will have slightly different behavior for these corner cases.)</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="finding-heart-rate-peaks">
+<h1>Finding Heart Rate Peaks<a class="headerlink" href="#finding-heart-rate-peaks" title="Link to this heading">#</a></h1>
+<p>As a researcher, one of the best parts about becoming a better programmer is that you can begin to develop your own measures of things you care about. If all you know how to do is use standard functions from standard libraries, it can be difficult to analyze data to see if it has a pattern that other people have not theorized before.</p>
+<p>But when you become a better programmer, you can decide — based on your domain knowledge, expertise, and theory — what a measure <em>should be</em>, then develop code to implement that measure.</p>
+<p>In this exercise, we will be writing code to identify heart rate peaks — areas where one’s heart rate hits a maximum value <em>in a local neighborhood</em>. If you care about exercise physiology, this may be of intrinsic interest to you. But if you care about a different type of research — political science, plant biology, public policy, etc. — then think of this as a chance to see how you can write bespoke code to measure whatever property of data matters to <em>you</em>.</p>
+<p><strong>NOTE:</strong> This exercise builds on the videos and context provided in the Coursera <em>Python Programming Fundamentals</em>, Module 4, “Heart Rate Example” section. In particular, please read/watch/complete the following before starting:</p>
+<ul class="simple">
+<li><p>Heart Rate Example Introduction</p></li>
+<li><p>Heart Rate Introduction</p></li>
+<li><p>Heart Rate Peak Algorithm Reflection</p></li>
+<li><p>Heart Rate Peaks (Video)</p></li>
+<li><p>Heart Rate Code (Video)</p></li>
+<li><p>Heart Rate isPeakAt</p></li>
+</ul>
+<section id="assignment-overview">
+<h2>Assignment Overview<a class="headerlink" href="#assignment-overview" title="Link to this heading">#</a></h2>
+<p>In this assignment, you are going to write the function to determine if there is a “peak” at a given index of a list.</p>
+<p>As we discussed in the videos leading up to this assignment, we will parameterize this over “w” which is the width of the region in which a peak has to be largest.</p>
+<p>In particular, we will say that:</p>
+<p>Given some index <code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span></code> is a peak within width <code class="docutils literal notranslate"><span class="pre">W</span></code> if</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code> is at least <code class="docutils literal notranslate"><span class="pre">W</span></code> (there are enough points to the left)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code> is less than <code class="docutils literal notranslate"><span class="pre">len(data)</span></code> - <code class="docutils literal notranslate"><span class="pre">W</span></code> (there are enough points to the right)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data[i]</span></code> is greater than the <code class="docutils literal notranslate"><span class="pre">W</span></code> values of data to its left
+(left meaning smaller indices, <code class="docutils literal notranslate"><span class="pre">i-1</span></code>, <code class="docutils literal notranslate"><span class="pre">i-2</span></code>, … <code class="docutils literal notranslate"><span class="pre">i-W</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data[i]</span></code> is greater than or equal to the <code class="docutils literal notranslate"><span class="pre">W</span></code> values of data to the right
+(right meaning greater indices <code class="docutils literal notranslate"><span class="pre">i+1</span></code>, <code class="docutils literal notranslate"><span class="pre">i+2</span></code>, … <code class="docutils literal notranslate"><span class="pre">i+W</span></code>)</p></li>
+</ol>
+<p>Note that as you want ALL of the above to be true, a good approach is to
+check if any are false.  That is, your code should have this general
+structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">condition</span> <span class="mi">1</span> <span class="ow">is</span> <span class="n">false</span><span class="p">):</span>
+    <span class="k">return</span> <span class="kc">False</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">condition</span> <span class="mi">2</span> <span class="ow">is</span> <span class="n">false</span><span class="p">):</span>
+    <span class="k">return</span> <span class="kc">False</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">W</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">j</span><span class="p">]</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">meet</span> <span class="n">condition</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">meet</span> <span class="n">condition</span> <span class="mi">4</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">pass</span>
+<span class="k">return</span> <span class="kc">True</span> 
+</pre></div>
+</div>
+<p>You will want to make use of list indexing for this problem. We discussed list indexing in an earlier video, but if you need a quick refresher, you can do <code class="docutils literal notranslate"><span class="pre">data[num]</span></code> where <code class="docutils literal notranslate"><span class="pre">num</span></code> is some numerical expression. This could be, for example data[0], which is the first element of the list, or <code class="docutils literal notranslate"><span class="pre">data[i]</span></code>, where <code class="docutils literal notranslate"><span class="pre">i</span></code> is some variable whose value is a number, or an arithmetic expression like <code class="docutils literal notranslate"><span class="pre">data[i+1]</span></code> or <code class="docutils literal notranslate"><span class="pre">data[i+j]</span></code> if <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code> are both variables with numerical values.</p>
+</section>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<p>In VS Code, create a file called <code class="docutils literal notranslate"><span class="pre">list_max.py</span></code>.</p>
-<p>Place the following scaffolding into that file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_max</span><span class="p">(</span><span class="n">my_list</span><span class="p">):</span>
-    <span class="k">pass</span>
+<p>Open a few file in VS Code and save it as <code class="docutils literal notranslate"><span class="pre">count_laps.py</span></code>. Then paste the following scaffolding into it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_peak_at</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+    <span class="c1"># replace this with your code</span>
+    <span class="k">return</span> <span class="kc">True</span>
 
-<span class="k">def</span> <span class="nf">do_test</span><span class="p">(</span><span class="n">my_list</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;list_max(&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">my_list</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;None) is &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">count_laps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+    <span class="n">peak_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">is_peak_at</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+            <span class="n">peak_count</span> <span class="o">=</span> <span class="n">peak_count</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">pass</span>
         <span class="k">pass</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">my_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">peak_count</span>
+
+
+<span class="c1"># this is a testing helper function</span>
+<span class="k">def</span> <span class="nf">tests_for_hr_data</span><span class="p">(</span><span class="n">data_and_answers</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+    <span class="n">all_right</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">for</span> <span class="n">data</span><span class="p">,</span> <span class="n">answers</span> <span class="ow">in</span> <span class="n">data_and_answers</span><span class="p">:</span>
+        <span class="c1"># Tell us what we are testing on</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing with &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; with w = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+        <span class="c1"># first let us check is_peak_at specifically</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+            <span class="c1"># see what our code got</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">is_peak_at</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+            <span class="c1"># compare it to the right answer</span>
+            <span class="k">if</span> <span class="n">ans</span> <span class="o">==</span> <span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">answers</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Correctly gave &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; for index &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;**INCORRECT** for index = &quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="s2">&quot; got &quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="s2">&quot; but expected &quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">answers</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">all_right</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="k">pass</span>
             <span class="k">pass</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;]) is &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="c1"># Now test count_laps</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">count_laps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+        <span class="c1"># and compare it to the right answer</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">answers</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Correctly counted &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; laps&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;**INCORRECT** lap count, got &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot; but expected &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">answers</span><span class="p">))</span>
+            <span class="p">)</span>
+            <span class="n">all_right</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">pass</span>
         <span class="k">pass</span>
-    <span class="n">max_of_list</span> <span class="o">=</span> <span class="n">list_max</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">max_of_list</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
-        <span class="k">pass</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">max_of_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">pass</span>
-    <span class="k">pass</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">77</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-    <span class="n">list2</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">42</span><span class="p">,</span> <span class="o">-</span><span class="mi">99</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="o">-</span><span class="mi">999</span><span class="p">,</span> <span class="o">-</span><span class="mi">88</span><span class="p">,</span> <span class="o">-</span><span class="mi">77</span><span class="p">]</span>
-    <span class="n">list3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">425</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">36</span><span class="p">]</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list3</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">([])</span>
-    <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">all_right</span>
 
 
+<span class="c1"># if we run this as the main module, run some test cases on our functions</span>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+    <span class="c1"># We will start by testing with w = 2</span>
+    <span class="c1"># The small example data from the video, which has peaks at indices 2 and 8</span>
+    <span class="n">data0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">]</span>
+    <span class="n">peaksat0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+    <span class="c1"># The second example from the video, with</span>
+    <span class="c1"># The second example from the video, with a &quot;fake&quot; peak at index 6</span>
+    <span class="n">data1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">]</span>
+    <span class="n">peaksat1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+    <span class="c1"># The third example from the video, with three consecutive 164 values</span>
+    <span class="n">data2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">]</span>
+    <span class="n">peaksat2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="c1"># Always good to test on the empty list: it has no peaks</span>
+    <span class="n">data3</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">peaksat3</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># A one element list which has no peaks</span>
+    <span class="c1"># (we require at least w=2 points on each side)</span>
+    <span class="n">data4</span> <span class="o">=</span> <span class="p">[</span><span class="mi">190</span><span class="p">]</span>
+    <span class="n">peaksat4</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Still too few points for a peak with w = 2</span>
+    <span class="n">data5</span> <span class="o">=</span> <span class="p">[</span><span class="mi">188</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">189</span><span class="p">]</span>
+    <span class="n">peaksat5</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># the smallest list we can make with a peak for w = 2</span>
+    <span class="n">data6</span> <span class="o">=</span> <span class="p">[</span><span class="mi">187</span><span class="p">,</span> <span class="mi">188</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">186</span><span class="p">,</span> <span class="mi">180</span><span class="p">]</span>
+    <span class="n">peaksat6</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="c1"># we can make a list of tuples for the data we want to test with for</span>
+    <span class="c1"># w = 2</span>
+    <span class="n">w2_data</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">data0</span><span class="p">,</span> <span class="n">peaksat0</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">peaksat1</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">data2</span><span class="p">,</span> <span class="n">peaksat2</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">data3</span><span class="p">,</span> <span class="n">peaksat3</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">data4</span><span class="p">,</span> <span class="n">peaksat4</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">data5</span><span class="p">,</span> <span class="n">peaksat5</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">data6</span><span class="p">,</span> <span class="n">peaksat6</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="n">all_right</span> <span class="o">=</span> <span class="n">tests_for_hr_data</span><span class="p">(</span><span class="n">w2_data</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># w1_data = w2_data[:]</span>
+    <span class="c1"># w1_data[1] = (data1, [2, 6, 8])</span>
+    <span class="c1"># w1_data[5] = (data5, [1])</span>
+    <span class="c1"># all_right = tests_for_hr_data(w1_data, 1) and all_right</span>
+    <span class="c1"># w4_data = [(data0, []), (data1, []), (data2, [4]),</span>
+    <span class="c1">#           (data3, []), (data4, []), (data5, []),</span>
+    <span class="c1">#           (data6, [])]</span>
+    <span class="c1"># all_right = tests_for_hr_data(w4_data, 4) and all_right</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">all_right</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed one or more tests!&quot;</span><span class="p">)</span>
+    <span class="k">pass</span>
 
 </pre></div>
 </div>
-</section>
-<section id="write-the-code-for-list-max">
-<h2>Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code><a class="headerlink" href="#write-the-code-for-list-max" title="Link to this heading">#</a></h2>
-<p>Fill in <code class="docutils literal notranslate"><span class="pre">list_max</span></code> so it returns the largest element in the list passed in. If the list has no elements or is <code class="docutils literal notranslate"><span class="pre">None</span></code>, this function should return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
-</section>
-<section id="test-locally">
-<h2>Test Locally<a class="headerlink" href="#test-locally" title="Link to this heading">#</a></h2>
-<p>Run your code to see if you get results from the tests in <code class="docutils literal notranslate"><span class="pre">main</span></code> are <code class="docutils literal notranslate"><span class="pre">99</span></code>, <code class="docutils literal notranslate"><span class="pre">-3</span></code>, <code class="docutils literal notranslate"><span class="pre">425</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, and <code class="docutils literal notranslate"><span class="pre">None</span></code> for the five tests provided.</p>
-</section>
-<section id="submit-to-gradescope">
-<h2>Submit to Gradescope<a class="headerlink" href="#submit-to-gradescope" title="Link to this heading">#</a></h2>
-<p>Submit your code to gradescope! As always, we’ll be testing against arguments that are different from the ones you can look at here, that suggests you have an issue that these cases didn’t catch but which does exist.</p>
+<p>You will see that we have started you off with three things:</p>
+<ol class="arabic simple">
+<li><p>A “placeholder” for <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code>.  At the moment, this function just returns <code class="docutils literal notranslate"><span class="pre">True</span></code>. You are going to replace that with the code for your <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code> function.</p></li>
+<li><p>The code for <code class="docutils literal notranslate"><span class="pre">count_laps</span></code> from the video, which uses your <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code> function.</p></li>
+<li><p>Some testing code (under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></code>).</p></li>
+</ol>
+<p>dd</p>
 </section>
 </section>
 
@@ -737,10 +835,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment-overview">Assignment Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-code-for-list-max">Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-locally">Test Locally</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-to-gradescope">Submit to Gradescope</a></li>
 </ul>
   </nav></div>
 
