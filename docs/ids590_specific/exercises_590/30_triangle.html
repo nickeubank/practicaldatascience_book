@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Writing Your First Function (max) &#8212; Practical Data Science with Python</title>
+    <title>From Logic to Code: Printing Triangles &#8212; Practical Data Science with Python</title>
   
   
   
@@ -70,7 +70,7 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/20_max';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/30_triangle';</script>
     <link rel="icon" href="../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -483,7 +483,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/20_max.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/30_triangle.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -513,7 +513,7 @@
       
       
       
-      <li><a href="../../_sources/ids590_specific/exercises_590/20_max.ipynb" target="_blank"
+      <li><a href="../../_sources/ids590_specific/exercises_590/30_triangle.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -597,7 +597,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Writing Your First Function (max)</h1>
+    <h1>From Logic to Code: Printing Triangles</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -608,8 +608,9 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-the-assignment">Setup the Assignment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-your-code">Write Your Code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-your-assignment">Submit Your Assignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-your-code">Writing Your Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-your-answers">Checking Your Answers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-on-gradescope">Submitting on Gradescope</a></li>
 </ul>
             </nav>
         </div>
@@ -621,58 +622,105 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="writing-your-first-function-max">
-<h1>Writing Your First Function (max)<a class="headerlink" href="#writing-your-first-function-max" title="Link to this heading">#</a></h1>
-<p>In this exercise, you will write your first simple function in Python and submit it on gradescope. The goal of this exercises is mostly to get you familiar with the process of writing, testing, submitting, and revising code in this class.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="from-logic-to-code-printing-triangles">
+<h1>From Logic to Code: Printing Triangles<a class="headerlink" href="#from-logic-to-code-printing-triangles" title="Link to this heading">#</a></h1>
+<p>In this assignment, you will get your first taste of converting an algorithm into code. In particular, you will write a function that prints out triangles and calculates their approximate area.</p>
+<p>For example, if told to print a triangle of height 4, the function would print out:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Here</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">triangle</span> <span class="k">with</span> <span class="n">height</span> <span class="mi">4</span><span class="p">:</span>
+<span class="o">*</span>
+<span class="o">**</span>
+<span class="o">***</span>
+<span class="o">****</span>
+</pre></div>
+</div>
+<p>It would also count the number of stars in the triangle, which you can also think of as a crude approximation of the area of the triangle. In this triangle, for example, there are 10 total stars.</p>
+<p>(While crude, this does actually provide a realistic sense of how computers solve many problems — you define a simple procedure to generate something you want to understand, then measure its properties. Similarly, properties like area are often measured by thinking of objects as being divided into discrete parts. Engineers call this “<a class="reference external" href="https://en.wikipedia.org/wiki/Finite_element_method">finite element analysis</a>.”)</p>
 <section id="setup-the-assignment">
 <h2>Setup the Assignment<a class="headerlink" href="#setup-the-assignment" title="Link to this heading">#</a></h2>
-<p>To begin, in VS Code create a new file and save it as <code class="docutils literal notranslate"><span class="pre">max.py</span></code> (all lower case). Each assignment will have a different name, and it’s important that you give the file for each assignment the correct name to help the autograder identify your submission.</p>
-<p>Then copy the following text into the file. This “starter code” is meant to act as a scaffolding to help you with the assignment:</p>
-<p>[Scaffolding begins below here]</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">max</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">):</span>
-    <span class="c1"># check if num1 is greater than num2</span>
+<p>To begin, in VS Code create a new file and save it as <code class="docutils literal notranslate"><span class="pre">triangle.py</span></code> (all lower case).</p>
+<p>Then copy the following scaffolding into that file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_triangle</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+    <span class="c1"># Start with star_count being 0.</span>
 
-    <span class="c1"># if so, your answer is num1</span>
+    <span class="c1"># Count from 0 (inclusive) to size (exclusive),</span>
+    <span class="c1"># and for each number i that you count,</span>
 
-    <span class="c1"># otherwise, your answer is num2</span>
+    <span class="c1"># count from 0 (inclusive) to i (inclusive),</span>
+    <span class="c1"># and for each number j that you count,</span>
+
+    <span class="c1"># print a &quot;*&quot; without printing a newline,</span>
+    <span class="c1"># (pass the optional parameter end=&#39;&#39; to print)</span>
+
+    <span class="c1"># increment star_count.</span>
+
+    <span class="c1"># When you finish counting on j,</span>
+
+    <span class="c1"># print a newline</span>
+    <span class="c1"># (remember Python adds a newline, so really print &quot;&quot;)</span>
+
+    <span class="c1"># When you finish counting on i,</span>
+
+    <span class="c1"># your answer is star_count.</span>
 
     <span class="k">pass</span>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;max(42, -69) is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="o">-</span><span class="mi">69</span><span class="p">)))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;max(33, 0) is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;max(0.123, 0.223) is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.123</span><span class="p">,</span> <span class="mf">0.223</span><span class="p">)))</span>
-    <span class="c1"># print the max of -0.123 and -0.223</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Here is a triangle with height 4:&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">num_stars</span> <span class="o">=</span> <span class="n">print_triangle</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;That triangle had &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_stars</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; total stars.&quot;</span><span class="p">)</span>
+    <span class="c1"># Now print &quot;Here is a triangle with height 7:&quot;</span>
+
+    <span class="c1"># Then call print_triangle, passing in 7,</span>
+    <span class="c1"># and assign the result to num_stars</span>
+
+    <span class="c1"># Finally, print &quot;That triangle had [num_stars] total stars.&quot; such</span>
+    <span class="c1"># that the [num_stars] prints the value of num_stars.</span>
 
 
 <span class="n">main</span><span class="p">()</span>
 
 </pre></div>
 </div>
-<p>[Scaffolding ends above here]</p>
 </section>
-<section id="write-your-code">
-<h2>Write Your Code<a class="headerlink" href="#write-your-code" title="Link to this heading">#</a></h2>
-<p>As you can see, this scaffolding defines to functions: <code class="docutils literal notranslate"><span class="pre">max</span></code> and <code class="docutils literal notranslate"><span class="pre">main</span></code>.</p>
-<p>In <code class="docutils literal notranslate"><span class="pre">max</span></code>, the algorithm is written as comments, but there is no code. You should translate this algorithm to code.</p>
-<p>In <code class="docutils literal notranslate"><span class="pre">main</span></code>, there are three print statements which call <code class="docutils literal notranslate"><span class="pre">max</span></code> and print its result. These would let you check if max is working right.</p>
-<p>There is also a comment asking you to write one more print statement with a call to <code class="docutils literal notranslate"><span class="pre">max</span></code>. In that comment, it asks you to take the max of two numbers and print them out. Add a line of code to do this.</p>
-<p>When you have done this, first run your code with the “Run code” button in the upper right corner of VS Code.  If you have any syntax errors, you will get information about where they are, and should fix them.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">print</span></code> statement that are called when <code class="docutils literal notranslate"><span class="pre">main</span></code> runs are a set of example tests designed to give you quick feedback on whether your code is doing what it should do. The output expected from the four print statements (that is, the three already present plus the one you have been asked to add) is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">max</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="o">-</span><span class="mi">69</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">42</span>
-<span class="nb">max</span><span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">33</span>
-<span class="nb">max</span><span class="p">(</span><span class="mf">0.123</span><span class="p">,</span> <span class="mf">0.223</span><span class="p">)</span> <span class="ow">is</span> <span class="mf">0.223</span>
-<span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">0.123</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.223</span><span class="p">)</span> <span class="ow">is</span> <span class="o">-</span><span class="mf">0.123</span>
+<section id="writing-your-code">
+<h2>Writing Your Code<a class="headerlink" href="#writing-your-code" title="Link to this heading">#</a></h2>
+<p>Your job is to convert this algorithm (written in English!) into Python code.</p>
+<p>Note that one of the lines of the algorithm calls for you to print a <code class="docutils literal notranslate"><span class="pre">&quot;*&quot;</span></code> without a newline.  When you call <code class="docutils literal notranslate"><span class="pre">print</span></code> in Python, it adds a newline by default.  To not get a newline added, you need to pass an optional named parameter <code class="docutils literal notranslate"><span class="pre">end=&quot;&quot;</span></code> to print, like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In main, there are three print statements that print out a triangle with height 4 and the total number of stars in that triangle (returned by the <code class="docutils literal notranslate"><span class="pre">print_triangle</span></code> function).</p>
+<p>There is also a comment asking you to write a few more statements to do the same thing for a triangle of height 7.</p>
+<p>Add the code to do this.</p>
+</section>
+<section id="checking-your-answers">
+<h2>Checking Your Answers<a class="headerlink" href="#checking-your-answers" title="Link to this heading">#</a></h2>
+<p>When completed, your code should print out the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Here</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">triangle</span> <span class="k">with</span> <span class="n">height</span> <span class="mi">4</span><span class="p">:</span>
+<span class="o">*</span>
+<span class="o">**</span>
+<span class="o">***</span>
+<span class="o">****</span>
+<span class="n">That</span> <span class="n">triangle</span> <span class="n">had</span> <span class="mi">10</span> <span class="n">total</span> <span class="n">stars</span><span class="o">.</span>
+<span class="n">Here</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">triangle</span> <span class="k">with</span> <span class="n">height</span> <span class="mi">7</span><span class="p">:</span>
+<span class="o">*</span>
+<span class="o">**</span>
+<span class="o">***</span>
+<span class="o">****</span>
+<span class="o">*****</span>
+<span class="o">******</span>
+<span class="o">*******</span>
+<span class="n">That</span> <span class="n">triangle</span> <span class="n">had</span> <span class="mi">28</span> <span class="n">total</span> <span class="n">stars</span><span class="o">.</span>
 </pre></div>
 </div>
 </section>
-<section id="submit-your-assignment">
-<h2>Submit Your Assignment<a class="headerlink" href="#submit-your-assignment" title="Link to this heading">#</a></h2>
-<p>Once you feel your code is operating correctly, open the Gradescope page for this class in your browser and navigate to the “Exercise: <a class="reference external" href="http://max.py">max.py</a>” assignment. Then upload your <code class="docutils literal notranslate"><span class="pre">max.py</span></code> file.</p>
-<p>Note that the autograder will not just check these four examples — it will also test several additional number pairs to ensure your function is working properly.</p>
+<section id="submitting-on-gradescope">
+<h2>Submitting on Gradescope<a class="headerlink" href="#submitting-on-gradescope" title="Link to this heading">#</a></h2>
+<p>Once you feel your code is operating correctly, open the Gradescope page for this class in your browser and navigate to the “Exercise: <a class="reference external" href="http://triangle.py">triangle.py</a>” assignment. Then upload your <code class="docutils literal notranslate"><span class="pre">triangle.py</span></code> file.</p>
+<p>Note that the autograder will not just check these two examples — it will also test several additional number pairs to ensure your function is working properly.</p>
 <p>The autograder will take a couple minutes to run. Once complete, you should see a few things.</p>
 <ul class="simple">
 <li><p>If the name of your file is not what the autograder expected (for this assignment, <code class="docutils literal notranslate"><span class="pre">max.py</span></code>), you will get an error saying as much.</p></li>
@@ -729,8 +777,9 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-the-assignment">Setup the Assignment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-your-code">Write Your Code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-your-assignment">Submit Your Assignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-your-code">Writing Your Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-your-answers">Checking Your Answers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-on-gradescope">Submitting on Gradescope</a></li>
 </ul>
   </nav></div>
 

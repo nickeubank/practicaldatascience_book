@@ -70,8 +70,6 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/30_retirement';</script>
     <link rel="icon" href="../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -671,10 +669,10 @@ contributed (or spent if negative) from the account per month;</p></li>
 (which we will assume to be “after inflation”).</p></li>
 </ol>
 <p>Then we will write the function:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">calculateRetirement</span><span class="p">(</span><span class="n">start_age</span><span class="p">,</span>  <span class="c1">#in months</span>
-                        <span class="n">initial</span><span class="p">,</span>    <span class="c1">#initial savings in dollars</span>
-                        <span class="n">working</span><span class="p">,</span>    <span class="c1">#info about working</span>
-                        <span class="n">retired</span><span class="p">)</span>    <span class="c1">#info about being retired</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">calculateRetirement</span><span class="p">(</span><span class="n">start_age</span><span class="p">,</span>  <span class="c1">#in months</span>
+                    <span class="n">initial</span><span class="p">,</span>    <span class="c1">#initial savings in dollars</span>
+                    <span class="n">working</span><span class="p">,</span>    <span class="c1">#info about working</span>
+                    <span class="n">retired</span><span class="p">)</span>    <span class="c1">#info about being retired</span>
 </pre></div>
 </div>
 <p>This functions job is to print out the person’s retirement account balance in each month of their life — presumably counting up as they are working and contributing, and counting down after they retire and begin to draw down their savings. For example, a block of the output for a person who worked till 68 then retired might look like:</p>
@@ -703,8 +701,8 @@ Age  68 month  8 you have $150,7472.47
 <p>Given that goal, the function really has to perform two tasks (which are similar—look for a chance to abstract something out into a function!).</p>
 <section id="job-1-update-balance-while-working">
 <h3>Job 1: Update Balance While Working<a class="headerlink" href="#job-1-update-balance-while-working" title="Link to this heading">#</a></h3>
-<p>First, it should compute your retirement account balance each month while you are working. To do this, you need to calculate the account balance increase from returns (<code class="docutils literal notranslate"><span class="pre">balance</span> <span class="pre">*</span> <span class="pre">rate</span> <span class="pre">of</span> <span class="pre">return</span></code>), and add that to the current balance. You then need to add the monthly contribution to the balance.</p>
-<p>For example, if you have $1,000 in the account, earn a 0.5% rate of return per month, and contribute <span class="math notranslate nohighlight">\(100 per month, you would compute `1000 * 0.005 = \)</span>5` in interest earned. You would then add this plus the monthly contribution to the balance to end up with $1105 in the account at the end of the month.</p>
+<p>First, it should compute your retirement account balance each month while you are working. To do this, you need to calculate the account balance increase from returns (<code class="docutils literal notranslate"><span class="pre">balance</span> <span class="pre">*</span> <span class="pre">rate</span> <span class="pre">of</span> <span class="pre">return</span></code>), and add that to the current balance. You then need to add the monthly contribution to the balance. <em>Be sure to calculate how the balance changes due to its rate of return <strong>before</strong> adding any additional contributions.</em></p>
+<p>For example, if you have $1,000 in the account, earn a 0.5% rate of return per month, and contribute $100 per month, you would compute <code class="docutils literal notranslate"><span class="pre">1000</span> <span class="pre">*</span> <span class="pre">0.005</span> <span class="pre">=</span> <span class="pre">$5</span></code> in interest earned, You would then add this plus the monthly contribution to the balance to end up with $1105 in the account at the end of the month.</p>
 <p>At the start of each month (before the balance changes), you should print out the current balance with the following format helpers:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;Age </span><span class="si">{</span><span class="n">age_in_years</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> month </span><span class="si">{</span><span class="n">age_in_months</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2"> you have $</span><span class="si">{</span><span class="n">balance</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">&quot;</span>
 </pre></div>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Writing Your First Function (max) &#8212; Practical Data Science with Python</title>
+    <title>Maximum Value in a List &#8212; Practical Data Science with Python</title>
   
   
   
@@ -70,7 +70,7 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/20_max';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/40_listmax';</script>
     <link rel="icon" href="../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -483,7 +483,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/20_max.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/40_listmax.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -513,7 +513,7 @@
       
       
       
-      <li><a href="../../_sources/ids590_specific/exercises_590/20_max.ipynb" target="_blank"
+      <li><a href="../../_sources/ids590_specific/exercises_590/40_listmax.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -597,7 +597,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Writing Your First Function (max)</h1>
+    <h1>Maximum Value in a List</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -607,9 +607,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-the-assignment">Setup the Assignment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-your-code">Write Your Code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-your-assignment">Submit Your Assignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-code-for-list-max">Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-locally">Test Locally</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-to-gradescope">Submit to Gradescope</a></li>
 </ul>
             </nav>
         </div>
@@ -621,64 +622,74 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="writing-your-first-function-max">
-<h1>Writing Your First Function (max)<a class="headerlink" href="#writing-your-first-function-max" title="Link to this heading">#</a></h1>
-<p>In this exercise, you will write your first simple function in Python and submit it on gradescope. The goal of this exercises is mostly to get you familiar with the process of writing, testing, submitting, and revising code in this class.</p>
-<section id="setup-the-assignment">
-<h2>Setup the Assignment<a class="headerlink" href="#setup-the-assignment" title="Link to this heading">#</a></h2>
-<p>To begin, in VS Code create a new file and save it as <code class="docutils literal notranslate"><span class="pre">max.py</span></code> (all lower case). Each assignment will have a different name, and it’s important that you give the file for each assignment the correct name to help the autograder identify your submission.</p>
-<p>Then copy the following text into the file. This “starter code” is meant to act as a scaffolding to help you with the assignment:</p>
-<p>[Scaffolding begins below here]</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">max</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">):</span>
-    <span class="c1"># check if num1 is greater than num2</span>
+  <section class="tex2jax_ignore mathjax_ignore" id="maximum-value-in-a-list">
+<h1>Maximum Value in a List<a class="headerlink" href="#maximum-value-in-a-list" title="Link to this heading">#</a></h1>
+<p>In this exercise, you will be writing a function to find the largest item in a list.</p>
+<p>Obviously, Python has a built in <code class="docutils literal notranslate"><span class="pre">max()</span></code> function, but the point here is to practice with list operations, not to use that function.</p>
+<p>(Also, be aware that the Python library function <code class="docutils literal notranslate"><span class="pre">max()</span></code> behaves differently for an empty list or <code class="docutils literal notranslate"><span class="pre">None</span></code>, but we have not covered exceptions yet, so <code class="docutils literal notranslate"><span class="pre">list_max</span></code> will have slightly different behavior for these corner cases.)</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>In VS Code, create a file called <code class="docutils literal notranslate"><span class="pre">list_max.py</span></code>.</p>
+<p>Place the following scaffolding into that file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_max</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="k">pass</span>
 
-    <span class="c1"># if so, your answer is num1</span>
 
-    <span class="c1"># otherwise, your answer is num2</span>
-
+<span class="k">def</span> <span class="nf">do_test</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;list_max(&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">list</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;None) is &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="k">pass</span>
+            <span class="k">pass</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;]) is &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">pass</span>
+    <span class="nb">max</span> <span class="o">=</span> <span class="n">list_max</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">max</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">pass</span>
     <span class="k">pass</span>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;max(42, -69) is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="o">-</span><span class="mi">69</span><span class="p">)))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;max(33, 0) is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;max(0.123, 0.223) is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.123</span><span class="p">,</span> <span class="mf">0.223</span><span class="p">)))</span>
-    <span class="c1"># print the max of -0.123 and -0.223</span>
-
+    <span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">77</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+    <span class="n">list2</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">42</span><span class="p">,</span> <span class="o">-</span><span class="mi">99</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="o">-</span><span class="mi">999</span><span class="p">,</span> <span class="o">-</span><span class="mi">88</span><span class="p">,</span> <span class="o">-</span><span class="mi">77</span><span class="p">]</span>
+    <span class="n">list3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">425</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">36</span><span class="p">]</span>
+    <span class="n">do_test</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span>
+    <span class="n">do_test</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span>
+    <span class="n">do_test</span><span class="p">(</span><span class="n">list3</span><span class="p">)</span>
+    <span class="n">do_test</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">do_test</span><span class="p">([])</span>
     <span class="k">return</span> <span class="mi">0</span>
 
 
-<span class="n">main</span><span class="p">()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 
 </pre></div>
 </div>
-<p>[Scaffolding ends above here]</p>
 </section>
-<section id="write-your-code">
-<h2>Write Your Code<a class="headerlink" href="#write-your-code" title="Link to this heading">#</a></h2>
-<p>As you can see, this scaffolding defines to functions: <code class="docutils literal notranslate"><span class="pre">max</span></code> and <code class="docutils literal notranslate"><span class="pre">main</span></code>.</p>
-<p>In <code class="docutils literal notranslate"><span class="pre">max</span></code>, the algorithm is written as comments, but there is no code. You should translate this algorithm to code.</p>
-<p>In <code class="docutils literal notranslate"><span class="pre">main</span></code>, there are three print statements which call <code class="docutils literal notranslate"><span class="pre">max</span></code> and print its result. These would let you check if max is working right.</p>
-<p>There is also a comment asking you to write one more print statement with a call to <code class="docutils literal notranslate"><span class="pre">max</span></code>. In that comment, it asks you to take the max of two numbers and print them out. Add a line of code to do this.</p>
-<p>When you have done this, first run your code with the “Run code” button in the upper right corner of VS Code.  If you have any syntax errors, you will get information about where they are, and should fix them.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">print</span></code> statement that are called when <code class="docutils literal notranslate"><span class="pre">main</span></code> runs are a set of example tests designed to give you quick feedback on whether your code is doing what it should do. The output expected from the four print statements (that is, the three already present plus the one you have been asked to add) is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">max</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="o">-</span><span class="mi">69</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">42</span>
-<span class="nb">max</span><span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">33</span>
-<span class="nb">max</span><span class="p">(</span><span class="mf">0.123</span><span class="p">,</span> <span class="mf">0.223</span><span class="p">)</span> <span class="ow">is</span> <span class="mf">0.223</span>
-<span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">0.123</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.223</span><span class="p">)</span> <span class="ow">is</span> <span class="o">-</span><span class="mf">0.123</span>
-</pre></div>
-</div>
+<section id="write-the-code-for-list-max">
+<h2>Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code><a class="headerlink" href="#write-the-code-for-list-max" title="Link to this heading">#</a></h2>
+<p>Fill in <code class="docutils literal notranslate"><span class="pre">list_max</span></code> so it returns the largest element in the list passed in. If the list has no elements or is <code class="docutils literal notranslate"><span class="pre">None</span></code>, this function should return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </section>
-<section id="submit-your-assignment">
-<h2>Submit Your Assignment<a class="headerlink" href="#submit-your-assignment" title="Link to this heading">#</a></h2>
-<p>Once you feel your code is operating correctly, open the Gradescope page for this class in your browser and navigate to the “Exercise: <a class="reference external" href="http://max.py">max.py</a>” assignment. Then upload your <code class="docutils literal notranslate"><span class="pre">max.py</span></code> file.</p>
-<p>Note that the autograder will not just check these four examples — it will also test several additional number pairs to ensure your function is working properly.</p>
-<p>The autograder will take a couple minutes to run. Once complete, you should see a few things.</p>
-<ul class="simple">
-<li><p>If the name of your file is not what the autograder expected (for this assignment, <code class="docutils literal notranslate"><span class="pre">max.py</span></code>), you will get an error saying as much.</p></li>
-<li><p>If your code is not properly formatted using <code class="docutils literal notranslate"><span class="pre">black</span></code> (reminder for how to setup <a class="reference external" href="https://www.practicaldatascience.org/notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html#format-on-save-with-black-extension">format on save here</a>), you will get an error saying that.</p></li>
-<li><p>If the autograder is unable to find a <code class="docutils literal notranslate"><span class="pre">max</span></code> function in your file, you will also get an error.</p></li>
-</ul>
+<section id="test-locally">
+<h2>Test Locally<a class="headerlink" href="#test-locally" title="Link to this heading">#</a></h2>
+<p>Run your code to see if you get results from the tests in <code class="docutils literal notranslate"><span class="pre">main</span></code> are <code class="docutils literal notranslate"><span class="pre">99</span></code>, <code class="docutils literal notranslate"><span class="pre">-3</span></code>, <code class="docutils literal notranslate"><span class="pre">425</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, and <code class="docutils literal notranslate"><span class="pre">None</span></code> for the five tests provided.</p>
+</section>
+<section id="submit-to-gradescope">
+<h2>Submit to Gradescope<a class="headerlink" href="#submit-to-gradescope" title="Link to this heading">#</a></h2>
+<p>Submit your code to gradescope! As always, we’ll be testing against arguments that are different from the ones you can look at here, that suggests you have an issue that these cases didn’t catch but which does exist.</p>
 </section>
 </section>
 
@@ -728,9 +739,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-the-assignment">Setup the Assignment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-your-code">Write Your Code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-your-assignment">Submit Your Assignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-code-for-list-max">Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-locally">Test Locally</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-to-gradescope">Submit to Gradescope</a></li>
 </ul>
   </nav></div>
 
