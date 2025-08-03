@@ -609,6 +609,12 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment-overview">Assignment Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-is-peak-at">Writing <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#after-writing-is-peak-at">After Writing is_peak_at</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-your-answers-with-diff">Checking Your Answers with diff</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -785,7 +791,238 @@ structure:</p>
 <li><p>The code for <code class="docutils literal notranslate"><span class="pre">count_laps</span></code> from the video, which uses your <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code> function.</p></li>
 <li><p>Some testing code (under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></code>).</p></li>
 </ol>
-<p>dd</p>
+</section>
+<section id="writing-is-peak-at">
+<h2>Writing <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code><a class="headerlink" href="#writing-is-peak-at" title="Link to this heading">#</a></h2>
+<p>Before you dive into writing <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code>, we want to take a moment to help you look
+at the testing code that we set up for you.  Notice the first two non-comment lines:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">]</span>
+<span class="n">peaksat0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here, we are writing down the small example from one of the videos, and the
+answer to it (for w=2): it has peaks at indicies 2 and 8 (also note that this answer
+is sufficient to give us the answer for count_laps—which would be the length
+of this list).</p>
+<p>We do this for some other test cases, then put them all in a list of tuples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">w2_data</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">data0</span><span class="p">,</span> <span class="n">peaksat0</span><span class="p">),</span> <span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">peaksat1</span><span class="p">),</span> <span class="p">(</span><span class="n">data2</span><span class="p">,</span> <span class="n">peaksat2</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">data3</span><span class="p">,</span> <span class="n">peaksat3</span><span class="p">),</span> <span class="p">(</span><span class="n">data4</span><span class="p">,</span> <span class="n">peaksat4</span><span class="p">),</span> <span class="p">(</span><span class="n">data5</span><span class="p">,</span> <span class="n">peaksat5</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">data6</span><span class="p">,</span> <span class="n">peaksat6</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Notice that this combines two concepts you have seen separately: lists and tuples.  As with many things in programming, we can combine them and each still follows their same rules.  We have a list where each item is a tuple with the data and the answer.</p>
+<p>Next, you will see that we call a function where we have abstracted out most of the testing logic:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">all_right</span> <span class="o">=</span> <span class="n">tests_for_hr_data</span><span class="p">(</span><span class="n">w2_data</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Testing is also a place where we want to use good abstraction!   If you take a look inside of that function, you will see that it iterates over data_and_answers (which is the list of tuples that contains (data,answer)).  For each of these items, it prints out a message about what it is testing, then iterates over the data, calling your <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code> function.
+It checks the answer of your <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code> based on what was passed in from the tuple. After checking each of these, it calls count_laps to see if that gives the right answer.</p>
+<p>Now that we have shown you the test setup we have provided, go ahead and write the <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code> function.</p>
+</section>
+<section id="after-writing-is-peak-at">
+<h2>After Writing is_peak_at<a class="headerlink" href="#after-writing-is-peak-at" title="Link to this heading">#</a></h2>
+<p>Once you have written <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code>, be sure to run the tests we gave you by clicking the “Run arrow” in the upper right.  We’ll briefly note that if you were developing this program on your own, you would want to write <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code> first, test it, and then write <code class="docutils literal notranslate"><span class="pre">count_laps</span></code> after you are confident in it.  Since we developed <code class="docutils literal notranslate"><span class="pre">count_laps</span></code> together in the videos, we have gone ahead and included the code for it in what we provided to you.</p>
+<p>Now is a good time to stop and assess your test cases: how confident do they make you in the code that you wrote?  Take a moment to think about this before proceeding.</p>
+<p>For me, the answer is “I am fairly confident when <code class="docutils literal notranslate"><span class="pre">w=2</span></code>, but not confident when w has any other value, as I only tested with <code class="docutils literal notranslate"><span class="pre">w=2</span></code>”.</p>
+<p>Fortunately, we abstracted out our testing code into <code class="docutils literal notranslate"><span class="pre">tests_for_hr_data</span></code>, so we can just re-use that to test with some other values of <code class="docutils literal notranslate"><span class="pre">w</span></code>.  (We will note that if we had not abstracted that code out into its own function, doing so now would be a good idea!)</p>
+<p>We have already setup some data and answers for you for <code class="docutils literal notranslate"><span class="pre">w=1</span></code> and <code class="docutils literal notranslate"><span class="pre">w=4</span></code>.</p>
+<p>If you look into the testing code, you will see</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># w1_data = w2_data[:]</span>
+<span class="c1"># w1_data[1] = (data1, [2, 6, 8])</span>
+<span class="c1"># w1_data[5] = (data5, [1])</span>
+<span class="c1"># all_right = tests_for_hr_data(w1_data, 1) and all_right</span>
+<span class="c1"># w4_data = [(data0, []), (data1, []), (data2, [4]),</span>
+<span class="c1">#           (data3, []), (data4, []), (data5, []),</span>
+<span class="c1">#           (data6, [])]</span>
+<span class="c1"># all_right = tests_for_hr_data(w4_data, 4) and all_right</span>
+</pre></div>
+</div>
+<p>Just uncomment those lines and run your code to get those test results.</p>
+</section>
+<section id="checking-your-answers-with-diff">
+<h2>Checking Your Answers with diff<a class="headerlink" href="#checking-your-answers-with-diff" title="Link to this heading">#</a></h2>
+<p>As in past exercises, we provide the output you should expect if you’ve written your code correctly below. Unlike in past exercises, however, in this case the output is quite large… 168 lines.</p>
+<p>Because comparing 168 lines of text to 168 lines of Python output is obviously silly, it’s time to introduce you to diff-ing. diffing is a way of comparing two text files to identify what is different between them. In this case of this exercise, it will show you where your results differ from the expected outputs.</p>
+<p>But that isn’t the reason diff-ing is a go-to tool for programmers. What makes diff-ing so useful is that it can be used to compare two versions of code files to quickly identify just the bits that have changed. And that makes it <em>incredibly</em> powerful for isolating problems and for collaborators to quickly understand what their colleagues have been working on.</p>
+<p>Here’s a GIF showing how you can use <code class="docutils literal notranslate"><span class="pre">diff</span></code> yourself. In it, I create a text file, copy-paste the expected output into that file, open and run my python file, copy-paste the output into a second file, then as VS Code to compare the two files.</p>
+<p>As you can see, only the first line is colored because in the reference text <code class="docutils literal notranslate"><span class="pre">world</span></code> is capitalized and in my Python output it is not. All identical lines are in grey.</p>
+<p><img alt="diffing two files" src="../../_images/diff_in_vscode.gif" /></p>
+<section id="output">
+<h3>Output<a class="headerlink" href="#output" title="Link to this heading">#</a></h3>
+<p>So when you’re ready, just click below to get the full expected output.</p>
+<details>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">5</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">6</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">7</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">8</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">9</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">10</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">2</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">5</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">6</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">7</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">8</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">9</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">10</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">2</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">5</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">6</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">7</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">8</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">9</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">10</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">1</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">0</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">190</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">0</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">188</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">189</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">0</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">187</span><span class="p">,</span> <span class="mi">188</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">186</span><span class="p">,</span> <span class="mi">180</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">1</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">5</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">6</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">7</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">8</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">9</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">10</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">2</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">5</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">6</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">7</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">8</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">9</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">10</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">3</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">5</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">6</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">7</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">8</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">9</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">10</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">1</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">0</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">190</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">0</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">188</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">189</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">1</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">187</span><span class="p">,</span> <span class="mi">188</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">186</span><span class="p">,</span> <span class="mi">180</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">1</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">5</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">6</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">7</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">8</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">9</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">10</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">0</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">5</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">6</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">7</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">8</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">9</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">10</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">0</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">160</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">5</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">6</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">7</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">8</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">9</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">10</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">1</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">0</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">190</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">0</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">188</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">189</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">0</span> <span class="n">laps</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="p">[</span><span class="mi">187</span><span class="p">,</span> <span class="mi">188</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">186</span><span class="p">,</span> <span class="mi">180</span><span class="p">]</span> <span class="k">with</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">0</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">1</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">2</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">3</span>
+<span class="n">Correctly</span> <span class="n">gave</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">index</span> <span class="mi">4</span>
+<span class="n">Correctly</span> <span class="n">counted</span> <span class="mi">0</span> <span class="n">laps</span>
+</pre></div>
+</div>
+</details>
+</section>
 </section>
 </section>
 
@@ -837,6 +1074,12 @@ structure:</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment-overview">Assignment Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-is-peak-at">Writing <code class="docutils literal notranslate"><span class="pre">is_peak_at</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#after-writing-is-peak-at">After Writing is_peak_at</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-your-answers-with-diff">Checking Your Answers with diff</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
