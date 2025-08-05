@@ -12,7 +12,7 @@ A preliminary syllabus can be found `here <https://github.com/nickeubank/practic
 Class Schedule
 ---------------
 
-Class will be Tuesdays and Thursdays from 1:25pm-2:40pm (EDT).
+Class will be Tuesdays and Thursdays from 10:05am-11:25am (EDT).
 
 Key:
 
