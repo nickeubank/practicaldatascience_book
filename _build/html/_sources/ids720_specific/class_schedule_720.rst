@@ -6,7 +6,7 @@ A one semester version of Practical Data Science specifically tailored to Master
 Syllabus
 --------
 
-Course syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/blob/main/ids720_specific/syllabus/Syllabus_IDS720.pdf>`_.
+Course syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/blob/main/ids720_specific/syllabus/Syllabus_PracticalDataScience.pdf>`_.
 
 
 Office Hours and Links
