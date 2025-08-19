@@ -16,6 +16,14 @@ As you are deciding what electives to take, it can be helpful to start by thinki
 - **Get a pre-requisite done:** If there are specific classes you *really* want to take, check to see if there are classes you're required to take to enroll in those classes. Many statistics courses at Duke, for example, require you to take a Introduction to Bayesian Statistics, so even if you don't want to take that *particular* class, you may find it useful so you can take other stats department classes.
 - **See if you like a substantive domain/type of data science:** Data science is an *extremely* diverse field, and electives are an opportunity to try on different data science hats to see which fits best. Curious about biomedical applications, or finance, or public policy? Try a data science class in that specific area and see if it resonates with you!
 
+### Life Cycle of Electives
+
+One approach many students take is to make elective choices based on the stage of their MIDS career. In particular:
+
+- **Early in MIDS:** take electives that reinforce fundamental skills (linear algebra, probability, programming). Taking these early means the investment in these skills will pay off in nearly all courses on takes at Duke.
+- **Mid-Career:** take electives that either build general data science skills (deep learning, applied programming, business) or give them a chance to try a specific domain of interest (e.g., bioengineering)/
+- **Late in MIDS:** take electives in whatever specialized technique you've found you really care about, or in a relatively specific area of application (especially if you have a job offer or know what you'll be doing after graduation!).
+
 ## Most Popular Electives
 
 The following is a list of the most popular electives taken by MIDS students from 2020-2022 (based on number of students who have taken each class, ordered by past enrollment):
