@@ -9,7 +9,7 @@ Practical Data Science I is a flipped-classroom, exercise and project-focused co
 Syllabus
 --------
 
-A preliminary syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/blob/main/ids591_specific/syllabus/Syllabus_IDS591.pdf>`_.
+A preliminary syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/blob/main/ids590_specific/syllabus/Syllabus_IDS590.pdf>`_.
 
 Class Schedule
 ---------------
