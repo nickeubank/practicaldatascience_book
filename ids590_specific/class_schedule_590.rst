@@ -8,7 +8,7 @@ Practical Data Science I is a flipped-classroom, exercise and project-focused co
 Office Hours
 ------------
 
-Adriane: `Signup with this link < https://calendly.com/adriane-adrianefresh/20min>`_
+Adriane: `Signup with this link <https://calendly.com/adriane-adrianefresh/20min>`_
 
 `Nick <https://duke.zoom.us/my/nickeubank>`_ (Zoom or in Gross 231): Thursday 8:45 am - 9:45 am. *Please email me in advance if you plan to attend.* I'll usually be there regardless, but knowing people are coming is useful if conflicts arise.
 
