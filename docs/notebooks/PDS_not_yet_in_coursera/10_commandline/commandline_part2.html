@@ -640,7 +640,7 @@ document.write(`
 <h1>Advanced Command Line Tutorial<a class="headerlink" href="#advanced-command-line-tutorial" title="Link to this heading">#</a></h1>
 <p>In the last section, we practiced using a few tools and introduced the idea that the command line is just a way of talking to your operating system using text commands rather than by clicking on icons. In this section, we’ll introduce some more advanced tools, and discuss general principles that will help you during your data science career.</p>
 <p>Like everything in this course, this section will focus on the tools that are most relevant for an applied data scientist. We will not try to cover advanced bash programming (loops, function definitions, etc.), because anything you can do that way you will also be able to do in Python, for which you are receiving lots of additional training. If you want to learn the advanced bash skills, there are lots of great tutorials out there (e.g., the full <a class="reference external" href="https://www.datacamp.com/courses/introduction-to-shell-for-data-science">DataCamp tutorial</a>). Instead, the focus here is on skills you’re likely to need when using Git, managing packages in Python, or getting stuff set up on remote servers so you can run your R or Python scripts.</p>
-<p>In the examples below, we’ll be working with the example data in the <a class="reference external" href="https://github.com/nickeubank/practicaldatascience/tree/master/Example_Data">Example_Data/command_line</a> folder in this repository, which you can download if you wish to follow along.</p>
+<p>In the examples below, we’ll be working with the example data in the <a class="reference external" href="https://github.com/nickeubank/practicaldatascience_book/tree/main/Example_Data/command_line">Example_Data/command_line</a> folder in this repository, which you can download if you wish to follow along.</p>
 <section id="command-line-syntax-general-principles">
 <h2>Command Line Syntax: General Principles<a class="headerlink" href="#command-line-syntax-general-principles" title="Link to this heading">#</a></h2>
 <p>You may have noticed that there are some patterns to how the command line tools we’ve covered so far operate. In this section we’ll introduce some general principles that are used by most command line programs (like <code class="docutils literal notranslate"><span class="pre">git</span></code>, <code class="docutils literal notranslate"><span class="pre">python</span></code>, <code class="docutils literal notranslate"><span class="pre">julia</span></code>, <code class="docutils literal notranslate"><span class="pre">conda</span></code>, <code class="docutils literal notranslate"><span class="pre">zip</span></code>, <code class="docutils literal notranslate"><span class="pre">ssh</span></code>, etc.):</p>
@@ -650,18 +650,33 @@ document.write(`
 <p>4: <strong>Many programs have options that are activated with “flags.”</strong> A flag is usually a single dash followed by a single letter. For example, you can ask the <code class="docutils literal notranslate"><span class="pre">ls</span></code> function to display the contents of a directory in a list format using the flag <code class="docutils literal notranslate"><span class="pre">-l</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normal `ls` display:</span>
-<span class="nb">cd</span><span class="w"> </span>~/github/practicaldatascience/Example_Data/command_line
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normal `ls` display:</span>
+<span class="nb">cd</span><span class="w"> </span>~/github/practicaldatascience_book/Example_Data/command_line
 ls
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a_folder_with_stuff	hello.txt
+example_csvs		just_another_file.txt
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># With the `-l` flag, it also shows file sizes, when last modified, and all sorts of operating</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># With the `-l` flag, it also shows file sizes, when last modified, and all sorts of operating</span>
 <span class="c1"># system information that you don&#39;t need to worry about. </span>
 ls<span class="w"> </span>-l
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>total 16
+drwxr-xr-x   3 nce8  staff    96 Jun 13 11:28 a_folder_with_stuff
+drwxr-xr-x  34 nce8  staff  1088 Jun 13 11:28 example_csvs
+-rw-r--r--   1 nce8  staff    41 Jun 13 11:28 hello.txt
+-rw-r--r--   1 nce8  staff    40 Jun 13 11:28 just_another_file.txt
 </pre></div>
 </div>
 </div>
@@ -673,16 +688,34 @@ ls<span class="w"> </span>-l
 <p>Note that because a single dash tells the shell that what follows is a single-letter flag, you can actually pile up flags after a single dash. For example, we already know that <code class="docutils literal notranslate"><span class="pre">-l</span></code> tells <code class="docutils literal notranslate"><span class="pre">ls</span></code> to show files in a list. <code class="docutils literal notranslate"><span class="pre">-h</span></code> says to include a (human-readable) file size. Since each flag after a single dash is only one letter, if we squish them together, the command line knows that it’s a series of one-letter flags (since <code class="docutils literal notranslate"><span class="pre">lh</span></code> itself is two letters, it wouldn’t be a valid single-letter flag).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can use these separately </span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can use these separately </span>
 ls<span class="w"> </span>-l<span class="w"> </span>-h
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>total 16
+drwxr-xr-x   3 nce8  staff    96B Jun 13 11:28 a_folder_with_stuff
+drwxr-xr-x  34 nce8  staff   1.1K Jun 13 11:28 example_csvs
+-rw-r--r--   1 nce8  staff    41B Jun 13 11:28 hello.txt
+-rw-r--r--   1 nce8  staff    40B Jun 13 11:28 just_another_file.txt
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Or together!</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Or together!</span>
 ls<span class="w"> </span>-lh
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>total 16
+drwxr-xr-x   3 nce8  staff    96B Jun 13 11:28 a_folder_with_stuff
+drwxr-xr-x  34 nce8  staff   1.1K Jun 13 11:28 example_csvs
+-rw-r--r--   1 nce8  staff    41B Jun 13 11:28 hello.txt
+-rw-r--r--   1 nce8  staff    40B Jun 13 11:28 just_another_file.txt
 </pre></div>
 </div>
 </div>
@@ -750,16 +783,38 @@ cp: a_folder is a directory (not copied).
 <p>But now you can see these invisible files using the command line. Just use the <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag (short for “all”) for the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command to have it show you all the files that are there:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># You thought you knew what was in this folder:</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># You thought you knew what was in this folder:</span>
 ls<span class="w"> </span>-l
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>total 16
+drwxr-xr-x   3 nce8  staff    96 Jun 13 11:28 a_folder_with_stuff
+drwxr-xr-x  34 nce8  staff  1088 Jun 13 11:28 example_csvs
+-rw-r--r--   1 nce8  staff    41 Jun 13 11:28 hello.txt
+-rw-r--r--   1 nce8  staff    40 Jun 13 11:28 just_another_file.txt
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># But there was another file hiding! Notice that `.this_file_is_invisible.txt` and `.DS_Store` were hidden before? </span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># But there was another file hiding! Notice that `.this_file_is_invisible.txt` and `.DS_Store` were hidden before? </span>
 ls<span class="w"> </span>-la
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>total 40
+drwxr-xr-x   8 nce8  staff   256 Sep  2 14:02 .
+drwxr-xr-x   4 nce8  staff   128 Sep  2 13:53 ..
+-rw-r--r--@  1 nce8  staff  6148 Sep  2 14:02 .DS_Store
+-rw-r--r--   1 nce8  staff   179 Jun 13 11:28 .this_file_is_invisible.txt
+drwxr-xr-x   3 nce8  staff    96 Jun 13 11:28 a_folder_with_stuff
+drwxr-xr-x  34 nce8  staff  1088 Jun 13 11:28 example_csvs
+-rw-r--r--   1 nce8  staff    41 Jun 13 11:28 hello.txt
+-rw-r--r--   1 nce8  staff    40 Jun 13 11:28 just_another_file.txt
 </pre></div>
 </div>
 </div>
@@ -775,8 +830,28 @@ ls<span class="w"> </span>-la
 <p>As we saw in the last set of exercises, one of the most powerful command line tricks (and one of the places where using the command line can be <em>much</em> easier than trying to do things with your mouse) is the use of wildcards. Any time you are listing files, you can use an asterick (<code class="docutils literal notranslate"><span class="pre">*</span></code>) to allow any pattern to appear in part of a filename. For example, to list all the CSV files in a folder (but only the CSVs), you can type:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>example_csvs
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>example_csvs
 ls<span class="w"> </span>*.csv
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>311calls_2018_11_29_Thursday.csv	311calls_2018_2_9_Friday.csv
+311calls_2018_11_30_Friday.csv		311calls_2018_3_15_Thursday.csv
+311calls_2018_12_6_Thursday.csv		311calls_2018_3_16_Friday.csv
+311calls_2018_12_7_Friday.csv		311calls_2018_3_1_Thursday.csv
+311calls_2018_1_18_Thursday.csv		311calls_2018_3_2_Friday.csv
+311calls_2018_1_19_Friday.csv		311calls_2018_3_30_Friday.csv
+311calls_2018_1_25_Thursday.csv		311calls_2018_3_8_Thursday.csv
+311calls_2018_1_26_Friday.csv		311calls_2018_3_9_Friday.csv
+311calls_2018_1_4_Thursday.csv		311calls_2018_4_12_Thursday.csv
+311calls_2018_2_15_Thursday.csv		311calls_2018_4_13_Friday.csv
+311calls_2018_2_16_Friday.csv		311calls_2018_4_5_Thursday.csv
+311calls_2018_2_1_Thursday.csv		311calls_2018_4_6_Friday.csv
+311calls_2018_2_22_Thursday.csv		311calls_2018_5_4_Friday.csv
+311calls_2018_2_23_Friday.csv		311calls_2018_6_14_Thursday.csv
+311calls_2018_2_2_Friday.csv		311calls_2018_6_1_Friday.csv
+311calls_2018_2_8_Thursday.csv		311calls_2018_6_8_Friday.csv
 </pre></div>
 </div>
 </div>
@@ -784,7 +859,15 @@ ls<span class="w"> </span>*.csv
 <p>Or, if you only wanted to see the CSVs that have data from the month of February (in this case, the files with <code class="docutils literal notranslate"><span class="pre">2018_2_</span></code> in the middle of the file name), you could type:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>*2018_2*
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>*2018_2*
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>311calls_2018_2_15_Thursday.csv	311calls_2018_2_23_Friday.csv
+311calls_2018_2_16_Friday.csv	311calls_2018_2_2_Friday.csv
+311calls_2018_2_1_Thursday.csv	311calls_2018_2_8_Thursday.csv
+311calls_2018_2_22_Thursday.csv	311calls_2018_2_9_Friday.csv
 </pre></div>
 </div>
 </div>
@@ -792,7 +875,16 @@ ls<span class="w"> </span>*.csv
 <p>This is an extremely powerful tool, and one you’ll use a lot. Just be careful — wildcards can also get you in trouble. For example, suppose you wanted to erase all the CSVs from January. You might be inclined to type <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">*2018_1*</span></code>. But that pattern will catch much more than just January…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>*2018_1*
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>*2018_1*
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>311calls_2018_11_29_Thursday.csv	311calls_2018_1_19_Friday.csv
+311calls_2018_11_30_Friday.csv		311calls_2018_1_25_Thursday.csv
+311calls_2018_12_6_Thursday.csv		311calls_2018_1_26_Friday.csv
+311calls_2018_12_7_Friday.csv		311calls_2018_1_4_Thursday.csv
+311calls_2018_1_18_Thursday.csv
 </pre></div>
 </div>
 </div>
@@ -814,15 +906,56 @@ ls<span class="w"> </span>*.csv
 <p>For example, suppose we wanted to count the number of <code class="docutils literal notranslate"><span class="pre">.csv</span></code> files in a folder. One way to do this would be to use <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">*.csv</span></code> to save the names of all the files in a directory to disk, then use the <code class="docutils literal notranslate"><span class="pre">wc</span></code> command (short for “word count”) to count the number of lines in that file. To do so, we save the output of <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-1</span> <span class="pre">*.csv</span></code> to disk (the <code class="docutils literal notranslate"><span class="pre">-1</span></code> option forces <code class="docutils literal notranslate"><span class="pre">ls</span></code> to put one file name on each line), then point <code class="docutils literal notranslate"><span class="pre">wc</span></code> at the file using the <code class="docutils literal notranslate"><span class="pre">-l</span></code> option (which counts total lines, since if a file name has a space it would be counted as multiple words. See <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">wc</span></code> for more information on how <code class="docutils literal notranslate"><span class="pre">wc</span></code> works):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-1<span class="w"> </span>*.csv
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-1<span class="w"> </span>*.csv
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>311calls_2018_11_29_Thursday.csv
+311calls_2018_11_30_Friday.csv
+311calls_2018_12_6_Thursday.csv
+311calls_2018_12_7_Friday.csv
+311calls_2018_1_18_Thursday.csv
+311calls_2018_1_19_Friday.csv
+311calls_2018_1_25_Thursday.csv
+311calls_2018_1_26_Friday.csv
+311calls_2018_1_4_Thursday.csv
+311calls_2018_2_15_Thursday.csv
+311calls_2018_2_16_Friday.csv
+311calls_2018_2_1_Thursday.csv
+311calls_2018_2_22_Thursday.csv
+311calls_2018_2_23_Friday.csv
+311calls_2018_2_2_Friday.csv
+311calls_2018_2_8_Thursday.csv
+311calls_2018_2_9_Friday.csv
+311calls_2018_3_15_Thursday.csv
+311calls_2018_3_16_Friday.csv
+311calls_2018_3_1_Thursday.csv
+311calls_2018_3_2_Friday.csv
+311calls_2018_3_30_Friday.csv
+311calls_2018_3_8_Thursday.csv
+311calls_2018_3_9_Friday.csv
+311calls_2018_4_12_Thursday.csv
+311calls_2018_4_13_Friday.csv
+311calls_2018_4_5_Thursday.csv
+311calls_2018_4_6_Friday.csv
+311calls_2018_5_4_Friday.csv
+311calls_2018_6_14_Thursday.csv
+311calls_2018_6_1_Friday.csv
+311calls_2018_6_8_Friday.csv
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-1<span class="w"> </span>*.csv<span class="w"> </span>&gt;<span class="w"> </span>~/files_in_folder.txt
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-1<span class="w"> </span>*.csv<span class="w"> </span>&gt;<span class="w"> </span>~/files_in_folder.txt
 wc<span class="w"> </span>-l<span class="w"> </span>~/files_in_folder.txt
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      32 /Users/nce8/files_in_folder.txt
 </pre></div>
 </div>
 </div>
@@ -831,7 +964,12 @@ wc<span class="w"> </span>-l<span class="w"> </span>~/files_in_folder.txt
 <p>The answer is we don’t! Instead we can use the pipe operator: <code class="docutils literal notranslate"><span class="pre">|</span></code>. The pipe operator says “just pass the output of the first command as an argument to the second command.” And now we can do:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      32
 </pre></div>
 </div>
 </div>
@@ -861,13 +999,18 @@ wc<span class="w"> </span>-l<span class="w"> </span>~/files_in_folder.txt
 <p>You can see the value of the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable on your computer by typing <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">$PATH</span></code> (<code class="docutils literal notranslate"><span class="pre">echo</span></code> says “please evaluate and print what follows,” and the dollar sign in <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> says “please fill in the value of the environment variable named <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.” On my system, the PATH variable looks like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/opt/ruby/bin:/Users/nce8/.nvm/versions/node/v22.12.0/bin:/Users/nce8/miniforge3/bin:/Users/nce8/miniforge3/condabin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin://Applications/Topaz Photo AI.app/Contents/Resources/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/nce8/.rvm/bin:/opt/homebrew/bin
 </pre></div>
 </div>
 </div>
 </div>
-<p>That means that when I type <code class="docutils literal notranslate"><span class="pre">python</span></code>, my computer will first look in the folder <code class="docutils literal notranslate"><span class="pre">/users/nick/opt/miniconda/bin</span></code> to see if there’s a file named <code class="docutils literal notranslate"><span class="pre">python</span></code> it can run. If it can’t find one there, it moves on to <code class="docutils literal notranslate"><span class="pre">/users/nick/opt/miniconda/condabin</span></code>, etc.</p>
-<p>(You’ll see that <code class="docutils literal notranslate"><span class="pre">/Users/Nick/opt/miniconda/bin</span></code> appears twice in my <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. That’s because the program I’m working with adds <code class="docutils literal notranslate"><span class="pre">/Users/Nick/opt/miniconda/bin</span></code> to my PATH when it starts up, leading to duplication. Thankfully, duplication doesn’t really matter — the time it takes the computer to check that folder twice is miniscule).</p>
+<p>That means that when I type <code class="docutils literal notranslate"><span class="pre">python</span></code>, my computer will first look in the folder <code class="docutils literal notranslate"><span class="pre">/users/nce8/miniforge3/bin</span></code> to see if there’s a file named <code class="docutils literal notranslate"><span class="pre">python</span></code> it can run. If it can’t find one there, it moves on to <code class="docutils literal notranslate"><span class="pre">/users/nce8/miniforge3/condabin</span></code>, etc.</p>
+<p>(You’ll see that <code class="docutils literal notranslate"><span class="pre">/Users/nce8/miniforge3/bin</span></code> appears twice in my <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. That’s because the program I’m working with adds <code class="docutils literal notranslate"><span class="pre">/Users/nce8/miniforge3/bin</span></code> to my PATH when it starts up, leading to duplication. Thankfully, duplication doesn’t really matter — the time it takes the computer to check that folder twice is miniscule).</p>
 <section id="why-this-is-useful-to-know">
 <h3>Why This Is Useful to Know<a class="headerlink" href="#why-this-is-useful-to-know" title="Link to this heading">#</a></h3>
 <p>In a perfect world, you’ll never have to worry about your PATH variable, but there are a couple situations where knowing about your PATH variable can be helpful. In particular:</p>
@@ -881,8 +1024,8 @@ wc<span class="w"> </span>-l<span class="w"> </span>~/files_in_folder.txt
 <p>How you modify your PATH variable depends a little on your operating system.</p>
 <p><strong>Configuration File on macOS and Linux</strong></p>
 <p>In Linux or macOS, the easiest way to modify your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable is through your command line configuration file. This is a small script that runs in the background whenever you open a new command line window. If you add a modification to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable here, that modification will always be loaded when you open a new command line session.</p>
-<p>The exact name of your configuration file will depend a little on what command line tool you’re using. If you haven’t changed your default terminal program (i.e., haven’t installed oh-my-zsh, as suggested in the <a class="reference internal" href="commandline_part1.html"><span class="std std-doc">last tutorial</span></a>), your configuration file will be located in your home directory (<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code>) and is named either <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> or <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>. Note that the name starts with a <code class="docutils literal notranslate"><span class="pre">.</span></code> so it’s invisible by default! You’ll have to use your <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-la</span></code> trick to see and open it.</p>
-<p>If you installed <code class="docutils literal notranslate"><span class="pre">oh-my-zsh</span></code>, then the file will still be located in your home directory but will now be called <code class="docutils literal notranslate"><span class="pre">.zshrc</span></code>.</p>
+<p>The exact name of your configuration file will depend a little on what command line tool you’re using. You will usually find the configuration file in your home directory (<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code>). If you’re on a system using <code class="docutils literal notranslate"><span class="pre">bash</span></code> (the default in most linux systems or in older macs) it will be named <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> or <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>. Note that the name starts with a <code class="docutils literal notranslate"><span class="pre">.</span></code> so it’s invisible by default! You’ll have to use your <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-la</span></code> trick to see and open it.</p>
+<p>If you’re on a newer mac, the default config file is <code class="docutils literal notranslate"><span class="pre">.zshrc</span></code>.</p>
 <p><strong>Configuration File on Windows</strong></p>
 <p>If you’re using Windows, you should have created a file called <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> when you installed Cmder (instructions <a class="reference internal" href="#../setup_env/setup_commandline_windows.ipynb"><span class="xref myst">here</span></a>). That’s where you will change your PATH variable for using Bash in Cmder.</p>
 <p><strong>Actually Changing Your PATH Variable</strong></p>
@@ -890,7 +1033,7 @@ wc<span class="w"> </span>-l<span class="w"> </span>~/files_in_folder.txt
 <p>So to add a folder to the front of your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable while keeping the old folders at the back, we type:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/NEW/FOLDER/ON/PATH:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/NEW/FOLDER/ON/PATH:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -908,16 +1051,16 @@ wc<span class="w"> </span>-l<span class="w"> </span>~/files_in_folder.txt
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "bash"
+            mode: "zsh"
         },
         kernelOptions: {
-            name: "bash",
+            name: "zsh",
             path: "./notebooks/PDS_not_yet_in_coursera/10_commandline"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'bash'</script>
+    <script>kernelName = 'zsh'</script>
 
                 </article>
               
