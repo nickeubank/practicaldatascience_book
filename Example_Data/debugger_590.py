@@ -7,95 +7,88 @@ def split_string(string):
     words = []
     for i in range(len(string)):
         if string[i] == " ":
-            words.append(string[start_of_word:i])
+            word = string[start_of_word:i]
+
+            # If starts with a space, drop that space.
+            if word[0] == " ":
+                word = word[1:]
+
+            words.append(word)
             start_of_word = i
     return words
 
 
-def count_words(words):
-    """Count how often words occur in a list."""
-    word_counts = dict()
-    for i in words:
-        if i in word_counts:
-            word_counts[i] += 1
-        else:
-            word_counts[i] = 1
-    return word_counts
+def get_list_of_unique_words(sentence_as_list):
+    """Get a list that contains one copy of each word in sentence."""
+    unique_words = []
+    for word in sentence_as_list:
+        if word not in unique_words:
+            unique_words.append(word)
+    return unique_words
 
 
-def create_collective_count(word_counts1, word_counts2):
-    """Take two word counters and combine them into one."""
-    collective_count = dict()
-    for i in word_counts1:
-        if i in word_counts2:
-            collective_count[i] = word_counts1[i] + word_counts2[i]
-    return collective_count
+def count_occurances_of_word(word_to_count, sentence_as_list):
+    """
+    Count the number of times a word appears in the list of words
+    in the sentence.
+    """
+    counter = 0
+    for word in sentence_as_list:
+        if word == word_to_count:
+            counter += 1
+    return counter
 
 
-def word_counter(string1, string2):
-    """Find the word that occurs the most across the two strings."""
-    string1_words = split_string(string1)
-    string2_words = split_string(string2)
-    word_counts1 = count_words(string1_words)
-    word_counts2 = count_words(string2_words)
-    collective_count = create_collective_count(word_counts1, word_counts2)
-    curr_max = 0
-    for i in collective_count:
-        if collective_count[i] > curr_max:
-            curr_max = collective_count[i]
-            curr_word = i
-    return curr_word
+def most_common_word(sentence):
+    """Find the most common word in a list"""
+
+    sentence_as_list = split_string(sentence)
+    unique_words = get_list_of_unique_words(sentence_as_list)
+
+    most_common_word = None
+    most_common_word_count = 0
+    for word in unique_words:
+        count = count_occurances_of_word(word sentence_as_list)
+        if most_common_word_count < count:
+            most_common_word = word
+            most_common_word_count = count
+
+    return most_common_word
 
 
-if __name__ == "__main__":
+def main():
 
     # Test Case 0
     print("Test Case 0:")
-    print("The result should be 'of'")
+    print("The result should be 'the'")
 
-    string1 = (
+    sentence = (
         "Far out in the uncharted backwaters of the "
         "unfashionable end of the western spiral arm of "
         "the Galaxy lies a small unregarded yellow sun."
     )
-    string2 = (
-        "Orbiting this at a distance of roughly ninety-two million "
-        "miles is an utterly insignificant little blue green "
-        "planet whose ape-descended life forms are so amazingly "
-        "primitive that they still think digital watches are a pretty neat idea."
-    )
 
-    print("Comparing:")
-    print(f"Sentence 1: {string1}")
-    print(f"Sentence 2: {string2}")
+    test_word = most_common_word(sentence)
 
-    test_word = word_counter(string1, string2)
-    print(f"Result: {test_word}")
+    print(f"Result is: {test_word}")
 
     # Test Case 1
     print("Test Case 1:")
-    print("The result should be 'No matching words'")
+    print("The result should 'in'")
 
-    string1 = "I love Practical Data Science."
-    string2 = "Who is Nick Eubank?"
+    sentence = "The ships hung in the sky in much the same way that bricks don't."
 
-    print("Comparing:")
-    print(f"Sentence 1: {string1}")
-    print(f"Sentence 2: {string2}")
-
-    test_word = word_counter(string1, string2)
-    print(f"Result: {test_word}")
+    test_word = most_common_word(sentence)
+    print(f"Result is: {test_word}")
 
     # Test Case 2
     print("Test Case 2:")
     print("The result should 'code'")
 
-    string1 = "This is a test of my code."
-    string2 = "I hope there's not bugs in this code."
+    sentence = "Its hard to code but I hope there are no bugs in this code."
 
-    print("Comparing:")
-    print(f"Sentence 1: {string1}")
-    print(f"Sentence 2: {string2}")
+    test_word = most_common_word(sentence)
+    print(f"Result is: {test_word}")
 
-    test_word = word_counter(string1, string2)
-    print(f"Result: {test_word}")
+
+main()
