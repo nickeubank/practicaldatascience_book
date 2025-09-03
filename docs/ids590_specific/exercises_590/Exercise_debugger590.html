@@ -70,7 +70,7 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ids720_specific/exercises/Exercise_debugger';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/Exercise_debugger590';</script>
     <link rel="icon" href="../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -195,9 +195,9 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Duke IDS Classes</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../ids590_specific/class_schedule_590.html">PDS I (IDS 590)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_schedule_590.html">PDS I (IDS 590)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../ids591_specific/class_schedule_591.html">PDS II (IDS 591)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../class_schedule_720.html">PDS (MIDS) (IDS 720)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ids720_specific/class_schedule_720.html">PDS (MIDS) (IDS 720)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
 <ul class="nav bd-sidenav">
@@ -484,7 +484,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids720_specific/exercises/Exercise_debugger.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/Exercise_debugger590.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -514,7 +514,7 @@
       
       
       
-      <li><a href="../../_sources/ids720_specific/exercises/Exercise_debugger.ipynb" target="_blank"
+      <li><a href="../../_sources/ids590_specific/exercises_590/Exercise_debugger590.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -628,16 +628,20 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="practicing-with-the-vs-code-debugger">
 <h1>Practicing with the VS Code Debugger<a class="headerlink" href="#practicing-with-the-vs-code-debugger" title="Link to this heading">#</a></h1>
-<p>You’ve been asked by a colleague to help them figure out why they’re having issues with a package they wrote. The packages designed to compare two sentences, figure out how many words they have in common, and then return the word that (a) appears in both sentences, and (b) when more than one word appears in most sentences, identify the word in both sentences with the most total occurrences.</p>
-<p>So for example, if our sentences were:</p>
+<p>You’ve been asked by a colleague to help them figure out why they’re having issues with a script they wrote. The package is designed to figure out the word that appears most frequently in a sentence.</p>
+<p>So for example, if our sentence were:</p>
 <ul class="simple">
-<li><p>“Far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the Galaxy lies a small unregarded yellow sun.”</p></li>
-<li><p>“Orbiting this at a distance of roughly ninety-two million miles is an utterly insignificant little blue green planet whose ape-descended life forms are so amazingly primitive that they still think digital watches are a pretty neat idea.”</p></li>
+<li><p>Far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the Galaxy lies a small unregarded yellow sun.</p></li>
 </ul>
-<p>The result would be the word “of” (it appears in both, and appears 3 times in total).</p>
+<p>The script should return <code class="docutils literal notranslate"><span class="pre">&quot;the&quot;</span></code> (which occurs 4 times).</p>
+<p>Or if the sentence were:</p>
+<blockquote>
+<div><p>Orbiting this at a distance of roughly ninety-two million miles is an utterly insignificant little blue green planet whose ape-descended life forms are so amazingly primitive that they still think digital watches are a pretty neat idea.</p>
+</div></blockquote>
+<p>The script should return <code class="docutils literal notranslate"><span class="pre">&quot;of&quot;</span></code> (which occurs 3 times).</p>
 <section id="exercise-1">
 <h2>Exercise 1:<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
-<p>Download your <a class="reference external" href="https://github.com/nickeubank/practicaldatascience_book/blob/main/Example_Data/debugger.py">colleague’s script here</a> and familiarize yourself with its contents.</p>
+<p>Download your <a class="reference external" href="https://github.com/nickeubank/practicaldatascience_book/blob/main/Example_Data/debugger_590.py">colleague’s script here</a> and familiarize yourself with its contents.</p>
 <p>Note that when you run this file from the command line (e.g. navigate to where it’s located and run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">debugger.py</span></code>), the first thing executed are the three test cases under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code>. As you can see, these all call <code class="docutils literal notranslate"><span class="pre">word_counter</span></code>, so you should start your examination there.</p>
 <p>One trick, for those who aren’t familiar with string manipulation: You can subset a string just the way you would a list. So for example if I have a string:</p>
 <div class="cell docutils container">
@@ -700,7 +704,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./ids720_specific/exercises"
+            path: "./ids590_specific/exercises_590"
         },
         predefinedOutput: true
     }
