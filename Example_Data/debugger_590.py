@@ -66,7 +66,7 @@ def main():
 
     sentence = (
         "You should always be yourself unless you can "
-        " be Batman then you should always be Batman."
+        "be Batman then you should always be Batman."
     )
 
     print(f"The sentence is: {sentence}")
