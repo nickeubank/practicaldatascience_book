@@ -18,49 +18,35 @@ def split_string(string):
     return words
 
 
-def get_list_of_unique_words(sentence_as_list):
-    """Get a list that contains one copy of each word in sentence."""
+def get_repeated_words(sentence):
+    """Get a list that contains one copy of each repeated word in sentence."""
+
+    # Separate words in sentence
+    sentence_as_list = split_string(sentence)
+
+    # Figure out what is repeated
     unique_words = []
+    repeated_words = []
     for word in sentence_as_list:
+        # If we haven't see it before, put in
+        # unique words list.
         if word not in unique_words:
             unique_words.append(word)
-    return unique_words
 
+        # If we have seen it before (it's in
+        # the unique words list),
+        # it is a repeat and we put it in
+        # repeated words if it isn't already there.
+        elif word in unique_words word not in repeated_words:
+            repeated_words.append(word)
 
-def count_occurances_of_word(word_to_count, sentence_as_list):
-    """
-    Count the number of times a word appears in the list of words
-    in the sentence.
-    """
-    counter = 0
-    for word in sentence_as_list:
-        if word == word_to_count:
-            counter += 1
-    return counter
-
-
-def most_common_word(sentence):
-    """Find the most common word in a list"""
-
-    sentence_as_list = split_string(sentence)
-    unique_words = get_list_of_unique_words(sentence_as_list)
-
-    most_common_word = None
-    most_common_word_count = 0
-    for word in unique_words:
-        count = count_occurances_of_word(word sentence_as_list)
-        if most_common_word_count < count:
-            most_common_word = word
-            most_common_word_count = count
-
-    return most_common_word
+    return repeated_words
 
 
 def main():
 
     # Test Case 0
     print("Test Case 0:")
-    print("The result should be 'the'")
 
     sentence = (
         "Far out in the uncharted backwaters of the "
@@ -68,26 +54,25 @@ def main():
         "the Galaxy lies a small unregarded yellow sun."
     )
 
-    test_word = most_common_word(sentence)
+    print(f"The sentence is: {sentence}")
+    print("The result should be  ['in', 'the', 'of']")
 
-    print(f"Result is: {test_word}")
+    test_words = get_repeated_words(sentence)
+
+    print(f"Result is: {test_words}")
 
     # Test Case 1
     print("Test Case 1:")
-    print("The result should 'in'")
 
-    sentence = "The ships hung in the sky in much the same way that bricks don't."
+    sentence = (
+        "You should always be yourself unless you can "
+        " be Batman then you should always be Batman."
+    )
 
-    test_word = most_common_word(sentence)
-    print(f"Result is: {test_word}")
+    print(f"The sentence is: {sentence}")
+    print("The result should be  ['be', 'you', 'should', 'always', 'Batman']")
 
-    # Test Case 2
-    print("Test Case 2:")
-    print("The result should 'code'")
-
-    sentence = "Its hard to code but I hope there are no bugs in this code."
-
-    test_word = most_common_word(sentence)
+    test_word = get_repeated_words(sentence)
     print(f"Result is: {test_word}")
 
 
