@@ -21,7 +21,7 @@ def get_mean_of_list(list_to_sum):
 
 def main():
     # Test Case
-    my_list = [12, 32, 1, 23, 32]
+    my_list = [3, 4, 5]
     print(f"The mean of {my_list} should be {mean(my_list):.2f}")
 
     mean_value = get_mean_of_list(my_list)
