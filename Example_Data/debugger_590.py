@@ -55,7 +55,7 @@ def main():
     )
 
     print(f"The sentence is: {sentence}")
-    print("The result should be  ['in', 'the', 'of']")
+    print("The result should be  ['the', 'of']")
 
     test_words = get_repeated_words(sentence)
 
