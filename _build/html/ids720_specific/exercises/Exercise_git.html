@@ -401,11 +401,12 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/getting_involved_in_research.html">Getting Involved in Research</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
 <ul class="nav bd-sidenav">
@@ -707,14 +708,21 @@ document.write(`
 <h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
 <p>Still on Computer A, let’s start writing some analysis code! Before we start, though, an important note: Git is only really build for simple, plaintext files, so please don’t use Jupyter Notebooks (we’ll discuss that in more detail below). You can use text files you edit and work with in VS Code, but not notebooks. For a refresher on how to use text files in VS Code (in a manner analogous to RStudio) see <a class="reference internal" href="Exercise_jupytervscode.html"><span class="std std-doc">Jupyter Exercises</span></a>.</p>
 <p>OK, so now let’s create a regular Python (<code class="docutils literal notranslate"><span class="pre">.py</span></code>) analysis file in our repository. If you’re using Jupyter Lab, just create a new textfile, save it into the  repository folder, then get to work (right-click the text file, select “Create Console for Editor”, then select Python 3 to create a kernel where you can run your code as you work).</p>
-<p>In particular, import World Develoment Indicators from this url using <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code>: <a class="reference external" href="https://media.githubusercontent.com/media/nickeubank/MIDS_Data/main/World_Development_Indicators/wdi_small_tidy_2015.csv">https://media.githubusercontent.com/media/nickeubank/MIDS_Data/main/World_Development_Indicators/wdi_small_tidy_2015.csv</a></p>
-<p>Then pull out the columns:</p>
-<ul class="simple">
-<li><p>‘Mortality rate, infant (per 1,000 live births)’</p></li>
-<li><p>‘GDP per capita (constant 2010 US$)’</p></li>
-<li><p>‘Country Name’</p></li>
-</ul>
-<p>and plot mortality against GDP per capita.</p>
+<p>In particular, import World Develoment Indicators from this url using <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code>: <a class="github reference external" href="https://github.com/nickeubank/MIDS_Data/raw/refs/heads/master/World_Development_Indicators/wdi_small_tidy_2015.csv">nickeubank/MIDS_Data</a></p>
+<p>And plot GDP per capita against Infant Mortality with this code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;https://github.com/nickeubank/MIDS_Data/&quot;</span>
+    <span class="s2">&quot;raw/refs/heads/master/World_Development_Indicators/&quot;</span>
+    <span class="s2">&quot;wdi_small_tidy_2015.csv&quot;</span>
+<span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="s2">&quot;Mortality rate, infant (per 1,000 live births)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GDP per capita (constant 2010 US$)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="exercise-7">
 <h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
