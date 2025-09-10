@@ -1,0 +1,33 @@
+def f(x):
+    if x == 7:
+        warning = "f(7) is illegal"
+        print(warning)
+        return warning
+    return (x + 3) * 2
+
+
+def g(x, y):
+    if not isinstance(x, int):
+        report = "x must be an int in g(x,y)"
+        return report
+    else:
+        try:
+            return x + f(y)
+        except:
+            return 42
+
+
+def h(x, y):
+    return g(x, y - 3)
+
+
+def main():
+    for args in [(1, 2), ("hello", 4), (3, 10), (4, 3)]:
+        i = args[0]
+        j = args[1]
+        print(f"i = {i}, j = {j}")
+        print(str(h(i, j)))
+
+
+if __name__ == "__main__":
+    main()
