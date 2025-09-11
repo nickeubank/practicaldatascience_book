@@ -22,7 +22,13 @@ def h(x, y):
 
 
 def main():
-    for args in [(1, 2), ("hello", 4), (3, 10), (4, 3)]:
+    list_of_args = [(1, 2), ("hello", 4), (3, 10), (4, 3)]
+
+    # This will loop over the list `list_of_args`.
+    # The first pass, `args` will become the first entry in the list,
+    # which is the tuple (1, 2). The second pass, `args` will become
+    # the tuple `("hello", 4)`.
+    for args in list_of_args:
         i = args[0]
         j = args[1]
         print(f"i = {i}, j = {j}")

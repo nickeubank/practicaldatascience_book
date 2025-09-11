@@ -776,23 +776,23 @@ document.write(`
 <p>In this case, we will take a full game of blackjack — in which Players are dealt cards, they decide whether to get more cards, and finally a winner is determined — and break it into smaller steps.</p>
 <p>The approach we like is “top-down design, bottom-up implementation.” What exactly does this mean? Top-down design means that you start with the whole problem, and come up with a high-level algorithm for it. That algorithm will be in terms of tasks that are too big and complex to just write as single functions, but that is OK. You then repeat the process for those sub-tasks until you get to something you can write. At this point you are at the “bottom” of the design—the smallest pieces that will go into it. You start implementation from there, making (and testing!) small pieces and putting them together. As you assemble these pieces from the bottom up, you get a larger and larger working program until finally you have your entire program.</p>
 <p>For example, if I were writing this program, I would start by thinking about the basic parts of a round of blackjack. In blackjack, you can probably think of three main steps:</p>
-<ul class="simple">
-<li><p>Dealing the cards</p></li>
-<li><p>Playing out a round (Players choosing whether to hit or stay)</p></li>
-<li><p>Deciding who wins.</p></li>
-</ul>
+<ol class="arabic simple">
+<li><p>The first two cards are dealt to each player.</p></li>
+<li><p>Each person decides whether to hit or stay (and potentially hit multiple times).</p></li>
+<li><p>The winner is determined.</p></li>
+</ol>
 <p>Given that, I would start to write out the function <code class="docutils literal notranslate"><span class="pre">play_blackjack</span></code> <em>assuming the functions I need are complete</em>. For example, the first line I might put in <code class="docutils literal notranslate"><span class="pre">play_blackjack</span></code> would be something like:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Main function that plays a hand of blackjack&quot;&quot;&quot;</span>
 
     <span class="c1"># Step one: deal out first cards</span>
-    <span class="n">players_score</span> <span class="o">=</span> <span class="n">deal_cards</span><span class="p">(</span><span class="n">players_deck</span><span class="p">)</span>
+    <span class="n">players_score</span> <span class="o">=</span> <span class="n">deal_first_two_cards</span><span class="p">(</span><span class="n">players_deck</span><span class="p">)</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
-<p>Now, I haven’t actually written <code class="docutils literal notranslate"><span class="pre">deal_cards</span></code> yet, but that’s ok — I have a sense of what it does! It takes the Player’s deck and calculates the score they start with after getting their first two cards.</p>
+<p>Now, I haven’t actually written <code class="docutils literal notranslate"><span class="pre">deal_first_two_cards</span></code> yet, but that’s ok — I have a sense of what it does! It takes the Player’s deck and calculates the score they start with after getting their first two cards.</p>
 <p>To help myself, I can even write the function signature up at the top of my file and add a comment saying what my function should do:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">deal_cards</span><span class="p">(</span><span class="n">deck</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">deal_first_two_cards</span><span class="p">(</span><span class="n">deck</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes a person&#39;s deck and calculates </span>
 <span class="sd">    the person&#39;s starting score based</span>
@@ -802,14 +802,14 @@ document.write(`
     <span class="k">pass</span>
 </pre></div>
 </div>
-<p>Now, the code that will go into <code class="docutils literal notranslate"><span class="pre">deal_cards</span></code> isn’t going to be very complicated, and you may feel like you could write it easily right away. Or you may not even feel like you need a separate function for the task! For this exercise, though, let’s practice top-down design by putting it in its own function. And don’t worry, you’ll find the other functions you need to write definitely warrant a function of their own.</p>
+<p>Now, the code that will go into <code class="docutils literal notranslate"><span class="pre">deal_first_two_cards</span></code> isn’t going to be very complicated, and you may feel like you could write it easily right away. Or you may not even feel like you need a separate function for the task! For this exercise, though, let’s practice top-down design by putting it in its own function. And don’t worry, you’ll find the other functions you need to write definitely warrant a function of their own.</p>
 <p>So with that definition written, I’d go back to the <code class="docutils literal notranslate"><span class="pre">play_blackjack</span></code> and think about what would go next. In this case, for example, I could deal the cards for the Dealer:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Main function that plays a hand of blackjack&quot;&quot;&quot;</span>
 
     <span class="c1"># Step one: deal out first cards</span>
-    <span class="n">players_score</span> <span class="o">=</span> <span class="n">deal_cards</span><span class="p">(</span><span class="n">players_deck</span><span class="p">)</span>
-    <span class="n">dealers_score</span> <span class="o">=</span> <span class="n">deal_cards</span><span class="p">(</span><span class="n">dealers_deck</span><span class="p">)</span>
+    <span class="n">players_score</span> <span class="o">=</span> <span class="n">deal_first_two_cards</span><span class="p">(</span><span class="n">players_deck</span><span class="p">)</span>
+    <span class="n">dealers_score</span> <span class="o">=</span> <span class="n">deal_first_two_cards</span><span class="p">(</span><span class="n">dealers_deck</span><span class="p">)</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
@@ -819,12 +819,12 @@ document.write(`
 <h3>Functions to Write<a class="headerlink" href="#functions-to-write" title="Link to this heading">#</a></h3>
 <p>As mentioned above, there are three primary things that happen in blackjack:</p>
 <ol class="arabic simple">
-<li><p>Dealing the cards</p></li>
-<li><p>Playing out a round (where a person chooses how many extra cards they want, if any (hit or stay)).</p></li>
-<li><p>Deciding who wins.</p></li>
+<li><p>The first two cards are dealt to each player.</p></li>
+<li><p>Each person decides whether to hit or stay (and potentially hit multiple times).</p></li>
+<li><p>The winner is determined.</p></li>
 </ol>
-<p>We’ve already discussed writing a function for the first task — <code class="docutils literal notranslate"><span class="pre">deal_cards</span></code>. You will probably want to write to more functions — say, <code class="docutils literal notranslate"><span class="pre">play_round</span></code> and <code class="docutils literal notranslate"><span class="pre">determine_winner</span></code> — for the other two activities.</p>
-<p>Of these, <code class="docutils literal notranslate"><span class="pre">play_round</span></code> will be the most complicated, since a person gets to decide whether to stop (“stay”) or take another card (“hit”). If they hit, you then have to determine if they want to stay or hit again, etc.</p>
+<p>We’ve already discussed writing a function for the first task — <code class="docutils literal notranslate"><span class="pre">deal_first_two_cards</span></code>. You will probably want to write to more functions — say, <code class="docutils literal notranslate"><span class="pre">hit_or_stay</span></code> and <code class="docutils literal notranslate"><span class="pre">determine_winner</span></code> — for the other two activities.</p>
+<p>Of these, <code class="docutils literal notranslate"><span class="pre">hit_or_stay</span></code> will be the most complicated, since a person gets to decide whether to stop (“stay”) or take another card (“hit”). If they hit, you then have to determine if they want to stay or hit again, etc.</p>
 </section>
 </section>
 <section id="hints">
