@@ -611,6 +611,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-code">The Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-things-in-this-code">New Things in This Code</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isinstance"><code class="docutils literal notranslate"><span class="pre">isinstance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-without-else">if without else</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-except-blocks">try-except Blocks</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-name-main"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">"__main__":</span></code></a></li>
 </ul>
@@ -630,12 +631,11 @@ document.write(`
 <h1>Practicing Diagramming Functions<a class="headerlink" href="#practicing-diagramming-functions" title="Link to this heading">#</a></h1>
 <p>In this exercise, you will be provided a block of code and asked to diagram its execution on a whiteboard. The goal of this exercise is to get practice thinking through how Python executes functions and how values are passed among functions.</p>
 <p>In particular, we would like you to write out function stack diagrams like those illustrated in the Coursera video on Functions:</p>
-<p><a class="reference download internal" download="" href="../../_downloads/dd04fd5cd74e2636823ec7cc6726235a/stack_diagrams_example.png"><span class="xref download myst"><img src="images/stack_diagrams_example.png" width="350"/></span></a></p>
+<p><img alt="stack diagrams" src="../../_images/stack_diagrams_example.png" /></p>
 <section id="the-code">
 <h2>The Code<a class="headerlink" href="#the-code" title="Link to this heading">#</a></h2>
 <p>Below you will find the code we wish for you to execute and diagram. Please be sure to also read below the code for some additional notes on its content.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
         <span class="n">warning</span> <span class="o">=</span> <span class="s2">&quot;f(7) is illegal&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span>
@@ -649,6 +649,11 @@ document.write(`
         <span class="k">return</span> <span class="n">report</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Be aware:</span>
+            <span class="c1"># you can use `+` with two strings</span>
+            <span class="c1"># you can use `+` with two numbers</span>
+            <span class="c1"># you can&#39;t use `+` with an integer and a string.</span>
+            <span class="c1"># Doing so gives an error.</span>
             <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">42</span>
@@ -659,7 +664,13 @@ document.write(`
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">args</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]:</span>
+    <span class="n">list_of_args</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+
+    <span class="c1"># This will loop over the list `list_of_args`.</span>
+    <span class="c1"># The first pass, `args` will become the first entry in the list,</span>
+    <span class="c1"># which is the tuple (1, 2). The second pass, `args` will become</span>
+    <span class="c1"># the tuple `(&quot;hello&quot;, 4)`.</span>
+    <span class="k">for</span> <span class="n">args</span> <span class="ow">in</span> <span class="n">list_of_args</span><span class="p">:</span>
         <span class="n">i</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">j</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;i = </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, j = </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -668,6 +679,7 @@ document.write(`
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
+
 </pre></div>
 </div>
 </section>
@@ -700,6 +712,42 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="if-without-else">
+<h3>if without else<a class="headerlink" href="#if-without-else" title="Link to this heading">#</a></h3>
+<p>In most examples we’ve seen, <code class="docutils literal notranslate"><span class="pre">if</span></code> has always appears alongside <code class="docutils literal notranslate"><span class="pre">else</span></code>. However, <code class="docutils literal notranslate"><span class="pre">else</span></code> is always optional with <code class="docutils literal notranslate"><span class="pre">if</span></code>. If <code class="docutils literal notranslate"><span class="pre">if</span></code> appears without an <code class="docutils literal notranslate"><span class="pre">else</span></code>, the indented code beneath <code class="docutils literal notranslate"><span class="pre">if</span></code> will run if the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement is <code class="docutils literal notranslate"><span class="pre">True</span></code>, and it will be skipped if not. Then execution returns to normal.</p>
+<p>So:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">x</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I only run if x is true&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I&#39;m outside the if so always run&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I only run if x is true
+I&#39;m outside the if so always run
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">if</span> <span class="n">x</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I only run if x is true&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I&#39;m outside the `if` block so always run&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I&#39;m outside the if so always run
 </pre></div>
 </div>
 </div>
@@ -804,6 +852,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-code">The Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-things-in-this-code">New Things in This Code</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isinstance"><code class="docutils literal notranslate"><span class="pre">isinstance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-without-else">if without else</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-except-blocks">try-except Blocks</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-name-main"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">"__main__":</span></code></a></li>
 </ul>

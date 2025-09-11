@@ -12,6 +12,11 @@ def g(x, y):
         return report
     else:
         try:
+            # Be aware:
+            # you can use `+` with two strings
+            # you can use `+` with two numbers
+            # you can't use `+` with an integer and a string.
+            # Doing so gives an error.
             return x + f(y)
         except:
             return 42
