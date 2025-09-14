@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Maximum Value in a List &#8212; Practical Data Science with Python</title>
+    <title>Defining a Circle Class &#8212; Practical Data Science with Python</title>
   
   
   
@@ -70,7 +70,9 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/40_listmax';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/70_circle';</script>
     <link rel="icon" href="../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -484,7 +486,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/40_listmax.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/70_circle.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -514,7 +516,7 @@
       
       
       
-      <li><a href="../../_sources/ids590_specific/exercises_590/40_listmax.ipynb" target="_blank"
+      <li><a href="../../_sources/ids590_specific/exercises_590/70_circle.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -598,7 +600,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Maximum Value in a List</h1>
+    <h1>Defining a Circle Class</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -608,10 +610,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-code-for-list-max">Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-locally">Test Locally</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-to-gradescope">Submit to Gradescope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bringing-in-your-point-class">Bringing In Your Point Class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circle-requirements">Circle Requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-intersection-area">Calculating Intersection Area</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaffolding">Scaffolding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-to-coursera">Submitting to Coursera</a></li>
 </ul>
             </nav>
         </div>
@@ -623,52 +629,128 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="maximum-value-in-a-list">
-<h1>Maximum Value in a List<a class="headerlink" href="#maximum-value-in-a-list" title="Link to this heading">#</a></h1>
-<p>In this exercise, you will be writing a function to find the largest item in a list.</p>
-<p>Obviously, Python has a built in <code class="docutils literal notranslate"><span class="pre">max()</span></code> function, but the point here is to practice with list operations, not to use that function.</p>
-<p>(Also, be aware that the Python library function <code class="docutils literal notranslate"><span class="pre">max()</span></code> behaves differently for an empty list or <code class="docutils literal notranslate"><span class="pre">None</span></code>, but we have not covered exceptions yet, so <code class="docutils literal notranslate"><span class="pre">list_max</span></code> will have slightly different behavior for these corner cases.)</p>
-<section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<p>In VS Code, create a file called <code class="docutils literal notranslate"><span class="pre">list_max.py</span></code>.</p>
-<p>Place the following scaffolding into that file.</p>
-<p>Note that in this scaffolding we have chosen not to use a <code class="docutils literal notranslate"><span class="pre">main()</span></code> function — instead, the code that in previous exercises we might have included under <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">main():</span></code> we have placed direction in the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> block. This is just another way to organize a file, and makes no difference to execution.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_max</span><span class="p">(</span><span class="n">my_list</span><span class="p">):</span>
+  <section class="tex2jax_ignore mathjax_ignore" id="defining-a-circle-class">
+<h1>Defining a <code class="docutils literal notranslate"><span class="pre">Circle</span></code> Class<a class="headerlink" href="#defining-a-circle-class" title="Link to this heading">#</a></h1>
+<p>When it works well, the idea of object-oriented programming (OOP) is for the code you write to be <em>composable</em> — that is, like Legos, you should be able to click together different things you’ve built to make something that is more than the sum of its parts.</p>
+<p>To illustrate this concept, in this class you will define a <code class="docutils literal notranslate"><span class="pre">Circle</span></code> class in a manner that builds on the Point class you wrote in your <a class="reference internal" href="#./60_points.ipynb"><span class="xref myst">previous assignment</span></a>.</p>
+<p>If creating Point or Circle objects feels esoteric or silly, don’t be fooled — being able to do geometric operations is key to a wide range of applications. Perhaps the most well known is geospatial analysis (often referred to as GIS, which is short for Geospatial Information Systems) — the science of understanding how things relate to one another spatially in the real world.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Point</span></code> and <code class="docutils literal notranslate"><span class="pre">Circle</span></code> objects are two of the primitives GIS analysts use on a daily basis. Points can represent anything from an election polling place to the location of a source of airborne pollution or a ship at sea. Circles (and tools for measuring overlaps between circles or circles and points) are used to identify people or animals within a given radius of a point, or an area that may be exposed to a certain intensity of radiation generated from a point. Indeed, in these exercises we’re basically recreating some of the primitives used in one of the most important software libraries in the Python GIS ecosystem (<a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">shapely</a>).</p>
+<section id="bringing-in-your-point-class">
+<h2>Bringing In Your Point Class<a class="headerlink" href="#bringing-in-your-point-class" title="Link to this heading">#</a></h2>
+<p>The first thing you will put at the top of your code for this assignment — which should be in a file called <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> — will be the line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">point</span> <span class="kn">import</span> <span class="n">Point</span> 
+</pre></div>
+</div>
+<p><em>Provided your <code class="docutils literal notranslate"><span class="pre">point.py</span></code> file is in the same directory as your <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> file</em>, this line will import your Point class and make it accessible from within this <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> file. You can refer to it as just <code class="docutils literal notranslate"><span class="pre">Point</span></code> (like <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">Point()</span></code>). Note that if we had just said <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">point</span></code> instead of <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">point</span> <span class="pre">import</span> <span class="pre">Point</span></code>, you would need to write <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">point.Point()</span></code> to create a point object.</p>
+<blockquote>
+<div><p>Note we have now come… <em>full circle</em> (sorry, couldn’t resist) with that <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> if statement. As mentioned before, code that is in that <code class="docutils literal notranslate"><span class="pre">if</span></code> block is only ever executed when a file is executed directly. But at the time, what it meant to <em>not</em> execute a file directly may have been unclear. Now you know! When we run <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">point</span> <span class="pre">import</span> <span class="pre">Point</span></code>, Python is running all the code in <code class="docutils literal notranslate"><span class="pre">point.py</span></code> that defines the class <code class="docutils literal notranslate"><span class="pre">Point</span></code> and its functionality so it becomes accessible inside of this <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> program. But it won’t run the tests at the bottom of <code class="docutils literal notranslate"><span class="pre">point.py</span></code> because that <code class="docutils literal notranslate"><span class="pre">if</span></code> statement does not evaluate to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</div></blockquote>
+<p><strong>When you submit your assignment to gradescope, you will need to zip <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> and <code class="docutils literal notranslate"><span class="pre">point.py</span></code> into a single <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file and upload them together since the autograder needs both files run!</strong></p>
+</section>
+<section id="circle-requirements">
+<h2>Circle Requirements<a class="headerlink" href="#circle-requirements" title="Link to this heading">#</a></h2>
+<p>For the Circle class, you will need:</p>
+<ul class="simple">
+<li><p>A Docstring summarizing the class.</p></li>
+<li><p>An <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method: takes a Point c and a floating point number r and assigns the center and radius respectively.</p>
+<ul>
+<li><p>The default values should be a point at (0, 0) and radius 1.</p></li>
+<li><p>You should assert that the radius is greater than or equal to 0. Remember that Point is a mutable type, so you do not want to actually make the default value Point(0,0) as that will cause problems (as you learned in “Default Arguments Revisited”).  Instead, you use the “default value is None, check for None, make the value you want” idiom that you learned in that reading.</p></li>
+</ul>
+</li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">__str__</span></code> method: returns a string representation of the circle. For example, a circle at (0, 0) with radius 1 would be: <code class="docutils literal notranslate"><span class="pre">&quot;((0,</span> <span class="pre">0),</span> <span class="pre">1)&quot;</span></code></p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> method: returns a more detailed string representation of the circle. For example, a circle at (0,0) with radius 1 would be: <code class="docutils literal notranslate"><span class="pre">&quot;Circle((0,</span> <span class="pre">0),</span> <span class="pre">1)&quot;</span></code></p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">move</span></code> method: takes <code class="docutils literal notranslate"><span class="pre">dx</span></code> and <code class="docutils literal notranslate"><span class="pre">dy</span></code> and moves the center of the circle accordingly. <strong>Remember, you already wrote move for Point!</strong></p></li>
+<li><p>An <code class="docutils literal notranslate"><span class="pre">intersection_area</span></code> method: takes a parameter <code class="docutils literal notranslate"><span class="pre">other_circle</span></code> and calculates the intersection of <code class="docutils literal notranslate"><span class="pre">self</span></code>, and <code class="docutils literal notranslate"><span class="pre">other_circle</span></code>.</p></li>
+</ul>
+<section id="calculating-intersection-area">
+<h3>Calculating Intersection Area<a class="headerlink" href="#calculating-intersection-area" title="Link to this heading">#</a></h3>
+<p>Remember that a question like “what is the formula for the intersection area of two circles?” indicates a lack of domain knowledge (not a lack of programming skill).  In such situations, you should consult an authoritative source in that domain.  For this problem, the following source derives the equation you need: <a class="reference external" href="https://mathworld.wolfram.com/Circle-CircleIntersection.html">https://mathworld.wolfram.com/Circle-CircleIntersection.html</a>.</p>
+<p>Specifically, you need equation (14) on that page.  You can compute <span class="math notranslate nohighlight">\(cos^{-1}(x)\)</span> with <code class="docutils literal notranslate"><span class="pre">math.acos(x)</span></code> in Python.</p>
+<p>Note that the formula described above is for the case where the circles partially overlap.  You will need to determine if the circles do not overlap at all, partially overlap, or overlap completely.  If they do not overlap at all, the intersection area is 0.  If they partially overlap, use the formula above. If they overlap completely, the intersection area is the area of the smaller circle.</p>
+<p>We recommend drawing some pictures to figure help you figure out the algorithm to decide which case two circles fall into.</p>
+</section>
+</section>
+<section id="scaffolding">
+<h2>Scaffolding<a class="headerlink" href="#scaffolding" title="Link to this heading">#</a></h2>
+<p>Please copy-paste the following code into your <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> file as a starting place.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">from</span> <span class="nn">point</span> <span class="kn">import</span> <span class="n">Point</span>
+
+
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span>
+    <span class="c1"># write a docstring here!</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># WRITE ME</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># WRITE ME</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Circle&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+        <span class="c1"># WRITE ME</span>
+        <span class="c1"># hint: you should be calling move(dx,dy)</span>
+        <span class="c1"># on the Point that is the center of the circle</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">intersection_area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_circle</span><span class="p">):</span>
+        <span class="c1"># WRITE ME</span>
+        <span class="c1"># first check if no overlap</span>
+        <span class="c1">#   if no overlap, return 0</span>
+        <span class="c1"># next check for total overlap</span>
+        <span class="c1">#   if so, return area of smaller circle</span>
+        <span class="c1"># otherwise, use Wolfram formula for partial overlap</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
     <span class="k">pass</span>
 
 
-<span class="c1"># You don&#39;t have to change this function</span>
-<span class="k">def</span> <span class="nf">do_test</span><span class="p">(</span><span class="n">my_list</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Prints out list being tested</span>
-<span class="sd">    and result of list_max()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;list_max(</span><span class="si">{</span><span class="n">my_list</span><span class="si">}</span><span class="s2">) is: </span><span class="si">{</span><span class="n">list_max</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">77</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-    <span class="n">list2</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">42</span><span class="p">,</span> <span class="o">-</span><span class="mi">99</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="o">-</span><span class="mi">999</span><span class="p">,</span> <span class="o">-</span><span class="mi">88</span><span class="p">,</span> <span class="o">-</span><span class="mi">77</span><span class="p">]</span>
-    <span class="n">list3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">425</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">36</span><span class="p">]</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list3</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">([])</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">()</span>
+    <span class="c1"># note that c2 just touches, but does not intersect c1</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">c3</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">c4</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="n">c5</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">c6</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">circles</span> <span class="o">=</span> <span class="p">[</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span><span class="p">,</span> <span class="n">c4</span><span class="p">,</span> <span class="n">c5</span><span class="p">,</span> <span class="n">c6</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">ca</span> <span class="ow">in</span> <span class="n">circles</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ca</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">ca</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">circles</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.8f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ca</span><span class="o">.</span><span class="n">intersection_area</span><span class="p">(</span><span class="n">cb</span><span class="p">)))</span>
+            <span class="k">pass</span>
+        <span class="k">pass</span>
+    <span class="n">c1</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">c2</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">c3</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ca</span> <span class="ow">in</span> <span class="n">circles</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ca</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">ca</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">circles</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.8f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ca</span><span class="o">.</span><span class="n">intersection_area</span><span class="p">(</span><span class="n">cb</span><span class="p">)))</span>
+            <span class="k">pass</span>
+        <span class="k">pass</span>
+    <span class="k">pass</span>
+
 </pre></div>
 </div>
 </section>
-<section id="write-the-code-for-list-max">
-<h2>Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code><a class="headerlink" href="#write-the-code-for-list-max" title="Link to this heading">#</a></h2>
-<p>Fill in <code class="docutils literal notranslate"><span class="pre">list_max</span></code> so it returns the largest element in the list passed in. If the list has no elements or is <code class="docutils literal notranslate"><span class="pre">None</span></code>, this function should return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading">#</a></h2>
+<p>As within <code class="docutils literal notranslate"><span class="pre">point.py</span></code>, this file includes some basic tests at the end of <a class="reference external" href="http://circle.py">circle.py</a>. The expected output is folded below.  As usual, you are encouraged to do more testing to become confident in your code.</p>
 </section>
-<section id="test-locally">
-<h2>Test Locally<a class="headerlink" href="#test-locally" title="Link to this heading">#</a></h2>
-<p>Run your code to see if you get results from the tests in <code class="docutils literal notranslate"><span class="pre">main</span></code> are <code class="docutils literal notranslate"><span class="pre">99</span></code>, <code class="docutils literal notranslate"><span class="pre">-3</span></code>, <code class="docutils literal notranslate"><span class="pre">425</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, and <code class="docutils literal notranslate"><span class="pre">None</span></code> for the five tests provided.</p>
-</section>
-<section id="submit-to-gradescope">
-<h2>Submit to Gradescope<a class="headerlink" href="#submit-to-gradescope" title="Link to this heading">#</a></h2>
-<p>Submit your code to gradescope! As always, we’ll be testing against arguments that are different from the ones you can look at here, that suggests you have an issue that these cases didn’t catch but which does exist.</p>
+<section id="submitting-to-coursera">
+<h2>Submitting to Coursera<a class="headerlink" href="#submitting-to-coursera" title="Link to this heading">#</a></h2>
+<p>Because your <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> file imports from your <code class="docutils literal notranslate"><span class="pre">point.py</span></code> file, you must submit these two files together. To do so, please select both, right-click and zip them into a <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file and upload that <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file to Gradescope.</p>
 </section>
 </section>
 
@@ -718,10 +800,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-code-for-list-max">Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-locally">Test Locally</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-to-gradescope">Submit to Gradescope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bringing-in-your-point-class">Bringing In Your Point Class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circle-requirements">Circle Requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-intersection-area">Calculating Intersection Area</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaffolding">Scaffolding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-to-coursera">Submitting to Coursera</a></li>
 </ul>
   </nav></div>
 

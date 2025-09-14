@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Maximum Value in a List &#8212; Practical Data Science with Python</title>
+    <title>Counting Words in a Text &#8212; Practical Data Science with Python</title>
   
   
   
@@ -70,7 +70,7 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/40_listmax';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/80_countwords';</script>
     <link rel="icon" href="../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -484,7 +484,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/40_listmax.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/80_countwords.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -514,7 +514,7 @@
       
       
       
-      <li><a href="../../_sources/ids590_specific/exercises_590/40_listmax.ipynb" target="_blank"
+      <li><a href="../../_sources/ids590_specific/exercises_590/80_countwords.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -598,7 +598,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Maximum Value in a List</h1>
+    <h1>Counting Words in a Text</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -608,10 +608,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-code-for-list-max">Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-locally">Test Locally</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-to-gradescope">Submit to Gradescope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2">Step 2:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3">Step 3:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4">Step 4</a></li>
 </ul>
             </nav>
         </div>
@@ -623,52 +623,67 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="maximum-value-in-a-list">
-<h1>Maximum Value in a List<a class="headerlink" href="#maximum-value-in-a-list" title="Link to this heading">#</a></h1>
-<p>In this exercise, you will be writing a function to find the largest item in a list.</p>
-<p>Obviously, Python has a built in <code class="docutils literal notranslate"><span class="pre">max()</span></code> function, but the point here is to practice with list operations, not to use that function.</p>
-<p>(Also, be aware that the Python library function <code class="docutils literal notranslate"><span class="pre">max()</span></code> behaves differently for an empty list or <code class="docutils literal notranslate"><span class="pre">None</span></code>, but we have not covered exceptions yet, so <code class="docutils literal notranslate"><span class="pre">list_max</span></code> will have slightly different behavior for these corner cases.)</p>
-<section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<p>In VS Code, create a file called <code class="docutils literal notranslate"><span class="pre">list_max.py</span></code>.</p>
-<p>Place the following scaffolding into that file.</p>
-<p>Note that in this scaffolding we have chosen not to use a <code class="docutils literal notranslate"><span class="pre">main()</span></code> function — instead, the code that in previous exercises we might have included under <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">main():</span></code> we have placed direction in the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> block. This is just another way to organize a file, and makes no difference to execution.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_max</span><span class="p">(</span><span class="n">my_list</span><span class="p">):</span>
-    <span class="k">pass</span>
-
-
-<span class="c1"># You don&#39;t have to change this function</span>
-<span class="k">def</span> <span class="nf">do_test</span><span class="p">(</span><span class="n">my_list</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Prints out list being tested</span>
-<span class="sd">    and result of list_max()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;list_max(</span><span class="si">{</span><span class="n">my_list</span><span class="si">}</span><span class="s2">) is: </span><span class="si">{</span><span class="n">list_max</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">77</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-    <span class="n">list2</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">42</span><span class="p">,</span> <span class="o">-</span><span class="mi">99</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="o">-</span><span class="mi">999</span><span class="p">,</span> <span class="o">-</span><span class="mi">88</span><span class="p">,</span> <span class="o">-</span><span class="mi">77</span><span class="p">]</span>
-    <span class="n">list3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">425</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">36</span><span class="p">]</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list3</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">([])</span>
+  <section class="tex2jax_ignore mathjax_ignore" id="counting-words-in-a-text">
+<h1>Counting Words in a Text<a class="headerlink" href="#counting-words-in-a-text" title="Link to this heading">#</a></h1>
+<p>For this assignment, you will write a program that counts how many times each word appears in a text file and prints out the results. For example, in one of the files we will provide you — <code class="docutils literal notranslate"><span class="pre">caesar.txt</span></code>, which is part of the text of Julius Caesar — you will find that the word “caesar” appears 34 times (ignoring case).</p>
+<p>As you have not yet learned to read files, we have provided the count_file function to you:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">count_file</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">count_words</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+    <span class="n">print_results</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function makes an empty dictionary, and then reads each line in a file, calling your <code class="docutils literal notranslate"><span class="pre">count_words</span></code> function and to update the dictionary which maps words to their counts.  When it finishes with the file, it calls your print_results function to print out the final results.</p>
+<section id="step-1">
+<h2>Step 1:<a class="headerlink" href="#step-1" title="Link to this heading">#</a></h2>
+<p>Write the function <code class="docutils literal notranslate"><span class="pre">count_words(counts,</span> <span class="pre">line)</span></code> which takes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">counts</span></code>: a dictionary that maps words to how many times they appear, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">line</span></code>: a string, which you should split into words and, for each word you see, update counts to reflect that occurrence of the word.</p></li>
+</ul>
+<p>This function should return the updated “counts” dictionary.</p>
+<p>A few hints:</p>
+<ul>
+<li><p>Python strings come with a number of standard methods for string manipulation <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#string-methods">you can read about here</a>.</p>
+<ul class="simple">
+<li><p>Of particular interest for this exercise is probably the <code class="docutils literal notranslate"><span class="pre">.split()</span></code> method (e.g., <code class="docutils literal notranslate"><span class="pre">my_string.split()</span></code>). <code class="docutils literal notranslate"><span class="pre">.split()</span></code> splits string into a list of sub-strings where it makes a split anywhere it sees whitespace (like a space or newline). So in:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_string</span> <span class="o">=</span> <span class="s2">&quot;hello world!&quot;</span>
+<span class="n">my_string</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>will return <code class="docutils literal notranslate"><span class="pre">[&quot;hello&quot;,</span> <span class="pre">&quot;world!&quot;]</span></code>.</p>
+</li>
+<li><p>We have provided a simple “print_results” which just prints <code class="docutils literal notranslate"><span class="pre">counts</span></code>: you can use it to test your <code class="docutils literal notranslate"><span class="pre">count_words</span></code> function before you proceed.</p></li>
+</ul>
+</section>
+<section id="step-2">
+<h2>Step 2:<a class="headerlink" href="#step-2" title="Link to this heading">#</a></h2>
+<p>If you look at the results of <code class="docutils literal notranslate"><span class="pre">count_words</span></code>, you will see that sometimes we end up with words like <code class="docutils literal notranslate"><span class="pre">&quot;now,&quot;</span></code> (with a comma) which really just should be <code class="docutils literal notranslate"><span class="pre">&quot;now&quot;</span></code>. Likewise, <code class="docutils literal notranslate"><span class="pre">&quot;The&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;the&quot;</span></code> are counted as two separate words.</p>
+<p>You can improve on your <code class="docutils literal notranslate"><span class="pre">count_words</span></code> by using the following two string methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">string.strip(&quot;-?.!,[]—:;'\&quot;&quot;)</span></code>: will return a string with any leading or trailing occurrences of any of the characters <code class="docutils literal notranslate"><span class="pre">-?.!,[]—:;&quot;'</span></code> removed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">string.lower()</span></code> will return string with all characters converted to lower case letters. (there is also a <code class="docutils literal notranslate"><span class="pre">.upper()</span></code> to go the other way if you ever need).</p></li>
+</ul>
+</section>
+<section id="step-3">
+<h2>Step 3:<a class="headerlink" href="#step-3" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">print_results</span></code> currently just prints the dictionary using its built in conversion to a string. That is fine for testing, but not a great output format.</p>
+<p>For this step, you should replace the code in <code class="docutils literal notranslate"><span class="pre">print_results</span></code> so that it prints out each word and its corresponding count, 1 per line, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ow">and</span> <span class="p">:</span> <span class="mi">59</span>
+<span class="n">a</span> <span class="p">:</span> <span class="mi">27</span>
+<span class="n">the</span> <span class="p">:</span> <span class="mi">72</span>
+<span class="n">caesar</span> <span class="p">:</span> <span class="mi">34</span>
 </pre></div>
 </div>
 </section>
-<section id="write-the-code-for-list-max">
-<h2>Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code><a class="headerlink" href="#write-the-code-for-list-max" title="Link to this heading">#</a></h2>
-<p>Fill in <code class="docutils literal notranslate"><span class="pre">list_max</span></code> so it returns the largest element in the list passed in. If the list has no elements or is <code class="docutils literal notranslate"><span class="pre">None</span></code>, this function should return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
-</section>
-<section id="test-locally">
-<h2>Test Locally<a class="headerlink" href="#test-locally" title="Link to this heading">#</a></h2>
-<p>Run your code to see if you get results from the tests in <code class="docutils literal notranslate"><span class="pre">main</span></code> are <code class="docutils literal notranslate"><span class="pre">99</span></code>, <code class="docutils literal notranslate"><span class="pre">-3</span></code>, <code class="docutils literal notranslate"><span class="pre">425</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, and <code class="docutils literal notranslate"><span class="pre">None</span></code> for the five tests provided.</p>
-</section>
-<section id="submit-to-gradescope">
-<h2>Submit to Gradescope<a class="headerlink" href="#submit-to-gradescope" title="Link to this heading">#</a></h2>
-<p>Submit your code to gradescope! As always, we’ll be testing against arguments that are different from the ones you can look at here, that suggests you have an issue that these cases didn’t catch but which does exist.</p>
+<section id="step-4">
+<h2>Step 4<a class="headerlink" href="#step-4" title="Link to this heading">#</a></h2>
+<p>For this final step, you will make your output a little nicer even still by sorting it by the words, so that they are in alphabetical order. To accomplish this, you will want to put the items from the dictionary into a list, then use <code class="docutils literal notranslate"><span class="pre">thatlist.sort()</span></code>.</p>
+<p>However, you will need to pass an extra parameter to .sort() to get the behavior you desire.  Check out <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list.sort">the documentation</a> for .sort()  to find out how to sort by the words (which should be a particular item in a tuple).
+You may wish to make use of the other files in /usr/local/mids/words to test out your program.</p>
 </section>
 </section>
 
@@ -718,10 +733,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-code-for-list-max">Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-locally">Test Locally</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-to-gradescope">Submit to Gradescope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2">Step 2:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3">Step 3:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4">Step 4</a></li>
 </ul>
   </nav></div>
 

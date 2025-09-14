@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Maximum Value in a List &#8212; Practical Data Science with Python</title>
+    <title>Defining a Point Class &#8212; Practical Data Science with Python</title>
   
   
   
@@ -70,7 +70,7 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/40_listmax';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/60_point';</script>
     <link rel="icon" href="../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -484,7 +484,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/40_listmax.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/60_point.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -514,7 +514,7 @@
       
       
       
-      <li><a href="../../_sources/ids590_specific/exercises_590/40_listmax.ipynb" target="_blank"
+      <li><a href="../../_sources/ids590_specific/exercises_590/60_point.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -598,7 +598,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Maximum Value in a List</h1>
+    <h1>Defining a Point Class</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -608,10 +608,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-code-for-list-max">Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-locally">Test Locally</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-to-gradescope">Submit to Gradescope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-attributes-to-define">Class Attributes To Define</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dunder-methods">Dunder Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaffolding-and-tests">Scaffolding and Tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output</a></li>
 </ul>
             </nav>
         </div>
@@ -623,52 +625,188 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="maximum-value-in-a-list">
-<h1>Maximum Value in a List<a class="headerlink" href="#maximum-value-in-a-list" title="Link to this heading">#</a></h1>
-<p>In this exercise, you will be writing a function to find the largest item in a list.</p>
-<p>Obviously, Python has a built in <code class="docutils literal notranslate"><span class="pre">max()</span></code> function, but the point here is to practice with list operations, not to use that function.</p>
-<p>(Also, be aware that the Python library function <code class="docutils literal notranslate"><span class="pre">max()</span></code> behaves differently for an empty list or <code class="docutils literal notranslate"><span class="pre">None</span></code>, but we have not covered exceptions yet, so <code class="docutils literal notranslate"><span class="pre">list_max</span></code> will have slightly different behavior for these corner cases.)</p>
-<section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<p>In VS Code, create a file called <code class="docutils literal notranslate"><span class="pre">list_max.py</span></code>.</p>
-<p>Place the following scaffolding into that file.</p>
-<p>Note that in this scaffolding we have chosen not to use a <code class="docutils literal notranslate"><span class="pre">main()</span></code> function — instead, the code that in previous exercises we might have included under <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">main():</span></code> we have placed direction in the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> block. This is just another way to organize a file, and makes no difference to execution.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_max</span><span class="p">(</span><span class="n">my_list</span><span class="p">):</span>
+  <section class="tex2jax_ignore mathjax_ignore" id="defining-a-point-class">
+<h1>Defining a <code class="docutils literal notranslate"><span class="pre">Point</span></code> Class<a class="headerlink" href="#defining-a-point-class" title="Link to this heading">#</a></h1>
+<p>For this assignment, you will define a class called <code class="docutils literal notranslate"><span class="pre">Point</span></code>, which represents the x- and y-position of a point in the Cartesian plane. As such, it should have fields for <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<p>If you need help, the Python documentation is useful: <a class="reference external" href="https://docs.python.org/3/tutorial/classes.html">https://docs.python.org/3/tutorial/classes.html</a>, especially <a class="reference external" href="https://docs.python.org/3/tutorial/classes.html#a-first-look-at-classes">section 9.3</a>.</p>
+<section id="class-attributes-to-define">
+<h2>Class Attributes To Define<a class="headerlink" href="#class-attributes-to-define" title="Link to this heading">#</a></h2>
+<p>The Point class should have the following attributes and methods:</p>
+<ul class="simple">
+<li><p>A docstring summarizing the class.</p></li>
+<li><p>an <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method, which takes parameters <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> and default initializes <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> to 0.</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">move</span></code> method, which takes parameters <code class="docutils literal notranslate"><span class="pre">dx</span></code> and <code class="docutils literal notranslate"><span class="pre">dy</span></code> and moves the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> values of the point by those amounts.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">distance_from</span></code>, which takes a parameter <code class="docutils literal notranslate"><span class="pre">other_pt</span></code> and calculates its distance from the current point.</p>
+<ul>
+<li><p>Note: there are a variety of functions you might find useful in the <code class="docutils literal notranslate"><span class="pre">math</span></code> module for this.</p></li>
+</ul>
+</li>
+</ul>
+<section id="dunder-methods">
+<h3>Dunder Methods<a class="headerlink" href="#dunder-methods" title="Link to this heading">#</a></h3>
+<p>In addition to these main methods, please also define a <code class="docutils literal notranslate"><span class="pre">__str__</span></code> and a <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> method.</p>
+<p>At this point, you are probably starting to notice that there are quite a few of these weird things running around whose names start and end with double underscores. The <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method above, for example, or the <code class="docutils literal notranslate"><span class="pre">__name__</span></code> variable in that funny <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> if statement we keep adding at the end of files.</p>
+<p>In the world of Python, these are referred to as “dunder” (short for double-underscore) methods. dunder methods are special methods that Python knows to call in special circumstances.</p>
+<p>For example, if someone put <code class="docutils literal notranslate"><span class="pre">()</span></code> after the name of a class name to construct a new instance of an object (e.g., <code class="docutils literal notranslate"><span class="pre">my_point</span> <span class="pre">=</span> <span class="pre">Point()</span></code>), Python will immediately look for an <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method and call that.</p>
+<p><code class="docutils literal notranslate"><span class="pre">__str__</span></code> and <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> are similar. When you call <code class="docutils literal notranslate"><span class="pre">str(x)</span></code> (or put a variable in an f-string, like <code class="docutils literal notranslate"><span class="pre">f&quot;{x}&quot;</span></code>), Python looks for an <code class="docutils literal notranslate"><span class="pre">__str__</span></code> method associated with <code class="docutils literal notranslate"><span class="pre">x</span></code> and calls that to determine what to print. If you define a <code class="docutils literal notranslate"><span class="pre">__str__</span></code> method, then users will be able to call <code class="docutils literal notranslate"><span class="pre">str(one_of_your_point_objects)</span></code> without you defining a function called <code class="docutils literal notranslate"><span class="pre">str</span></code>.</p>
+<p>Similarly, <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> is what Python calls if you just type the name of a variable in Python and hit enter to find out what it should print.</p>
+<p>So please also write a <code class="docutils literal notranslate"><span class="pre">__str__</span></code> and a <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> method for your Point class.</p>
+<ul class="simple">
+<li><p>Your <code class="docutils literal notranslate"><span class="pre">__str__</span></code> method should return the point’s coordinates as a string: <code class="docutils literal notranslate"><span class="pre">&quot;(1,</span> <span class="pre">-2)&quot;</span></code> for a <code class="docutils literal notranslate"><span class="pre">Point</span></code> object with coordinates<code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">-2)</span></code>.</p></li>
+<li><p>Your <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> method should return the Class name and coordinates: <code class="docutils literal notranslate"><span class="pre">&quot;Point(1,</span> <span class="pre">-2)&quot;</span></code> for a <code class="docutils literal notranslate"><span class="pre">Point</span></code> object with coordinates<code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">-2)</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="scaffolding-and-tests">
+<h2>Scaffolding and Tests<a class="headerlink" href="#scaffolding-and-tests" title="Link to this heading">#</a></h2>
+<p>In a file called <code class="docutils literal notranslate"><span class="pre">point.py</span></code>, please copy-paste the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+    <span class="c1"># write a docstring here for the class!</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c1"># WRITE ME</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># WRITE ME</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># WRITE ME</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+        <span class="c1"># WRITE ME</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">distance_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_pt</span><span class="p">):</span>
+        <span class="c1"># WRITE ME</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
     <span class="k">pass</span>
 
 
-<span class="c1"># You don&#39;t have to change this function</span>
-<span class="k">def</span> <span class="nf">do_test</span><span class="p">(</span><span class="n">my_list</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Prints out list being tested</span>
-<span class="sd">    and result of list_max()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;list_max(</span><span class="si">{</span><span class="n">my_list</span><span class="si">}</span><span class="s2">) is: </span><span class="si">{</span><span class="n">list_max</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">77</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-    <span class="n">list2</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">42</span><span class="p">,</span> <span class="o">-</span><span class="mi">99</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="o">-</span><span class="mi">999</span><span class="p">,</span> <span class="o">-</span><span class="mi">88</span><span class="p">,</span> <span class="o">-</span><span class="mi">77</span><span class="p">]</span>
-    <span class="n">list3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">425</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">36</span><span class="p">]</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="n">list3</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">do_test</span><span class="p">([])</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">p3</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">p4</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">p5</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">pa</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">pa</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">pb</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">distance_from</span><span class="p">(</span><span class="n">pb</span><span class="p">))</span>
+            <span class="k">pass</span>
+        <span class="k">pass</span>
+    <span class="n">p1</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">p2</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">p3</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pa</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">pa</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">pb</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">distance_from</span><span class="p">(</span><span class="n">pb</span><span class="p">))</span>
+            <span class="k">pass</span>
+        <span class="k">pass</span>
+    <span class="k">pass</span>
 </pre></div>
 </div>
 </section>
-<section id="write-the-code-for-list-max">
-<h2>Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code><a class="headerlink" href="#write-the-code-for-list-max" title="Link to this heading">#</a></h2>
-<p>Fill in <code class="docutils literal notranslate"><span class="pre">list_max</span></code> so it returns the largest element in the list passed in. If the list has no elements or is <code class="docutils literal notranslate"><span class="pre">None</span></code>, this function should return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
-</section>
-<section id="test-locally">
-<h2>Test Locally<a class="headerlink" href="#test-locally" title="Link to this heading">#</a></h2>
-<p>Run your code to see if you get results from the tests in <code class="docutils literal notranslate"><span class="pre">main</span></code> are <code class="docutils literal notranslate"><span class="pre">99</span></code>, <code class="docutils literal notranslate"><span class="pre">-3</span></code>, <code class="docutils literal notranslate"><span class="pre">425</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, and <code class="docutils literal notranslate"><span class="pre">None</span></code> for the five tests provided.</p>
-</section>
-<section id="submit-to-gradescope">
-<h2>Submit to Gradescope<a class="headerlink" href="#submit-to-gradescope" title="Link to this heading">#</a></h2>
-<p>Submit your code to gradescope! As always, we’ll be testing against arguments that are different from the ones you can look at here, that suggests you have an issue that these cases didn’t catch but which does exist.</p>
+<section id="expected-output">
+<h2>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading">#</a></h2>
+<p>When you run this code, if your implementation words, the output you get should look something like the output folded below:</p>
+<details>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="mf">0.0</span>
+<span class="mf">5.0</span>
+<span class="mf">5.0</span>
+<span class="mf">7.280109889280518</span>
+<span class="mf">18.35755975068582</span>
+<span class="o">---</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="mf">5.0</span>
+<span class="mf">0.0</span>
+<span class="mf">6.0</span>
+<span class="mf">4.47213595499958</span>
+<span class="mf">16.97056274847714</span>
+<span class="o">---</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="mf">5.0</span>
+<span class="mf">6.0</span>
+<span class="mf">0.0</span>
+<span class="mf">10.198039027185569</span>
+<span class="mf">13.416407864998739</span>
+<span class="o">---</span>
+<span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="mf">7.280109889280518</span>
+<span class="mf">4.47213595499958</span>
+<span class="mf">10.198039027185569</span>
+<span class="mf">0.0</span>
+<span class="mf">21.2602916254693</span>
+<span class="o">---</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="mf">18.35755975068582</span>
+<span class="mf">16.97056274847714</span>
+<span class="mf">13.416407864998739</span>
+<span class="mf">21.2602916254693</span>
+<span class="mf">0.0</span>
+<span class="o">---</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="mf">0.0</span>
+<span class="mf">6.0</span>
+<span class="mf">2.0</span>
+<span class="mf">6.082762530298219</span>
+<span class="mf">18.027756377319946</span>
+<span class="o">---</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="mf">6.0</span>
+<span class="mf">0.0</span>
+<span class="mf">8.0</span>
+<span class="mf">7.810249675906654</span>
+<span class="mf">13.45362404707371</span>
+<span class="o">---</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="mf">2.0</span>
+<span class="mf">8.0</span>
+<span class="mf">0.0</span>
+<span class="mf">6.708203932499369</span>
+<span class="mf">19.72308292331602</span>
+<span class="o">---</span>
+<span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="mf">6.082762530298219</span>
+<span class="mf">7.810249675906654</span>
+<span class="mf">6.708203932499369</span>
+<span class="mf">0.0</span>
+<span class="mf">21.2602916254693</span>
+<span class="o">---</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="mf">18.027756377319946</span>
+<span class="mf">13.45362404707371</span>
+<span class="mf">19.72308292331602</span>
+<span class="mf">21.2602916254693</span>
+<span class="mf">0.0</span>
+</pre></div>
+</div>
+</details>
+<p>You can review the directions in the <a class="reference internal" href="#./50_hearrate_peak.ipynb"><span class="xref myst">hearrate_peak</span></a> exercise for how to compare outputs efficiently with <code class="docutils literal notranslate"><span class="pre">diff</span></code> if you need.</p>
 </section>
 </section>
 
@@ -718,10 +856,12 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-code-for-list-max">Write the Code for <code class="docutils literal notranslate"><span class="pre">list_max</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-locally">Test Locally</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-to-gradescope">Submit to Gradescope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-attributes-to-define">Class Attributes To Define</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dunder-methods">Dunder Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaffolding-and-tests">Scaffolding and Tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output</a></li>
 </ul>
   </nav></div>
 
