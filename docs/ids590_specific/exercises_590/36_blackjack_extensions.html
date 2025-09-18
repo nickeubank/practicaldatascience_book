@@ -633,6 +633,34 @@ document.write(`
 <p>One major simplification we applied to Blackjack was to assume the game did not use any aces. Aces are complicated because their value can be <em>either</em> 11 or 1, depending on the value of the other cards in a player’s hand.</p>
 <p>If a player has a hand with an Ace in it, the card will be worth 11 <em>unless</em> treating the Ace as 11 results in the player busting (going over 21), in which case the Ace is valued as 1. So in a hand that has a 10, a 7, and an Ace, the hand will be valued at 18. But in a hand with a 10 and an Ace, the hand is valued at 21.</p>
 <p>The value of an ace is also not fixed within a game. If a player has an Ace in their first two cards, it will always be valued at 11 initially (you can’t bust with two cards). So a hand with a 7 and an Ace is worth 18. But if the player then hits and gets a 7, then the Ace becomes a 1 and the hand is worth 7 + 7 + 1 = 15.</p>
+<p>Here’s a couple test cases you can use to validate your results (that assume you’re using the string <code class="docutils literal notranslate"><span class="pre">&quot;A&quot;</span></code> for aces):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Test Case 7: Player gets blackjack (21), wins.&quot;</span><span class="p">)</span>
+
+<span class="n">players_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">dealers_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The winner should be Player.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Winner from the function was </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Test Case 8: Player gets to 21.&quot;</span><span class="p">)</span>
+
+<span class="n">players_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="n">dealers_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The winner should be Player.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Winner from the function was </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Test Case 8: Dealer gets to 21.&quot;</span><span class="p">)</span>
+
+<span class="n">players_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="n">dealers_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The winner should be Dealer.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Winner from the function was </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+</pre></div>
+</div>
 </section>
 <section id="monte-carlo-simulation">
 <h2>Monte Carlo Simulation<a class="headerlink" href="#monte-carlo-simulation" title="Link to this heading">#</a></h2>
@@ -658,6 +686,9 @@ document.write(`
 </div>
 </div>
 </div>
+<blockquote>
+<div><p>If you play without aces, and stick to the rules from the original exercises, then you should find the Player wins about 40% of the time.</p>
+</div></blockquote>
 <p>So to do ONE simulation, you’d need to draw enough cards to make a deck for each player, play the game, and save the result.</p>
 <p>Then you’d want to do that a few thousand times.</p>
 </section>
