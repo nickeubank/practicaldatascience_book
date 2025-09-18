@@ -608,9 +608,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Blackjack Extensions</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aces">Aces</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-simulation">Monte Carlo Simulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-simulation">Monte Carlo Simulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulating-decks-of-cards">Simulating Decks of Cards</a></li>
 </ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-a-random-integer-between-2-and-14-inclusive">Generate a random integer between 2 and 14 (inclusive)</a></li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -633,11 +641,20 @@ document.write(`
 <section id="monte-carlo-simulation">
 <h2>Monte Carlo Simulation<a class="headerlink" href="#monte-carlo-simulation" title="Link to this heading">#</a></h2>
 <p>The second extension to Blackjack is to try simulating lots of games of Blackjack to figure out how often the Player is likely to win given the decision rule we chose (hit if less than or equal to 16).</p>
-<p>This is an example of what’s called a <em>Monte Carlo Simulation</em>. Monte Carlo simulation is as it has a wide variety of uses outside of card games, as there are a lot of scenarios where calculating the exact outcomes directly are hard to impossible, but estimating them with randomness works well.</p>
-<p>For example, suppose you wanted to predict the outcome of an election.  You might have a lot of data from various polls, unemployment numbers, or other factors.  However, even the best data analysis would have a very hard time accurately predicting what will happen as there are many unknowns.   Instead, you might use this information to build a model with random factors built in, and perform several evaluations of the model, picking different random values each time.   If your model is well design, and the input data is good (or you do a good job of weighting the input data based on how good it is), then your model will give a good estimation of the probability of each candidate winning the election.  In the United States, there is a website called Five Thirty Eight, which has used this technique (and a lot of data) to make predictions on elections and sporting events.</p>
-<p>Another example is in predicting financial returns on investments.   I have a retirement account, where the money is invested in stocks and bonds.  The financial company has a tool on their website where I can select an age to retire, and it predicts how much money I will be able to take each month from my retirement accounts.  The stock market is a complex and difficult to predict system, so they are almost certainly running a Monte Carlo simulation: taking data about what I have in my account, what I contribute to them each month, what the stock market has done in the past, and whatever else they can put into it, and simulating a lot of random variations to come up with an answer.</p>
-<p>These are just a few examples of Monte Carlo simulations beyond card games.  They also get used in a variety of other fields.   We aren’t going to go deep into details of various applications, nor more complex models. However, we wanted you to know that this general technique has a lot of uses in predicting complex systems across a wide variety of domains.</p>
+<p>This is an example of what’s called a <em>Monte Carlo Simulation</em>. Monte Carlo simulations are a commonly used tool for estimating conditional probabilities empirically in situations where it would be really difficult to determine them analytically (i.e., by writing out “probability of outcome x if y” times “probability of y if z”, etc.). Basically, you look for something that’s easy to simulate (like creating random decks of cards), then you do that thousands of times and play your games of blackjack with the simulated decks. If you then look at how often Player or Dealer wins, then assuming your programmed the game correctly and simulated decks of cards correctly, then by the law of large numbers your empirical distribution of outcomes will be a good estimate of the “true” likelihood of Player or Dealer winning given the strategies they use.</p>
+<p>Monte Carlo simulations are used in finance, sports, engineering, forecasting, climate modelling, politics, and much more.</p>
+<section id="simulating-decks-of-cards">
+<h3>Simulating Decks of Cards<a class="headerlink" href="#simulating-decks-of-cards" title="Link to this heading">#</a></h3>
+<p>A deck of cards has 13 unique card values (2-10, Jack, Queen, King, Ace), each in four suits. Since we don’t care about suits in this class, you can simulate a deck of cards by randomly drawing integers with uniform (equal) probabilities between 2 and 14. Then, since face cards are all worth ten, you can convert values of 11, 12, 13 (the Jacks, Queens, and Kings) to 10 (their value in Blackjack). You can then either drop values of 14 (if you aren’t using Aces), or treat 14 as an Ace (if you did the first extension).</p>
+<p>To generate random cards, use the <code class="docutils literal notranslate"><span class="pre">randint</span></code> function from the <code class="docutils literal notranslate"><span class="pre">random</span></code> library:</p>
+<p>import random</p>
 </section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="generate-a-random-integer-between-2-and-14-inclusive">
+<h1>Generate a random integer between 2 and 14 (inclusive)<a class="headerlink" href="#generate-a-random-integer-between-2-and-14-inclusive" title="Link to this heading">#</a></h1>
+<p>card = random.randint(2, 14)
+print(card)</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -686,9 +703,17 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Blackjack Extensions</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aces">Aces</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-simulation">Monte Carlo Simulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-simulation">Monte Carlo Simulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulating-decks-of-cards">Simulating Decks of Cards</a></li>
 </ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-a-random-integer-between-2-and-14-inclusive">Generate a random integer between 2 and 14 (inclusive)</a></li>
+</ul>
+
   </nav></div>
 
 </div></div>
