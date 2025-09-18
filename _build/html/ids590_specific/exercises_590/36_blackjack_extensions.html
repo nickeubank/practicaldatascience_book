@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Top-Down Designing a Game of Blackjack &#8212; Practical Data Science with Python</title>
+    <title>Blackjack Extensions &#8212; Practical Data Science with Python</title>
   
   
   
@@ -70,7 +70,7 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/35_blackjack';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/36_blackjack_extensions';</script>
     <link rel="icon" href="../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -484,7 +484,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/35_blackjack.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/36_blackjack_extensions.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -514,7 +514,7 @@
       
       
       
-      <li><a href="../../_sources/ids590_specific/exercises_590/35_blackjack.ipynb" target="_blank"
+      <li><a href="../../_sources/ids590_specific/exercises_590/36_blackjack_extensions.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -598,7 +598,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Top-Down Designing a Game of Blackjack</h1>
+    <h1>Blackjack Extensions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -608,19 +608,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-blackjack-works">How Blackjack works</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#our-version-of-blackjack">Our Version of Blackjack</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#starter-code">Starter Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-name-main"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">"__main__"</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exercise">The Exercise</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-to-write">Functions to Write</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hints">Hints</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting">Submitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#done-want-more">Done? Want More?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aces">Aces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-simulation">Monte Carlo Simulation</a></li>
 </ul>
             </nav>
         </div>
@@ -632,223 +621,22 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="top-down-designing-a-game-of-blackjack">
-<h1>Top-Down Designing a Game of Blackjack<a class="headerlink" href="#top-down-designing-a-game-of-blackjack" title="Link to this heading">#</a></h1>
-<p>In this exercise, you will be writing a program to play the card game Blackjack. This will give you an opportunity to practice how you can take a big problem and break it into smaller part.</p>
-<section id="how-blackjack-works">
-<h2>How Blackjack works<a class="headerlink" href="#how-blackjack-works" title="Link to this heading">#</a></h2>
-<p>If you are unfamiliar with Blackjack, it works as follows:</p>
-<ul class="simple">
-<li><p>Blackjack is a card game where the objective is to receive cards that total as close or equal to 21 as possible without going <em>over 21</em>.</p></li>
-<li><p>The game is played by two people: a Player and a Dealer.</p></li>
-<li><p>Cards are scored as follows:</p>
-<ul>
-<li><p>Numbered cards have the value of their number (3 of hearts is worth three, 7 of clubs is worth 7, etc.).</p></li>
-<li><p>Face cards (Jack, Queen, King) have a value of 10.</p></li>
-<li><p>Aces have a value of the 11, unless that causes the Player to have a score above 21, at which point the ace has a value of 1.</p></li>
-<li><p>The suit of the card has no impact.</p></li>
-</ul>
-</li>
-<li><p>Initially, both the Player and the Dealer are dealt two cards from the deck. The Player’s cards are dealt face up, while one of the Dealer’s cards is face up and the other is face down.</p></li>
-<li><p>The Player gets to decide whether they would like to get another card from the deck to improve their score with the hope of not going above 21. Taking another card is called a “hit”.  Players may take as many additional cards as they like as long as they do not go above 21.</p></li>
-<li><p>Going above 21 is called a “bust” and the Player immediately loses.</p></li>
-<li><p>When the Player decides to not take any additional cards, that is called a “stay”.</p></li>
-<li><p>After the Player has “stayed” (assuming they did not bust), the Dealer reveals their second card.  If the value of the Dealer’s hand is less than 17, the Dealer <strong>must</strong> take additional cards until the total value is 17 or greater. <strong>So the Player takes an extra card if their hand is 16 or less, the Dealer takes a card if their hand is 17 or less.</strong></p></li>
-<li><p>If the Dealer busts, or stops with a total less than the Player, the Player wins. The Dealer wins any tie.</p></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="blackjack-extensions">
+<h1>Blackjack Extensions<a class="headerlink" href="#blackjack-extensions" title="Link to this heading">#</a></h1>
+<p>If you’ve completed the <a class="reference internal" href="35_blackjack.html"><span class="std std-doc">Blackjack exercise</span></a> but are interested in getting more practice, here are two extensions you can try.</p>
+<section id="aces">
+<h2>Aces<a class="headerlink" href="#aces" title="Link to this heading">#</a></h2>
+<p>One major simplification we applied to Blackjack was to assume the game did not use any aces. Aces are complicated because their value can be <em>either</em> 11 or 1, depending on the value of the other cards in a player’s hand.</p>
+<p>If a player has a hand with an Ace in it, the card will be worth 11 <em>unless</em> treating the Ace as 11 results in the player busting (going over 21), in which case the Ace is valued as 1. So in a hand that has a 10, a 7, and an Ace, the hand will be valued at 18. But in a hand with a 10 and an Ace, the hand is valued at 21.</p>
+<p>The value of an ace is also not fixed within a game. If a player has an Ace in their first two cards, it will always be valued at 11 initially (you can’t bust with two cards). So a hand with a 7 and an Ace is worth 18. But if the player then hits and gets a 7, then the Ace becomes a 1 and the hand is worth 7 + 7 + 1 = 15.</p>
 </section>
-<section id="our-version-of-blackjack">
-<h2>Our Version of Blackjack<a class="headerlink" href="#our-version-of-blackjack" title="Link to this heading">#</a></h2>
-<p>For this exercise, we will version of the game with four simplifications:</p>
-<ol class="arabic simple">
-<li><p>There are no aces.</p></li>
-<li><p>If the Player’s cards total 16 or less, they take another card (“hit”); if the Player’s cards total more than 16, they “stay.” In other words, the Player isn’t making any complicated decisions, they use a simple rule just like the Dealer.</p></li>
-<li><p>Each person’s cards are provided as a list of cards (<code class="docutils literal notranslate"><span class="pre">players_deck</span></code> and <code class="docutils literal notranslate"><span class="pre">dealers_deck</span></code>). That way you don’t have to worry about the order cards are distributed. Player starts the game with the first two cards in <code class="docutils literal notranslate"><span class="pre">players_deck</span></code>, the first time they hit they get the third card in <code class="docutils literal notranslate"><span class="pre">players_deck</span></code>, etc.</p></li>
-</ol>
-</section>
-<section id="starter-code">
-<h2>Starter Code<a class="headerlink" href="#starter-code" title="Link to this heading">#</a></h2>
-<p>Below is a block of starter code. Copy-paste the starter code into a file called <code class="docutils literal notranslate"><span class="pre">blackjack.py</span></code> in VS Code. <strong>Then read the content below this starter code for directions on how to finish the code to play a full game of blackjack.</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main function that plays a hand of blackjack&quot;&quot;&quot;</span>
-
-    <span class="c1"># This function takes the decks the Players will use, and</span>
-    <span class="c1"># should return the string &quot;Player&quot; if the Player has won</span>
-    <span class="c1"># and the string &quot;Dealer&quot; if the Dealer has won. </span>
-    <span class="c1"># (note the capitalization of Player and Dealer.)</span>
-
-    <span class="k">pass</span>
-
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-
-    <span class="c1"># Test Case 0:</span>
-    <span class="c1"># Both people &quot;hit&quot; once.</span>
-    <span class="c1"># Player wins with 20 (v. 19)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Test Case 0: Both people &#39;hit&#39; once.&quot;</span><span class="p">)</span>
-
-    <span class="n">players_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-    <span class="n">dealers_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The winner should be Player.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Winner from the function was </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Test Case 1:</span>
-    <span class="c1"># Both people &quot;hit&quot; once.</span>
-    <span class="c1"># They tie; Dealer wins.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Test Case 1: Tie.&quot;</span><span class="p">)</span>
-
-    <span class="n">players_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-    <span class="n">dealers_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The winner should be Dealer.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Winner from the function was </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Test Case 2:</span>
-    <span class="c1"># Both people &quot;hit&quot; once</span>
-    <span class="c1"># Player &quot;bust&quot;s. Dealer wins.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Test Case 2: Player busts.&quot;</span><span class="p">)</span>
-
-    <span class="n">players_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
-    <span class="n">dealers_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The winner should be Dealer.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Winner from the function was </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Test Case 3:</span>
-    <span class="c1"># Both people &quot;hit&quot; once.</span>
-    <span class="c1"># Both people bust, Dealer wins.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Test Case 3: Both bust.&quot;</span><span class="p">)</span>
-
-    <span class="n">players_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
-    <span class="n">dealers_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The winner should be Dealer.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Winner from the function was </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Test Case 4:</span>
-    <span class="c1"># Player &quot;hits&quot; once, Dealer &quot;stays&quot;.</span>
-    <span class="c1"># Player wins.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Test Case 4: Dealer stays.&quot;</span><span class="p">)</span>
-
-    <span class="n">players_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-    <span class="n">dealers_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The winner should be Player.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Winner from the function was </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Test Case 5:</span>
-    <span class="c1"># Same cards (17); Player stays, Dealer hits.</span>
-    <span class="c1"># Dealer busts, Player wins.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Test Case 5: Dealer busts.&quot;</span><span class="p">)</span>
-
-    <span class="n">players_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
-    <span class="n">dealers_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The winner should be Player.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Winner from the function was </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-
-    <span class="c1"># Test Case 6:</span>
-    <span class="c1"># Player &quot;hits&quot; twice, Dealer &quot;hits&quot; once.</span>
-    <span class="c1"># Player wins.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Test Case 6: Player hits twice.&quot;</span><span class="p">)</span>
-    <span class="n">players_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
-    <span class="n">dealers_deck</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The winner should be Player.&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Winner from the function was </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
-
-</pre></div>
-</div>
-<section id="if-name-main">
-<h3><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></code><a class="headerlink" href="#if-name-main" title="Link to this heading">#</a></h3>
-<p>Why did we put the <code class="docutils literal notranslate"><span class="pre">main()</span></code> call under the if statement <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code>? Basically, this if statement will be true anytime a file is run directly (as you have been doing), but not if someone imports this file into another program. From now on, you should follow the practice of putting the primary function call of your script in this if-statement.</p>
-<p>What exactly is <code class="docutils literal notranslate"><span class="pre">__name__</span></code> and why does it matter if it is equal to <code class="docutils literal notranslate"><span class="pre">&quot;__main__&quot;</span></code>? You don’t need to worry about understanding that, but if you’re curious: when a Python file is run, Python automatically creates a variable called <code class="docutils literal notranslate"><span class="pre">__name__</span></code>. If the file has been called directly, the value of <code class="docutils literal notranslate"><span class="pre">__name__</span></code> is set to <code class="docutils literal notranslate"><span class="pre">&quot;__main__&quot;</span></code>. But if a file is imported (like when a file is run in the process of importing a module), <code class="docutils literal notranslate"><span class="pre">__name__</span></code> takes on the value of module name.</p>
-</section>
-</section>
-<section id="the-exercise">
-<h2>The Exercise<a class="headerlink" href="#the-exercise" title="Link to this heading">#</a></h2>
-<p>The goal of this exercise is to practice top-down design. As you may recall from your Coursera reading, <em>top-down design</em> is the process of taking large, complex pieces, and separating them out into their own function—known as top-down design—is crucial as you write larger and larger programs. While it may seem advantageous to just write everything in one giant function, such an approach not only makes the programming more difficult, but also tends to result in a complex mess that is difficult to test and debug. Whenever you have a chance to pull a well-defined logical piece of your program out into its own function, you should consider this an opportunity, not a burden.</p>
-<p>In this case, we will take a full game of blackjack — in which Players are dealt cards, they decide whether to get more cards, and finally a winner is determined — and break it into smaller steps.</p>
-<p>The approach we like is “top-down design, bottom-up implementation.” What exactly does this mean? Top-down design means that you start with the whole problem, and come up with a high-level algorithm for it. That algorithm will be in terms of tasks that are too big and complex to just write as single functions, but that is OK. You then repeat the process for those sub-tasks until you get to something you can write. At this point you are at the “bottom” of the design—the smallest pieces that will go into it. You start implementation from there, making (and testing!) small pieces and putting them together. As you assemble these pieces from the bottom up, you get a larger and larger working program until finally you have your entire program.</p>
-<p>For example, if I were writing this program, I would start by thinking about the basic parts of a round of blackjack. In blackjack, you can probably think of three main steps:</p>
-<ol class="arabic simple">
-<li><p>The first two cards are dealt to each player.</p></li>
-<li><p>Each person decides whether to hit or stay (and potentially hit multiple times).</p></li>
-<li><p>The winner is determined.</p></li>
-</ol>
-<p>Given that, I would start to write out the function <code class="docutils literal notranslate"><span class="pre">play_blackjack</span></code> <em>assuming the functions I need are complete</em>. For example, the first line I might put in <code class="docutils literal notranslate"><span class="pre">play_blackjack</span></code> would be something like:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main function that plays a hand of blackjack&quot;&quot;&quot;</span>
-
-    <span class="c1"># Step one: deal out first cards</span>
-    <span class="n">players_score</span> <span class="o">=</span> <span class="n">deal_first_two_cards</span><span class="p">(</span><span class="n">players_deck</span><span class="p">)</span>
-    <span class="k">pass</span>
-</pre></div>
-</div>
-<p>Now, I haven’t actually written <code class="docutils literal notranslate"><span class="pre">deal_first_two_cards</span></code> yet, but that’s ok — I have a sense of what it does! It takes the Player’s deck and calculates the score they start with after getting their first two cards.</p>
-<p>To help myself, I can even write the function signature up at the top of my file and add a comment saying what my function should do:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">deal_first_two_cards</span><span class="p">(</span><span class="n">deck</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Takes a person&#39;s deck and calculates </span>
-<span class="sd">    the person&#39;s starting score based</span>
-<span class="sd">    on first two cards.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">pass</span>
-</pre></div>
-</div>
-<p>Now, the code that will go into <code class="docutils literal notranslate"><span class="pre">deal_first_two_cards</span></code> isn’t going to be very complicated, and you may feel like you could write it easily right away. Or you may not even feel like you need a separate function for the task! For this exercise, though, let’s practice top-down design by putting it in its own function. And don’t worry, you’ll find the other functions you need to write definitely warrant a function of their own.</p>
-<p>So with that definition written, I’d go back to the <code class="docutils literal notranslate"><span class="pre">play_blackjack</span></code> and think about what would go next. In this case, for example, I could deal the cards for the Dealer:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">play_blackjack</span><span class="p">(</span><span class="n">players_deck</span><span class="p">,</span> <span class="n">dealers_deck</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main function that plays a hand of blackjack&quot;&quot;&quot;</span>
-
-    <span class="c1"># Step one: deal out first cards</span>
-    <span class="n">players_score</span> <span class="o">=</span> <span class="n">deal_first_two_cards</span><span class="p">(</span><span class="n">players_deck</span><span class="p">)</span>
-    <span class="n">dealers_score</span> <span class="o">=</span> <span class="n">deal_first_two_cards</span><span class="p">(</span><span class="n">dealers_deck</span><span class="p">)</span>
-    <span class="k">pass</span>
-</pre></div>
-</div>
-<p>And so on.</p>
-<p>OK, now that I’ve gotten you started, go ahead and work on implementing the rest of the program!</p>
-<section id="functions-to-write">
-<h3>Functions to Write<a class="headerlink" href="#functions-to-write" title="Link to this heading">#</a></h3>
-<p>As mentioned above, there are three primary things that happen in blackjack:</p>
-<ol class="arabic simple">
-<li><p>The first two cards are dealt to each player.</p></li>
-<li><p>Each person decides whether to hit or stay (and potentially hit multiple times).</p></li>
-<li><p>The winner is determined.</p></li>
-</ol>
-<p>We’ve already discussed writing a function for the first task — <code class="docutils literal notranslate"><span class="pre">deal_first_two_cards</span></code>. You will probably want to write to more functions — say, <code class="docutils literal notranslate"><span class="pre">hit_or_stay</span></code> and <code class="docutils literal notranslate"><span class="pre">determine_winner</span></code> — for the other two activities.</p>
-<p>Of these, <code class="docutils literal notranslate"><span class="pre">hit_or_stay</span></code> will be the most complicated, since a person gets to decide whether to stop (“stay”) or take another card (“hit”). If they hit, you then have to determine if they want to stay or hit again, etc.</p>
-</section>
-</section>
-<section id="hints">
-<h2>Hints<a class="headerlink" href="#hints" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>In a game without aces (like our simplified game), it is impossible to hit more than 9 times (take more than 9 extra cards in addition to the two you are originally dealt) without busting.</p></li>
-<li><p>Dealing with the possibility that one of the people will ask for more than one extra card (“hit” more than once) is tricky. You will notice that in the first six test cases, neither player takes more than 1 card. Given that, it might be smart to start by writing something that assumes each player takes zero or one extra card. Then, once you can pass the first six tests, try to generalize your code to allow for the possibility of a player asking for more than one extra card.</p></li>
-<li><p>Be very careful about the use of “greater than” versus “greater than or equal to”! If you get an inequality wrong, your code will pass <em>most</em> tests, but will fail on ones where the cards land right on a decision threshold. So as a reminder:</p>
-<ul>
-<li><p>Players hit if their hand is 16 or less.</p></li>
-<li><p>Dealers hit if their hand is 17 or less.</p></li>
-<li><p>You bust if your hand is over 21.</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="submitting">
-<h2>Submitting<a class="headerlink" href="#submitting" title="Link to this heading">#</a></h2>
-<p>When you feel ready, be sure your file is named <code class="docutils literal notranslate"><span class="pre">blackjack.py</span></code> and upload it to gradescope.</p>
-</section>
-<section id="done-want-more">
-<h2>Done? Want More?<a class="headerlink" href="#done-want-more" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="36_blackjack_extensions.html"><span class="std std-doc">Here are some extensions you can try!</span></a></p>
+<section id="monte-carlo-simulation">
+<h2>Monte Carlo Simulation<a class="headerlink" href="#monte-carlo-simulation" title="Link to this heading">#</a></h2>
+<p>The second extension to Blackjack is to try simulating lots of games of Blackjack to figure out how often the Player is likely to win given the decision rule we chose (hit if less than or equal to 16).</p>
+<p>This is an example of what’s called a <em>Monte Carlo Simulation</em>. Monte Carlo simulation is as it has a wide variety of uses outside of card games, as there are a lot of scenarios where calculating the exact outcomes directly are hard to impossible, but estimating them with randomness works well.</p>
+<p>For example, suppose you wanted to predict the outcome of an election.  You might have a lot of data from various polls, unemployment numbers, or other factors.  However, even the best data analysis would have a very hard time accurately predicting what will happen as there are many unknowns.   Instead, you might use this information to build a model with random factors built in, and perform several evaluations of the model, picking different random values each time.   If your model is well design, and the input data is good (or you do a good job of weighting the input data based on how good it is), then your model will give a good estimation of the probability of each candidate winning the election.  In the United States, there is a website called Five Thirty Eight, which has used this technique (and a lot of data) to make predictions on elections and sporting events.</p>
+<p>Another example is in predicting financial returns on investments.   I have a retirement account, where the money is invested in stocks and bonds.  The financial company has a tool on their website where I can select an age to retire, and it predicts how much money I will be able to take each month from my retirement accounts.  The stock market is a complex and difficult to predict system, so they are almost certainly running a Monte Carlo simulation: taking data about what I have in my account, what I contribute to them each month, what the stock market has done in the past, and whatever else they can put into it, and simulating a lot of random variations to come up with an answer.</p>
+<p>These are just a few examples of Monte Carlo simulations beyond card games.  They also get used in a variety of other fields.   We aren’t going to go deep into details of various applications, nor more complex models. However, we wanted you to know that this general technique has a lot of uses in predicting complex systems across a wide variety of domains.</p>
 </section>
 </section>
 
@@ -898,19 +686,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-blackjack-works">How Blackjack works</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#our-version-of-blackjack">Our Version of Blackjack</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#starter-code">Starter Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-name-main"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">"__main__"</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exercise">The Exercise</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-to-write">Functions to Write</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hints">Hints</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting">Submitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#done-want-more">Done? Want More?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aces">Aces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-simulation">Monte Carlo Simulation</a></li>
 </ul>
   </nav></div>
 
