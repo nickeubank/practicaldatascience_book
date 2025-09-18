@@ -608,17 +608,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Blackjack Extensions</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aces">Aces</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-simulation">Monte Carlo Simulation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulating-decks-of-cards">Simulating Decks of Cards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-extension-on-the-extension">An Extension on the Extension</a></li>
 </ul>
 </li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-a-random-integer-between-2-and-14-inclusive">Generate a random integer between 2 and 14 (inclusive)</a></li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -647,14 +643,29 @@ document.write(`
 <h3>Simulating Decks of Cards<a class="headerlink" href="#simulating-decks-of-cards" title="Link to this heading">#</a></h3>
 <p>A deck of cards has 13 unique card values (2-10, Jack, Queen, King, Ace), each in four suits. Since we don’t care about suits in this class, you can simulate a deck of cards by randomly drawing integers with uniform (equal) probabilities between 2 and 14. Then, since face cards are all worth ten, you can convert values of 11, 12, 13 (the Jacks, Queens, and Kings) to 10 (their value in Blackjack). You can then either drop values of 14 (if you aren’t using Aces), or treat 14 as an Ace (if you did the first extension).</p>
 <p>To generate random cards, use the <code class="docutils literal notranslate"><span class="pre">randint</span></code> function from the <code class="docutils literal notranslate"><span class="pre">random</span></code> library:</p>
-<p>import random</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">card</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
+</pre></div>
+</div>
+</div>
+</div>
+<p>So to do ONE simulation, you’d need to draw enough cards to make a deck for each player, play the game, and save the result.</p>
+<p>Then you’d want to do that a few thousand times.</p>
+</section>
+<section id="an-extension-on-the-extension">
+<h3>An Extension on the Extension<a class="headerlink" href="#an-extension-on-the-extension" title="Link to this heading">#</a></h3>
+<p>Want to get even more fancy? Change the decision rule the Player uses (so pick a new threshold other than 16) and see what that does to their win percentage.</p>
 </section>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="generate-a-random-integer-between-2-and-14-inclusive">
-<h1>Generate a random integer between 2 and 14 (inclusive)<a class="headerlink" href="#generate-a-random-integer-between-2-and-14-inclusive" title="Link to this heading">#</a></h1>
-<p>card = random.randint(2, 14)
-print(card)</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -703,17 +714,13 @@ print(card)</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Blackjack Extensions</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aces">Aces</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-simulation">Monte Carlo Simulation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulating-decks-of-cards">Simulating Decks of Cards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-extension-on-the-extension">An Extension on the Extension</a></li>
 </ul>
 </li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-a-random-integer-between-2-and-14-inclusive">Generate a random integer between 2 and 14 (inclusive)</a></li>
-</ul>
-
   </nav></div>
 
 </div></div>
