@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Defining a Circle Class &#8212; Practical Data Science with Python</title>
+    <title>Closest Point &#8212; Practical Data Science with Python</title>
   
   
   
@@ -70,9 +70,7 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/70_circle';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ids590_specific/exercises_590/75_closestpoint_extension';</script>
     <link rel="icon" href="../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -486,7 +484,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/70_circle.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids590_specific/exercises_590/75_closestpoint_extension.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -516,7 +514,7 @@
       
       
       
-      <li><a href="../../_sources/ids590_specific/exercises_590/70_circle.ipynb" target="_blank"
+      <li><a href="../../_sources/ids590_specific/exercises_590/75_closestpoint_extension.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -600,7 +598,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Defining a Circle Class</h1>
+    <h1>Closest Point</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -610,15 +608,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bringing-in-your-point-class">Bringing In Your Point Class</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circle-requirements">Circle Requirements</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-intersection-area">Calculating Intersection Area</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaffolding">Scaffolding</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-to-coursera">Submitting to Coursera</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#done-want-more">Done? Want More?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output</a></li>
 </ul>
             </nav>
         </div>
@@ -630,132 +621,90 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="defining-a-circle-class">
-<h1>Defining a <code class="docutils literal notranslate"><span class="pre">Circle</span></code> Class<a class="headerlink" href="#defining-a-circle-class" title="Link to this heading">#</a></h1>
-<p>When it works well, the idea of object-oriented programming (OOP) is for the code you write to be <em>composable</em> — that is, like Legos, you should be able to click together different things you’ve built to make something that is more than the sum of its parts.</p>
-<p>To illustrate this concept, in this class you will define a <code class="docutils literal notranslate"><span class="pre">Circle</span></code> class in a manner that builds on the Point class you wrote in your <a class="reference internal" href="#./60_points.ipynb"><span class="xref myst">previous assignment</span></a>.</p>
-<p>If creating Point or Circle objects feels esoteric or silly, don’t be fooled — being able to do geometric operations is key to a wide range of applications. Perhaps the most well known is geospatial analysis (often referred to as GIS, which is short for Geospatial Information Systems) — the science of understanding how things relate to one another spatially in the real world.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Point</span></code> and <code class="docutils literal notranslate"><span class="pre">Circle</span></code> objects are two of the primitives GIS analysts use on a daily basis. Points can represent anything from an election polling place to the location of a source of airborne pollution or a ship at sea. Circles (and tools for measuring overlaps between circles or circles and points) are used to identify people or animals within a given radius of a point, or an area that may be exposed to a certain intensity of radiation generated from a point. Indeed, in these exercises we’re basically recreating some of the primitives used in one of the most important software libraries in the Python GIS ecosystem (<a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">shapely</a>).</p>
-<section id="bringing-in-your-point-class">
-<h2>Bringing In Your Point Class<a class="headerlink" href="#bringing-in-your-point-class" title="Link to this heading">#</a></h2>
-<p>The first thing you will put at the top of your code for this assignment — which should be in a file called <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> — will be the line:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">point</span> <span class="kn">import</span> <span class="n">Point</span> 
+  <section class="tex2jax_ignore mathjax_ignore" id="closest-point">
+<h1>Closest Point<a class="headerlink" href="#closest-point" title="Link to this heading">#</a></h1>
+<p>In Course 1, we worked through the first 4 steps for the “closest point” problem—given a set <code class="docutils literal notranslate"><span class="pre">S</span></code> and a point <code class="docutils literal notranslate"><span class="pre">P</span></code>, find the member of <code class="docutils literal notranslate"><span class="pre">S</span></code> which is closest to <code class="docutils literal notranslate"><span class="pre">P</span></code>. Now you are ready to turn this into code, though as we will describe below, we are going to change the problem slightly (so you will want to work back through Steps 1–4).</p>
+<p>You already have a Point class from a previous assignment, which you will use for this assignment.</p>
+<p>Your job is to write the function: <code class="docutils literal notranslate"><span class="pre">closest_point(s,</span> <span class="pre">p)</span></code></p>
+<p>where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">s</span></code> is a set of <code class="docutils literal notranslate"><span class="pre">Points</span></code> and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span></code> is a <code class="docutils literal notranslate"><span class="pre">Point</span></code> such that this function returns the subset of points from <code class="docutils literal notranslate"><span class="pre">s</span></code> closest to <code class="docutils literal notranslate"><span class="pre">p</span></code>.</p></li>
+</ul>
+<p>Note that this is slightly different then what we did in the Course 1 video for Steps 1–4, where we returned one single point.</p>
+<p>However, as there may be more than one point at the same distance from p, it makes sense to return a set.</p>
+<p>For example, if</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">s</span> <span class="o">=</span> <span class="p">{</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="p">}</span>
+
 </pre></div>
 </div>
-<p><em>Provided your <code class="docutils literal notranslate"><span class="pre">point.py</span></code> file is in the same directory as your <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> file</em>, this line will import your Point class and make it accessible from within this <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> file. You can refer to it as just <code class="docutils literal notranslate"><span class="pre">Point</span></code> (like <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">Point()</span></code>). Note that if we had just said <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">point</span></code> instead of <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">point</span> <span class="pre">import</span> <span class="pre">Point</span></code>, you would need to write <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">point.Point()</span></code> to create a point object.</p>
-<blockquote>
-<div><p>Note we have now come… <em>full circle</em> (sorry, couldn’t resist) with that <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> if statement. As mentioned before, code that is in that <code class="docutils literal notranslate"><span class="pre">if</span></code> block is only ever executed when a file is executed directly. But at the time, what it meant to <em>not</em> execute a file directly may have been unclear. Now you know! When we run <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">point</span> <span class="pre">import</span> <span class="pre">Point</span></code>, Python is running all the code in <code class="docutils literal notranslate"><span class="pre">point.py</span></code> that defines the class <code class="docutils literal notranslate"><span class="pre">Point</span></code> and its functionality so it becomes accessible inside of this <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> program. But it won’t run the tests at the bottom of <code class="docutils literal notranslate"><span class="pre">point.py</span></code> because that <code class="docutils literal notranslate"><span class="pre">if</span></code> statement does not evaluate to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
-</div></blockquote>
-<p><strong>When you submit your assignment to gradescope, you will need to zip <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> and <code class="docutils literal notranslate"><span class="pre">point.py</span></code> into a single <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file and upload them together since the autograder needs both files run!</strong></p>
-</section>
-<section id="circle-requirements">
-<h2>Circle Requirements<a class="headerlink" href="#circle-requirements" title="Link to this heading">#</a></h2>
-<p>For the Circle class, you will need:</p>
-<ul class="simple">
-<li><p>A Docstring summarizing the class.</p></li>
-<li><p>An <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method: takes a Point c and a floating point number r and assigns the center and radius respectively.</p>
-<ul>
-<li><p>The default values should be a point at (0, 0) and radius 1.</p></li>
-<li><p>You should assert that the radius is greater than or equal to 0. Remember that Point is a mutable type, so you do not want to actually make the default value Point(0,0) as that will cause problems (as you learned in “Default Arguments Revisited”).  Instead, you use the “default value is None, check for None, make the value you want” idiom that you learned in that reading.</p></li>
-</ul>
-</li>
-<li><p>A <code class="docutils literal notranslate"><span class="pre">__str__</span></code> method: returns a string representation of the circle. For example, a circle at (0, 0) with radius 1 would be: <code class="docutils literal notranslate"><span class="pre">&quot;((0,</span> <span class="pre">0),</span> <span class="pre">1)&quot;</span></code></p></li>
-<li><p>A <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> method: returns a more detailed string representation of the circle. For example, a circle at (0,0) with radius 1 would be: <code class="docutils literal notranslate"><span class="pre">&quot;Circle((0,</span> <span class="pre">0),</span> <span class="pre">1)&quot;</span></code></p></li>
-<li><p>A <code class="docutils literal notranslate"><span class="pre">move</span></code> method: takes <code class="docutils literal notranslate"><span class="pre">dx</span></code> and <code class="docutils literal notranslate"><span class="pre">dy</span></code> and moves the center of the circle accordingly. <strong>Remember, you already wrote move for Point!</strong></p></li>
-<li><p>An <code class="docutils literal notranslate"><span class="pre">intersection_area</span></code> method: takes a parameter <code class="docutils literal notranslate"><span class="pre">other_circle</span></code> and calculates the intersection of <code class="docutils literal notranslate"><span class="pre">self</span></code>, and <code class="docutils literal notranslate"><span class="pre">other_circle</span></code>.</p></li>
-</ul>
-<section id="calculating-intersection-area">
-<h3>Calculating Intersection Area<a class="headerlink" href="#calculating-intersection-area" title="Link to this heading">#</a></h3>
-<p>Remember that a question like “what is the formula for the intersection area of two circles?” indicates a lack of domain knowledge (not a lack of programming skill).  In such situations, you should consult an authoritative source in that domain.  For this problem, the following source derives the equation you need: <a class="reference external" href="https://mathworld.wolfram.com/Circle-CircleIntersection.html">https://mathworld.wolfram.com/Circle-CircleIntersection.html</a>.</p>
-<p>Specifically, you need equation (14) on that page.  You can compute <span class="math notranslate nohighlight">\(cos^{-1}(x)\)</span> with <code class="docutils literal notranslate"><span class="pre">math.acos(x)</span></code> in Python.</p>
-<p>Note that the formula described above is for the case where the circles partially overlap.  You will need to determine if the circles do not overlap at all, partially overlap, or overlap completely.  If they do not overlap at all, the intersection area is 0.  If they partially overlap, use the formula above. If they overlap completely, the intersection area is the area of the smaller circle.</p>
-<p>We recommend drawing some pictures to figure help you figure out the algorithm to decide which case two circles fall into.</p>
-</section>
-</section>
+<p>and</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p>then both <code class="docutils literal notranslate"><span class="pre">(3,4)</span></code> and <code class="docutils literal notranslate"><span class="pre">(-3,</span> <span class="pre">-4)</span></code> are the same distance (5) from <code class="docutils literal notranslate"><span class="pre">p</span></code>.  So this function would return <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">Point(3,</span> <span class="pre">4),</span> <span class="pre">Point(-3,</span> <span class="pre">-4)</span> <span class="pre">}</span></code></p>
+<p>Also note that by returning a set, we can say that when the input set (<code class="docutils literal notranslate"><span class="pre">s</span></code>) is empty, you can just return the empty set.</p>
 <section id="scaffolding">
 <h2>Scaffolding<a class="headerlink" href="#scaffolding" title="Link to this heading">#</a></h2>
-<p>Please copy-paste the following code into your <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> file as a starting place.</p>
+<p>As usual, we have provided some code to help you get started testing below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="kn">import</span> <span class="nn">math</span>
-
 <span class="kn">from</span> <span class="nn">point</span> <span class="kn">import</span> <span class="n">Point</span>
 
 
-<span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span>
-    <span class="c1"># write a docstring here!</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="c1"># WRITE ME</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># WRITE ME</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;Circle&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
-        <span class="c1"># WRITE ME</span>
-        <span class="c1"># hint: you should be calling move(dx,dy)</span>
-        <span class="c1"># on the Point that is the center of the circle</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span> <span class="nf">intersection_area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_circle</span><span class="p">):</span>
-        <span class="c1"># WRITE ME</span>
-        <span class="c1"># first check if no overlap</span>
-        <span class="c1">#   if no overlap, return 0</span>
-        <span class="c1"># next check for total overlap</span>
-        <span class="c1">#   if so, return area of smaller circle</span>
-        <span class="c1"># otherwise, use Wolfram formula for partial overlap</span>
-        <span class="k">return</span> <span class="mi">0</span>
-
-    <span class="k">pass</span>
+<span class="k">def</span> <span class="nf">closestPoint</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">c1</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">()</span>
-    <span class="c1"># note that c2 just touches, but does not intersect c1</span>
-    <span class="n">c2</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="n">c3</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">c4</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="mi">6</span><span class="p">)</span>
-    <span class="n">c5</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">c6</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">circles</span> <span class="o">=</span> <span class="p">[</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span><span class="p">,</span> <span class="n">c4</span><span class="p">,</span> <span class="n">c5</span><span class="p">,</span> <span class="n">c6</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">ca</span> <span class="ow">in</span> <span class="n">circles</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ca</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">ca</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">circles</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.8f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ca</span><span class="o">.</span><span class="n">intersection_area</span><span class="p">(</span><span class="n">cb</span><span class="p">)))</span>
-            <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="n">closestPoint</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+        <span class="c1"># We&#39;ll turn the set into a sorted list before</span>
+        <span class="c1"># we print it to avoid any issues with what order things</span>
+        <span class="c1"># are in</span>
+        <span class="n">sorted_ans</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">sorted_ans</span><span class="p">)</span>
         <span class="k">pass</span>
-    <span class="n">c1</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">c2</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">c3</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">ca</span> <span class="ow">in</span> <span class="n">circles</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ca</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">ca</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">circles</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.8f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ca</span><span class="o">.</span><span class="n">intersection_area</span><span class="p">(</span><span class="n">cb</span><span class="p">)))</span>
-            <span class="k">pass</span>
+
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">p3</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">p4</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">p5</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+    <span class="n">p6</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">p7</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">p8</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">,</span> <span class="n">p6</span><span class="p">,</span> <span class="n">p7</span><span class="p">,</span> <span class="n">p8</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">points</span><span class="p">[:</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]))</span>
+        <span class="n">test</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="k">pass</span>
-    <span class="k">pass</span>
+    <span class="c1"># check that empty set gives empty set</span>
+    <span class="n">test</span><span class="p">({},</span> <span class="n">p1</span><span class="p">)</span>
+    <span class="c1"># if the target point is in the list, we should get that point itself</span>
+    <span class="n">test</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">points</span><span class="p">),</span> <span class="n">p5</span><span class="p">)</span>
 
 </pre></div>
 </div>
 </section>
-<section id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading">#</a></h2>
-<p>As within <code class="docutils literal notranslate"><span class="pre">point.py</span></code>, this file includes some basic tests at the end of <a class="reference external" href="http://circle.py">circle.py</a>. The expected output is folded below.  As usual, you are encouraged to do more testing to become confident in your code.</p>
-</section>
-<section id="submitting-to-coursera">
-<h2>Submitting to Coursera<a class="headerlink" href="#submitting-to-coursera" title="Link to this heading">#</a></h2>
-<p>Because your <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> file imports from your <code class="docutils literal notranslate"><span class="pre">point.py</span></code> file, you must submit these two files together. To do so, please select both, right-click and zip them into a <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file and upload that <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file to Gradescope.</p>
-</section>
-<section id="done-want-more">
-<h2>Done? Want More?<a class="headerlink" href="#done-want-more" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="75_closestpoint_extension.html"><span class="std std-doc">Here are some extensions you can try!</span></a></p>
+<section id="expected-output">
+<h2>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading">#</a></h2>
+<p>This should give the output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+<span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+<span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+<span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">)]</span>
+<span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+<span class="p">[]</span>
+<span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)]</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -805,15 +754,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bringing-in-your-point-class">Bringing In Your Point Class</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circle-requirements">Circle Requirements</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-intersection-area">Calculating Intersection Area</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaffolding">Scaffolding</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-to-coursera">Submitting to Coursera</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#done-want-more">Done? Want More?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output</a></li>
 </ul>
   </nav></div>
 
