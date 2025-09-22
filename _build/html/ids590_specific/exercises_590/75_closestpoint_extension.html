@@ -608,6 +608,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-numbers">Comparing Numbers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaffolding">Scaffolding</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output</a></li>
 </ul>
@@ -647,6 +648,67 @@ document.write(`
 </div>
 <p>then both <code class="docutils literal notranslate"><span class="pre">(3,4)</span></code> and <code class="docutils literal notranslate"><span class="pre">(-3,</span> <span class="pre">-4)</span></code> are the same distance (5) from <code class="docutils literal notranslate"><span class="pre">p</span></code>.  So this function would return <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">Point(3,</span> <span class="pre">4),</span> <span class="pre">Point(-3,</span> <span class="pre">-4)</span> <span class="pre">}</span></code></p>
 <p>Also note that by returning a set, we can say that when the input set (<code class="docutils literal notranslate"><span class="pre">s</span></code>) is empty, you can just return the empty set.</p>
+<section id="comparing-numbers">
+<h2>Comparing Numbers<a class="headerlink" href="#comparing-numbers" title="Link to this heading">#</a></h2>
+<p>In order to implement this algorithm correctly, it will be necessary for you to use a special function you have not encountered before for comparing two numbers.</p>
+<p>As we will discuss later in the semester, when computers work with integers (<code class="docutils literal notranslate"><span class="pre">-1</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, etc.), it stores those as exact values. <code class="docutils literal notranslate"><span class="pre">1</span></code>, in a computer, is always equal to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<p>But the same cannot be said for non-integer numbers (e.g., <code class="docutils literal notranslate"><span class="pre">2.5</span></code>, <code class="docutils literal notranslate"><span class="pre">1.233</span></code>, etc.). Numbers that are not integers are stored in as a data type called a floating point number, or <code class="docutils literal notranslate"><span class="pre">float</span></code> for short. These numbers are actually represented in memory as very clever approximations of the numbers we see using a format that allows them to store both tiny numbers <code class="docutils literal notranslate"><span class="pre">0.0000000024</span></code> and gigantic numbers <code class="docutils literal notranslate"><span class="pre">1,000,000,000,000,000,000,000</span></code> using the same amount of space of memory (64 bits, or 64 1s and 0s.).</p>
+<p>But because these numbers are only approximations, occassionally weird things happen. For example, if you ask a computer whether <code class="docutils literal notranslate"><span class="pre">0.1</span> <span class="pre">+</span> <span class="pre">0.1</span> <span class="pre">+</span> <span class="pre">0.1</span> <span class="pre">==</span> <span class="pre">0.3</span></code>, the computer will say that those are different:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">==</span> <span class="mf">0.3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<p>While in other similar situations, you get the expected result:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">==</span> <span class="mf">0.2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.11</span> <span class="o">+</span> <span class="mf">0.11</span> <span class="o">+</span> <span class="mf">0.11</span> <span class="o">==</span> <span class="mf">0.33</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>(Don’t worry — we’ll explore in detail why this happens in a couple weeks.)</p>
+<p>So when comparing <code class="docutils literal notranslate"><span class="pre">floats</span></code> for equality — like the distance between a Point and two other Points — we often need to use a tool that understands how these approximations work. In the Python standard library, this is the <code class="docutils literal notranslate"><span class="pre">isclose()</span></code> function in the <code class="docutils literal notranslate"><span class="pre">math</span></code> library:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>So when writing your algorithm, please use the <code class="docutils literal notranslate"><span class="pre">math.isclose</span></code> function instead of <code class="docutils literal notranslate"><span class="pre">==</span></code> when trying to determine if two distances are the same.</p>
+</section>
 <section id="scaffolding">
 <h2>Scaffolding<a class="headerlink" href="#scaffolding" title="Link to this heading">#</a></h2>
 <p>As usual, we have provided some code to help you get started testing below.</p>
@@ -656,7 +718,6 @@ document.write(`
 
 <span class="k">def</span> <span class="nf">closestPoint</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
-
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
 
@@ -678,14 +739,19 @@ document.write(`
     <span class="n">p7</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">)</span>
     <span class="n">p8</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
     <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">,</span> <span class="n">p6</span><span class="p">,</span> <span class="n">p7</span><span class="p">,</span> <span class="n">p8</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)):</span>
+
+    <span class="c1"># Creates different subsets of these points</span>
+    <span class="c1"># to test</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">points</span><span class="p">[:</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]))</span>
         <span class="n">test</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-        <span class="k">pass</span>
+
     <span class="c1"># check that empty set gives empty set</span>
     <span class="n">test</span><span class="p">({},</span> <span class="n">p1</span><span class="p">)</span>
+
     <span class="c1"># if the target point is in the list, we should get that point itself</span>
     <span class="n">test</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">points</span><span class="p">),</span> <span class="n">p5</span><span class="p">)</span>
+
 
 </pre></div>
 </div>
@@ -693,7 +759,8 @@ document.write(`
 <section id="expected-output">
 <h2>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading">#</a></h2>
 <p>This should give the output:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
 <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
 <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
 <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
@@ -703,6 +770,7 @@ document.write(`
 <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
 <span class="p">[]</span>
 <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)]</span>
+
 </pre></div>
 </div>
 </section>
@@ -754,6 +822,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-numbers">Comparing Numbers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaffolding">Scaffolding</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output</a></li>
 </ul>
