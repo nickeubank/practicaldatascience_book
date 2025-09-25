@@ -670,7 +670,29 @@ document.write(`
 <p>Specifically, you need equation (14) on that page.  You can compute <span class="math notranslate nohighlight">\(cos^{-1}(x)\)</span> with <code class="docutils literal notranslate"><span class="pre">math.acos(x)</span></code> in Python.</p>
 <p>Note that the formula described above is for the case where the circles partially overlap.  You will need to determine if the circles do not overlap at all, partially overlap, or overlap completely.  If they do not overlap at all, the intersection area is 0.  If they partially overlap, use the formula above. If they overlap completely, the intersection area is the area of the smaller circle.</p>
 <p>We recommend drawing some pictures to figure help you figure out the algorithm to decide which case two circles fall into.</p>
-</section>
+<p>If you are feeling really stuck on the math, some code for the intersection area folded below, but please only use it after you’ve tried to figure things out yourself!</p>
+<details>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">p1</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">small_r</span>
+    <span class="o">*</span> <span class="n">small_r</span>
+    <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">((</span><span class="n">d</span> <span class="o">*</span> <span class="n">d</span> <span class="o">+</span> <span class="n">small_r</span> <span class="o">*</span> <span class="n">small_r</span> <span class="o">-</span> <span class="n">big_r</span> <span class="o">*</span> <span class="n">big_r</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">d</span> <span class="o">*</span> <span class="n">small_r</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">big_r</span>
+    <span class="o">*</span> <span class="n">big_r</span>
+    <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">((</span><span class="n">d</span> <span class="o">*</span> <span class="n">d</span> <span class="o">+</span> <span class="n">big_r</span> <span class="o">*</span> <span class="n">big_r</span> <span class="o">-</span> <span class="n">small_r</span> <span class="o">*</span> <span class="n">small_r</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">d</span> <span class="o">*</span> <span class="n">big_r</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="n">p3</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+    <span class="p">(</span><span class="o">-</span><span class="n">d</span> <span class="o">+</span> <span class="n">small_r</span> <span class="o">+</span> <span class="n">big_r</span><span class="p">)</span>
+    <span class="o">*</span> <span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">small_r</span> <span class="o">-</span> <span class="n">big_r</span><span class="p">)</span>
+    <span class="o">*</span> <span class="p">(</span><span class="n">d</span> <span class="o">-</span> <span class="n">small_r</span> <span class="o">+</span> <span class="n">big_r</span><span class="p">)</span>
+    <span class="o">*</span> <span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">small_r</span> <span class="o">+</span> <span class="n">big_r</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">small_r</span></code> is the smaller radius and <code class="docutils literal notranslate"><span class="pre">big_r</span></code> is the larger radius and <code class="docutils literal notranslate"><span class="pre">d</span></code> is the distance between radii.</p>
+</details></section>
 </section>
 <section id="scaffolding">
 <h2>Scaffolding<a class="headerlink" href="#scaffolding" title="Link to this heading">#</a></h2>
