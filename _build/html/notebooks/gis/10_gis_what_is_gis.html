@@ -639,12 +639,14 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="c1"># Load GIS data </span>
-<span class="c1"># (this is a dataset that of countries that </span>
+<span class="c1"># Load GIS data</span>
+<span class="c1"># (this is a dataset that of countries that</span>
 <span class="c1"># comes packaged with geopandas)</span>
-<span class="n">world</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">gpd</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;naturalearth_lowres&#39;</span><span class="p">))</span>
-
-<span class="c1"># Inspect. </span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span>
+    <span class="s2">&quot;https://github.com/nickeubank/practicaldatascience_book/raw/refs&quot;</span>
+    <span class="s2">&quot;/heads/main/notebooks/gis/example_data/world_countries/world_countries.geojson&quot;</span>
+<span class="p">)</span>
+<span class="c1"># Inspect.</span>
 <span class="n">world</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -668,62 +670,153 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>pop_est</th>
-      <th>continent</th>
-      <th>name</th>
-      <th>iso_a3</th>
-      <th>gdp_md_est</th>
+      <th>featurecla</th>
+      <th>scalerank</th>
+      <th>LABELRANK</th>
+      <th>SOVEREIGNT</th>
+      <th>SOV_A3</th>
+      <th>ADM0_DIF</th>
+      <th>LEVEL</th>
+      <th>TYPE</th>
+      <th>TLC</th>
+      <th>ADMIN</th>
+      <th>...</th>
+      <th>FCLASS_TR</th>
+      <th>FCLASS_ID</th>
+      <th>FCLASS_PL</th>
+      <th>FCLASS_GR</th>
+      <th>FCLASS_IT</th>
+      <th>FCLASS_NL</th>
+      <th>FCLASS_SE</th>
+      <th>FCLASS_BD</th>
+      <th>FCLASS_UA</th>
       <th>geometry</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>161</th>
-      <td>1221549</td>
-      <td>Asia</td>
-      <td>Cyprus</td>
-      <td>CYP</td>
-      <td>29260.0</td>
-      <td>POLYGON ((32.73178 35.14003, 32.91957 35.08783...</td>
+      <th>41</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Guyana</td>
+      <td>GUY</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>Guyana</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>POLYGON ((-56.53939 1.89952, -56.7827 1.86371,...</td>
     </tr>
     <tr>
-      <th>91</th>
-      <td>68414135</td>
-      <td>Asia</td>
-      <td>Thailand</td>
-      <td>THA</td>
-      <td>1161000.0</td>
-      <td>POLYGON ((105.21878 14.27321, 104.28142 14.416...</td>
+      <th>172</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>5</td>
+      <td>Republic of Serbia</td>
+      <td>SRB</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>Republic of Serbia</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>POLYGON ((18.82982 45.90887, 18.82984 45.90888...</td>
     </tr>
     <tr>
-      <th>83</th>
-      <td>10248069</td>
-      <td>Asia</td>
-      <td>Jordan</td>
-      <td>JOR</td>
-      <td>86190.0</td>
-      <td>POLYGON ((35.54567 32.39399, 35.71992 32.70919...</td>
+      <th>140</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Taiwan</td>
+      <td>TWN</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>Taiwan</td>
+      <td>...</td>
+      <td>None</td>
+      <td>Admin-1 states provinces</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Admin-1 states provinces</td>
+      <td>None</td>
+      <td>POLYGON ((121.77782 24.39427, 121.17563 22.790...</td>
     </tr>
     <tr>
-      <th>151</th>
-      <td>5491218</td>
-      <td>Europe</td>
-      <td>Finland</td>
-      <td>FIN</td>
-      <td>224137.0</td>
-      <td>POLYGON ((28.59193 69.06478, 28.44594 68.36461...</td>
+      <th>95</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>3</td>
+      <td>North Korea</td>
+      <td>PRK</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>North Korea</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>MULTIPOLYGON (((130.78 42.22001, 130.78 42.220...</td>
     </tr>
     <tr>
-      <th>22</th>
-      <td>57713</td>
-      <td>North America</td>
-      <td>Greenland</td>
-      <td>GRL</td>
-      <td>2173.0</td>
-      <td>POLYGON ((-46.76379 82.62796, -43.40644 83.225...</td>
+      <th>1</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>3</td>
+      <td>United Republic of Tanzania</td>
+      <td>TZA</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>United Republic of Tanzania</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>POLYGON ((33.90371 -0.95, 34.07262 -1.05982, 3...</td>
     </tr>
   </tbody>
 </table>
+<p>5 rows × 169 columns</p>
 </div></div></div>
 </div>
 <p>But unlike a normal DataFrame, we can also use the associated <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column to do fun things, like plot the world!</p>
@@ -734,31 +827,31 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../_images/e2fbabd765f630850f5739a87b6dcf6bf55c928bb363c57e0545a07a408ab8c1.png" src="../../_images/e2fbabd765f630850f5739a87b6dcf6bf55c928bb363c57e0545a07a408ab8c1.png" />
+<img alt="../../_images/37556564814ce10144a0e4fea4d9f625e318c98a6c54532b77f0aa274716324d.png" src="../../_images/37556564814ce10144a0e4fea4d9f625e318c98a6c54532b77f0aa274716324d.png" />
 </div>
 </div>
 <p>And of course, we can combine these two sources of information – here’s a bit of code to calculate the area of each country, divide population by area to get population density, then make a map colored by population density: (don’t worry about understanding the error message below – it’s important, but it’s not something we’ll get to till our second reading):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make Pop Density and plot</span>
-<span class="n">world</span><span class="p">[</span><span class="s2">&quot;pop_density&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;pop_est&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">world</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
+<span class="n">world</span><span class="p">[</span><span class="s2">&quot;pop_density&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;POP_EST&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">world</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
 <span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s2">&quot;pop_density&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/tj/s8f2_ks15h315z5thvtnhz8r0000gp/T/ipykernel_59349/2352805381.py:2: UserWarning: Geometry is in a geographic CRS. Results from &#39;area&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_85989/635350688.py:2: UserWarning: Geometry is in a geographic CRS. Results from &#39;area&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
 
-  world[&quot;pop_density&quot;] = np.log(world[&quot;pop_est&quot;] / world.area)
+  world[&quot;pop_density&quot;] = np.log(world[&quot;POP_EST&quot;] / world.area)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../_images/31981c1f9ee058925bedb20c848502bf0315475029f25ea4e646fb0cb1208059.png" src="../../_images/31981c1f9ee058925bedb20c848502bf0315475029f25ea4e646fb0cb1208059.png" />
+<img alt="../../_images/9d81ce639aa506b5c3a1ab280ac4984cdf999bc0ab54bade9a345b49b9c59fb8.png" src="../../_images/9d81ce639aa506b5c3a1ab280ac4984cdf999bc0ab54bade9a345b49b9c59fb8.png" />
 </div>
 </div>
 </section>
@@ -772,14 +865,21 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rasterio</span>
 <span class="kn">from</span> <span class="nn">rasterio.plot</span> <span class="kn">import</span> <span class="n">show</span>
 
-<span class="n">ny</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;../Example_Data/raster/aa11_pm300m/hdr.adf&quot;</span><span class="p">)</span>
+<span class="n">ny</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+    <span class="s2">&quot;https://github.com/nickeubank/practicaldatascience_book/&quot;</span>
+    <span class="s2">&quot;raw/refs/heads/main/notebooks/gis/example_data/ny_raster/hdr.adf&quot;</span>
+<span class="p">)</span>
 <span class="n">show</span><span class="p">(</span><span class="n">ny</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/eae39f62f0dd87867e30009197e057f94056f6ef81760b664efaff23101e015d.png" src="../../_images/eae39f62f0dd87867e30009197e057f94056f6ef81760b664efaff23101e015d.png" />
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/users/nce8/miniforge3/envs/geo/lib/python3.13/site-packages/matplotlib/colors.py:778: RuntimeWarning: overflow encountered in multiply
+  xa *= self.N
+</pre></div>
+</div>
+<img alt="../../_images/c3dffb7d5f9a99deccec0f53490317771cdaae5db04d1ef80367bcbd9ec64475.png" src="../../_images/c3dffb7d5f9a99deccec0f53490317771cdaae5db04d1ef80367bcbd9ec64475.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
 </div>
@@ -804,7 +904,8 @@ document.write(`
        [-3.4028235e+38,  5.3669605e+00,  5.3665938e+00, ...,
         -3.4028235e+38, -3.4028235e+38, -3.4028235e+38],
        [-3.4028235e+38, -3.4028235e+38,  5.3590460e+00, ...,
-        -3.4028235e+38, -3.4028235e+38, -3.4028235e+38]], dtype=float32)
+        -3.4028235e+38, -3.4028235e+38, -3.4028235e+38]],
+      shape=(156, 157), dtype=float32)
 </pre></div>
 </div>
 </div>

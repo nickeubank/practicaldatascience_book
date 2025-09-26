@@ -627,10 +627,9 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="installing-geopandas">
 <h1>Installing Geopandas<a class="headerlink" href="#installing-geopandas" title="Link to this heading">#</a></h1>
-<p>Early in the semester, I told you that conda was generally preferred over pip by data scientists because it could install more than just python packages? Well here’s an example of a place that pays off big!</p>
-<p>In this class, we’ll be focused on geopandas (for vector data) and rasterio (for raster data), but the reality is that both of these libraries are just wrappers around a set of underlying geospatial libraries that are used <strong>everywhere</strong> in the GIS world. Whether you’re talking about <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, <code class="docutils literal notranslate"><span class="pre">rasterio</span></code>,  or in Python; <code class="docutils literal notranslate"><span class="pre">sp</span></code>, <code class="docutils literal notranslate"><span class="pre">sf</span></code>, <code class="docutils literal notranslate"><span class="pre">raster</span></code>, or <code class="docutils literal notranslate"><span class="pre">rgeos</span></code> in R, or stand-alone tools like QGIS, the reality is that all the actual GIS work is being done by a small number of libraries (written in C++) by the <a class="reference external" href="https://www.osgeo.org/">OSGeo organization</a>: <a class="reference external" href="https://www.osgeo.org/projects/gdal/">GDAL</a> (for reading and transforming data, once upon a time called <code class="docutils literal notranslate"><span class="pre">OGR</span></code>), <a class="reference external" href="https://www.osgeo.org/projects/geos/">GEOS</a> for geometric operations (e.g. creating unions or intersections of polygons), and <a class="reference external" href="https://www.osgeo.org/projects/proj/">PROJ</a> for managing coordinate reference systems.</p>
-<p>And that means that to run geopandas, we have to load LOTS of little C++ dependencies, and that’s where conda really helps - do not try to use pip to install geopandas!</p>
-<p>Even with the help of conda, however, all these dependencies can be a little bit finicky, so while you are welcome to try to install geopandas directly into your main conda environment, I actually recommend that you install geopandas in a new environment.</p>
+<p>Early in Practical Data Science, we told you that many data scientists install and manage packages using <code class="docutils literal notranslate"><span class="pre">conda</span></code> where possible rather than using tools like <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">uv</span></code>, <code class="docutils literal notranslate"><span class="pre">pyenv</span></code>, etc. One of the main reasons is that data scientists often need to install lots of complex, non-Python dependencies, and <code class="docutils literal notranslate"><span class="pre">conda</span></code> does that better than lighter/faster tools like <code class="docutils literal notranslate"><span class="pre">uv</span></code>. Well, geospatial analysis is a perfect example of where <code class="docutils literal notranslate"><span class="pre">conda</span></code> shines.</p>
+<p>In this class, we’ll be focused on geopandas (for vector data) and rasterio (for raster data). Behind the scenes, though, both of these libraries are mostly wrappers around a set of geospatial libraries that are used <strong>everywhere</strong> in the GIS world. Whether you’re talking about <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> or stand-alone GIS tools like QGIS, all the computational heavy lifting these programs do is done by a small number of C++ and fortran libraries managed by the <a class="reference external" href="https://www.osgeo.org/">OSGeo organization</a>: <a class="reference external" href="https://www.osgeo.org/projects/gdal/">GDAL</a> (for reading and transforming data, once upon a time called <code class="docutils literal notranslate"><span class="pre">OGR</span></code>), <a class="reference external" href="https://www.osgeo.org/projects/geos/">GEOS</a> for geometric operations (e.g. creating unions or intersections of polygons), and <a class="reference external" href="https://www.osgeo.org/projects/proj/">PROJ</a> for managing coordinate reference systems.</p>
+<p>As a result, to use geopandas, we have to load LOTS of little C++ dependencies that very often fail to work correctly. In fact, even if you install with <code class="docutils literal notranslate"><span class="pre">conda</span></code> you can run into issues if you already have lots of other packages installed. So not only will we use <code class="docutils literal notranslate"><span class="pre">conda</span></code> to install these libraries, but we will also use its “environment management” functionality to put these installations in a clean environment we’ll just use for GIS.</p>
 <section id="conda-environments">
 <h2>conda Environments<a class="headerlink" href="#conda-environments" title="Link to this heading">#</a></h2>
 <p>It’s extremely common in software engineering and data science to need different sets of packages (and potentially different versions of Python) for different projects. To make this easier, conda is capable of creating isolated “environments”, each with their own version of Python and related packages.</p>
@@ -641,7 +640,7 @@ document.write(`
 </pre></div>
 </div>
 <p>This will create a new environment and install Python and a couple other standard tools. If you want to specify the version of Python being installed, you can also write something like:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>geo<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>geo<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12
 </pre></div>
 </div>
 <p>To use an environment, you first have to “activate” it. When you create the environment, conda will also give you directions about how to activate it. On a mac, this looks like:</p>
@@ -656,33 +655,31 @@ document.write(`
 </pre></div>
 </div>
 <p>How to activate an environment, do you as conda instructs! If you’re using <a class="reference internal" href="#setup_commandline_mac.ipynb"><span class="xref myst">Oh-My-Zsh!</span></a>, then you will also see your current environment reported from the command line:</p>
-<p><img alt="conda_activated" src="notebooks/gis/images/conda_activated.png" /></p>
+<p><img alt="conda_activated" src="../../_images/conda_activated1.png" /></p>
 <p>(And now you know what that <code class="docutils literal notranslate"><span class="pre">(base)</span></code> that’s always been at the beginning of your commandline meant! It was telling you that you are in your base conda environment).</p>
 <p>Once you run that activate command, anything you run from this terminal (including a session of jupyter if you launch it from this command line right now) will be running the Python installation in that environment.</p>
 </section>
 <section id="install-packages">
 <h3>Install Packages<a class="headerlink" href="#install-packages" title="Link to this heading">#</a></h3>
 <p>But because this environment is isolated, none of the packages you had installed in your base environment are accessible anymore, so the first thing you need to do is install whatever packages you need. For what working to be doing with geopandas, I recommend the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>geopandas<span class="w"> </span>altair<span class="w"> </span>matplotlib<span class="w"> </span>jupyter<span class="w"> </span>
-pip<span class="w"> </span>install<span class="w"> </span>gpdvega<span class="w"> </span><span class="c1"># We need one package that&#39;s pip-only</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>geopandas<span class="w"> </span>matplotlib<span class="w"> </span>jupyter<span class="w"> </span>
 </pre></div>
 </div>
-<p>(If you setup miniconda with conda-forge as the default channel, you don’t need to explicitly specify the conda-forge channel with <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">conda-forge</span></code>).</p>
+<p>(If you use miniforge, you don’t need to explicitly specify the conda-forge channel with <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">conda-forge</span></code>).</p>
 <p>Also, you can actually do most of this during your first environment setup if you want, though that final pip install you’ll still have to do after activating the environment.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>geo<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>geopandas<span class="w"> </span>altair<span class="w"> </span>matplotlib<span class="w"> </span>jupyter<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>geo<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>geopandas<span class="w"> </span>matplotlib<span class="w"> </span>jupyter<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12
 </pre></div>
 </div>
 </section>
 </section>
 <section id="using-your-environment">
 <h2>Using Your Environment<a class="headerlink" href="#using-your-environment" title="Link to this heading">#</a></h2>
-<p>For a tool like Jupyter Notebooks or Jupyter Lab, just activate your conda environment then launch jupyter from that same session, and it will run against your environment.</p>
 <p>For a tool like VS Code, you have to specify the Python installation you want to use explicitly. For regular Python sessions, just click the Python interpreter icon in the bottom bar:</p>
-<p><img alt="select_interpreter_button" src="notebooks/gis/images/select_interpreter_button.png" /></p>
+<p><img alt="select_interpreter_button" src="../../_images/select_interpreter_button2.png" /></p>
 <p>Then select the version of Python associated with the environment you just created:</p>
-<p><img alt="conda_env_vscode_regular" src="notebooks/gis/images/conda_env_vscode_regular.png" /></p>
+<p><img alt="conda_env_vscode_regular" src="../../_images/conda_env_vscode_regular2.png" /></p>
 <p>And for Jupyter sessions in VS Code, click on the “Select Kernel” button and you should see an installation (if you installed Jupyter) associated with the environment you want:</p>
-<p><img alt="conda_env_vscode_jupyter" src="notebooks/gis/images/conda_env_vscode_jupyter.png" /></p>
+<p><img alt="conda_env_vscode_jupyter" src="../../_images/jupyter_select_kernel.png" /></p>
 <p><strong>Note that if you DONT see your geo environment, quit VS Code and re-open it and try again!</strong></p>
 </section>
 </section>
