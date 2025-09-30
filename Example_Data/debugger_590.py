@@ -25,7 +25,7 @@ def get_repeats(sentence_as_list):
         # the unique words list),
         # it is a repeat and we put it in
         # repeated words if it isn't already there.
-        elif word in unique_words and word not in repeated_words
+        elif word in unique_words and word not in repeated_words:
             repeated_words.append(word)
     return repeated_words
 
