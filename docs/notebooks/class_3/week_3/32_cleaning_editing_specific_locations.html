@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -356,14 +356,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Geospatial Analysis</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/10_gis_what_is_gis.html">What is GIS?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/15_gis_setup_geopandas.html">Installing Geopandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/20_gis_geopandas.html">GIS with Geopandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/30_gis_spatial_joins.html">Merging Spatial Data Sets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/40_gis_projections.html">Spatial Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/50_gis_crs_geopandas.html">Managing Projections in Geopandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/60_gis_data.html">Spatial Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/70_gis_mapping.html">Mapping with Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/10_gis_what_is_gis.html">What is GIS?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/15_gis_setup_geopandas.html">Installing Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/20_gis_geopandas.html">GIS with Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/30_gis_spatial_joins.html">Merging Spatial Data Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/40_gis_projections.html">Spatial Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/50_gis_crs_geopandas.html">Managing Projections in Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/60_gis_data.html">Spatial Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
 <ul class="nav bd-sidenav">
@@ -875,8 +874,9 @@ document.write(`
 </table>
 </div></div></div>
 </div>
-<p>See how the boolean vector on the left subset for rows where <code class="docutils literal notranslate"><span class="pre">a</span></code> was even (the value of <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">%</span> <span class="pre">2</span></code> is zero), and the second entry (<code class="docutils literal notranslate"><span class="pre">b</span></code>) subset for column <code class="docutils literal notranslate"><span class="pre">b</span></code>, then we assigned 0 into those cells? It’s just a generalization of the kinds of assignments we did above with lists and numpy arrays, just using boolean vectors and column labels instead of indices!</p>
-<p>Great! But now suppose we don’t just want to set certain values to a constant, but instead we wanted to, say, double all the values in odd rows. We can do that too by assigning values that “fit” into the cells on the left of the assignment operator (i.e. by making sure the values we assign have the same dimensions as the cells into which we’re trying to assign them):</p>
+<p>See how the boolean vector on the left (<code class="docutils literal notranslate"><span class="pre">df.a</span> <span class="pre">%</span> <span class="pre">2</span> <span class="pre">==</span> <span class="pre">0</span></code>) subsets for rows where the value of <code class="docutils literal notranslate"><span class="pre">a</span></code> is even (rows where the value of <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">%</span> <span class="pre">2</span></code> is zero), and the second entry (<code class="docutils literal notranslate"><span class="pre">b</span></code>) subset for column <code class="docutils literal notranslate"><span class="pre">b</span></code>, then we assigned 0 into those cells? It’s just a generalization of the kinds of assignments we did above with lists and numpy arrays, just using boolean vectors and column labels instead of indices!</p>
+<p>Great! But now suppose we don’t just want to set certain values to a constant, but instead we wanted to, say, double all the values in the rows where <code class="docutils literal notranslate"><span class="pre">a</span></code> is even.</p>
+<p>We can do that too by assigning values that “fit” into the cells on the left of the assignment operator (i.e. by making sure the values we assign have the same dimensions as the cells into which we’re trying to assign them):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>

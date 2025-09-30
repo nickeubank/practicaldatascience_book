@@ -365,7 +365,6 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Spatial Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="50_gis_crs_geopandas.html">Managing Projections in Geopandas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="60_gis_data.html">Spatial Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="70_gis_mapping.html">Mapping with Geopandas</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
 <ul class="nav bd-sidenav">
@@ -613,6 +612,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem">The Problem</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-projection-impossibility-theory">The Projection Impossibility Theory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-examples">Projection Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#web-mercator">Web Mercator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-projection-tools">Interactive Projection Tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#do-i-have-to-work-in-two-dimensions">Do I Have to Work in Two-Dimensions?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-projections">Working with Projections</a></li>
@@ -654,37 +654,44 @@ document.write(`
 <section id="projection-examples">
 <h2>Projection Examples<a class="headerlink" href="#projection-examples" title="Link to this heading">#</a></h2>
 <p>OK, that all feels pretty abstract. Let’s be more concrete, starting by plotting our <code class="docutils literal notranslate"><span class="pre">world</span></code> GeoDataFrame map in a few common projections!</p>
-<p>As discussed before, up until now we’ve been using latitude and longitude as our x-y coordinates. This is basically what’s called a Plate-Carrée projection, and… you should never use it! It has basically no desirable properties. :)</p>
-<p>Basically, treating latitudes and longitudes as x-y coordinates leads to shapes that are reasonable in terms of their vertical shape. Because longitude lines all converge at the North and South poles, though, forcing these to be regularly spaced in our flat x-y plane means that everything is being stretched horizontally as you move towards the poles.</p>
+<p>To begin, let’s see what we get if we treat longitude as our x-coordinates and latitude as our y-coordinates. This is referred to as a Plate-Carrée projection, and… you should never use it! It has basically no desirable properties. :)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="n">world</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">gpd</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;naturalearth_lowres&#39;</span><span class="p">))</span>
+
+<span class="n">world</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span>
+    <span class="s2">&quot;https://github.com/nickeubank/practicaldatascience_book/raw/refs&quot;</span>
+    <span class="s2">&quot;/heads/main/notebooks/gis/example_data/world_countries/world_countries.geojson&quot;</span>
+<span class="p">)</span>
 <span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../_images/e2fbabd765f630850f5739a87b6dcf6bf55c928bb363c57e0545a07a408ab8c1.png" src="../../_images/e2fbabd765f630850f5739a87b6dcf6bf55c928bb363c57e0545a07a408ab8c1.png" />
+<img alt="../../_images/37556564814ce10144a0e4fea4d9f625e318c98a6c54532b77f0aa274716324d.png" src="../../_images/37556564814ce10144a0e4fea4d9f625e318c98a6c54532b77f0aa274716324d.png" />
 </div>
 </div>
+<p>Basically, treating latitudes and longitudes as x-y coordinates leads to shapes that are reasonable in terms of their vertical shape. Because longitude lines all converge at the North and South poles, though, forcing these to be regularly spaced in our flat x-y plane means that everything is being stretched horizontally as you move towards the poles.</p>
+</section>
+<section id="web-mercator">
+<h2>Web Mercator<a class="headerlink" href="#web-mercator" title="Link to this heading">#</a></h2>
 <p>Our next projection is Web Mercator, the de facto standard projection for services like google maps. Mercator projections is what you would get if you put a cylinder of paper around a transparent globe, put a light in the middle of the Earth, and then traced the shadow it cast on the paper:</p>
-<p><img alt="Mercator as Light" src="notebooks/gis/images/Usgs_map_mercator.webp" />
+<p><img alt="Mercator as Light" src="../../_images/Usgs_map_mercator.webp" />
 (Source: USGS)</p>
-<p>As you’ll see, it’s reasonable for middle latitudes, but really, <em>really</em> distorts the size of things in the extreme latitudes (e.g. Iceland).</p>
+<p>As you’ll see, it’s reasonable for middle latitudes, but really, <em>really</em> distorts the size of things in the extreme latitudes (e.g. Greenland).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># DOesn&#39;t work for Antarctica</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Doesn&#39;t work for Antarctica</span>
 <span class="n">world</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="n">world</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;Antarctica&quot;</span><span class="p">]</span>
 
 <span class="c1"># Here we&#39;re using to_crs()</span>
-<span class="c1"># to re-project our data. EPSG is an </span>
+<span class="c1"># to re-project our data. EPSG is an</span>
 <span class="c1"># organization that has a bunch of standard</span>
-<span class="c1"># projections, so here I&#39;m telling geopandas </span>
-<span class="c1"># to use their web mercator. </span>
+<span class="c1"># projections, so here I&#39;m telling geopandas</span>
+<span class="c1"># to use their web mercator.</span>
 <span class="c1"># we&#39;ll talk about how to find these later.</span>
 
 <span class="n">world</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">3857</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -692,10 +699,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../_images/f5d29b34c2406c61cdae8eb090899846e3360cbb6856539517d3eb64edeea9d2.png" src="../../_images/f5d29b34c2406c61cdae8eb090899846e3360cbb6856539517d3eb64edeea9d2.png" />
+<img alt="../../_images/d27493df90d305d693d02936587295a5f8a954b50968ec3d78b34c805fca568e.png" src="../../_images/d27493df90d305d693d02936587295a5f8a954b50968ec3d78b34c805fca568e.png" />
 </div>
 </div>
 <p>How much is this distorting the size of extreme latitudes? Here a gif from Wikipedia that rescales countries to be “accurately sized” (i.e. correct area, albeit at the expense of location):</p>
@@ -788,6 +795,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem">The Problem</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-projection-impossibility-theory">The Projection Impossibility Theory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-examples">Projection Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#web-mercator">Web Mercator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-projection-tools">Interactive Projection Tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#do-i-have-to-work-in-two-dimensions">Do I Have to Work in Two-Dimensions?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-projections">Working with Projections</a></li>

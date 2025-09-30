@@ -363,7 +363,6 @@
 <li class="toctree-l1"><a class="reference internal" href="40_gis_projections.html">Spatial Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="50_gis_crs_geopandas.html">Managing Projections in Geopandas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="60_gis_data.html">Spatial Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="70_gis_mapping.html">Mapping with Geopandas</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
 <ul class="nav bd-sidenav">
@@ -651,7 +650,10 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 
 <span class="c1"># Load GIS data</span>
-<span class="n">world</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">gpd</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;naturalearth_lowres&quot;</span><span class="p">))</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span>
+    <span class="s2">&quot;https://github.com/nickeubank/practicaldatascience_book/raw/refs&quot;</span>
+    <span class="s2">&quot;/heads/main/notebooks/gis/example_data/world_countries/world_countries.geojson&quot;</span>
+<span class="p">)</span>
 
 <span class="c1"># Look at the data</span>
 <span class="n">world</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -677,62 +679,153 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>pop_est</th>
-      <th>continent</th>
-      <th>name</th>
-      <th>iso_a3</th>
-      <th>gdp_md_est</th>
+      <th>featurecla</th>
+      <th>scalerank</th>
+      <th>labelrank</th>
+      <th>sovereignt</th>
+      <th>sov_a3</th>
+      <th>adm0_dif</th>
+      <th>level</th>
+      <th>type</th>
+      <th>tlc</th>
+      <th>admin</th>
+      <th>...</th>
+      <th>fclass_tr</th>
+      <th>fclass_id</th>
+      <th>fclass_pl</th>
+      <th>fclass_gr</th>
+      <th>fclass_it</th>
+      <th>fclass_nl</th>
+      <th>fclass_se</th>
+      <th>fclass_bd</th>
+      <th>fclass_ua</th>
       <th>geometry</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>7</th>
-      <td>6909701</td>
-      <td>Oceania</td>
-      <td>Papua New Guinea</td>
-      <td>PNG</td>
-      <td>28020.0</td>
-      <td>MULTIPOLYGON (((141.00021 -2.60015, 142.73525 ...</td>
+      <th>45</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>5</td>
+      <td>United States of America</td>
+      <td>US1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Dependency</td>
+      <td>1</td>
+      <td>Puerto Rico</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>POLYGON ((-66.28243 18.51476, -65.7713 18.4266...</td>
     </tr>
     <tr>
-      <th>174</th>
-      <td>1895250</td>
-      <td>Europe</td>
-      <td>Kosovo</td>
-      <td>-99</td>
-      <td>18490.0</td>
-      <td>POLYGON ((20.59025 41.85541, 20.52295 42.21787...</td>
+      <th>3</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Canada</td>
+      <td>CAN</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>Canada</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>MULTIPOLYGON (((-122.84 49, -122.97421 49.0025...</td>
     </tr>
     <tr>
-      <th>32</th>
-      <td>47698524</td>
-      <td>South America</td>
-      <td>Colombia</td>
-      <td>COL</td>
-      <td>688000.0</td>
-      <td>POLYGON ((-66.87633 1.25336, -67.06505 1.13011...</td>
+      <th>74</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Angola</td>
+      <td>AGO</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>Angola</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>MULTIPOLYGON (((12.99552 -4.7811, 12.63161 -4....</td>
     </tr>
     <tr>
-      <th>89</th>
-      <td>282814</td>
-      <td>Oceania</td>
-      <td>Vanuatu</td>
-      <td>VUT</td>
-      <td>723.0</td>
-      <td>MULTIPOLYGON (((167.21680 -15.89185, 167.84488...</td>
+      <th>82</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Algeria</td>
+      <td>DZA</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>Algeria</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>POLYGON ((-8.6844 27.39574, -8.66512 27.58948,...</td>
     </tr>
     <tr>
-      <th>157</th>
-      <td>28036829</td>
-      <td>Asia</td>
-      <td>Yemen</td>
-      <td>YEM</td>
-      <td>73450.0</td>
-      <td>POLYGON ((52.00001 19.00000, 52.78218 17.34974...</td>
+      <th>161</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>5</td>
+      <td>Cyprus</td>
+      <td>CYP</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>Cyprus</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>POLYGON ((32.73178 35.14003, 32.91957 35.08783...</td>
     </tr>
   </tbody>
 </table>
+<p>5 rows × 169 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -742,10 +835,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../_images/e2fbabd765f630850f5739a87b6dcf6bf55c928bb363c57e0545a07a408ab8c1.png" src="../../_images/e2fbabd765f630850f5739a87b6dcf6bf55c928bb363c57e0545a07a408ab8c1.png" />
+<img alt="../../_images/37556564814ce10144a0e4fea4d9f625e318c98a6c54532b77f0aa274716324d.png" src="../../_images/37556564814ce10144a0e4fea4d9f625e318c98a6c54532b77f0aa274716324d.png" />
 </div>
 </div>
 <p>Crucially, this means that GeoDataFrames support all the operations you’re familiar with from pandas, including merging, subsetting, etc. In fact, geopandas isn’t just based on pandas in an abstract sense – the way geopandas is written is by “inheriting” the DataFrame class from pandas then adding to it. So as soon as something changes in pandas, those changes will propagate to geopandas as well.</p>
@@ -753,7 +846,7 @@ document.write(`
 <p>To illustrate, here is some familiar subsetting syntax:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get countries whose population is at least 10x the </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get countries whose population is at least 10x the</span>
 <span class="c1"># average county population</span>
 <span class="n">big_countries</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;pop_est&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">world</span><span class="p">[</span><span class="s2">&quot;pop_est&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">10</span><span class="p">]</span>
 
@@ -763,10 +856,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../_images/021a9ddcd7f93d080472129f62c6f05932d3ec019d7ab06f20b4b9724c63b9d7.png" src="../../_images/021a9ddcd7f93d080472129f62c6f05932d3ec019d7ab06f20b4b9724c63b9d7.png" />
+<img alt="../../_images/0cb4256a8ba6b9ff05ff1a264a002272e3e9ee37fdae39fb779e35777f21e68e.png" src="../../_images/0cb4256a8ba6b9ff05ff1a264a002272e3e9ee37fdae39fb779e35777f21e68e.png" />
 </div>
 </div>
 <p>China and India! Great.</p>
@@ -823,7 +916,7 @@ Name: geometry, dtype: geometry
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/tj/s8f2_ks15h315z5thvtnhz8r0000gp/T/ipykernel_24588/1055431317.py:1: UserWarning: Geometry is in a geographic CRS. Results from &#39;centroid&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/ipykernel_60348/1055431317.py:1: UserWarning: Geometry is in a geographic CRS. Results from &#39;centroid&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
 
   world[&quot;country_centroids&quot;] = world.centroid
 </pre></div>
@@ -846,48 +939,105 @@ Name: geometry, dtype: geometry
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>pop_est</th>
-      <th>continent</th>
-      <th>name</th>
-      <th>iso_a3</th>
-      <th>gdp_md_est</th>
+      <th>featurecla</th>
+      <th>scalerank</th>
+      <th>labelrank</th>
+      <th>sovereignt</th>
+      <th>sov_a3</th>
+      <th>adm0_dif</th>
+      <th>level</th>
+      <th>type</th>
+      <th>tlc</th>
+      <th>admin</th>
+      <th>...</th>
+      <th>fclass_id</th>
+      <th>fclass_pl</th>
+      <th>fclass_gr</th>
+      <th>fclass_it</th>
+      <th>fclass_nl</th>
+      <th>fclass_se</th>
+      <th>fclass_bd</th>
+      <th>fclass_ua</th>
       <th>geometry</th>
       <th>country_centroids</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>47</th>
-      <td>11147407</td>
-      <td>North America</td>
-      <td>Cuba</td>
-      <td>CUB</td>
-      <td>132900.0</td>
-      <td>POLYGON ((-82.26815 23.18861, -81.40446 23.117...</td>
-      <td>POINT (-78.96068 21.63175)</td>
+      <th>77</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>5</td>
+      <td>Lebanon</td>
+      <td>LBN</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>Lebanon</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>POLYGON ((35.8211 33.27743, 35.5528 33.26427, ...</td>
+      <td>POINT (35.87099 33.91183)</td>
     </tr>
     <tr>
-      <th>135</th>
-      <td>647581</td>
-      <td>Oceania</td>
-      <td>Solomon Is.</td>
-      <td>SLB</td>
-      <td>1198.0</td>
-      <td>MULTIPOLYGON (((162.11902 -10.48272, 162.39865...</td>
-      <td>POINT (159.96662 -8.85250)</td>
+      <th>55</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Niger</td>
+      <td>NER</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>Niger</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>POLYGON ((14.8513 22.86295, 15.09689 21.30852,...</td>
+      <td>POINT (9.32443 17.34555)</td>
     </tr>
     <tr>
-      <th>104</th>
-      <td>8468555</td>
-      <td>Asia</td>
-      <td>Tajikistan</td>
-      <td>TJK</td>
-      <td>25810.0</td>
-      <td>POLYGON ((67.83000 37.14499, 68.39203 38.15703...</td>
-      <td>POINT (71.03444 38.58308)</td>
+      <th>99</th>
+      <td>Admin-0 country</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Bangladesh</td>
+      <td>BGD</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Sovereign country</td>
+      <td>1</td>
+      <td>Bangladesh</td>
+      <td>...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>POLYGON ((92.67272 22.04124, 92.65226 21.32405...</td>
+      <td>POINT (90.26793 23.83946)</td>
     </tr>
   </tbody>
 </table>
+<p>3 rows × 170 columns</p>
 </div></div></div>
 </div>
 <p>(The error telling us we shouldn’t be calculating distances using a “geographic CRS” is important, and I’d never ignore it if we were doing a serious analysis. Explaining it requires explaining projections, however, which I’d like to put off till a <a class="reference internal" href="#gis_projections_and_crs.ipynb"><span class="xref myst">later reading</span></a>. Duke students: this is on the schedule for our next class. Non-Duke students: if you’re just coming to this through google, <em>please</em> be sure to read that other reading too!)</p>
@@ -899,10 +1049,10 @@ Name: geometry, dtype: geometry
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../_images/e2fbabd765f630850f5739a87b6dcf6bf55c928bb363c57e0545a07a408ab8c1.png" src="../../_images/e2fbabd765f630850f5739a87b6dcf6bf55c928bb363c57e0545a07a408ab8c1.png" />
+<img alt="../../_images/37556564814ce10144a0e4fea4d9f625e318c98a6c54532b77f0aa274716324d.png" src="../../_images/37556564814ce10144a0e4fea4d9f625e318c98a6c54532b77f0aa274716324d.png" />
 </div>
 </div>
 <p>But if I <em>change</em> the “official geometry” column with <code class="docutils literal notranslate"><span class="pre">world.set_geometry(&quot;country_centroids&quot;)</span></code> and then plot the data again, we now see its plotting the centroids:</p>
@@ -914,10 +1064,10 @@ Name: geometry, dtype: geometry
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="../../_images/42218c1fe6b594be3d83058034e0277d7ddaac21005cd3c9f9b021cb0587725a.png" src="../../_images/42218c1fe6b594be3d83058034e0277d7ddaac21005cd3c9f9b021cb0587725a.png" />
+<img alt="../../_images/9e7aae2a7b06d981e2d1ed8e9decf16eebd91c3bb4b250f43abfe483c63ff1df.png" src="../../_images/9e7aae2a7b06d981e2d1ed8e9decf16eebd91c3bb4b250f43abfe483c63ff1df.png" />
 </div>
 </div>
 <p><strong>Is it confusing that <code class="docutils literal notranslate"><span class="pre">world</span></code> still has a column called “geometry” that isn’t the “official geometry” column?</strong> Yes. Yes it is. Which is why I keep using the term “official geometry” in quotes to refer to the column being given primacy for spatial operations. But that’s just something <em>I’m</em> doing here – geopandas just allows for having two things with the same name (here, a column named “geometry” holding the country polygons and the attribute that dictates which column is the “official geometry” column).</p>
