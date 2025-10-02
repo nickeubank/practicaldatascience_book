@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -358,14 +358,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Geospatial Analysis</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/10_gis_what_is_gis.html">What is GIS?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/15_gis_setup_geopandas.html">Installing Geopandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/20_gis_geopandas.html">GIS with Geopandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/30_gis_spatial_joins.html">Merging Spatial Data Sets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/40_gis_projections.html">Spatial Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/50_gis_crs_geopandas.html">Managing Projections in Geopandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/60_gis_data.html">Spatial Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/40_gis/70_gis_mapping.html">Mapping with Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/10_gis_what_is_gis.html">What is GIS?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/15_gis_setup_geopandas.html">Installing Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/20_gis_geopandas.html">GIS with Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/30_gis_spatial_joins.html">Merging Spatial Data Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/40_gis_projections.html">Spatial Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/50_gis_crs_geopandas.html">Managing Projections in Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/60_gis_data.html">Spatial Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
 <ul class="nav bd-sidenav">
@@ -656,15 +655,15 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># load image as pixel array</span>
-<span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
 
 <span class="n">perc</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
     <span class="n">im</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/B0</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
-    <span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">im</span><span class="p">,[</span><span class="n">perc</span><span class="p">,</span><span class="mi">100</span><span class="o">-</span><span class="n">perc</span><span class="p">])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys_r&#39;</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+    <span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="p">[</span><span class="n">perc</span><span class="p">,</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">perc</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -672,10 +671,10 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
 <span class="n">im</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/B03.png&quot;</span><span class="p">)</span>
-<span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">im</span><span class="p">,[</span><span class="n">perc</span><span class="p">,</span><span class="mi">100</span><span class="o">-</span><span class="n">perc</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys_r&#39;</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="p">[</span><span class="n">perc</span><span class="p">,</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">perc</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -711,17 +710,19 @@ document.write(`
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_image</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Greys_r&#39;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Plots either a single band or a 3-band image, depending on whether `im` is 2-D or 3-D </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_image</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plots either a single band or a 3-band image, depending on whether `im` is 2-D or 3-D</span>
 <span class="sd">    For single band images, you can specify the colormap or the default of &#39;Greys_r&#39; is chosen.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
     <span class="n">perc</span> <span class="o">=</span> <span class="mi">5</span>
-    <span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">im</span><span class="p">,[</span><span class="n">perc</span><span class="p">,</span><span class="mi">100</span><span class="o">-</span><span class="n">perc</span><span class="p">])</span>
+    <span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="p">[</span><span class="n">perc</span><span class="p">,</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">perc</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># The mutiplication increases the image brightness for easier viewing</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+            <span class="n">im</span> <span class="o">*</span> <span class="mi">3</span>
+        <span class="p">)</span>  <span class="c1"># The mutiplication increases the image brightness for easier viewing</span>
     <span class="k">elif</span> <span class="n">im</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -749,7 +750,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### SOLUTION - DO NOT POST ###</span>
-<span class="n">im_natural_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">band4_red</span><span class="p">,</span> <span class="n">band3_green</span><span class="p">,</span> <span class="n">band2_blue</span><span class="p">),</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">im_natural_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">band4_red</span><span class="p">,</span> <span class="n">band3_green</span><span class="p">,</span> <span class="n">band2_blue</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plot_image</span><span class="p">(</span><span class="n">im_natural_color</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -768,7 +769,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### SOLUTION - DO NOT POST ###</span>
-<span class="n">im_false_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">band8_nir</span><span class="p">,</span> <span class="n">band4_red</span><span class="p">,</span> <span class="n">band3_green</span><span class="p">),</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">im_false_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">band8_nir</span><span class="p">,</span> <span class="n">band4_red</span><span class="p">,</span> <span class="n">band3_green</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plot_image</span><span class="p">(</span><span class="n">im_false_color</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -788,8 +789,8 @@ Calculate this and plot the single band using <code class="docutils literal notr
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### SOLUTION - DO NOT POST ###</span>
-<span class="n">ndvi</span> <span class="o">=</span> <span class="p">(</span><span class="n">band8_nir</span> <span class="o">-</span> <span class="n">band4_red</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">band8_nir</span> <span class="o">+</span> <span class="n">band4_red</span><span class="p">)</span>
-<span class="n">plot_image</span><span class="p">(</span><span class="n">ndvi</span><span class="p">,</span><span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;PiYG&#39;</span><span class="p">)</span>
+<span class="n">ndvi</span> <span class="o">=</span> <span class="p">(</span><span class="n">band8_nir</span> <span class="o">-</span> <span class="n">band4_red</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">band8_nir</span> <span class="o">+</span> <span class="n">band4_red</span><span class="p">)</span>
+<span class="n">plot_image</span><span class="p">(</span><span class="n">ndvi</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;PiYG&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
