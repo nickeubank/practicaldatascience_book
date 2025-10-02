@@ -610,7 +610,17 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-viewing-the-world-in-new-ways-using-remote-sensing-data">Exercise: Viewing the world in new ways using remote sensing data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-the-world-in-new-ways-using-remote-sensing-data">Viewing the World in New Ways Using Remote Sensing Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-0">Exercise 0</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -626,99 +636,21 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1><a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-viewing-the-world-in-new-ways-using-remote-sensing-data">
-<h1>Exercise: Viewing the world in new ways using remote sensing data<a class="headerlink" href="#exercise-viewing-the-world-in-new-ways-using-remote-sensing-data" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="viewing-the-world-in-new-ways-using-remote-sensing-data">
+<h1>Viewing the World in New Ways Using Remote Sensing Data<a class="headerlink" href="#viewing-the-world-in-new-ways-using-remote-sensing-data" title="Link to this heading">#</a></h1>
 <p>We discussed in our last section that natural color imagery is based on three color bands: red, green, and blue, which each correspond to the measurements of a sensor (i.e. a camera) collecting information on the wavelengths of light that correspond to the colors red (625-750 nm), green (500-565nm), and blue (450-485nm). These are the colors our built-in sensors (eyeballs) can detect. However, there are many other wavelengths to explore. Frequently, when we’re working with remote sensing data from satellites, we do not solely care about RGB data, but also infrared data that measures light around 840nm in wavelength. Near-infrared (NIR) data can be exceptionally informative for learning about the presence and health of vegetation which can be useful for agriculture as well as understanding the degree of urban development in a region.</p>
 <p>In this exercise, you’ll explore how we can work with matrices to gain more information about vegetation in a region using a collection of satellite imagery from Kansas, USA from the Sentinel-2 instrument of the European Space Administration (ESA). You can explore publicly available ESA data at <a class="reference external" href="https://scihub.copernicus.eu/dhus/">https://scihub.copernicus.eu/dhus/</a>.</p>
 <p>Let’s take a look at each band individually, then the RGB bands together for a standard natural color image. From there we’ll take a look at a false color infrared image which will provide information on the relative health of the vegetation. Lastly, we’ll explore the normalized difference vegetation index (NDVI) which is used to quantify the amount of vegetation present in a region.</p>
+<section id="exercise-0">
+<h2>Exercise 0<a class="headerlink" href="#exercise-0" title="Link to this heading">#</a></h2>
+<p>Start by downloading and unzipping our <a class="reference external" href="https://github.com/nickeubank/practicaldatascience_book/blob/main/notebooks/class_2/week_4/data/satellite_images.zip">satellite data from here</a>.</p>
 <p>We’ll get started by loading are data as a set of three separate matrices representing the red, blue, green, and NIR bands of our data. Here’s the code to get you started. This code loads four numpy arrays, one for red, green, blue, and NIR: <code class="docutils literal notranslate"><span class="pre">band2_blue</span></code>, <code class="docutils literal notranslate"><span class="pre">band3_green</span></code>, <code class="docutils literal notranslate"><span class="pre">band4_red</span></code>, and <code class="docutils literal notranslate"><span class="pre">band8_nir</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">image</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="c1"># Load the data from each of the four bands</span>
-<span class="n">band2_blue</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/B02.png&quot;</span><span class="p">)</span>
-<span class="n">band3_green</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/B03.png&quot;</span><span class="p">)</span>
-<span class="n">band4_red</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/B04.png&quot;</span><span class="p">)</span>
-<span class="n">band8_nir</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/B08.png&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Load the data from each of the four bands</span>
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">band2_blue</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/B02.png&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">band3_green</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/B03.png&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">band4_red</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/B04.png&quot;</span><span class="p">)</span>
-
-<span class="nn">File /users/nce8/miniforge3/lib/python3.12/site-packages/matplotlib/image.py:1544,</span> in <span class="ni">imread</span><span class="nt">(fname, format)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1537</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1538</span>     <span class="c1"># Pillow doesn&#39;t handle URLs directly.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1539</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1540</span>         <span class="s2">&quot;Please open the URL for reading and pass the &quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1541</span>         <span class="s2">&quot;result to Pillow, e.g. with &quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1542</span>         <span class="s2">&quot;``np.array(PIL.Image.open(urllib.request.urlopen(url)))``.&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1543</span>         <span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1544</span> <span class="k">with</span> <span class="n">img_open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">image</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1545</span>     <span class="k">return</span> <span class="p">(</span><span class="n">_pil_png_to_float_array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1546</span>             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">PIL</span><span class="o">.</span><span class="n">PngImagePlugin</span><span class="o">.</span><span class="n">PngImageFile</span><span class="p">)</span> <span class="k">else</span>
-<span class="g g-Whitespace">   </span><span class="mi">1547</span>             <span class="n">pil_to_array</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
-
-<span class="nn">File /users/nce8/miniforge3/lib/python3.12/site-packages/PIL/ImageFile.py:126,</span> in <span class="ni">ImageFile.__init__</span><span class="nt">(self, fp, filename)</span>
-<span class="g g-Whitespace">    </span><span class="mi">122</span> <span class="bp">self</span><span class="o">.</span><span class="n">decodermaxblock</span> <span class="o">=</span> <span class="n">MAXBLOCK</span>
-<span class="g g-Whitespace">    </span><span class="mi">124</span> <span class="k">if</span> <span class="n">is_path</span><span class="p">(</span><span class="n">fp</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">125</span>     <span class="c1"># filename</span>
-<span class="ne">--&gt; </span><span class="mi">126</span>     <span class="bp">self</span><span class="o">.</span><span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">127</span>     <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">fp</span>
-<span class="g g-Whitespace">    </span><span class="mi">128</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_exclusive_fp</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;./data/B02.png&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array(&#39;https://github.com/nickeubank/practicaldatascience_book/raw/fff3454d98ec141f830c54a963c633a9b572900f/notebooks/class_2/week_4/data/B02.png&#39;,
-      dtype=&#39;&lt;U138&#39;)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-    <span class="n">band2_blue</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-
-<span class="c1"># url = (</span>
-<span class="c1">#     &quot;https://github.com/nickeubank/practicaldatascience_book/raw/&quot;</span>
-<span class="c1">#     f&quot;fff3454d98ec141f830c54a963c633a9b572900f/notebooks/class_2/week_4/data/B03.png&quot;</span>
-<span class="c1"># )</span>
-<span class="c1"># with urlopen(url) as file:</span>
-<span class="c1">#     band3_green = image.imread(file)</span>
-
-<span class="c1"># band4_red = image.imread(f&quot;./data/B04.png&quot;)</span>
-<span class="c1"># band8_nir = image.imread(f&quot;./data/B08.png&quot;)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<ol class="arabic simple">
-<li><p>Now that you have the data loaded, let’s verify we can see each of the bands individually in grayscale (remember, it’s combining them together that will give them color). Using the function <code class="docutils literal notranslate"><span class="pre">plot_image</span></code> below, plot each of the four bands independently and note any similarities or differences.</p></li>
-</ol>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_image</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">):</span>
+</section>
+<section id="exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
+<p>Now that you have the data loaded, let’s verify we can see each of the bands individually in grayscale (remember, it’s combining them together that will give them color). Using the function <code class="docutils literal notranslate"><span class="pre">plot_image</span></code> below, plot each of the four bands independently and note any similarities or differences.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="k">def</span> <span class="nf">plot_image</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plots either a single band or a 3-band image, depending on whether `im` is 2-D or 3-D</span>
 <span class="sd">    For single band images, you can specify the colormap or the default of &#39;Greys_r&#39; is chosen.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -727,85 +659,41 @@ document.write(`
     <span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="p">[</span><span class="n">perc</span><span class="p">,</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">perc</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
-            <span class="n">im</span> <span class="o">*</span> <span class="mi">3</span>
-        <span class="p">)</span>  <span class="c1"># The mutiplication increases the image brightness for easier viewing</span>
+            <span class="n">im</span> <span class="o">*</span> <span class="mi">3</span> <span class="c1"># This increases the image brightness for easier viewing</span>
+        <span class="p">)</span>  
     <span class="k">elif</span> <span class="n">im</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### SOLUTION - DO NOT POST ###</span>
-<span class="n">bands</span> <span class="o">=</span> <span class="p">[</span><span class="n">band2_blue</span><span class="p">,</span> <span class="n">band3_green</span><span class="p">,</span> <span class="n">band4_red</span><span class="p">,</span> <span class="n">band8_nir</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">im</span> <span class="ow">in</span> <span class="n">bands</span><span class="p">:</span>
-    <span class="n">plot_image</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/7573b1e1b91115d43cf86c9492eb07f121093312e888a7633a560754a58b8873.png" src="../../_images/7573b1e1b91115d43cf86c9492eb07f121093312e888a7633a560754a58b8873.png" />
-<img alt="../../_images/2da72b828938c9f470561108754c7b8132c870fea557ec9d967eaec09ea7c287.png" src="../../_images/2da72b828938c9f470561108754c7b8132c870fea557ec9d967eaec09ea7c287.png" />
-<img alt="../../_images/d6022f9632eebce09cca496e306ac83ca100c23531a5996808faa6a133bc0873.png" src="../../_images/d6022f9632eebce09cca496e306ac83ca100c23531a5996808faa6a133bc0873.png" />
-<img alt="../../_images/aa481afccb1a8a13a62b2e6b397e26738d898a9e5145ab52ae66d01a479d1666.png" src="../../_images/aa481afccb1a8a13a62b2e6b397e26738d898a9e5145ab52ae66d01a479d1666.png" />
-</div>
-</div>
-<ol class="arabic simple" start="2">
-<li><p>Next, let’s look at the natural color imagery. You’ll notice that each band is of shape (1000, 1000). This is a 2-D array. However, to make a color image, you’ll need to make a 3-D array out of the channels in the correct order. We’ve explored some approaches to combining arrays of data together, but in this case, we want to add the data along a <em>new</em> dimension to make this a 3-D array from 2-D data. As a hint, check out the numpy <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.stack.html"><code class="docutils literal notranslate"><span class="pre">stack</span></code> method</a>. Create your natural color image (which should be of shape ) and plot it using the <code class="docutils literal notranslate"><span class="pre">plot_image</span></code> function. What can you see in the image? Are there any interesting features like bodies of water, populated areas, farms, etc.?</p></li>
-</ol>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### SOLUTION - DO NOT POST ###</span>
-<span class="n">im_natural_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">band4_red</span><span class="p">,</span> <span class="n">band3_green</span><span class="p">,</span> <span class="n">band2_blue</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plot_image</span><span class="p">(</span><span class="n">im_natural_color</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-</pre></div>
-</div>
-<img alt="../../_images/b0961fee4653e5e829470f9f1904eeea17500b460f7a6ed7e8177e31b9973ca2.png" src="../../_images/b0961fee4653e5e829470f9f1904eeea17500b460f7a6ed7e8177e31b9973ca2.png" />
-</div>
-</div>
-<ol class="arabic simple" start="3">
-<li><p>Now we start to get to even more interesting ways of plotting the image. Let’s plot a false-color infrared image. What this means is that instead of putting “red” where “red” should be in a natural color RGB image and “blue” where “blue” should be, we mix them up in a way that gives us useful information about our data. Let’s construct a 3-D array with the NIR band first, the red band second, and the green band third; that is (Band 8, Band 4, Band 3) in the places where RGB normally would be found. Plot that array using the <code class="docutils literal notranslate"><span class="pre">plot_image</span></code> function.</p></li>
-</ol>
+<section id="exercise-2">
+<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h3>
+<p>Next, let’s look at the natural color imagery. You’ll notice that each band is of shape (1000, 1000). This is a 2-D array. However, to make a color image, you’ll need to make a 3-D array out of the channels in the correct order. We’ve explored some approaches to combining arrays of data together, but in this case, we want to add the data along a <em>new</em> dimension to make this a 3-D array from 2-D data.</p>
+<p>As a hint, check out the numpy <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.stack.html"><code class="docutils literal notranslate"><span class="pre">stack</span></code> method</a>.</p>
+<p>Create your natural color image (which should be of shape 1000 x 1000 x 3) and plot it using the <code class="docutils literal notranslate"><span class="pre">plot_image</span></code> function.</p>
+<p>What can you see in the image? Are there any interesting features like bodies of water, populated areas, farms, etc.?</p>
+</section>
+</section>
+<section id="exercise-3">
+<h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h2>
+<p>Now we start to get to even more interesting ways of plotting the image. Let’s plot a false-color infrared image. What this means is that instead of putting “red” where “red” should be in a natural color RGB image and “blue” where “blue” should be, we mix them up in a way that gives us useful information about our data.</p>
+<p>Let’s construct a 3-D array with the NIR band first, the red band second, and the green band third; that is (Band 8, Band 4, Band 3) in the places where RGB normally would be found. Plot that array using the <code class="docutils literal notranslate"><span class="pre">plot_image</span></code> function.</p>
 <p>When viewing this image, what you’ll notice is that healthiest vegetation should be closer to red and the more urban areas should be closer to white. How does this image compare to the natural color image?</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### SOLUTION - DO NOT POST ###</span>
-<span class="n">im_false_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">band8_nir</span><span class="p">,</span> <span class="n">band4_red</span><span class="p">,</span> <span class="n">band3_green</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plot_image</span><span class="p">(</span><span class="n">im_false_color</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
-</pre></div>
-</div>
-<img alt="../../_images/66f203206e79a2f24462c6ee0a39cc4b0015bf8cfcdd87eb5db3f6c1beb2c699.png" src="../../_images/66f203206e79a2f24462c6ee0a39cc4b0015bf8cfcdd87eb5db3f6c1beb2c699.png" />
-</div>
-</div>
-<ol class="arabic simple" start="4">
-<li><p>Lastly, there is also an index we can calculate that tells about the amount of vegetation present in a region. This index is called the normalized difference vegetation index, or NDVI. The formula for calculating NDVI is:
-$<span class="math notranslate nohighlight">\(NDVI = \frac{B8 - B4}{B8 + B4}\)</span>$
-Calculate this and plot the single band using <code class="docutils literal notranslate"><span class="pre">plot_image</span></code> with the ‘PiYG’ colormap. In this case, the more green - the greater the vegetation present, the brighter the green. Which of these different options seems most informative about vegetation? Which presentation of the data did you learn most about the region from?</p></li>
-</ol>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### SOLUTION - DO NOT POST ###</span>
-<span class="n">ndvi</span> <span class="o">=</span> <span class="p">(</span><span class="n">band8_nir</span> <span class="o">-</span> <span class="n">band4_red</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">band8_nir</span> <span class="o">+</span> <span class="n">band4_red</span><span class="p">)</span>
-<span class="n">plot_image</span><span class="p">(</span><span class="n">ndvi</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;PiYG&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/4d0e59d08903b953f07a23425db61918db81f0e2f54de04dbe6d5e0aea25ca3c.png" src="../../_images/4d0e59d08903b953f07a23425db61918db81f0e2f54de04dbe6d5e0aea25ca3c.png" />
-</div>
-</div>
+</section>
+<section id="exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h2>
+<p>Lastly, there is also an index we can calculate that tells about the amount of vegetation present in a region. This index is called the normalized difference vegetation index, or NDVI. The formula for calculating NDVI is:</p>
+<div class="math notranslate nohighlight">
+\[NDVI = \frac{B8 - B4}{B8 + B4}\]</div>
+<p>Calculate this and plot the single band using <code class="docutils literal notranslate"><span class="pre">plot_image</span></code> with the <code class="docutils literal notranslate"><span class="pre">&quot;PiYG&quot;</span></code> colormap. In this case, the more green - the greater the vegetation present, the brighter the green.</p>
+<p>Which of these different options seems most informative about vegetation? Which presentation of the data did you learn most about the region from?</p>
+</section>
+<section id="exercise-5">
+<h2>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h2>
+<p>As you can see in the color version of this image, there is a town on the right-hand side of this image about half-way up. The town limits fall roughly between columns 780 and 835 of this image, and between rows 475 and 570.</p>
+<p>What is the average value of the NDVI for this town? How does that compare to the NDVI</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -855,7 +743,17 @@ Calculate this and plot the single band using <code class="docutils literal notr
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-viewing-the-world-in-new-ways-using-remote-sensing-data">Exercise: Viewing the world in new ways using remote sensing data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-the-world-in-new-ways-using-remote-sensing-data">Viewing the World in New Ways Using Remote Sensing Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-0">Exercise 0</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+</ul>
+</li>
 </ul>
 
   </nav></div>
