@@ -610,8 +610,6 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#not-for-inclusion-data-preprocessing">NOT FOR INCLUSION - DATA PREPROCESSING ————————————–</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">————————————————–</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-viewing-the-world-in-new-ways-using-remote-sensing-data">Exercise: Viewing the world in new ways using remote sensing data</a></li>
 </ul>
 
@@ -627,62 +625,6 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1><a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="not-for-inclusion-data-preprocessing">
-<h1>NOT FOR INCLUSION - DATA PREPROCESSING ————————————–<a class="headerlink" href="#not-for-inclusion-data-preprocessing" title="Link to this heading">#</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from matplotlib import image</span>
-<span class="c1"># import matplotlib.pyplot as plt</span>
-<span class="c1"># import numpy as np</span>
-<span class="c1"># from skimage.io import imsave</span>
-
-<span class="c1"># # load image as pixel array</span>
-<span class="c1"># images = [2,3,4,8]</span>
-
-<span class="c1"># for num in images:</span>
-<span class="c1">#     im = image.imread(f&quot;./data/B0{num}.jp2&quot;)</span>
-<span class="c1">#     im_out = im[0:1000,0:1000]/2**12</span>
-<span class="c1">#     imsave(f&#39;./data/B0{num}.png&#39;,im_out)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">image</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="c1"># load image as pixel array</span>
-<span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
-
-<span class="n">perc</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
-    <span class="n">im</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/B0</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
-    <span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="p">[</span><span class="n">perc</span><span class="p">,</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">perc</span><span class="p">])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/B03.png&quot;</span><span class="p">)</span>
-<span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="p">[</span><span class="n">perc</span><span class="p">,</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">perc</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id2">
-<h1>————————————————–<a class="headerlink" href="#id2" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="exercise-viewing-the-world-in-new-ways-using-remote-sensing-data">
 <h1>Exercise: Viewing the world in new ways using remote sensing data<a class="headerlink" href="#exercise-viewing-the-world-in-new-ways-using-remote-sensing-data" title="Link to this heading">#</a></h1>
@@ -913,8 +855,6 @@ Calculate this and plot the single band using <code class="docutils literal notr
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#not-for-inclusion-data-preprocessing">NOT FOR INCLUSION - DATA PREPROCESSING ————————————–</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">————————————————–</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-viewing-the-world-in-new-ways-using-remote-sensing-data">Exercise: Viewing the world in new ways using remote sensing data</a></li>
 </ul>
 
