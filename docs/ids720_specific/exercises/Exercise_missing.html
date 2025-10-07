@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -358,14 +358,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Geospatial Analysis</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/40_gis/10_gis_what_is_gis.html">What is GIS?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/40_gis/15_gis_setup_geopandas.html">Installing Geopandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/40_gis/20_gis_geopandas.html">GIS with Geopandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/40_gis/30_gis_spatial_joins.html">Merging Spatial Data Sets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/40_gis/40_gis_projections.html">Spatial Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/40_gis/50_gis_crs_geopandas.html">Managing Projections in Geopandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/40_gis/60_gis_data.html">Spatial Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/PDS_not_yet_in_coursera/40_gis/70_gis_mapping.html">Mapping with Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/gis/10_gis_what_is_gis.html">What is GIS?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/gis/15_gis_setup_geopandas.html">Installing Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/gis/20_gis_geopandas.html">GIS with Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/gis/30_gis_spatial_joins.html">Merging Spatial Data Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/gis/40_gis_projections.html">Spatial Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/gis/50_gis_crs_geopandas.html">Managing Projections in Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/gis/60_gis_data.html">Spatial Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
 <ul class="nav bd-sidenav">
@@ -708,7 +707,7 @@ document.write(`
 </section>
 <section id="exercise-8">
 <h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
-<p>Now let’s estimate the racial income gap in the United States. What is the average salary for employed Black Americans, and what is the average salary for employed White Americans? In percentage terms, how much more does the average White American make than the average Black American?</p>
+<p>Now let’s estimate the racial income gap in the United States. What is the average salary for employed Black Americans, and what is the average salary for employed White Americans? In percentage terms, how much <strong>more</strong> does the average White American make than the average Black American (i.e., a value of <code class="docutils literal notranslate"><span class="pre">100</span></code> could imply the average White American makes 2x what a Black American makes)?</p>
 <p><strong>Note:</strong> these values are not quite accurate estimates. As we’ll discuss in later lessons, to get completely accurate estimates from the ACS we have to take into account how people were selected to be interviewed. But you get pretty good estimates in most cases even without weights—your estimate of the racial wage gap without weights is within 5% of the corrected value.</p>
 <p><strong>Note:</strong> This is actually an underestimate of the wage gap. The US Census treats Hispanic respondents as a sub-category of “White.” While all ethnic distinctions are socially constructed, and so on some level these distinctions are all deeply problematic, this coding is inconsistent with what most Americans think of when they hear the term “White,” a term <em>most</em> Americans think of as a category that is mutually exclusive of being Hispanic or Latino (categories which are also usually conflated in American popular discussion). With that in mind, most researchers working with US Census data split “White” into “White, Hispanic” and “White, Non-Hispanic” using <code class="docutils literal notranslate"><span class="pre">race</span></code> <em>and</em> <code class="docutils literal notranslate"><span class="pre">hispan</span></code>. But for the moment, just identify “White” respondents using the value in <code class="docutils literal notranslate"><span class="pre">race</span></code>.</p>
 <p>Store your results in <code class="docutils literal notranslate"><span class="pre">results</span></code> under the keys <code class="docutils literal notranslate"><span class="pre">&quot;ex8_avg_income_black&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;ex8_avg_income_white&quot;</span></code>, and the percentage difference as <code class="docutils literal notranslate"><span class="pre">ex8_racial_difference</span></code>. Please note the wording above when calculating the percentage difference to ensure you get the reference category correct, and interpret your result as well.</p>
@@ -725,7 +724,7 @@ document.write(`
 </section>
 <section id="exercise-10">
 <h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Link to this heading">#</a></h3>
-<p>Now calculate the weighted average income gap between <em>non-Hispanic</em> White Americans and Black Americans. What percentage more do employed White non-Hispanic Americans earn than employed Black Americans? Store as <code class="docutils literal notranslate"><span class="pre">&quot;ex10_wage_gap&quot;</span></code>.</p>
+<p>Now calculate the <strong>weighted</strong> average income gap between <strong>non-Hispanic</strong> White Americans and Black Americans. What percentage more do employed White non-Hispanic Americans earn than employed Black Americans? Store as <code class="docutils literal notranslate"><span class="pre">&quot;ex10_wage_gap&quot;</span></code>.</p>
 </section>
 <section id="exercise-11">
 <h3>Exercise 11<a class="headerlink" href="#exercise-11" title="Link to this heading">#</a></h3>
