@@ -19,11 +19,8 @@ wdi = pd.read_csv(
 # GDP Per Capita has a REALLY long right tail, so we want to log it for readability.
 wdi["Log GDP Per Capita"] = np.log(wdi["GDP per capita (constant 2010 US$)"])
 
-import seaborn as sns
-
 # Plot
 import seaborn.objects as so
-from matplotlib import style
 
 my_chart = (
     so.Plot(
@@ -34,6 +31,6 @@ my_chart = (
     .label(title="Log GDP and Under-5 Mortality")
 )
 
-my_chart
+my_chart.show()
 
 print("Done!")

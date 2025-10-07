@@ -7,7 +7,11 @@
 ######################
 
 # Download World Development Indicators
-wdi <- read.csv("https://media.githubusercontent.com/media/nickeubank/MIDS_Data/master/World_Development_Indicators/wdi_small_tidy_2015.csv")
+wdi <- read.csv(paste0(
+    "https://media.githubusercontent.com/media/",
+    "nickeubank/MIDS_Data/master/",
+    "World_Development_Indicators/wdi_small_tidy_2015.csv"
+))
 
 # Get Mortality and GDP per capita for 2015
 wdi$loggdppercap <- log(wdi[["GDP.per.capita..constant.2010.US.."]])
