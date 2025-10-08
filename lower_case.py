@@ -7,7 +7,7 @@ directories = ["ids590_specific/exercises_590", "ids720_specific/exercises"]
 # Find and rename files in each directory
 for directory in directories:
     # Find all .ipynb files starting with "Exercise_"
-    pattern = os.path.join(directory, "exercise_*.ipynb")
+    pattern = os.path.join(directory, "Exercise_*.ipynb")
     files = glob.glob(pattern)
 
     for file_path in files:
@@ -16,7 +16,7 @@ for directory in directories:
         file_name = os.path.basename(file_path)
 
         # Create new filename with lowercase 'e'
-        new_file_name = file_name.replace("exercise_", "Exercise_", 1)
+        new_file_name = file_name.replace("Exercise_", "exercise_", 1)
         new_file_path = os.path.join(dir_name, new_file_name)
 
         # Rename the file

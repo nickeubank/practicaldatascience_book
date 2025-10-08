@@ -1,0 +1,5244 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Practical Example &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-MC77BKR89Z"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-MC77BKR89Z');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-MC77BKR89Z');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_3/week_4/15.2_combining_merging_practical_example';</script>
+    <link rel="icon" href="../../../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Validating a merge" href="15.3_validating_a_merge.html" />
+    <link rel="prev" title="Combining datasets: merging" href="15.1_combining_merging_continued.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Practical Data Science with Python - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="Practical Data Science with Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Duke IDS Classes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../ids590_specific/class_schedule_590.html">PDS I (IDS 590)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ids541_specific/class_schedule_541.html">PDS II (IDS 541)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ids720_specific/class_schedule_720.html">PDS (MIDS) (IDS 720)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/validate_python.html">Validate Python Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/10_commandline/git_and_github.html">Git and Github</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/10_why_numpy.html">Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/10_views_and_copies.html">Views and Copies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/00_welcome_to_week_3.html">Matrices</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_2/week_3/40_nd_arrays.html">Arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_2/00_intro_to_pandas.html">Welcome to Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/18_object_dtype.html">The <code class="docutils literal notranslate"><span class="pre">object</span></code> Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/45_categorical_dtype.html">The Categorical Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_3/07_indices.html">Indexes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/03_plaintext_files.html">Reading Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week_3/20_cleaning_identifying.html">Data Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="00_intro_to_querying_data.html">Data Manipulations</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15.1_combining_merging_continued.html">Combining datasets: merging</a></li>
+
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Practical Example</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="15.3_validating_a_merge.html">Validating Merges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="30_queries.html">Querying</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_5/week_1/1.1.2_effective_plotting_practices.html">Matplotlib Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.1_basic_plotting_with_matplotlib.html">Plotting with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.2_ten_figure_pieces.html">A figure in 10 pieces</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.4.5_explicit_vs_implicit_syntax.html">Implicit vs explicit syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.4.4_saving_to_file.html">Saving to file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.5.1_plotting_zoo.html">Plotting Zoo: multiple ways to visualize the same set of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.6.1_plotting_with_pandas.html">Plotting with Pandas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_5/week_1/1.2.4_bar_plots_deep_dive.html">Different Types of Plots</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.3_text.html">Plotting text (and a side note on axis scaling)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.5_stack_plots.html">Stack Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.6_pie_charts.html">Pie charts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.7.1_subplots.html">Subplots</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.7.2_subplots_deep_dive.html">Subplots: a deeper dive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.7.EXS_timeseries_worked_example.html">Exercise: Creating a subplot of timeseries (solution)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.7.EX_timeseries_worked_example.html">Exercise: Creating a subplot of timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.7_scatter_plots_deep_dive.html">Doing more with scatter plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.8_errorbars.html">Visualizing ranges and uncertainty</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.2.9_heat_maps.html">Heat maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.3.1.EXS_histograms_solutions.html">Exercise: Analyzing Poker Hand Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.3.1.EX_histograms.html">Exercise: Analyzing Poker Hand Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.3.1_histograms.html">Histograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/1.3.2_2d_histograms.html">Two Dimensional Histograms</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_5/week_1/2.1.1_the_matplotlib_model.html">Advanced Matplotlib</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/2.1.2_customizing_plot_styles.html">Customizing styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/2.1.3_plotting_zoo_restyled.html">Plotting Zoo - with style!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/2.2.1_making_plots_pretty_1.html">Making Plots Pretty Part 1: laying the foundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/2.2.2_making_plots_pretty_2.html">Making pretty plots in Python: customizing plots in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../class_5/week_1/2.3.1_plotting_with_seaborn.html">Seaborn Objects and GoG</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../class_5/week_1/2.3.2_seaborn_recipes.html">Seaborn Object Recipes</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Geospatial Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../gis/10_gis_what_is_gis.html">What is GIS?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/15_gis_setup_geopandas.html">Installing Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/20_gis_geopandas.html">GIS with Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/30_gis_spatial_joins.html">Merging Spatial Data Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/40_gis_projections.html">Spatial Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/50_gis_crs_geopandas.html">Managing Projections in Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gis/60_gis_data.html">Spatial Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">Defensive Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_tests.html">Testing in a Data Analysis Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_readability.html">Readability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_duplicate.html">Don’t Duplicate Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_collaboration.html">Collaboration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../class_5/week_3/20_inference_v_prediction.html">Inference vs. Prediction Data Science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_5/week_3/30_linear_regression_in_python.html">Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_5/week_3/15_brief_intro_categorical_variables.html">Categorical Variables, Indicator Variables and Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_5/week_3/35_pandas_to_numpy_with_patsy.html">Pulling Back the Curtain: Pandas to Numpy with patsy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_5/week_3/40_linear_regression_extensions.html">OPTIONAL: Beyond The Basic Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/getting_involved_in_research.html">Getting Involved in Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_3/week_4/15.2_combining_merging_practical_example.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/class_3/week_4/15.2_combining_merging_practical_example.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Practical Example</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Practical Example</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="practical-example">
+<h1>Practical Example<a class="headerlink" href="#practical-example" title="Link to this heading">#</a></h1>
+<p>Let’s explore a practical example: what if we wanted to know how common homicide was in each state in the United States and identify those places where per capita homicide lowest and highest. To start with, this means we’ll need some data, so we’ll use data from the <a class="reference external" href="https://www.cdc.gov/nchs/pressroom/sosmap/homicide_mortality/homicide.htm">U.S. Centers for Disease Control and Prevention</a> for homicide totals by state and data from the <a class="reference external" href="https://data.census.gov/cedsci/table?tid=PEPPOP2021.NST_EST2021_POP&amp;amp;hidePreview=false">U.S. Census Bureau</a> to get population in 2020. Let’s read those files into dataframes and see what we’ve got!</p>
+<p><em>Note: we’ve removed some extraneous columns to make the example clearer</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">population</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/population.csv&quot;</span><span class="p">)</span>
+<span class="n">population</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NAME</th>
+      <th>POPESTIMATE2020</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>United States</td>
+      <td>331501080</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Northeast Region</td>
+      <td>57525633</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Midwest Region</td>
+      <td>68935174</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>South Region</td>
+      <td>126409007</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>West Region</td>
+      <td>78631266</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Alabama</td>
+      <td>5024803</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Alaska</td>
+      <td>732441</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Arizona</td>
+      <td>7177986</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Arkansas</td>
+      <td>3012232</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>California</td>
+      <td>39499738</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Colorado</td>
+      <td>5784308</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Connecticut</td>
+      <td>3600260</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Delaware</td>
+      <td>991886</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>District of Columbia</td>
+      <td>690093</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Florida</td>
+      <td>21569932</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Georgia</td>
+      <td>10725800</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Hawaii</td>
+      <td>1451911</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Idaho</td>
+      <td>1847772</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Illinois</td>
+      <td>12785245</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Indiana</td>
+      <td>6785644</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Iowa</td>
+      <td>3188669</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Kansas</td>
+      <td>2935880</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Kentucky</td>
+      <td>4503958</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Louisiana</td>
+      <td>4651203</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Maine</td>
+      <td>1362280</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Maryland</td>
+      <td>6172679</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Massachusetts</td>
+      <td>7022220</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Michigan</td>
+      <td>10067664</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Minnesota</td>
+      <td>5707165</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Mississippi</td>
+      <td>2956870</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Missouri</td>
+      <td>6154481</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Montana</td>
+      <td>1086193</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>Nebraska</td>
+      <td>1961455</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Nevada</td>
+      <td>3114071</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>New Hampshire</td>
+      <td>1377848</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>New Jersey</td>
+      <td>9279743</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>New Mexico</td>
+      <td>2117566</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>New York</td>
+      <td>20154933</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>North Carolina</td>
+      <td>10457177</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>North Dakota</td>
+      <td>778962</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Ohio</td>
+      <td>11790587</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>Oklahoma</td>
+      <td>3962031</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>Oregon</td>
+      <td>4241544</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>Pennsylvania</td>
+      <td>12989625</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>Rhode Island</td>
+      <td>1096229</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>South Carolina</td>
+      <td>5130729</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>South Dakota</td>
+      <td>887099</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>Tennessee</td>
+      <td>6920119</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>Texas</td>
+      <td>29217653</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>Utah</td>
+      <td>3281684</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>Vermont</td>
+      <td>642495</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>Virginia</td>
+      <td>8632044</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>Washington</td>
+      <td>7718785</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>West Virginia</td>
+      <td>1789798</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>Wisconsin</td>
+      <td>5892323</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>Wyoming</td>
+      <td>577267</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>Puerto Rico</td>
+      <td>3281538</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/homicides.csv&quot;</span><span class="p">)</span>
+<span class="n">homicides</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>STATE</th>
+      <th>DEATHS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AL</td>
+      <td>654</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AK</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AZ</td>
+      <td>525</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AR</td>
+      <td>371</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>CA</td>
+      <td>2368</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>CO</td>
+      <td>336</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>CT</td>
+      <td>152</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>DE</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>FL</td>
+      <td>1530</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>GA</td>
+      <td>1093</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>HI</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>ID</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>IL</td>
+      <td>1353</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>IN</td>
+      <td>620</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>IA</td>
+      <td>106</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>KS</td>
+      <td>195</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>KY</td>
+      <td>404</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>LA</td>
+      <td>873</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>ME</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>MD</td>
+      <td>649</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>MA</td>
+      <td>183</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>MI</td>
+      <td>811</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>MN</td>
+      <td>198</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>MS</td>
+      <td>576</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>MO</td>
+      <td>803</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>MT</td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>NE</td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>NV</td>
+      <td>217</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>NH</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>NJ</td>
+      <td>362</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>NM</td>
+      <td>216</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>NY</td>
+      <td>875</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>NC</td>
+      <td>884</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>ND</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>OH</td>
+      <td>1004</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>OK</td>
+      <td>342</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>OR</td>
+      <td>157</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>PA</td>
+      <td>994</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>RI</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>SC</td>
+      <td>622</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>SD</td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>TN</td>
+      <td>753</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>TX</td>
+      <td>2212</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>UT</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>VT</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>VA</td>
+      <td>531</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>WA</td>
+      <td>322</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>WV</td>
+      <td>114</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>WI</td>
+      <td>334</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>WY</td>
+      <td>25</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>There are two items to note here. The first is that the population data has the full state name listed, while the homicide data only has state abbreviations. The second is that while the homicide data has 50 states, the population data has 57 since there are additional regions listed (e.g. “United States”, “Northeast Region”, etc.).</p>
+<p>What we’ll want to do, is to add in the state names for each state in the homicide data, then merge the two datasets into one. Once we have that combined dataset, we can calculate the per capita homicide rate in each state and sort our data to determine the highest/lowest per capita.</p>
+<p>To add in the state names for each state, let’s load in a dataset that contains the 50 states and their abbreviations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/state_codes.csv&quot;</span><span class="p">)</span>
+<span class="n">names</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>State</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alabama</td>
+      <td>AL</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Alaska</td>
+      <td>AK</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Arizona</td>
+      <td>AZ</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Arkansas</td>
+      <td>AR</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>California</td>
+      <td>CA</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Colorado</td>
+      <td>CO</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Connecticut</td>
+      <td>CT</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Delaware</td>
+      <td>DE</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>District of Columbia</td>
+      <td>DC</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Florida</td>
+      <td>FL</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Georgia</td>
+      <td>GA</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Hawaii</td>
+      <td>HI</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Idaho</td>
+      <td>ID</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Illinois</td>
+      <td>IL</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Indiana</td>
+      <td>IN</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Iowa</td>
+      <td>IA</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Kansas</td>
+      <td>KS</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Kentucky</td>
+      <td>KY</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Louisiana</td>
+      <td>LA</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Maine</td>
+      <td>ME</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Maryland</td>
+      <td>MD</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Massachusetts</td>
+      <td>MA</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Michigan</td>
+      <td>MI</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Minnesota</td>
+      <td>MN</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Mississippi</td>
+      <td>MS</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Missouri</td>
+      <td>MO</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Montana</td>
+      <td>MT</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Nebraska</td>
+      <td>NE</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Nevada</td>
+      <td>NV</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>New Hampshire</td>
+      <td>NH</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>New Jersey</td>
+      <td>NJ</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>New Mexico</td>
+      <td>NM</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>New York</td>
+      <td>NY</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>North Carolina</td>
+      <td>NC</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>North Dakota</td>
+      <td>ND</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>Ohio</td>
+      <td>OH</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>Oklahoma</td>
+      <td>OK</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>Oregon</td>
+      <td>OR</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Pennsylvania</td>
+      <td>PA</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Rhode Island</td>
+      <td>RI</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>South Carolina</td>
+      <td>SC</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>South Dakota</td>
+      <td>SD</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>Tennessee</td>
+      <td>TN</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>Texas</td>
+      <td>TX</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>Utah</td>
+      <td>UT</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>Vermont</td>
+      <td>VT</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>Virginia</td>
+      <td>VA</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>Washington</td>
+      <td>WA</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>West Virginia</td>
+      <td>WV</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>Wisconsin</td>
+      <td>WI</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>Wyoming</td>
+      <td>WY</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We see another issue here, though: there are 51 states listed with abbreviations (remember, Python starts counting at 0) since the District of Columbia is included while there are 50 states listed in the <code class="docutils literal notranslate"><span class="pre">homicides</span></code> DataFrame. Let’s left-merge the data so we only keep the 50 states for which we have data. Since the column in <code class="docutils literal notranslate"><span class="pre">homicides</span></code> that has the labels is labeled ‘STATE’ and the column in <code class="docutils literal notranslate"><span class="pre">names</span></code> with the state labels is called ‘Code’, we’ll use the ‘left_on’ and ‘right_on’ parameters to specify those columns:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides_with_states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">homicides</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;STATE&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;Code&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+<span class="p">)</span>
+<span class="n">homicides_with_states</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>STATE</th>
+      <th>DEATHS</th>
+      <th>State</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AL</td>
+      <td>654</td>
+      <td>Alabama</td>
+      <td>AL</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AK</td>
+      <td>55</td>
+      <td>Alaska</td>
+      <td>AK</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AZ</td>
+      <td>525</td>
+      <td>Arizona</td>
+      <td>AZ</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AR</td>
+      <td>371</td>
+      <td>Arkansas</td>
+      <td>AR</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>CA</td>
+      <td>2368</td>
+      <td>California</td>
+      <td>CA</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>CO</td>
+      <td>336</td>
+      <td>Colorado</td>
+      <td>CO</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>CT</td>
+      <td>152</td>
+      <td>Connecticut</td>
+      <td>CT</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>DE</td>
+      <td>86</td>
+      <td>Delaware</td>
+      <td>DE</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>FL</td>
+      <td>1530</td>
+      <td>Florida</td>
+      <td>FL</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>GA</td>
+      <td>1093</td>
+      <td>Georgia</td>
+      <td>GA</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>HI</td>
+      <td>46</td>
+      <td>Hawaii</td>
+      <td>HI</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>ID</td>
+      <td>42</td>
+      <td>Idaho</td>
+      <td>ID</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>IL</td>
+      <td>1353</td>
+      <td>Illinois</td>
+      <td>IL</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>IN</td>
+      <td>620</td>
+      <td>Indiana</td>
+      <td>IN</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>IA</td>
+      <td>106</td>
+      <td>Iowa</td>
+      <td>IA</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>KS</td>
+      <td>195</td>
+      <td>Kansas</td>
+      <td>KS</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>KY</td>
+      <td>404</td>
+      <td>Kentucky</td>
+      <td>KY</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>LA</td>
+      <td>873</td>
+      <td>Louisiana</td>
+      <td>LA</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>ME</td>
+      <td>21</td>
+      <td>Maine</td>
+      <td>ME</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>MD</td>
+      <td>649</td>
+      <td>Maryland</td>
+      <td>MD</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>MA</td>
+      <td>183</td>
+      <td>Massachusetts</td>
+      <td>MA</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>MI</td>
+      <td>811</td>
+      <td>Michigan</td>
+      <td>MI</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>MN</td>
+      <td>198</td>
+      <td>Minnesota</td>
+      <td>MN</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>MS</td>
+      <td>576</td>
+      <td>Mississippi</td>
+      <td>MS</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>MO</td>
+      <td>803</td>
+      <td>Missouri</td>
+      <td>MO</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>MT</td>
+      <td>65</td>
+      <td>Montana</td>
+      <td>MT</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>NE</td>
+      <td>76</td>
+      <td>Nebraska</td>
+      <td>NE</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>NV</td>
+      <td>217</td>
+      <td>Nevada</td>
+      <td>NV</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>NH</td>
+      <td>14</td>
+      <td>New Hampshire</td>
+      <td>NH</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>NJ</td>
+      <td>362</td>
+      <td>New Jersey</td>
+      <td>NJ</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>NM</td>
+      <td>216</td>
+      <td>New Mexico</td>
+      <td>NM</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>NY</td>
+      <td>875</td>
+      <td>New York</td>
+      <td>NY</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>NC</td>
+      <td>884</td>
+      <td>North Carolina</td>
+      <td>NC</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>ND</td>
+      <td>30</td>
+      <td>North Dakota</td>
+      <td>ND</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>OH</td>
+      <td>1004</td>
+      <td>Ohio</td>
+      <td>OH</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>OK</td>
+      <td>342</td>
+      <td>Oklahoma</td>
+      <td>OK</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>OR</td>
+      <td>157</td>
+      <td>Oregon</td>
+      <td>OR</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>PA</td>
+      <td>994</td>
+      <td>Pennsylvania</td>
+      <td>PA</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>RI</td>
+      <td>29</td>
+      <td>Rhode Island</td>
+      <td>RI</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>SC</td>
+      <td>622</td>
+      <td>South Carolina</td>
+      <td>SC</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>SD</td>
+      <td>52</td>
+      <td>South Dakota</td>
+      <td>SD</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>TN</td>
+      <td>753</td>
+      <td>Tennessee</td>
+      <td>TN</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>TX</td>
+      <td>2212</td>
+      <td>Texas</td>
+      <td>TX</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>UT</td>
+      <td>95</td>
+      <td>Utah</td>
+      <td>UT</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>VT</td>
+      <td>14</td>
+      <td>Vermont</td>
+      <td>VT</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>VA</td>
+      <td>531</td>
+      <td>Virginia</td>
+      <td>VA</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>WA</td>
+      <td>322</td>
+      <td>Washington</td>
+      <td>WA</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>WV</td>
+      <td>114</td>
+      <td>West Virginia</td>
+      <td>WV</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>WI</td>
+      <td>334</td>
+      <td>Wisconsin</td>
+      <td>WI</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>WY</td>
+      <td>25</td>
+      <td>Wyoming</td>
+      <td>WY</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now we have those items combined, but we don’t need the “STATE” or “Code” columns, so let’s drop them using the <code class="docutils literal notranslate"><span class="pre">drop</span></code> method. We’ll do this operation in place so that rather than having to write:</p>
+<p><code class="docutils literal notranslate"><span class="pre">homicides3</span> <span class="pre">=</span> <span class="pre">homicides_with_states.drop(columns=['STATE','Code'])</span></code></p>
+<p>which leads to a proliferation of variables each time we want to do a new operation (<code class="docutils literal notranslate"><span class="pre">homicide3</span></code>, <code class="docutils literal notranslate"><span class="pre">homicide4</span></code>, etc.); instead we can perform the operation directly on the data using the <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> keyword.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides_with_states</span> <span class="o">=</span> <span class="n">homicides_with_states</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;STATE&quot;</span><span class="p">,</span> <span class="s2">&quot;Code&quot;</span><span class="p">])</span>
+<span class="n">homicides_with_states</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DEATHS</th>
+      <th>State</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>654</td>
+      <td>Alabama</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>55</td>
+      <td>Alaska</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>525</td>
+      <td>Arizona</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>371</td>
+      <td>Arkansas</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2368</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>336</td>
+      <td>Colorado</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>152</td>
+      <td>Connecticut</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>86</td>
+      <td>Delaware</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1530</td>
+      <td>Florida</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1093</td>
+      <td>Georgia</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>46</td>
+      <td>Hawaii</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>42</td>
+      <td>Idaho</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1353</td>
+      <td>Illinois</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>620</td>
+      <td>Indiana</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>106</td>
+      <td>Iowa</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>195</td>
+      <td>Kansas</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>404</td>
+      <td>Kentucky</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>873</td>
+      <td>Louisiana</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>21</td>
+      <td>Maine</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>649</td>
+      <td>Maryland</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>183</td>
+      <td>Massachusetts</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>811</td>
+      <td>Michigan</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>198</td>
+      <td>Minnesota</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>576</td>
+      <td>Mississippi</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>803</td>
+      <td>Missouri</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>65</td>
+      <td>Montana</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>76</td>
+      <td>Nebraska</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>217</td>
+      <td>Nevada</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>14</td>
+      <td>New Hampshire</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>362</td>
+      <td>New Jersey</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>216</td>
+      <td>New Mexico</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>875</td>
+      <td>New York</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>884</td>
+      <td>North Carolina</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>30</td>
+      <td>North Dakota</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>1004</td>
+      <td>Ohio</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>342</td>
+      <td>Oklahoma</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>157</td>
+      <td>Oregon</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>994</td>
+      <td>Pennsylvania</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>29</td>
+      <td>Rhode Island</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>622</td>
+      <td>South Carolina</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>52</td>
+      <td>South Dakota</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>753</td>
+      <td>Tennessee</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>2212</td>
+      <td>Texas</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>95</td>
+      <td>Utah</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>14</td>
+      <td>Vermont</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>531</td>
+      <td>Virginia</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>322</td>
+      <td>Washington</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>114</td>
+      <td>West Virginia</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>334</td>
+      <td>Wisconsin</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>25</td>
+      <td>Wyoming</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>And just because it’s easier to reference cleaned and ordered labels, let’s rename ‘DEATHS’ to ‘homicides’ using <code class="docutils literal notranslate"><span class="pre">rename</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homicides_with_states</span> <span class="o">=</span> <span class="n">homicides_with_states</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;DEATHS&quot;</span><span class="p">:</span> <span class="s2">&quot;homicides&quot;</span><span class="p">,</span> <span class="s2">&quot;State&quot;</span><span class="p">:</span> <span class="s2">&quot;state&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">homicides_with_states</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>homicides</th>
+      <th>state</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>654</td>
+      <td>Alabama</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>55</td>
+      <td>Alaska</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>525</td>
+      <td>Arizona</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>371</td>
+      <td>Arkansas</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2368</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>336</td>
+      <td>Colorado</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>152</td>
+      <td>Connecticut</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>86</td>
+      <td>Delaware</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1530</td>
+      <td>Florida</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1093</td>
+      <td>Georgia</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>46</td>
+      <td>Hawaii</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>42</td>
+      <td>Idaho</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1353</td>
+      <td>Illinois</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>620</td>
+      <td>Indiana</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>106</td>
+      <td>Iowa</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>195</td>
+      <td>Kansas</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>404</td>
+      <td>Kentucky</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>873</td>
+      <td>Louisiana</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>21</td>
+      <td>Maine</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>649</td>
+      <td>Maryland</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>183</td>
+      <td>Massachusetts</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>811</td>
+      <td>Michigan</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>198</td>
+      <td>Minnesota</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>576</td>
+      <td>Mississippi</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>803</td>
+      <td>Missouri</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>65</td>
+      <td>Montana</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>76</td>
+      <td>Nebraska</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>217</td>
+      <td>Nevada</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>14</td>
+      <td>New Hampshire</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>362</td>
+      <td>New Jersey</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>216</td>
+      <td>New Mexico</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>875</td>
+      <td>New York</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>884</td>
+      <td>North Carolina</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>30</td>
+      <td>North Dakota</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>1004</td>
+      <td>Ohio</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>342</td>
+      <td>Oklahoma</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>157</td>
+      <td>Oregon</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>994</td>
+      <td>Pennsylvania</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>29</td>
+      <td>Rhode Island</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>622</td>
+      <td>South Carolina</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>52</td>
+      <td>South Dakota</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>753</td>
+      <td>Tennessee</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>2212</td>
+      <td>Texas</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>95</td>
+      <td>Utah</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>14</td>
+      <td>Vermont</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>531</td>
+      <td>Virginia</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>322</td>
+      <td>Washington</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>114</td>
+      <td>West Virginia</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>334</td>
+      <td>Wisconsin</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>25</td>
+      <td>Wyoming</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Great - now we’re ready to merge in our population data. Let’s perform an outer merge so that we keep all our data, then we can check what’s missing and remove it as appropriate.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">homicides_with_states</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;NAME&quot;</span>
+<span class="p">)</span>
+<span class="n">combined</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>homicides</th>
+      <th>state</th>
+      <th>NAME</th>
+      <th>POPESTIMATE2020</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>654.0</td>
+      <td>Alabama</td>
+      <td>Alabama</td>
+      <td>5024803</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>55.0</td>
+      <td>Alaska</td>
+      <td>Alaska</td>
+      <td>732441</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>525.0</td>
+      <td>Arizona</td>
+      <td>Arizona</td>
+      <td>7177986</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>371.0</td>
+      <td>Arkansas</td>
+      <td>Arkansas</td>
+      <td>3012232</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2368.0</td>
+      <td>California</td>
+      <td>California</td>
+      <td>39499738</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>336.0</td>
+      <td>Colorado</td>
+      <td>Colorado</td>
+      <td>5784308</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>152.0</td>
+      <td>Connecticut</td>
+      <td>Connecticut</td>
+      <td>3600260</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>86.0</td>
+      <td>Delaware</td>
+      <td>Delaware</td>
+      <td>991886</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1530.0</td>
+      <td>Florida</td>
+      <td>Florida</td>
+      <td>21569932</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1093.0</td>
+      <td>Georgia</td>
+      <td>Georgia</td>
+      <td>10725800</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>46.0</td>
+      <td>Hawaii</td>
+      <td>Hawaii</td>
+      <td>1451911</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>42.0</td>
+      <td>Idaho</td>
+      <td>Idaho</td>
+      <td>1847772</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1353.0</td>
+      <td>Illinois</td>
+      <td>Illinois</td>
+      <td>12785245</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>620.0</td>
+      <td>Indiana</td>
+      <td>Indiana</td>
+      <td>6785644</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>106.0</td>
+      <td>Iowa</td>
+      <td>Iowa</td>
+      <td>3188669</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>195.0</td>
+      <td>Kansas</td>
+      <td>Kansas</td>
+      <td>2935880</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>404.0</td>
+      <td>Kentucky</td>
+      <td>Kentucky</td>
+      <td>4503958</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>873.0</td>
+      <td>Louisiana</td>
+      <td>Louisiana</td>
+      <td>4651203</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>21.0</td>
+      <td>Maine</td>
+      <td>Maine</td>
+      <td>1362280</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>649.0</td>
+      <td>Maryland</td>
+      <td>Maryland</td>
+      <td>6172679</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>183.0</td>
+      <td>Massachusetts</td>
+      <td>Massachusetts</td>
+      <td>7022220</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>811.0</td>
+      <td>Michigan</td>
+      <td>Michigan</td>
+      <td>10067664</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>198.0</td>
+      <td>Minnesota</td>
+      <td>Minnesota</td>
+      <td>5707165</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>576.0</td>
+      <td>Mississippi</td>
+      <td>Mississippi</td>
+      <td>2956870</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>803.0</td>
+      <td>Missouri</td>
+      <td>Missouri</td>
+      <td>6154481</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>65.0</td>
+      <td>Montana</td>
+      <td>Montana</td>
+      <td>1086193</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>76.0</td>
+      <td>Nebraska</td>
+      <td>Nebraska</td>
+      <td>1961455</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>217.0</td>
+      <td>Nevada</td>
+      <td>Nevada</td>
+      <td>3114071</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>14.0</td>
+      <td>New Hampshire</td>
+      <td>New Hampshire</td>
+      <td>1377848</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>362.0</td>
+      <td>New Jersey</td>
+      <td>New Jersey</td>
+      <td>9279743</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>216.0</td>
+      <td>New Mexico</td>
+      <td>New Mexico</td>
+      <td>2117566</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>875.0</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>20154933</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>884.0</td>
+      <td>North Carolina</td>
+      <td>North Carolina</td>
+      <td>10457177</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>30.0</td>
+      <td>North Dakota</td>
+      <td>North Dakota</td>
+      <td>778962</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>1004.0</td>
+      <td>Ohio</td>
+      <td>Ohio</td>
+      <td>11790587</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>342.0</td>
+      <td>Oklahoma</td>
+      <td>Oklahoma</td>
+      <td>3962031</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>157.0</td>
+      <td>Oregon</td>
+      <td>Oregon</td>
+      <td>4241544</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>994.0</td>
+      <td>Pennsylvania</td>
+      <td>Pennsylvania</td>
+      <td>12989625</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>29.0</td>
+      <td>Rhode Island</td>
+      <td>Rhode Island</td>
+      <td>1096229</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>622.0</td>
+      <td>South Carolina</td>
+      <td>South Carolina</td>
+      <td>5130729</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>52.0</td>
+      <td>South Dakota</td>
+      <td>South Dakota</td>
+      <td>887099</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>753.0</td>
+      <td>Tennessee</td>
+      <td>Tennessee</td>
+      <td>6920119</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>2212.0</td>
+      <td>Texas</td>
+      <td>Texas</td>
+      <td>29217653</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>95.0</td>
+      <td>Utah</td>
+      <td>Utah</td>
+      <td>3281684</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>14.0</td>
+      <td>Vermont</td>
+      <td>Vermont</td>
+      <td>642495</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>531.0</td>
+      <td>Virginia</td>
+      <td>Virginia</td>
+      <td>8632044</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>322.0</td>
+      <td>Washington</td>
+      <td>Washington</td>
+      <td>7718785</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>114.0</td>
+      <td>West Virginia</td>
+      <td>West Virginia</td>
+      <td>1789798</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>334.0</td>
+      <td>Wisconsin</td>
+      <td>Wisconsin</td>
+      <td>5892323</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>25.0</td>
+      <td>Wyoming</td>
+      <td>Wyoming</td>
+      <td>577267</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>United States</td>
+      <td>331501080</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Northeast Region</td>
+      <td>57525633</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Midwest Region</td>
+      <td>68935174</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>South Region</td>
+      <td>126409007</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>West Region</td>
+      <td>78631266</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>District of Columbia</td>
+      <td>690093</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Puerto Rico</td>
+      <td>3281538</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can see from the above that we have a number of <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values. Let’s look at rows with any <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span><span class="p">[</span><span class="n">combined</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>homicides</th>
+      <th>state</th>
+      <th>NAME</th>
+      <th>POPESTIMATE2020</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>50</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>United States</td>
+      <td>331501080</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Northeast Region</td>
+      <td>57525633</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Midwest Region</td>
+      <td>68935174</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>South Region</td>
+      <td>126409007</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>West Region</td>
+      <td>78631266</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>District of Columbia</td>
+      <td>690093</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Puerto Rico</td>
+      <td>3281538</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Let’s just break down the above statement for a moment for comprehension. <code class="docutils literal notranslate"><span class="pre">combined.isna()</span></code> returns a True value for each entry in the DataFrame with a <code class="docutils literal notranslate"><span class="pre">NaN</span></code> value. The <code class="docutils literal notranslate"><span class="pre">.any(axis=1)</span></code> looks across axis 1 and if any of the entries in that row (across all columns) has a True value, then that row is represented with a True. Let’s look at the steps so it’s clear:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>homicides</th>
+      <th>state</th>
+      <th>NAME</th>
+      <th>POPESTIMATE2020</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     False
+1     False
+2     False
+3     False
+4     False
+5     False
+6     False
+7     False
+8     False
+9     False
+10    False
+11    False
+12    False
+13    False
+14    False
+15    False
+16    False
+17    False
+18    False
+19    False
+20    False
+21    False
+22    False
+23    False
+24    False
+25    False
+26    False
+27    False
+28    False
+29    False
+30    False
+31    False
+32    False
+33    False
+34    False
+35    False
+36    False
+37    False
+38    False
+39    False
+40    False
+41    False
+42    False
+43    False
+44    False
+45    False
+46    False
+47    False
+48    False
+49    False
+50     True
+51     True
+52     True
+53     True
+54     True
+55     True
+56     True
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>So when we put it altogether, it only displaces those rows with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span><span class="p">[</span><span class="n">combined</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>homicides</th>
+      <th>state</th>
+      <th>NAME</th>
+      <th>POPESTIMATE2020</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>50</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>United States</td>
+      <td>331501080</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Northeast Region</td>
+      <td>57525633</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Midwest Region</td>
+      <td>68935174</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>South Region</td>
+      <td>126409007</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>West Region</td>
+      <td>78631266</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>District of Columbia</td>
+      <td>690093</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Puerto Rico</td>
+      <td>3281538</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>What we can see here is that we don’t need any of these regions, as none are U.S. states, so let’s drop them using the <code class="docutils literal notranslate"><span class="pre">dropna</span></code> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">combined</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>homicides</th>
+      <th>state</th>
+      <th>NAME</th>
+      <th>POPESTIMATE2020</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>654.0</td>
+      <td>Alabama</td>
+      <td>Alabama</td>
+      <td>5024803</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>55.0</td>
+      <td>Alaska</td>
+      <td>Alaska</td>
+      <td>732441</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>525.0</td>
+      <td>Arizona</td>
+      <td>Arizona</td>
+      <td>7177986</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>371.0</td>
+      <td>Arkansas</td>
+      <td>Arkansas</td>
+      <td>3012232</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2368.0</td>
+      <td>California</td>
+      <td>California</td>
+      <td>39499738</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>336.0</td>
+      <td>Colorado</td>
+      <td>Colorado</td>
+      <td>5784308</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>152.0</td>
+      <td>Connecticut</td>
+      <td>Connecticut</td>
+      <td>3600260</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>86.0</td>
+      <td>Delaware</td>
+      <td>Delaware</td>
+      <td>991886</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1530.0</td>
+      <td>Florida</td>
+      <td>Florida</td>
+      <td>21569932</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1093.0</td>
+      <td>Georgia</td>
+      <td>Georgia</td>
+      <td>10725800</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>46.0</td>
+      <td>Hawaii</td>
+      <td>Hawaii</td>
+      <td>1451911</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>42.0</td>
+      <td>Idaho</td>
+      <td>Idaho</td>
+      <td>1847772</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1353.0</td>
+      <td>Illinois</td>
+      <td>Illinois</td>
+      <td>12785245</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>620.0</td>
+      <td>Indiana</td>
+      <td>Indiana</td>
+      <td>6785644</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>106.0</td>
+      <td>Iowa</td>
+      <td>Iowa</td>
+      <td>3188669</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>195.0</td>
+      <td>Kansas</td>
+      <td>Kansas</td>
+      <td>2935880</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>404.0</td>
+      <td>Kentucky</td>
+      <td>Kentucky</td>
+      <td>4503958</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>873.0</td>
+      <td>Louisiana</td>
+      <td>Louisiana</td>
+      <td>4651203</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>21.0</td>
+      <td>Maine</td>
+      <td>Maine</td>
+      <td>1362280</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>649.0</td>
+      <td>Maryland</td>
+      <td>Maryland</td>
+      <td>6172679</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>183.0</td>
+      <td>Massachusetts</td>
+      <td>Massachusetts</td>
+      <td>7022220</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>811.0</td>
+      <td>Michigan</td>
+      <td>Michigan</td>
+      <td>10067664</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>198.0</td>
+      <td>Minnesota</td>
+      <td>Minnesota</td>
+      <td>5707165</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>576.0</td>
+      <td>Mississippi</td>
+      <td>Mississippi</td>
+      <td>2956870</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>803.0</td>
+      <td>Missouri</td>
+      <td>Missouri</td>
+      <td>6154481</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>65.0</td>
+      <td>Montana</td>
+      <td>Montana</td>
+      <td>1086193</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>76.0</td>
+      <td>Nebraska</td>
+      <td>Nebraska</td>
+      <td>1961455</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>217.0</td>
+      <td>Nevada</td>
+      <td>Nevada</td>
+      <td>3114071</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>14.0</td>
+      <td>New Hampshire</td>
+      <td>New Hampshire</td>
+      <td>1377848</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>362.0</td>
+      <td>New Jersey</td>
+      <td>New Jersey</td>
+      <td>9279743</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>216.0</td>
+      <td>New Mexico</td>
+      <td>New Mexico</td>
+      <td>2117566</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>875.0</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>20154933</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>884.0</td>
+      <td>North Carolina</td>
+      <td>North Carolina</td>
+      <td>10457177</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>30.0</td>
+      <td>North Dakota</td>
+      <td>North Dakota</td>
+      <td>778962</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>1004.0</td>
+      <td>Ohio</td>
+      <td>Ohio</td>
+      <td>11790587</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>342.0</td>
+      <td>Oklahoma</td>
+      <td>Oklahoma</td>
+      <td>3962031</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>157.0</td>
+      <td>Oregon</td>
+      <td>Oregon</td>
+      <td>4241544</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>994.0</td>
+      <td>Pennsylvania</td>
+      <td>Pennsylvania</td>
+      <td>12989625</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>29.0</td>
+      <td>Rhode Island</td>
+      <td>Rhode Island</td>
+      <td>1096229</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>622.0</td>
+      <td>South Carolina</td>
+      <td>South Carolina</td>
+      <td>5130729</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>52.0</td>
+      <td>South Dakota</td>
+      <td>South Dakota</td>
+      <td>887099</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>753.0</td>
+      <td>Tennessee</td>
+      <td>Tennessee</td>
+      <td>6920119</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>2212.0</td>
+      <td>Texas</td>
+      <td>Texas</td>
+      <td>29217653</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>95.0</td>
+      <td>Utah</td>
+      <td>Utah</td>
+      <td>3281684</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>14.0</td>
+      <td>Vermont</td>
+      <td>Vermont</td>
+      <td>642495</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>531.0</td>
+      <td>Virginia</td>
+      <td>Virginia</td>
+      <td>8632044</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>322.0</td>
+      <td>Washington</td>
+      <td>Washington</td>
+      <td>7718785</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>114.0</td>
+      <td>West Virginia</td>
+      <td>West Virginia</td>
+      <td>1789798</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>334.0</td>
+      <td>Wisconsin</td>
+      <td>Wisconsin</td>
+      <td>5892323</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>25.0</td>
+      <td>Wyoming</td>
+      <td>Wyoming</td>
+      <td>577267</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now that we have our data let’s take one more step to clean the formatting of our data. Let’s drop the extra column with state names and rename ‘POPESTIMATE2020’ to ‘population’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">])</span>
+<span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;POPESTIMATE2020&quot;</span><span class="p">:</span> <span class="s2">&quot;population&quot;</span><span class="p">})</span>
+<span class="n">combined</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>homicides</th>
+      <th>state</th>
+      <th>population</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>654.0</td>
+      <td>Alabama</td>
+      <td>5024803</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>55.0</td>
+      <td>Alaska</td>
+      <td>732441</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>525.0</td>
+      <td>Arizona</td>
+      <td>7177986</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>371.0</td>
+      <td>Arkansas</td>
+      <td>3012232</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2368.0</td>
+      <td>California</td>
+      <td>39499738</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>336.0</td>
+      <td>Colorado</td>
+      <td>5784308</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>152.0</td>
+      <td>Connecticut</td>
+      <td>3600260</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>86.0</td>
+      <td>Delaware</td>
+      <td>991886</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1530.0</td>
+      <td>Florida</td>
+      <td>21569932</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1093.0</td>
+      <td>Georgia</td>
+      <td>10725800</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>46.0</td>
+      <td>Hawaii</td>
+      <td>1451911</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>42.0</td>
+      <td>Idaho</td>
+      <td>1847772</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1353.0</td>
+      <td>Illinois</td>
+      <td>12785245</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>620.0</td>
+      <td>Indiana</td>
+      <td>6785644</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>106.0</td>
+      <td>Iowa</td>
+      <td>3188669</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>195.0</td>
+      <td>Kansas</td>
+      <td>2935880</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>404.0</td>
+      <td>Kentucky</td>
+      <td>4503958</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>873.0</td>
+      <td>Louisiana</td>
+      <td>4651203</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>21.0</td>
+      <td>Maine</td>
+      <td>1362280</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>649.0</td>
+      <td>Maryland</td>
+      <td>6172679</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>183.0</td>
+      <td>Massachusetts</td>
+      <td>7022220</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>811.0</td>
+      <td>Michigan</td>
+      <td>10067664</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>198.0</td>
+      <td>Minnesota</td>
+      <td>5707165</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>576.0</td>
+      <td>Mississippi</td>
+      <td>2956870</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>803.0</td>
+      <td>Missouri</td>
+      <td>6154481</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>65.0</td>
+      <td>Montana</td>
+      <td>1086193</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>76.0</td>
+      <td>Nebraska</td>
+      <td>1961455</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>217.0</td>
+      <td>Nevada</td>
+      <td>3114071</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>14.0</td>
+      <td>New Hampshire</td>
+      <td>1377848</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>362.0</td>
+      <td>New Jersey</td>
+      <td>9279743</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>216.0</td>
+      <td>New Mexico</td>
+      <td>2117566</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>875.0</td>
+      <td>New York</td>
+      <td>20154933</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>884.0</td>
+      <td>North Carolina</td>
+      <td>10457177</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>30.0</td>
+      <td>North Dakota</td>
+      <td>778962</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>1004.0</td>
+      <td>Ohio</td>
+      <td>11790587</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>342.0</td>
+      <td>Oklahoma</td>
+      <td>3962031</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>157.0</td>
+      <td>Oregon</td>
+      <td>4241544</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>994.0</td>
+      <td>Pennsylvania</td>
+      <td>12989625</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>29.0</td>
+      <td>Rhode Island</td>
+      <td>1096229</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>622.0</td>
+      <td>South Carolina</td>
+      <td>5130729</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>52.0</td>
+      <td>South Dakota</td>
+      <td>887099</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>753.0</td>
+      <td>Tennessee</td>
+      <td>6920119</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>2212.0</td>
+      <td>Texas</td>
+      <td>29217653</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>95.0</td>
+      <td>Utah</td>
+      <td>3281684</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>14.0</td>
+      <td>Vermont</td>
+      <td>642495</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>531.0</td>
+      <td>Virginia</td>
+      <td>8632044</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>322.0</td>
+      <td>Washington</td>
+      <td>7718785</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>114.0</td>
+      <td>West Virginia</td>
+      <td>1789798</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>334.0</td>
+      <td>Wisconsin</td>
+      <td>5892323</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>25.0</td>
+      <td>Wyoming</td>
+      <td>577267</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now we’re ready to conduct our analysis. Let’s create a new column called ‘homicide_rate’ and it will be the number of homicides divided by the state population. Since this number is typically a small value, this is often reported as the number of homicides per 100,000 people, so we just multiply the result by 100,000.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span><span class="p">[</span><span class="s2">&quot;homicide_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">combined</span><span class="p">[</span><span class="s2">&quot;homicides&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">combined</span><span class="p">[</span><span class="s2">&quot;population&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100000</span>
+<span class="n">combined</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>homicides</th>
+      <th>state</th>
+      <th>population</th>
+      <th>homicide_rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>654.0</td>
+      <td>Alabama</td>
+      <td>5024803</td>
+      <td>13.015436</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>55.0</td>
+      <td>Alaska</td>
+      <td>732441</td>
+      <td>7.509137</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>525.0</td>
+      <td>Arizona</td>
+      <td>7177986</td>
+      <td>7.314029</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>371.0</td>
+      <td>Arkansas</td>
+      <td>3012232</td>
+      <td>12.316448</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2368.0</td>
+      <td>California</td>
+      <td>39499738</td>
+      <td>5.994976</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>336.0</td>
+      <td>Colorado</td>
+      <td>5784308</td>
+      <td>5.808819</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>152.0</td>
+      <td>Connecticut</td>
+      <td>3600260</td>
+      <td>4.221917</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>86.0</td>
+      <td>Delaware</td>
+      <td>991886</td>
+      <td>8.670351</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1530.0</td>
+      <td>Florida</td>
+      <td>21569932</td>
+      <td>7.093207</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1093.0</td>
+      <td>Georgia</td>
+      <td>10725800</td>
+      <td>10.190382</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>46.0</td>
+      <td>Hawaii</td>
+      <td>1451911</td>
+      <td>3.168238</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>42.0</td>
+      <td>Idaho</td>
+      <td>1847772</td>
+      <td>2.273008</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1353.0</td>
+      <td>Illinois</td>
+      <td>12785245</td>
+      <td>10.582511</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>620.0</td>
+      <td>Indiana</td>
+      <td>6785644</td>
+      <td>9.136937</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>106.0</td>
+      <td>Iowa</td>
+      <td>3188669</td>
+      <td>3.324271</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>195.0</td>
+      <td>Kansas</td>
+      <td>2935880</td>
+      <td>6.641961</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>404.0</td>
+      <td>Kentucky</td>
+      <td>4503958</td>
+      <td>8.969888</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>873.0</td>
+      <td>Louisiana</td>
+      <td>4651203</td>
+      <td>18.769338</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>21.0</td>
+      <td>Maine</td>
+      <td>1362280</td>
+      <td>1.541533</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>649.0</td>
+      <td>Maryland</td>
+      <td>6172679</td>
+      <td>10.514073</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>183.0</td>
+      <td>Massachusetts</td>
+      <td>7022220</td>
+      <td>2.606013</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>811.0</td>
+      <td>Michigan</td>
+      <td>10067664</td>
+      <td>8.055493</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>198.0</td>
+      <td>Minnesota</td>
+      <td>5707165</td>
+      <td>3.469323</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>576.0</td>
+      <td>Mississippi</td>
+      <td>2956870</td>
+      <td>19.480058</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>803.0</td>
+      <td>Missouri</td>
+      <td>6154481</td>
+      <td>13.047404</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>65.0</td>
+      <td>Montana</td>
+      <td>1086193</td>
+      <td>5.984204</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>76.0</td>
+      <td>Nebraska</td>
+      <td>1961455</td>
+      <td>3.874675</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>217.0</td>
+      <td>Nevada</td>
+      <td>3114071</td>
+      <td>6.968370</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>14.0</td>
+      <td>New Hampshire</td>
+      <td>1377848</td>
+      <td>1.016077</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>362.0</td>
+      <td>New Jersey</td>
+      <td>9279743</td>
+      <td>3.900970</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>216.0</td>
+      <td>New Mexico</td>
+      <td>2117566</td>
+      <td>10.200390</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>875.0</td>
+      <td>New York</td>
+      <td>20154933</td>
+      <td>4.341369</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>884.0</td>
+      <td>North Carolina</td>
+      <td>10457177</td>
+      <td>8.453524</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>30.0</td>
+      <td>North Dakota</td>
+      <td>778962</td>
+      <td>3.851279</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>1004.0</td>
+      <td>Ohio</td>
+      <td>11790587</td>
+      <td>8.515267</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>342.0</td>
+      <td>Oklahoma</td>
+      <td>3962031</td>
+      <td>8.631936</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>157.0</td>
+      <td>Oregon</td>
+      <td>4241544</td>
+      <td>3.701482</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>994.0</td>
+      <td>Pennsylvania</td>
+      <td>12989625</td>
+      <td>7.652261</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>29.0</td>
+      <td>Rhode Island</td>
+      <td>1096229</td>
+      <td>2.645433</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>622.0</td>
+      <td>South Carolina</td>
+      <td>5130729</td>
+      <td>12.123034</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>52.0</td>
+      <td>South Dakota</td>
+      <td>887099</td>
+      <td>5.861803</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>753.0</td>
+      <td>Tennessee</td>
+      <td>6920119</td>
+      <td>10.881316</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>2212.0</td>
+      <td>Texas</td>
+      <td>29217653</td>
+      <td>7.570766</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>95.0</td>
+      <td>Utah</td>
+      <td>3281684</td>
+      <td>2.894855</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>14.0</td>
+      <td>Vermont</td>
+      <td>642495</td>
+      <td>2.179005</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>531.0</td>
+      <td>Virginia</td>
+      <td>8632044</td>
+      <td>6.151498</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>322.0</td>
+      <td>Washington</td>
+      <td>7718785</td>
+      <td>4.171641</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>114.0</td>
+      <td>West Virginia</td>
+      <td>1789798</td>
+      <td>6.369434</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>334.0</td>
+      <td>Wisconsin</td>
+      <td>5892323</td>
+      <td>5.668393</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>25.0</td>
+      <td>Wyoming</td>
+      <td>577267</td>
+      <td>4.330752</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Lastly, let’s sort the data by ‘homicide_rate’ to see what the states are with the highest and lowest rates:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;homicide_rate&quot;</span><span class="p">)</span>
+<span class="n">combined</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>homicides</th>
+      <th>state</th>
+      <th>population</th>
+      <th>homicide_rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>28</th>
+      <td>14.0</td>
+      <td>New Hampshire</td>
+      <td>1377848</td>
+      <td>1.016077</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>21.0</td>
+      <td>Maine</td>
+      <td>1362280</td>
+      <td>1.541533</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>14.0</td>
+      <td>Vermont</td>
+      <td>642495</td>
+      <td>2.179005</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>42.0</td>
+      <td>Idaho</td>
+      <td>1847772</td>
+      <td>2.273008</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>183.0</td>
+      <td>Massachusetts</td>
+      <td>7022220</td>
+      <td>2.606013</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>29.0</td>
+      <td>Rhode Island</td>
+      <td>1096229</td>
+      <td>2.645433</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>95.0</td>
+      <td>Utah</td>
+      <td>3281684</td>
+      <td>2.894855</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>46.0</td>
+      <td>Hawaii</td>
+      <td>1451911</td>
+      <td>3.168238</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>106.0</td>
+      <td>Iowa</td>
+      <td>3188669</td>
+      <td>3.324271</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>198.0</td>
+      <td>Minnesota</td>
+      <td>5707165</td>
+      <td>3.469323</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>157.0</td>
+      <td>Oregon</td>
+      <td>4241544</td>
+      <td>3.701482</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>30.0</td>
+      <td>North Dakota</td>
+      <td>778962</td>
+      <td>3.851279</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>76.0</td>
+      <td>Nebraska</td>
+      <td>1961455</td>
+      <td>3.874675</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>362.0</td>
+      <td>New Jersey</td>
+      <td>9279743</td>
+      <td>3.900970</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>322.0</td>
+      <td>Washington</td>
+      <td>7718785</td>
+      <td>4.171641</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>152.0</td>
+      <td>Connecticut</td>
+      <td>3600260</td>
+      <td>4.221917</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>25.0</td>
+      <td>Wyoming</td>
+      <td>577267</td>
+      <td>4.330752</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>875.0</td>
+      <td>New York</td>
+      <td>20154933</td>
+      <td>4.341369</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>334.0</td>
+      <td>Wisconsin</td>
+      <td>5892323</td>
+      <td>5.668393</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>336.0</td>
+      <td>Colorado</td>
+      <td>5784308</td>
+      <td>5.808819</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>52.0</td>
+      <td>South Dakota</td>
+      <td>887099</td>
+      <td>5.861803</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>65.0</td>
+      <td>Montana</td>
+      <td>1086193</td>
+      <td>5.984204</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2368.0</td>
+      <td>California</td>
+      <td>39499738</td>
+      <td>5.994976</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>531.0</td>
+      <td>Virginia</td>
+      <td>8632044</td>
+      <td>6.151498</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>114.0</td>
+      <td>West Virginia</td>
+      <td>1789798</td>
+      <td>6.369434</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>195.0</td>
+      <td>Kansas</td>
+      <td>2935880</td>
+      <td>6.641961</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>217.0</td>
+      <td>Nevada</td>
+      <td>3114071</td>
+      <td>6.968370</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1530.0</td>
+      <td>Florida</td>
+      <td>21569932</td>
+      <td>7.093207</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>525.0</td>
+      <td>Arizona</td>
+      <td>7177986</td>
+      <td>7.314029</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>55.0</td>
+      <td>Alaska</td>
+      <td>732441</td>
+      <td>7.509137</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>2212.0</td>
+      <td>Texas</td>
+      <td>29217653</td>
+      <td>7.570766</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>994.0</td>
+      <td>Pennsylvania</td>
+      <td>12989625</td>
+      <td>7.652261</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>811.0</td>
+      <td>Michigan</td>
+      <td>10067664</td>
+      <td>8.055493</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>884.0</td>
+      <td>North Carolina</td>
+      <td>10457177</td>
+      <td>8.453524</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>1004.0</td>
+      <td>Ohio</td>
+      <td>11790587</td>
+      <td>8.515267</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>342.0</td>
+      <td>Oklahoma</td>
+      <td>3962031</td>
+      <td>8.631936</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>86.0</td>
+      <td>Delaware</td>
+      <td>991886</td>
+      <td>8.670351</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>404.0</td>
+      <td>Kentucky</td>
+      <td>4503958</td>
+      <td>8.969888</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>620.0</td>
+      <td>Indiana</td>
+      <td>6785644</td>
+      <td>9.136937</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1093.0</td>
+      <td>Georgia</td>
+      <td>10725800</td>
+      <td>10.190382</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>216.0</td>
+      <td>New Mexico</td>
+      <td>2117566</td>
+      <td>10.200390</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>649.0</td>
+      <td>Maryland</td>
+      <td>6172679</td>
+      <td>10.514073</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1353.0</td>
+      <td>Illinois</td>
+      <td>12785245</td>
+      <td>10.582511</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>753.0</td>
+      <td>Tennessee</td>
+      <td>6920119</td>
+      <td>10.881316</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>622.0</td>
+      <td>South Carolina</td>
+      <td>5130729</td>
+      <td>12.123034</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>371.0</td>
+      <td>Arkansas</td>
+      <td>3012232</td>
+      <td>12.316448</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>654.0</td>
+      <td>Alabama</td>
+      <td>5024803</td>
+      <td>13.015436</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>803.0</td>
+      <td>Missouri</td>
+      <td>6154481</td>
+      <td>13.047404</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>873.0</td>
+      <td>Louisiana</td>
+      <td>4651203</td>
+      <td>18.769338</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>576.0</td>
+      <td>Mississippi</td>
+      <td>2956870</td>
+      <td>19.480058</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can see that the states of New Hampshire, Maine, Vermont, Idaho, and Massachusetts, each have homicide rates between and 1 and 2.6 people per 100,000. Arkansas, Alabama, Missouri, Louisiana, and Mississippi have far higher rates ranging from 12.3 to 19.5 people per 100,000. The homicide rate is nearly 20 times higher in Mississippi than it is in New Hampshire.</p>
+<p>All of the skills and tools shown here scale up to larger datasets as well. As we can see, data preparation was a significant part of the effort and being able to programmatically complete the process was essential. Data preparation requires careful design to take care of potential imperfections, omissions, or mismatches in the data. Once taken care of, the subsequent analysis can proceed for us to derive insights from our data.</p>
+</section>
+<section id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h1>
+<p>In this section, we saw that merging is a key tool for combining datasets and is able to accommodate many of the common types of merges that we would want to execute. Merging data allows us to integrate the information from two DataFrames logically and coherently to prepare it for further analysis and querying, but care must be taken in structuring the merge so that we don’t lose data or introduce unwanted <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values. Next, you’ll get some practice merging data. Once we have our data combined, in an upcoming lesson, we’ll explore how to group our data by its columns.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_3/week_4"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="15.1_combining_merging_continued.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Combining datasets: merging</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="15.3_validating_a_merge.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Validating a merge</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Practical Example</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
