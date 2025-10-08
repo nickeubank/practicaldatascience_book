@@ -74,7 +74,7 @@
     <link rel="icon" href="../../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Setting Up Visual Studio Code" href="setup_vscode.html" />
+    <link rel="next" title="Validating Python Installation" href="validate_python.html" />
     <link rel="prev" title="PDS (MIDS) (IDS 720)" href="../../../ids720_specific/class_schedule_720.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -202,6 +202,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate_python.html">Validate Python Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup_vscode.html">Setting Up VS Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jupyter_in_vscode.html">Jupyter Notebooks</a></li>
@@ -615,9 +616,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-for-other-python-installations">Check For Other Python Installations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-a-few-standard-packages">Install A Few Standard Packages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#and-that-s-it">And that’s it!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validating-your-installation-and-avoiding-problem">Validating Your Installation and Avoiding Problem</a></li>
 </ul>
             </nav>
         </div>
@@ -706,49 +705,9 @@ document.write(`
 </ol>
 </section>
 </section>
-<section id="check-for-other-python-installations">
-<h2>Check For Other Python Installations<a class="headerlink" href="#check-for-other-python-installations" title="Link to this heading">#</a></h2>
-<p>One of the things that makes Python different from many other programs you may be accustomed to — like R or Stata — is that it’s possible to have multiple fully independent installations of Python on the same computer. Each installation of Python — also referred to as an interpreter — has its own set of installed packages. Different installations may also be different versions (e.g., <code class="docutils literal notranslate"><span class="pre">3.9</span></code> versus <code class="docutils literal notranslate"><span class="pre">3.11</span></code>), or the same version.</p>
-<p>As a result, its easy as a beginning programmer to end up in situations where your code won’t run because you don’t have a specific package installed, but then when you try to install the package, you find it won’t fix the problem because the installation of Python that’s running your code is different from the installation into which you are installing the package.</p>
-<p>So, to help avoid problems, a good next step is to check for other Python installations and remove any that aren’t needed.</p>
-<p><strong>On a Mac:</strong></p>
-<p>In a new terminal window:</p>
-<ul class="simple">
-<li><p>type <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">-a</span> <span class="pre">python</span></code> and hit enter. You <em>should</em> only see one entry, which will be something like <code class="docutils literal notranslate"><span class="pre">/Users/nick/miniforge3/bin/python</span></code>, where the name that follows <code class="docutils literal notranslate"><span class="pre">/Users/</span></code> is your username.</p></li>
-<li><p>type <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">-a</span> <span class="pre">python3</span></code> and hit enter. You <em>should</em> only see two entries: <code class="docutils literal notranslate"><span class="pre">/Users/nick/miniforge3/bin/python3</span></code> and <code class="docutils literal notranslate"><span class="pre">/usr/bin/python3</span></code>.</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">/usr/bin/python3</span></code> is a version of Python that is part of macOS. It’s ok it’s there, and you don’t want to play with it.</p></li>
-</ul>
-</li>
-</ul>
-<p>If you see any other entries, such as:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/Users/nick/miniconda3/bin/python</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/Users/nick/anaconda3/bin/python</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/opt/anaconda3/bin/python</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/opt/homebrew/bin/python3</span></code></p></li>
-</ul>
-<p>Then you have other installations of Python you want to remove. To do so:</p>
-<ul class="simple">
-<li><p>If you have an installation in your user folder (e.g., <code class="docutils literal notranslate"><span class="pre">/Users/nick/miniconda3/bin/python</span></code> or <code class="docutils literal notranslate"><span class="pre">/Users/nick/anaconda3/bin/python</span></code>), then open your user folder, look for the folder called <code class="docutils literal notranslate"><span class="pre">miniconda3</span></code> or <code class="docutils literal notranslate"><span class="pre">anaconda3</span></code>, put it in the trash and empty the trash. Delete the whole <code class="docutils literal notranslate"><span class="pre">miniconda3</span></code> or <code class="docutils literal notranslate"><span class="pre">anaconda3</span></code> folder.</p></li>
-<li><p>If you have an installation whose path starts with <code class="docutils literal notranslate"><span class="pre">/opt/</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">/opt/anaconda3</span></code>) open your terminal and type <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt;</span> <span class="pre">open</span> <span class="pre">.</span></code>. That should cause a Finder window to open in which you should see <code class="docutils literal notranslate"><span class="pre">anaconda3</span></code> or <code class="docutils literal notranslate"><span class="pre">homebrew</span></code>.</p>
-<ul>
-<li><p>if you see a <code class="docutils literal notranslate"><span class="pre">anaconda3</span></code> or  <code class="docutils literal notranslate"><span class="pre">miniconda3</span></code> folder, drag it to the trash. Your computer will ask for your password or TouchID.</p></li>
-<li><p>if you see <code class="docutils literal notranslate"><span class="pre">homebrew</span></code>, you have two choices. If you don’t know what homebrew is or how it got there, then drag it to the trash. If you know what it is and want it there because your using it for something else, run <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">uninstall</span> <span class="pre">python</span></code>.</p></li>
-</ul>
-</li>
-</ul>
-<p>Then open a new terminal and re-run <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">-a</span> <span class="pre">python</span></code> and <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">-a</span> <span class="pre">python3</span></code> again to doublecheck that you only have one entry under <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">-a</span> <span class="pre">python</span></code> and two under <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">-a</span> <span class="pre">python3</span></code>.</p>
-</section>
-<section id="install-a-few-standard-packages">
-<h2>Install A Few Standard Packages<a class="headerlink" href="#install-a-few-standard-packages" title="Link to this heading">#</a></h2>
-<p>If you plan to do much data science, then it also makes sense to now install a few packages to help make life easier. To do so, open a new terminal and run the command:</p>
-<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">pandas</span> <span class="pre">matplotlib</span> <span class="pre">jupyter</span> <span class="pre">notebook</span></code></p>
-<p>It’ll think a little, then it’ll ask you to confirm this is what you want to do. Type <code class="docutils literal notranslate"><span class="pre">y</span></code> and hit enter and let it rip!</p>
-</section>
-<section id="and-that-s-it">
-<h2>And that’s it!<a class="headerlink" href="#and-that-s-it" title="Link to this heading">#</a></h2>
-<p>You now have Python on your system, as well as all the tools you’ll need for managing packages!</p>
+<section id="validating-your-installation-and-avoiding-problem">
+<h2>Validating Your Installation and Avoiding Problem<a class="headerlink" href="#validating-your-installation-and-avoiding-problem" title="Link to this heading">#</a></h2>
+<p>Now that you have Python setup, let’s validate <a class="reference internal" href="validate_python.html"><span class="std std-doc">the installation and check for potential issues!</span></a></p>
 </section>
 </section>
 
@@ -792,11 +751,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="setup_vscode.html"
+       href="validate_python.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Setting Up Visual Studio Code</p>
+        <p class="prev-next-title">Validating Python Installation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -824,9 +783,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-for-other-python-installations">Check For Other Python Installations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-a-few-standard-packages">Install A Few Standard Packages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#and-that-s-it">And that’s it!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validating-your-installation-and-avoiding-problem">Validating Your Installation and Avoiding Problem</a></li>
 </ul>
   </nav></div>
 
