@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -646,6 +646,19 @@ document.write(`
 <h2>Exercise 0<a class="headerlink" href="#exercise-0" title="Link to this heading">#</a></h2>
 <p>Start by downloading and unzipping our <a class="reference external" href="https://github.com/nickeubank/practicaldatascience_book/blob/main/notebooks/class_2/week_4/data/satellite_images.zip">satellite data from here</a>.</p>
 <p>We’ll get started by loading are data as a set of three separate matrices representing the red, blue, green, and NIR bands of our data. Here’s the code to get you started. This code loads four numpy arrays, one for red, green, blue, and NIR: <code class="docutils literal notranslate"><span class="pre">band2_blue</span></code>, <code class="docutils literal notranslate"><span class="pre">band3_green</span></code>, <code class="docutils literal notranslate"><span class="pre">band4_red</span></code>, and <code class="docutils literal notranslate"><span class="pre">band8_nir</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">image</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Load the data from each of the four bands</span>
+<span class="n">band2_blue</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;B02.png&quot;</span><span class="p">)</span>
+<span class="n">band3_green</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;B03.png&quot;</span><span class="p">)</span>
+<span class="n">band4_red</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;B04.png&quot;</span><span class="p">)</span>
+<span class="n">band8_nir</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;B08.png&quot;</span><span class="p">)</span>
+
+</pre></div>
+</div>
 </section>
 <section id="exercise-1">
 <h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
