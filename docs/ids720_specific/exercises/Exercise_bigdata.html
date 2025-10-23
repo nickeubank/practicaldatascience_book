@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -608,6 +608,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#want-more-practice">Want More Practice?</a></li>
 </ul>
             </nav>
@@ -624,37 +632,54 @@ document.write(`
 <h1>Big Data Exercises<a class="headerlink" href="#big-data-exercises" title="Link to this heading">#</a></h1>
 <p>In these exercises we will work on data from a series of global weather monitoring stations used to measure climate trends to examine long-term trends in temperature for your home locality. This data comes from the Global Historical Climatology Network, and is the actual raw data provided by NOAA. The only changes I have made to this data are a few small formatting changes to help meet the learning goals of this exercise.</p>
 <p>To do these excercises, first please download the data for this exercise <a class="reference external" href="https://www.dropbox.com/s/oq36w90hm9ltgvc/global_climate_data.zip?dl=0">from here</a>. Note this is a big file (this is a big-data exercise, after all), so be patient.</p>
-<p><strong>(1)</strong> The data we’ll be working with can be found in the file <code class="docutils literal notranslate"><span class="pre">ghcnd_daily.tar.gz</span></code>. It includes daily weather data from thousands of weather stations around the work over many decades.</p>
-<p>Begin by decompressing the file and checking it’s size – it should come out to be <em>about</em> 4gb, but will expand to about 12 gb in RAM, which means there’s just no way most students (who usually have, at most, 16gb of RAM) can import this dataset into pandas and manipulate it directly.</p>
-<p>(Unsure how to decompress it? Try checking the readme)</p>
+<section id="exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
+<p>The data we’ll be working with can be found in the file <code class="docutils literal notranslate"><span class="pre">ghcnd_daily.tar.gz</span></code>. It includes daily weather data from thousands of weather stations around the work over many decades.</p>
+<p>Begin by unzipping the file and checking it’s size – it should come out to be <em>about</em> 4gb, but will expand to about 12 gb in RAM, which means there’s just no way most students (who usually have, at most, 16gb of RAM) can import this dataset into pandas and manipulate it directly.</p>
 <p>(Note: what we’re doing can be applied to much bigger datasets, but they sometimes takes hours to work with, so we’re working with data that’s just a <em>little</em> big so we can get exercises done in reasonable time).</p>
-<p><strong>(2)</strong> Thankfully, we aren’t going to be working with <em>all</em> the data today. Instead, everyone should pick three weather stations to examine during this analysis.</p>
+</section>
+<section id="exercise-2">
+<h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
+<p>Thankfully, we aren’t going to be working with <em>all</em> the data today. Instead, everyone should pick three weather stations to examine during this analysis.</p>
 <p>To pick your stations, we’ll need to open the <code class="docutils literal notranslate"><span class="pre">ghcnd-stations.txt</span></code> file in the directory you’ve downloaded. It includes both station codes (which is what we’ll find in the <code class="docutils literal notranslate"><span class="pre">ghcnd_daily.csv</span></code> data, as well as the name and location of each station).</p>
 <p>When picking a weather station, make sure to pick one flagged as being in either GSN, HCN, or CRN (these designate more formalized stations that have been around a long time, ensuring you’ll get a station with data that has been recorded over a longer period).</p>
 <p>Note that Station IDs start with the two-letter code of the country in which they are located, and the “NAME” column often constains city names.</p>
 <p><strong>The <code class="docutils literal notranslate"><span class="pre">ghcnd-stations.txt</span></code> is a “fixed-width” dataset,</strong> meaning that instead of putting commas or tabs between observations, all columns have the same width (in terms of number of characters). So to import this data you’ll have to (a) read the notes about the data in the project README.txt, and (b) read about how to read in fixed-width data in pandas. When entering column specifications, remember that normal people count from 1 and include end points, while Python counts from 0 and doesn’t include end points (so if the readme says data is in columns 10-20, in Python that’d be 9 through 20).</p>
-<p><strong>(3)</strong> Now that we something about the observations we want to work with, we can now turn to our actual weather data.</p>
+</section>
+<section id="exercise-3">
+<h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h2>
+<p>Now that we know something about the observations we want to work with, we can now turn to our actual weather data.</p>
 <p>Our daily weather can be found in <code class="docutils literal notranslate"><span class="pre">ghcnd_daily.csv</span></code>, which you get by unzipping <code class="docutils literal notranslate"><span class="pre">ghcnd_daily.tar.gz</span></code>. Note that the README.txt talks about this being a fixed-width file. Since you’ve already dealt with one fixed-width file, I’ve just converted this to a CSV, and dropped all the data that isn’t “daily max temperatures”.</p>
 <p>Let’s start with the fun part. <strong>SAVE YOUR NOTEBOOK AND ANY OTHER OPEN FILES!</strong>. Then just try and import the data (<code class="docutils literal notranslate"><span class="pre">ghcnd_daily.csv</span></code>) while watching your Activity Monitor (Mac) or Resource Monitor (Windows) to see what happens.</p>
 <p>If you have 8GB of RAM, this should fail miserably.</p>
 <p>If you have 16GB of RAM, you might just get away with this. But if it <em>does</em> load, try sorting the data by year and see how things go.</p>
-<p>(If you have 32GB of RAM: you’re actually probably fine with data this size. Sorry – datasets big enough to cause big problems for people with 32GB take a long time to chunk on an 8GB computer, and these exercises have to be fast enough to finish in a class period! There are some exercises at the bottom with a REALLY big dataset you can work with.)</p>
+<p>(If you have 32GB of RAM: you’re actually probably fine with data this size. Sorry – datasets big enough to cause big problems for people with 32GB take a long time to chunk on an 8GB computer, and these exercises have to be fast enough to finish in a class period! There are some exercises at the bottom with a REALLY big dataset you can work with. But if you’re up for it, do the version of the data described at the end of the exercise under the “Want More Practice?” heading.)</p>
 <p>You may have to kill your kernel, kill VS Code, and start over when this explodes…</p>
-<p><strong>(4)</strong> Now that we know that we can’t work with this directly, it’s good with these big datasets to just import ~200 lines so you can get a feel for the data. So load <em>just 200 lines</em> of <code class="docutils literal notranslate"><span class="pre">ghcnd_daily.csv</span></code>.</p>
-<p><strong>(5)</strong> Once you have a sense of the data, write code to chunk your data: i.e. code that reads in all blocks of the data that will fit in ram, keeps only the observations for the weather stations you’ve selected to focus on, and throws away everything else.</p>
-<p>In addition to your own three weather stations, please also include station USC00050848 (a weather station from near my home!) so you can generate results that we can all compare (to check for accuracy).</p>
-<p>Note you will probably have to play with your chunk sizes (probably while watching your RAM usage?). That’s because small chunk sizes, while useful for debugging, are very slow.</p>
-<p>Every time Python processes a chunk, there’s a fixed processing cost, so in a dataset with, say, 10,000,000 rows, if you try to do chunks of 100 rows, that fixed processing cost has to be paid 100,000 times. Given that, the larger you can make your chunks the better, so long as your chunks don’t use up all your RAM. Again, picking a chunk size then watching your RAM usage is a good way to see how close you are to the limits of your RAM.</p>
-<p><strong>(6)</strong> Now, for each weather station, figure out the <em>earliest</em> year with data. Keep <code class="docutils literal notranslate"><span class="pre">USC00050848</span></code> and the two of the three weather stations you picked with the best data (i.e., you should have 3 total, two you picked and <code class="docutils literal notranslate"><span class="pre">USC00050848</span></code>).</p>
-<p><strong>(7)</strong> Now calculate the average max temp for each weather station / month in the data. Note that in a few weeks, we’ll have the skills to do this by reshaping our data so each row is a single day, rather than a month. But for the moment, just sum the columns, watching out for weird values.</p>
-<p>To sum across the value columns, we can combine:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weather_data</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>(to just get the columns whose names start with “value”) with <code class="docutils literal notranslate"><span class="pre">.mean(axis='columns')</span></code> (which averages across columns (along rows) rather than the usual averaging across rows (along columns).</p>
-<p><strong>(6)</strong> Now for each weather station, generate a separate plot of the daily temperatures over time. You should end up with a plot that looks something like this:</p>
+</section>
+<section id="exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h2>
+<p>Now that we know that we can’t work with this directly, it’s good with these big datasets to just import ~200 lines so you can get a feel for the data. So load <em>just 200 lines</em> of <code class="docutils literal notranslate"><span class="pre">ghcnd_daily.csv</span></code>.</p>
+</section>
+<section id="exercise-5">
+<h2>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h2>
+<p>Once you have a sense of the data, write code to chunk your data: i.e. code that reads in all blocks of the data that will fit in ram, keeps only the observations for the weather stations you’ve selected to focus on, and throws away everything else.</p>
+<p>In addition to your own 4 weather stations, please also include station USC00050848 (a weather station from near my home!) so you can generate results that we can all compare (to check for accuracy).</p>
+<p>Note you will probably have to play with your chunk sizes (probably while watching your RAM usage?) to find a chunk size that’s big enough you aren’t running chunks all day, but small enough you can work with it.</p>
+</section>
+<section id="exercise-6">
+<h2>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h2>
+<p>Now, for each weather station, figure out the <em>earliest</em> year with data. Keep <code class="docutils literal notranslate"><span class="pre">USC00050848</span></code> and the two of the three weather stations you picked with the best data (i.e., you should have 3 total, two you picked and <code class="docutils literal notranslate"><span class="pre">USC00050848</span></code>).</p>
+</section>
+<section id="exercise-7">
+<h2>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h2>
+<p>Now calculate the average max temp for each weather station / month in the data. Note that in a few weeks, we’ll have the skills to do this by reshaping our data so each row is a single day, rather than a month. But for the moment, just sum the columns, watching out for weird values.</p>
+<p>Hint: you’ll probably want need <code class="docutils literal notranslate"><span class="pre">.mean(axis='columns')</span></code>, but that alone won’t be sufficient.</p>
+</section>
+<section id="exercise-8">
+<h2>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h2>
+<p>Now for each weather station, generate a separate plot of the daily temperatures over time. You should end up with a plot that looks something like this:</p>
 <p><img alt="temp_plots_Colorado" src="../../_images/temp_plots_Boulder_CO.png" /></p>
-<p><strong>NOTE:</strong> If your plot has little horizontal lines at the tops and bottoms of the temperature plots connecting perfectly vertical temperature lines, it means you made a mistake in how you plotted your data!</p>
+</section>
 <section id="want-more-practice">
 <h2>Want More Practice?<a class="headerlink" href="#want-more-practice" title="Link to this heading">#</a></h2>
 <p>If you <em>really</em> want a challenge, the file <code class="docutils literal notranslate"><span class="pre">ghcnd_daily_30gb.tar.gz</span></code> will decompress into <code class="docutils literal notranslate"><span class="pre">ghcnd_daily.dat</span></code>, the full version of the GHCND daily data. It contains not only daily high temps, but also daily low temps, preciptionation, etc. Moreover, it is still in fixed-width format, and is about 30gb in raw form.</p>
@@ -710,6 +735,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#want-more-practice">Want More Practice?</a></li>
 </ul>
   </nav></div>
