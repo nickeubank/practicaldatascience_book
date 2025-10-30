@@ -16,7 +16,7 @@
 \usepackage[right=2.5cm, left=2.5cm, top=3.5cm, bottom=3.5cm]{geometry} %right=, left=, top=, bottom=
 
 \title{Estimate the Impact of Opioid Control Policies}
-\author{Team Project, Practical Data Science}
+\author{Team Project, Practical Data Science I (IDS 540)}
 \date{\today}
 
 \begin{document}
@@ -33,7 +33,7 @@ Over the past two decades, the United States has seen a tremendous increase in t
   \scriptsize{Source: US Centers for Disease Control}
 \end{figure}
 
-In this project, we'll be \textbf{estimating the effectiveness of policy interventions} designed to limit the over-prescription of opioids. More specifically, we will attempt to measure the \textbf{effect} of a series of policy changes designed to limit opioid abuse in several US states on (a) opioid drug prescriptions, and (b) mortality from drug overdoses.\footnote{ In particular, we will focus on a Texas regulation that went into effect in January 2007, a Washington regulation that went into effect in January 2012, and a Florida regulation that went into effect in 2010.}
+In this project, we'll be \textbf{estimating the effectiveness of policy interventions} designed to limit the over-prescription of opioids. More specifically, we will attempt to measure the \textbf{effect} of a series of policy changes designed to limit opioid abuse in several US states on (a) opioid drug prescriptions, and (b) mortality from drug overdoses. In particular, we will focus on a Florida regulation that went into effect in 2010.
 
 Our interest in examining mortality as well as opioid prescriptions comes from the fact that while restricting access to opioids may reduce the likelihood that \emph{future} patients will end up addicted to opioids, it may drive already addicted patients to turn to alternative forms of opioids, be those illegally purchased prescription drugs, heroin, or fentanyl. This possibility is deeply troubling because the likelihood of overdosing on these illegal drugs is \emph{much} higher than on (monitored) prescription drugs, as it is impossible for drug users to know the strength of illegal drugs, and because drugs like fentanyl are so potent that as little as 3mg can be lethal.
 
@@ -62,7 +62,7 @@ With that in mind, we have to find a way to \emph{estimate} what we think \emph{
 
 There are many approaches to solving this problem. The one we're most familiar with is randomized drug trials, where we randomly assign people to either take a drug or not take a drug. In these designs, because people are being randomly assigned to take the drug or not, by the law of large numbers we expect the people who take the drug to be, \emph{on average}, the same as the people who don't take the drug. Because of these, we infer that what happens to the people who aren't taking the drug is, \emph{on average}, what \emph{would} have happened to the people do are taking the drug had they not taken the drug. In other words, we think that the non-drug-takers are a good counterfactual for the drug-takers.
 
-(If this is making your head spin a little, don't worry -- this stuff is hard, and this is only a \emph{very} quick summary of causal inference. About half of my Spring course will be focused on these ideas.)
+(If this is making your head spin a little, don't worry -- this stuff is hard, and this is only a \emph{very} quick summary of causal inference.)
 
 But we can't use this strategy for measuring drug policy because we can't randomly assign states to either implement or not implement opioid control measures. With that in mind, we need to come up with different ways of estimating what we think would have happened to Florida had it not passed opioid control measures.
 
@@ -119,7 +119,11 @@ If the two groups have different trends, then we would expect differences betwee
 
 \subsection*{Data}
 
-Two sources of data you will definitely need for this analysis are information on (a) opioid prescriptions, and (b) drug overdose mortality. Sources for this data are provided below. You will also likely need at least one other source of data, which you will be required to find on your own.
+Two sources of data you will definitely need for this analysis are information on (a) opioid prescriptions, and (b) drug overdose mortality. 
+
+\href{https://github.com/nickeubank/ids540_opioid_data}{Data we are providing you can be found here}.
+
+You will also likely need at least one other source of data, which you will be required to find on your own.
 
 \subsubsection*{Opioid Prescriptions}
 
@@ -127,20 +131,30 @@ A core component of this project will be a recently released dataset of all pres
 
 \href{https://github.com/nickeubank/practicaldatascience_book/blob/main/ids720_specific/opioids/MoreThan100billionPainPillsSaturatedTheNationOverNineYears.pdf}{You can read about the data here.}
 
-For this project, you will be provided a dataset with the total amount of opioid shipments per county per year for this period. You can also find more documentation about the raw data (before it was collapsed to the county-year level) \href{https://github.com/wpinvestigative/arcos-api/blob/master/data/data_dictionary.csv}{here}.
+For this project, you will be provided a dataset with the total amount of opioid shipments per county per year for this period.
+
+You may also find it helpful to review the documentation from the Washington Post about the raw data (before it was collapsed to the county-year level) \href{https://github.com/wpinvestigative/arcos-api/blob/master/data/data_dictionary.csv}{which you can find here}.
 
 \subsubsection*{Vital Statistics Mortality Data}
 
-The best national source of data on drug overdoses is the US Vital Statistics records, which include data on every death in the United States. Because their interface is a \emph{pain} (e.g. you can only pull 75,000 records at a time, and picking the right variables to download is really annoying), I've pre-downloaded their summary of mortality for drug and non-drug-related causes for every US county from 2003-2015 for your use. \href{https://www.dropbox.com/s/kad4dwebr88l3ud/US_VitalStatistics.zip?dl=0}{You can download that data here.}
+The best national source of data on drug overdoses is the US Vital Statistics records, which include data on every death in the United States. Because their interface is a \emph{pain} (e.g. you can only pull 75,000 records at a time, and picking the right variables to download is really annoying), I've pre-downloaded their summary of mortality for drug and non-drug-related causes for every US county from 2003-2015 for your use.
 
 Several notes about this data:
 \begin{itemize}
-  \item I've made a couple of small changes to this data, but they are very small. This is the raw data (in the format originally provided) by the US Vital Statistics system. So beware of formatting and cleanliness issues.
+  \item I've made a couple of small changes to this data, but they are very small. This is the raw data (in the format originally provided) by the US Vital Statistics system. \textbf{So beware of formatting and cleanliness issues.}
+  \item Please just count deaths where the value of ``Drug/Alcohol Induced Cause'' is ``Drug poisonings (overdose) Unintentional (X40-X44).''
   \item For privacy, the US Vital Statistics Agency censors some data. If the number of people in a given category (i.e. one county / year / cause of death category) is less than 10, that data does \emph{not} appear in the data. Similarly, zero counts are also not reported. So if a county has only 2 deaths in a given year, that county just doesn't appear in the data for a given year. And if a county has 20 deaths unrelated to drugs or alcohol, but 7 deaths due to overdose, the former statistic will appear in the data, but not the latter.
   \begin{itemize}
-    \item It is for this reason that we will use \emph{annual} data on mortality -- by summing deaths over full years, fewer counties end up near below this 10-death threshold, so the data is more complete.
+    \item To address this problem, \textbf{you should introduce a scope condition}: a clear, principled limitation on the set of counties you are trying to analyze. In particular, you want to limit your attention to a set of counties for which this problem does not apply. Because the reporting threshold used by Vital Statistics is about the \emph{absolute} number of deaths, it is primarily a concern for small counties. Large counties will always tend to have more than 10 deaths regardless of whether they have high or low overdose rates just because of their size. Given that, you should address this problem by \textbf{dropping all counties with average populations under 350,000 people} (this is a number that was chosen empirically, as shown in Figure~\ref{fig:missing_rates} below — the rate of missing data falls off almost entirely for counties with more than 350,000 people).
+    \item The consequence of this addition is that you're removed most of the bias in exchange for estimating an effect for a specific population: counties with populations over 350,000 people.
   \end{itemize}
 \end{itemize}
+
+\begin{figure}[h!]
+  \centering
+  \caption{}\label{fig:missing_rates}
+  \includegraphics[width=0.7\textwidth]{images/missing_rates.pdf}
+\end{figure}
 
 
 \subsection*{Unit of Observation}
@@ -211,7 +225,7 @@ For this project, you must:
 
 \subsection*{Due Dates}
 \begin{itemize}
-  \item An outline of your project strategy is due on November 2nd.
+  \item An outline of your project strategy is due on November 10th.
   \begin{itemize}
     \item In writing this strategy, use a ``backwards design'' organizational scheme: Start by establishing what you want to achieve (i.e. the plots I've already specified). Then ask: What dataset do I need to make these plots? Or more specifically:
     \begin{itemize}
@@ -223,22 +237,22 @@ For this project, you must:
     \item Then again: to get to these intermediate datasets, what source datasets do I need? What variables do they need?
     \item Then start trying to assign the tasks implied by that analysis to people. (OBVIOUSLY this will only be very approximate!! But it's good to think about this before you start, then adapt as you move forward).
   \end{itemize}
-  This should include a summary of the datasets you plan to use, a summary of how you plan to merge these datasets, who will be responsible for writing initial code for each step, and who will review each set of code.
-  \item A preliminary draft of your report will be due November 21st.
+  This should include a summary of the datasets you plan to use, a summary of how you plan to merge these datasets, who will be responsible for writing initial code for each step, and who will review each set of code. \href{https://github.com/nickeubank/practicaldatascience_book/blob/main/ids720_specific/opioids/PracticalDataScience_BackwardsDesignTemplate.pdf}{You can find a rough template here if you want it.}
+  \item A preliminary draft of your report will be due November 30th. \href{https://ds4humans.com/40_in_practice/27_data_science_memos.html}{Please follow these guidelines for writing up your report}.
   \item A final draft of your report will be due December 12th.
 \end{itemize}
 
 \subsection*{Tips}
 \begin{itemize}
-  \item Keep your \emph{source} datasets in a common Dropbox folder. You should \emph{only} ever read data from your source data, not modify it directly. This is to ensure that your source files never get corrupted. Because of that, it's fine to have it live outside your github repo.
-  \item Store your intermediate files (the results of reading data from the source files and making modifications) in your repository using git-lfs. Store the files in \texttt{parquet} format to minimize memory use.
+  \item Keep your datasets in a common Dropbox folder. Keep your source data in it's own folder on dropbox. You should \emph{only} ever read data from your source data, not modify it directly. This is to ensure that your source files never get corrupted.
+  \item Store the files in \href{https://www.practicaldatascience.org/notebooks/PDS_not_yet_in_coursera/30_big_data/30_parquet.html}{parquet (click this link to read more)} format to minimize memory use.
 \end{itemize}
 
 \appendix
 
 \section{Difference-in-difference Regressions}\label{appendix_diffindiff}
 
-of the following form (where $c$ is an index for US Counties (a geographic unit of observation within states), and $t$ is an index for time):
+The analysis you are doing in figures can also be written out as a regression in the following form (where $c$ is an index for US Counties (a geographic unit of observation within states), and $t$ is an index for time):
 
 \emph{Allowing only for level changes:}
 \begin{eqnarray}
