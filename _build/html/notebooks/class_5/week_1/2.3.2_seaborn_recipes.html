@@ -74,7 +74,7 @@
     <link rel="icon" href="../../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="What is Big Data?" href="../../PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html" />
+    <link rel="next" title="From Seaborn to Matplotlib" href="2.3.3_from_seaborn_to_matplotlib.html" />
     <link rel="prev" title="Seaborn and the Grammar of Graphics" href="2.3.1_plotting_with_seaborn.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -298,6 +298,11 @@
 
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/15.3_validating_a_merge.html">Validating Merges</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20.1_grouping_pivot_tables.html">Grouping in multiple dimensions with <code class="docutils literal notranslate"><span class="pre">pivot_tables</span></code></a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/20.2_reshaping_data.html">Reshaping Data</a></li>
+
+
 <li class="toctree-l2"><a class="reference internal" href="../../class_3/week_4/30_queries.html">Querying</a></li>
 </ul>
 </details></li>
@@ -342,6 +347,7 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="2.3.1_plotting_with_seaborn.html">Seaborn Objects and GoG</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Seaborn Object Recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.3.3_from_seaborn_to_matplotlib.html">From Seaborn to Matplotlib</a></li>
 </ul>
 </details></li>
 </ul>
@@ -643,12 +649,14 @@ document.write(`
 <span class="kn">import</span> <span class="nn">seaborn.objects</span> <span class="k">as</span> <span class="nn">so</span>
 <span class="kn">import</span> <span class="nn">seaborn_objects_recipes</span> <span class="k">as</span> <span class="nn">sor</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+
 <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
 
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Load the penguins dataset</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
 <span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -660,12 +668,18 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Dot</span><span class="p">())</span>
-        <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Line</span><span class="p">(),</span> <span class="n">PolyFitWithCI</span> <span class="o">:=</span> <span class="n">sor</span><span class="o">.</span><span class="n">PolyFitWithCI</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">gridsize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Band</span><span class="p">(),</span> <span class="n">PolyFitWithCI</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Bill Length (mm)&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Body Mass (g)&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;PolyFit Plot with Confidence Intervals&quot;</span><span class="p">)</span>
+    <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Dot</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">so</span><span class="o">.</span><span class="n">Line</span><span class="p">(),</span> <span class="n">PolyFitWithCI</span> <span class="o">:=</span> <span class="n">sor</span><span class="o">.</span><span class="n">PolyFitWithCI</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">gridsize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
     <span class="p">)</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Band</span><span class="p">(),</span> <span class="n">PolyFitWithCI</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">label</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Bill Length (mm)&quot;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Body Mass (g)&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;PolyFit Plot with Confidence Intervals&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">)</span>
 <span class="n">plot</span>
 </pre></div>
 </div>
@@ -683,18 +697,25 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Dot</span><span class="p">())</span>
-        <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Line</span><span class="p">(),</span> <span class="n">lowess</span> <span class="o">:=</span> <span class="n">sor</span><span class="o">.</span><span class="n">Lowess</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">gridsize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_bootstrap</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Band</span><span class="p">(),</span> <span class="n">lowess</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Bill Length (mm)&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Body Mass (g)&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Lowess Plot with Confidence Intervals&quot;</span><span class="p">)</span>
+    <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Dot</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">so</span><span class="o">.</span><span class="n">Line</span><span class="p">(),</span>
+        <span class="n">lowess</span> <span class="o">:=</span> <span class="n">sor</span><span class="o">.</span><span class="n">Lowess</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">gridsize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_bootstrap</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">),</span>
     <span class="p">)</span>
+    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Band</span><span class="p">(),</span> <span class="n">lowess</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">label</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Bill Length (mm)&quot;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Body Mass (g)&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Lowess Plot with Confidence Intervals&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">)</span>
 <span class="n">plot</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../../../_images/6da83279f49dfd5ad231bad31ec5277216942eb0a3509b8b819dcde8a7b4cd39.png"><img alt="../../../_images/6da83279f49dfd5ad231bad31ec5277216942eb0a3509b8b819dcde8a7b4cd39.png" src="../../../_images/6da83279f49dfd5ad231bad31ec5277216942eb0a3509b8b819dcde8a7b4cd39.png" style="width: 509.15px; height: 378.25px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/12f5fe8381e0eb9c4af726c2f8f4ccaa7e073254c132b286a1401a0bcf0b0eb2.png"><img alt="../../../_images/12f5fe8381e0eb9c4af726c2f8f4ccaa7e073254c132b286a1401a0bcf0b0eb2.png" src="../../../_images/12f5fe8381e0eb9c4af726c2f8f4ccaa7e073254c132b286a1401a0bcf0b0eb2.png" style="width: 509.15px; height: 378.25px;" /></a>
 </div>
 </div>
 </section>
@@ -741,11 +762,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="../../PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html"
+       href="2.3.3_from_seaborn_to_matplotlib.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">What is Big Data?</p>
+        <p class="prev-next-title">From Seaborn to Matplotlib</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
