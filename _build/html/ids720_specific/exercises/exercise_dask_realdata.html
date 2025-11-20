@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -638,7 +638,7 @@ document.write(`
 <p>For familiarity, and so you can see what advantages dask can bring to your workflow, today we’ll be working with the DEA ARCOS drug shipment database published by the Washington Post! However, to strike a balance between size and speed, we’ll be working with a slightly thinned version that has only the last two years of data, instead of all six.</p>
 <section id="exercise-1">
 <h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
-<p>Download the thinned ARCOS data <a class="reference external" href="https://www.dropbox.com/s/o7nc6yvrwog4ozi/arcos_2011_2012.tsv.zip?dl=0">from this link</a>. It should be about 2GB zipped, 25 GB unzipped.</p>
+<p>Download the thinned ARCOS data <a class="reference external" href="https://www.dropbox.com/scl/fi/adjpm9r6y1rq50cmkou7b/arcos_terminal.zip?rlkey=jmpp6j2xobqariv2rf3mz53f8&amp;amp;e=1&amp;amp;dl=0">from this link</a>. It should be about 2GB zipped, 25 GB unzipped.</p>
 </section>
 <section id="exercise-2">
 <h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
@@ -654,7 +654,13 @@ document.write(`
 <li><p>Dask won’t read compressed files, so you have to unzip your ARCOS data.</p></li>
 <li><p>Start your cluster in a cell all by itself since you don’t want to keep re-running the “start a cluster” code.</p></li>
 </ul>
-<p>If you need to review dask basic code, <a class="reference external" href="https://nickeubank.github.io/practicaldatascience_book/notebooks/PDS_not_yet_in_coursera/30_big_data/70_dask.html">check here</a>.</p>
+<p>If you need to review dask basic code, <a class="reference external" href="https://nickeubank.github.io/practicaldatascience_book/notebooks/PDS_not_yet_in_coursera/30_big_data/70_dask.html">check here</a>. Be sure to use a client:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">LocalCluster</span>
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">LocalCluster</span><span class="p">()</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
+<span class="n">client</span>
+</pre></div>
+</div>
 <p>As you run your code, make sure to click on the Dashboard link below where you created your cluster:</p>
 <p><img alt="dask_dashboard" src="../../_images/dask_cluster.png" /></p>
 <p>Among other things, the bar across the bottom should give you a sense of how long your task will take:</p>
@@ -669,7 +675,7 @@ document.write(`
 </section>
 <section id="exercise-5">
 <h2>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h2>
-<p>Now go ahead and try and re-do the chunking you did by hand for your project (with this 2 years of data) – calculate, for each year, the total morphine equivalents sent to each county in the US.</p>
+<p>Now go ahead and try and re-do the chunking you did by hand for your project (with this 2 years of data) but now using dask — in other words, for each year, calculate the total morphine equivalents sent to each county in the US.</p>
 </section>
 <section id="exercise-6">
 <h2>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h2>

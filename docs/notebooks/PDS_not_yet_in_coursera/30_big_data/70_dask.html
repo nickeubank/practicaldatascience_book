@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -667,11 +667,10 @@ document.write(`
 <span class="c1"># This creates a set of &quot;workers&quot;.</span>
 <span class="c1"># In this case, these workers are all on</span>
 <span class="c1"># my computer, but if we wanted to connect</span>
-<span class="c1"># to a cluster, we&#39;d just past an IP address</span>
-<span class="c1"># to `Client()`.</span>
-
-<span class="c1"># You can see how many cores your computer</span>
-<span class="c1"># has using `os.cpu_count()` in the `os` library.</span>
+<span class="c1"># to a remote cluster, we&#39;d use almost the</span>
+<span class="c1"># same syntax:</span>
+<span class="c1"># from dask.distributed import Client</span>
+<span class="c1"># client = Client()</span>
 
 <span class="c1"># Note you may get some warnings about</span>
 <span class="c1"># Python wanting to accept incoming</span>
@@ -685,9 +684,10 @@ document.write(`
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;I have </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span><span class="si">}</span><span class="s2"> logical cores.&quot;</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">LocalCluster</span>
 
-<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">LocalCluster</span><span class="p">()</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
 <span class="n">client</span>
 </pre></div>
 </div>
@@ -700,7 +700,7 @@ document.write(`
     <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px;">Client</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-1637d4ea-9d4b-11ef-bd75-f623161a15ec</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-897daa58-c4b7-11f0-b225-f02f4b01295e</p>
         <table style="width: 100%; text-align: left;">
 
         <tr>
@@ -731,7 +731,7 @@ document.write(`
     </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px; margin-top: 0px;">LocalCluster</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">77966163</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">9cafcd08</p>
         <table style="width: 100%; text-align: left;">
             <tr>
                 <td style="text-align: left;">
@@ -768,14 +768,14 @@ document.write(`
         <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
         <div style="margin-left: 48px;">
             <h3 style="margin-bottom: 0px;">Scheduler</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-e38d2ca4-8e1e-4e87-8f91-025032c561e7</p>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-6c81815a-ea9e-4c53-9391-9748d1bc54fe</p>
             <table style="width: 100%; text-align: left;">
                 <tr>
                     <td style="text-align: left;">
-                        <strong>Comm:</strong> tcp://127.0.0.1:57778
+                        <strong>Comm:</strong> tcp://127.0.0.1:56784
                     </td>
                     <td style="text-align: left;">
-                        <strong>Workers:</strong> 5
+                        <strong>Workers:</strong> 0 
                     </td>
                 </tr>
                 <tr>
@@ -783,7 +783,7 @@ document.write(`
                         <strong>Dashboard:</strong> <a href="http://127.0.0.1:8787/status" target="_blank">http://127.0.0.1:8787/status</a>
                     </td>
                     <td style="text-align: left;">
-                        <strong>Total threads:</strong> 10
+                        <strong>Total threads:</strong> 0
                     </td>
                 </tr>
                 <tr>
@@ -791,7 +791,7 @@ document.write(`
                         <strong>Started:</strong> Just now
                     </td>
                     <td style="text-align: left;">
-                        <strong>Total memory:</strong> 64.00 GiB
+                        <strong>Total memory:</strong> 0 B
                     </td>
                 </tr>
             </table>
@@ -814,7 +814,7 @@ document.write(`
                 <table style="width: 100%; text-align: left;">
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Comm: </strong> tcp://127.0.0.1:57791
+                            <strong>Comm: </strong> tcp://127.0.0.1:56799
                         </td>
                         <td style="text-align: left;">
                             <strong>Total threads: </strong> 2
@@ -822,7 +822,7 @@ document.write(`
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:57792/status" target="_blank">http://127.0.0.1:57792/status</a>
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:56800/status" target="_blank">http://127.0.0.1:56800/status</a>
                         </td>
                         <td style="text-align: left;">
                             <strong>Memory: </strong> 12.80 GiB
@@ -830,13 +830,13 @@ document.write(`
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Nanny: </strong> tcp://127.0.0.1:57781
+                            <strong>Nanny: </strong> tcp://127.0.0.1:56787
                         </td>
                         <td style="text-align: left;"></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: left;">
-                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-s62wgelt
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-6diuzelb
                         </td>
                     </tr>
 
@@ -859,7 +859,7 @@ document.write(`
                 <table style="width: 100%; text-align: left;">
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Comm: </strong> tcp://127.0.0.1:57793
+                            <strong>Comm: </strong> tcp://127.0.0.1:56811
                         </td>
                         <td style="text-align: left;">
                             <strong>Total threads: </strong> 2
@@ -867,7 +867,7 @@ document.write(`
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:57795/status" target="_blank">http://127.0.0.1:57795/status</a>
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:56812/status" target="_blank">http://127.0.0.1:56812/status</a>
                         </td>
                         <td style="text-align: left;">
                             <strong>Memory: </strong> 12.80 GiB
@@ -875,13 +875,13 @@ document.write(`
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Nanny: </strong> tcp://127.0.0.1:57783
+                            <strong>Nanny: </strong> tcp://127.0.0.1:56789
                         </td>
                         <td style="text-align: left;"></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: left;">
-                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-nc5qu3nu
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-pmkn6e1w
                         </td>
                     </tr>
 
@@ -904,7 +904,7 @@ document.write(`
                 <table style="width: 100%; text-align: left;">
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Comm: </strong> tcp://127.0.0.1:57798
+                            <strong>Comm: </strong> tcp://127.0.0.1:56806
                         </td>
                         <td style="text-align: left;">
                             <strong>Total threads: </strong> 2
@@ -912,7 +912,7 @@ document.write(`
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:57800/status" target="_blank">http://127.0.0.1:57800/status</a>
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:56809/status" target="_blank">http://127.0.0.1:56809/status</a>
                         </td>
                         <td style="text-align: left;">
                             <strong>Memory: </strong> 12.80 GiB
@@ -920,13 +920,13 @@ document.write(`
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Nanny: </strong> tcp://127.0.0.1:57785
+                            <strong>Nanny: </strong> tcp://127.0.0.1:56791
                         </td>
                         <td style="text-align: left;"></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: left;">
-                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-sc_pri5r
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-gc9az67t
                         </td>
                     </tr>
 
@@ -949,7 +949,7 @@ document.write(`
                 <table style="width: 100%; text-align: left;">
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Comm: </strong> tcp://127.0.0.1:57797
+                            <strong>Comm: </strong> tcp://127.0.0.1:56805
                         </td>
                         <td style="text-align: left;">
                             <strong>Total threads: </strong> 2
@@ -957,7 +957,7 @@ document.write(`
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:57799/status" target="_blank">http://127.0.0.1:57799/status</a>
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:56807/status" target="_blank">http://127.0.0.1:56807/status</a>
                         </td>
                         <td style="text-align: left;">
                             <strong>Memory: </strong> 12.80 GiB
@@ -965,13 +965,13 @@ document.write(`
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Nanny: </strong> tcp://127.0.0.1:57787
+                            <strong>Nanny: </strong> tcp://127.0.0.1:56793
                         </td>
                         <td style="text-align: left;"></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: left;">
-                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-rm03uc03
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-e8av3q0o
                         </td>
                     </tr>
 
@@ -994,7 +994,7 @@ document.write(`
                 <table style="width: 100%; text-align: left;">
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Comm: </strong> tcp://127.0.0.1:57803
+                            <strong>Comm: </strong> tcp://127.0.0.1:56802
                         </td>
                         <td style="text-align: left;">
                             <strong>Total threads: </strong> 2
@@ -1002,7 +1002,7 @@ document.write(`
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:57804/status" target="_blank">http://127.0.0.1:57804/status</a>
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:56803/status" target="_blank">http://127.0.0.1:56803/status</a>
                         </td>
                         <td style="text-align: left;">
                             <strong>Memory: </strong> 12.80 GiB
@@ -1010,13 +1010,13 @@ document.write(`
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Nanny: </strong> tcp://127.0.0.1:57789
+                            <strong>Nanny: </strong> tcp://127.0.0.1:56795
                         </td>
                         <td style="text-align: left;"></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: left;">
-                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-2eal91ac
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-l7zid8de
                         </td>
                     </tr>
 
