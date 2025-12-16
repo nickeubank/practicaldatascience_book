@@ -19,7 +19,7 @@ Adriane: `Signup with this link <https://calendly.com/adriane-adrianefresh/20min
 Syllabus
 --------
 
-A preliminary syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/blob/main/ids590_specific/syllabus_590/Syllabus_IDS590.pdf>`_.
+A preliminary syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/blob/main/ids590_specific/syllabus_540/Syllabus_IDS540.pdf>`_.
 
 Class Schedule
 ---------------
@@ -32,6 +32,6 @@ Key:
 - DSwithNSD is `Data Science with NumPy, Sets, and Dictionaries <https://www.coursera.org/learn/numpy-data-science/>`_, and the number that follows is the module number.
 
 .. csv-table::
-   :file: class_schedule_590.csv
+   :file: class_schedule_540.csv
    :widths: 10, 25, 50, 5
    :header-rows: 1
