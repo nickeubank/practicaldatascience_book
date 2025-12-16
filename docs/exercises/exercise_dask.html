@@ -1,0 +1,1102 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Dask DataFrames &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-MC77BKR89Z"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-MC77BKR89Z');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-MC77BKR89Z');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'exercises/exercise_dask';</script>
+    <link rel="icon" href="../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Practical Data Science with Python - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Practical Data Science with Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Duke IDS Classes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ids540_specific/class_schedule_540.html">PDS I (IDS 540)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ids541_specific/class_schedule_541.html">PDS II (IDS 541)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ids720_specific/class_schedule_720.html">PDS (MIDS) (IDS 720)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/validate_python.html">Validate Python Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/10_commandline/git_and_github.html">Git and Github</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_2/week_2/10_why_numpy.html">Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_2/week_3/10_views_and_copies.html">Views and Copies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_2/week_3/00_welcome_to_week_3.html">Matrices</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_2/week_3/40_nd_arrays.html">Arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/18_object_dtype.html">The <code class="docutils literal notranslate"><span class="pre">object</span></code> Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/45_categorical_dtype.html">The Categorical Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_3/week_3/07_indices.html">Indexes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_3/week_3/03_plaintext_files.html">Reading Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/15.1_combining_merging_continued.html">Combining datasets: merging</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/15.2_combining_merging_practical_example.html">Practical Example</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/15.3_validating_a_merge.html">Validating Merges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/20.1_grouping_pivot_tables.html">Grouping in multiple dimensions with <code class="docutils literal notranslate"><span class="pre">pivot_tables</span></code></a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/20.2_reshaping_data.html">Reshaping Data</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_5/week_1/1.1.2_effective_plotting_practices.html">Matplotlib Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.1_basic_plotting_with_matplotlib.html">Plotting with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.2_ten_figure_pieces.html">A figure in 10 pieces</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.4.5_explicit_vs_implicit_syntax.html">Implicit vs explicit syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.4.4_saving_to_file.html">Saving to file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.5.1_plotting_zoo.html">Plotting Zoo: multiple ways to visualize the same set of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.6.1_plotting_with_pandas.html">Plotting with Pandas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.4_bar_plots_deep_dive.html">Different Types of Plots</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.3_text.html">Plotting text (and a side note on axis scaling)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.5_stack_plots.html">Stack Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.6_pie_charts.html">Pie charts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.7.1_subplots.html">Subplots</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.7.2_subplots_deep_dive.html">Subplots: a deeper dive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.7.EXS_timeseries_worked_example.html">Exercise: Creating a subplot of timeseries (solution)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.7.EX_timeseries_worked_example.html">Exercise: Creating a subplot of timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.7_scatter_plots_deep_dive.html">Doing more with scatter plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.8_errorbars.html">Visualizing ranges and uncertainty</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.9_heat_maps.html">Heat maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.3.1.EXS_histograms_solutions.html">Exercise: Analyzing Poker Hand Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.3.1.EX_histograms.html">Exercise: Analyzing Poker Hand Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.3.1_histograms.html">Histograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.3.2_2d_histograms.html">Two Dimensional Histograms</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_5/week_1/2.1.1_the_matplotlib_model.html">Advanced Matplotlib</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.1.2_customizing_plot_styles.html">Customizing styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.1.3_plotting_zoo_restyled.html">Plotting Zoo - with style!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.2.1_making_plots_pretty_1.html">Making Plots Pretty Part 1: laying the foundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.2.2_making_plots_pretty_2.html">Making pretty plots in Python: customizing plots in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_5/week_1/2.3.1_plotting_with_seaborn.html">Seaborn Objects and GoG</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.3.2_seaborn_recipes.html">Seaborn Object Recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.3.3_from_seaborn_to_matplotlib.html">From Seaborn to Matplotlib</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Geospatial Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/10_gis_what_is_gis.html">What is GIS?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/15_gis_setup_geopandas.html">Installing Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/20_gis_geopandas.html">GIS with Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/30_gis_spatial_joins.html">Merging Spatial Data Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/40_gis_projections.html">Spatial Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/50_gis_crs_geopandas.html">Managing Projections in Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/60_gis_data.html">Spatial Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">Defensive Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_tests.html">Testing in a Data Analysis Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_readability.html">Readability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_duplicate.html">Don’t Duplicate Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_collaboration.html">Collaboration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_5/week_3/20_inference_v_prediction.html">Inference vs. Prediction Data Science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_5/week_3/30_linear_regression_in_python.html">Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_5/week_3/15_brief_intro_categorical_variables.html">Categorical Variables, Indicator Variables and Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_5/week_3/35_pandas_to_numpy_with_patsy.html">Pulling Back the Curtain: Pandas to Numpy with patsy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_5/week_3/40_linear_regression_extensions.html">OPTIONAL: Beyond The Basic Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/getting_involved_in_research.html">Getting Involved in Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fexercises/exercise_dask.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/exercises/exercise_dask.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Dask DataFrames</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-dask">Install Dask</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-your-own-cluster">Start your own cluster!</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-data">Real Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-just-happened">What just happened?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-dask-dataframe">Computations with <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-do-some-manipulations">Let’s do some manipulations!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-intermediate-results">Sharing Intermediate Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-scheduled-departure-time-crsdeptime-to-a-timestamp">Converting Scheduled Departure Time (<code class="docutils literal notranslate"><span class="pre">CRSDepTime</span></code>) to a timestamp</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-things-to-know">Other Things to Know</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persist-caching">Persist (caching)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-parquet">Using Parquet</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-doesn-t-work">What doesn’t work?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-definitely-works">What definitely works?</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p><img src="http://dask.readthedocs.io/en/latest/_images/dask_horizontal.svg"
+     align="right"
+     width="30%"
+     alt="Dask logo\"></p>
+<section class="tex2jax_ignore mathjax_ignore" id="dask-dataframes">
+<h1>Dask DataFrames<a class="headerlink" href="#dask-dataframes" title="Link to this heading">#</a></h1>
+<p>(Note: This tutorial is a fork of the official dask tutorial, which you can <a class="reference external" href="https://github.com/dask/dask-tutorial">find here</a>)</p>
+<p>In this tutorial, we will use <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> to do parallel operations on dask dataframes look and feel like Pandas dataframes but they run on the same infrastructure that powers <code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code>.</p>
+<section id="install-dask">
+<h2>Install Dask<a class="headerlink" href="#install-dask" title="Link to this heading">#</a></h2>
+<p>Let’s start by installing dask with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">dask</span> 
+</pre></div>
+</div>
+</section>
+<section id="start-your-own-cluster">
+<h2>Start your own cluster!<a class="headerlink" href="#start-your-own-cluster" title="Link to this heading">#</a></h2>
+<p>dask has many backends, but the one that’s most versitile (and often most performant) is the <code class="docutils literal notranslate"><span class="pre">distributed</span></code> backend, so let’s use that here. Run:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="n">client</span>
+</pre></div>
+</div>
+<p>to create a set of workers on your computer. This cluster is running only on your own computer, but it operates exactly the way it would work on a cloud cluster where these workers live on other computers.</p>
+<p>When you type <code class="docutils literal notranslate"><span class="pre">client</span></code> in a jupyter notebook, you should see the clusters status pop up like this:</p>
+<p><img alt="dask_status" src="images/dask_status.png" /></p>
+<p>This status tells me that I have four processes running on my computer, each of which running 4 threads (for 16 cores total). In addition, it tells me that the cluster sees that I have about 34GB of memory for it to play with.</p>
+<p>One cool thing you’ll see is that this panel includes a link to a Dashboard. Click this link, and a new tab will open in your browser that shows you, in real time, what your dask cluster is doing! We’ll come back to this later.</p>
+<p><strong>Note:</strong> these workers communication via networking protocols, so your firewall / anti-virus may ask if it’s ok to let Python accept connections (it is!). If you can’t get your system running, it may be due to your firewall / anti-virus. In that case, try <code class="docutils literal notranslate"><span class="pre">client</span> <span class="pre">=</span> <span class="pre">Client(processes=False)</span></code>. This will create four workers hiding in the same process (obviating the need for network protocols for communication between processes). Don’t worry if that last bit doesn’t make sense – those are implementation details you don’t ahve to worry about! :)</p>
+<p><img alt="dask network warning" src="images/dask_firewall.png" /></p>
+<p>Just authorize Python 3.10!</p>
+<section id="real-data">
+<h3>Real Data<a class="headerlink" href="#real-data" title="Link to this heading">#</a></h3>
+<p>Lets try this with an extract of flights in the USA across several years. This data is specific to flights out of the three airports in the New York City area. To begin, download <a class="reference external" href="https://storage.googleapis.com/dask-tutorial-data/nycflights.tar.gz">NYC Flight data here</a>, and unzip it somewhere you can find it.</p>
+<p><strong>(1)</strong> Look at the data in the folder. As you will see it is in many files. Unlike pandas, however, dask can load collections of files all at once. Run <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">dask.dataframe</span> <span class="pre">as</span> <span class="pre">dd</span></code>, then using <code class="docutils literal notranslate"><span class="pre">dd.read_csv</span></code> with an asterix wildcard to load all the files at once with something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;/users/nick/downloads/nycflights/*.csv&#39;</span><span class="p">,</span>
+                 <span class="n">parse_dates</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]})</span>
+</pre></div>
+</div>
+<p>(The <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> option just tells dask that columns 1, 2, and 3 together form a date (they’re year, month, and day of the month respectively), and that dask should convert them to a single column called <code class="docutils literal notranslate"><span class="pre">Date</span></code> that is of type datetime. This isn’t special to dask, it’s just a pandas <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> option.)</p>
+<p><strong>(2)</strong> Look at your dataframe by just calling it (<code class="docutils literal notranslate"><span class="pre">df</span></code>). Notice that the respresentation of the dataframe object contains no data - Dask has just done enough to read the start of the first file, and infer the column names and types.</p>
+<p><strong>(3)</strong> now use <code class="docutils literal notranslate"><span class="pre">df.head()</span></code> to ask dask to actually load a few rows.</p>
+<p>We can view the start and end of the data</p>
+<p><strong>(4)</strong> Now try and run <code class="docutils literal notranslate"><span class="pre">df.tail()</span></code>.</p>
+</section>
+<section id="what-just-happened">
+<h3>What just happened?<a class="headerlink" href="#what-just-happened" title="Link to this heading">#</a></h3>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">pandas.read_csv</span></code> which reads in the entire file before inferring datatypes, <code class="docutils literal notranslate"><span class="pre">dask.dataframe.read_csv</span></code> only reads in a sample from the beginning of the file (or first file if using a glob). These inferred datatypes are then enforced when reading all partitions.</p>
+<p>In this case, the datatypes inferred in the sample are incorrect. The first <code class="docutils literal notranslate"><span class="pre">n</span></code> rows have no value for <code class="docutils literal notranslate"><span class="pre">CRSElapsedTime</span></code> (which pandas infers as a <code class="docutils literal notranslate"><span class="pre">float</span></code>), and later on turn out to be strings (<code class="docutils literal notranslate"><span class="pre">object</span></code> dtype). Note that Dask gives an informative error message about the mismatch. When this happens you have a few options:</p>
+<ul class="simple">
+<li><p>Specify dtypes directly using the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword. This is the recommended solution, as it’s the least error prone (better to be explicit than implicit) and also the most performant.</p></li>
+<li><p>Increase the size of the <code class="docutils literal notranslate"><span class="pre">sample</span></code> keyword (in bytes)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">assume_missing</span></code> to make <code class="docutils literal notranslate"><span class="pre">dask</span></code> assume that columns inferred to be <code class="docutils literal notranslate"><span class="pre">int</span></code> (which don’t allow missing values) are actually floats (which do allow missing values). In our particular case this doesn’t apply.</p></li>
+</ul>
+<p>In our case we’ll use the first option and directly specify the <code class="docutils literal notranslate"><span class="pre">dtypes</span></code> of the offending columns: set <code class="docutils literal notranslate"><span class="pre">TailNum</span></code> to <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">CRSElapsedTime</span></code> to <code class="docutils literal notranslate"><span class="pre">float</span></code> and <code class="docutils literal notranslate"><span class="pre">Cancelled</span></code> to <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</p>
+</section>
+</section>
+<section id="computations-with-dask-dataframe">
+<h2>Computations with <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code><a class="headerlink" href="#computations-with-dask-dataframe" title="Link to this heading">#</a></h2>
+<p>Suppose we want to compute the maximum of the <code class="docutils literal notranslate"><span class="pre">DepDelay</span></code> (short for Departure Delays) column. With just pandas, we would loop over each file to find the individual maximums, then find the final maximum over all the individual maximums</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">maxes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">maxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    
+<span class="n">final_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxes</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>But this is a far cry from what we do with smaller pandas dataset, which is just</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To solve this, we can use <code class="docutils literal notranslate"><span class="pre">dask</span></code>! <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> lets us write pandas-like code, that operates on larger than memory datasets in parallel. To get the maximium value of the column, we can run:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">time</span> df.DepDelay.max().compute()
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 127 ms, sys: 29.9 ms, total: 157 ms
+Wall time: 1.98 s
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1435.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>This writes the delayed computation for us and then runs it.</p>
+<p>Some things to note:</p>
+<ol class="arabic simple">
+<li><p>Dask uses lazy evaluation, which means it doesn’t actually do any work till we call <code class="docutils literal notranslate"><span class="pre">.compute()</span></code>. If you just ran <code class="docutils literal notranslate"><span class="pre">df.DepDelay.max()</span></code>, you’d just get back a placeholder:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">df</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="n">dd</span><span class="o">.</span><span class="n">Scalar</span><span class="o">&lt;</span><span class="n">series</span><span class="o">-...</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float64</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Dask will delete intermediate results (like the full pandas dataframe for each file) as soon as possible.</p>
+<ul class="simple">
+<li><p>This lets us handle datasets that are larger than memory</p></li>
+<li><p>This means that repeated computations will have to load all of the data in each time (run the code above again, is it faster or slower than you would expect?)</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>(5)</strong> Want to know more about what dask is doing? First, just store <code class="docutils literal notranslate"><span class="pre">df.DepDelay.max()</span></code> as a new variable and look at it. Can you see the placeholder? It tells you what it will eventually be (a scalar (single value) float64). But you don’t see the actual maximum value.</p>
+<p><strong>(6)</strong>  You can actually see how dask is developing a plan for getting you the maximum value if you were to run your code right now. We do this with the <code class="docutils literal notranslate"><span class="pre">.dask</span></code> attribute, which you can run on any dask object before you’ve run <code class="docutils literal notranslate"><span class="pre">.compute()</span></code>.</p>
+<p><a class="reference external" href="https://docs.dask.org/en/stable/graphviz.html#visualize-the-low-level-graph">For more on task graphs, see here.</a></p>
+</section>
+<section id="let-s-do-some-manipulations">
+<h2>Let’s do some manipulations!<a class="headerlink" href="#let-s-do-some-manipulations" title="Link to this heading">#</a></h2>
+<p>In this section we do a few <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> computations. If you are comfortable with Pandas then these should be familiar. You will have to think about when to call <code class="docutils literal notranslate"><span class="pre">.compute()</span></code>.</p>
+<p>When you run <code class="docutils literal notranslate"><span class="pre">.compute()</span></code>, you can also move over to your Dashboard (remember that link in the panel that openned when you created <code class="docutils literal notranslate"><span class="pre">client</span></code>?) to see your cluster working!</p>
+<p><strong>(7)</strong> In total, what is the average delay (<code class="docutils literal notranslate"><span class="pre">DepDelay</span></code>) for non-canceled flights?</p>
+<p><strong>(8)</strong> In total, how many non-cancelled flights were taken from each airport?</p>
+<p><em>Hint</em>: use <code class="docutils literal notranslate"><span class="pre">df.groupby</span></code> and <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
+<p><strong>(9)</strong> What was the average departure delay from each airport? (<code class="docutils literal notranslate"><span class="pre">DepDelay</span></code>)</p>
+<p><strong>(10)</strong> How many rows are in our dataset?</p>
+<p>Note you’ve probably just found what I think is one of the trickiest things to figure out with a distributed computing system like dask: <em>some</em> functions don’t follow the rules of delayed evaluation, and when you run them, dask executes immediately. <code class="docutils literal notranslate"><span class="pre">len</span></code> is one of those functions.</p>
+<p>As we’ll discuss below, a good rule of thumb is that anything that isn’t either (a) a method on the dask dataframe (i.e. something that isn’t of the form <code class="docutils literal notranslate"><span class="pre">df.METHOD()</span></code>), or an explicit dask function (something you call from the dask library, like <code class="docutils literal notranslate"><span class="pre">dd.to_parquet</span></code>), it will probably execute immediately.</p>
+<p><code class="docutils literal notranslate"><span class="pre">len</span></code> is pretty safe since all it returns is a single number, so it’s unlikely to blow up your computer if it runs before you want, but you have to be careful with other functions, because if you were to us a pandas function like <code class="docutils literal notranslate"><span class="pre">pd.to_numeric(df)</span></code>, it will execute immediately, and it will do so by pulling all the data into your client session as a single giant dataframe, and with a larger dataset, it is likely to crash you computer when you do so.</p>
+<p>An alternative that <em>won’t</em> execute until you run <code class="docutils literal notranslate"><span class="pre">compute</span></code> is <code class="docutils literal notranslate"><span class="pre">df.shape[0]</span></code> (see how it takes the form of a method on our dask dataframe <code class="docutils literal notranslate"><span class="pre">df</span></code>?) Try it to see!</p>
+</section>
+<section id="sharing-intermediate-results">
+<h2>Sharing Intermediate Results<a class="headerlink" href="#sharing-intermediate-results" title="Link to this heading">#</a></h2>
+<p>When computing all of the above, we sometimes did the same operation more than once. For most operations, <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> hashes the arguments, allowing duplicate computations to be shared, and only computed once.</p>
+<p>For example, lets compute the mean and standard deviation for departure delay of all non-canceled flights. Since dask operations are lazy, those values aren’t the final results yet. They’re just the recipe required to get the result.</p>
+<p>If we compute them with two calls to compute, there is no sharing of intermediate computations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">non_cancelled</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">Cancelled</span><span class="p">]</span>
+<span class="n">mean_delay</span> <span class="o">=</span> <span class="n">non_cancelled</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">std_delay</span> <span class="o">=</span> <span class="n">non_cancelled</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+<span class="n">mean_delay_res</span> <span class="o">=</span> <span class="n">mean_delay</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="n">std_delay_res</span> <span class="o">=</span> <span class="n">std_delay</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 376 ms, sys: 43.4 ms, total: 419 ms
+Wall time: 3.88 s
+</pre></div>
+</div>
+</div>
+</div>
+<p>But lets try by passing both to a single <code class="docutils literal notranslate"><span class="pre">compute</span></code> call.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dask</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+<span class="n">mean_delay_res</span><span class="p">,</span> <span class="n">std_delay_res</span> <span class="o">=</span> <span class="n">dask</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">mean_delay</span><span class="p">,</span> <span class="n">std_delay</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 237 ms, sys: 26.5 ms, total: 264 ms
+Wall time: 2 s
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using <code class="docutils literal notranslate"><span class="pre">dask.compute</span></code> takes roughly 1/2 the time. This is because the task graphs for both results are merged when calling <code class="docutils literal notranslate"><span class="pre">dask.compute</span></code>, allowing shared operations to only be done once instead of twice. In particular, using <code class="docutils literal notranslate"><span class="pre">dask.compute</span></code> only does the following once:</p>
+<ul class="simple">
+<li><p>the calls to <code class="docutils literal notranslate"><span class="pre">read_csv</span></code></p></li>
+<li><p>the filter (<code class="docutils literal notranslate"><span class="pre">df[~df.Cancelled]</span></code>)</p></li>
+<li><p>some of the necessary reductions (<code class="docutils literal notranslate"><span class="pre">sum</span></code>, <code class="docutils literal notranslate"><span class="pre">count</span></code>)</p></li>
+</ul>
+<p>To see what the merged task graphs between multiple results look like (and what’s shared), you can use the <code class="docutils literal notranslate"><span class="pre">dask.visualize</span></code> function (we might want to use <code class="docutils literal notranslate"><span class="pre">filename='graph.pdf'</span></code> to zoom in on the graph better):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dask</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">mean_delay</span><span class="p">,</span> <span class="n">std_delay</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/552a8c4802fa7afa5f7fee8538cad7f4a487dadc00f1bb169af1478ce93d0ff1.png" src="../_images/552a8c4802fa7afa5f7fee8538cad7f4a487dadc00f1bb169af1478ce93d0ff1.png" />
+</div>
+</div>
+<p>But lets try by passing both to a single <code class="docutils literal notranslate"><span class="pre">compute</span></code> call.</p>
+<p><strong>(11)</strong> Now you try – for each airport, get both the average delay and the maximum delay in the data for flights that weren’t cancelled.</p>
+<p>(As another example of places that distributed computing gets tricky, while it’s easy to do means and maxes, you can’t easily get the median of a group (e.g.<code class="docutils literal notranslate"><span class="pre">df.groupby('Origin)['DepDelay'].median()</span></code>) in a distributed manner. There are workarounds, but these are the kinds of “fragile” things that make distributed computing a bit of a pain).</p>
+</section>
+<section id="converting-scheduled-departure-time-crsdeptime-to-a-timestamp">
+<h2>Converting Scheduled Departure Time (<code class="docutils literal notranslate"><span class="pre">CRSDepTime</span></code>) to a timestamp<a class="headerlink" href="#converting-scheduled-departure-time-crsdeptime-to-a-timestamp" title="Link to this heading">#</a></h2>
+<p>This dataset stores the scheduled departure times of flights in the format <code class="docutils literal notranslate"><span class="pre">HHMM</span></code>, which are read in as integers in <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crs_dep_time</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">CRSDepTime</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">crs_dep_time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    1540
+1    1540
+2    1540
+3    1540
+4    1540
+5    1540
+6    1540
+7    1540
+8    1540
+9    1540
+Name: CRSDepTime, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>To combine the data we have on flight dates with these departure times into a single column that includes all that information in a single <code class="docutils literal notranslate"><span class="pre">datetime</span></code> format, we have to convert the time of day into a Timedelta type, then add those Timedeltas to our Date column to get a single column that knows the date AND time of day of departures. (Implicitly, dates think of themselves as living at midnight, so adding a timedelta of 10 hours moves them to 10am).</p>
+<p>To convert these to timestamps of scheduled departure time, we need to convert these integers into <code class="docutils literal notranslate"><span class="pre">pd.Timedelta</span></code> objects, and then combine them with the <code class="docutils literal notranslate"><span class="pre">Date</span></code> column.</p>
+<p>In pandas we’d do this using the <code class="docutils literal notranslate"><span class="pre">pd.to_timedelta</span></code> function, and a bit of arithmetic:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Get the first 10 dates to complement our `crs_dep_time`</span>
+<span class="n">date</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Get hours as an integer, convert to a timedelta</span>
+<span class="n">hours</span> <span class="o">=</span> <span class="n">crs_dep_time</span> <span class="o">//</span> <span class="mi">100</span>
+<span class="n">hours_timedelta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+
+<span class="c1"># Get minutes as an integer, convert to a timedelta</span>
+<span class="n">minutes</span> <span class="o">=</span> <span class="n">crs_dep_time</span> <span class="o">%</span> <span class="mi">100</span>
+<span class="n">minutes_timedelta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+
+<span class="c1"># Apply the timedeltas to offset the dates by the departure time</span>
+<span class="n">departure_timestamp</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">hours_timedelta</span> <span class="o">+</span> <span class="n">minutes_timedelta</span>
+<span class="n">departure_timestamp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0   1990-01-01 15:40:00
+1   1990-01-02 15:40:00
+2   1990-01-03 15:40:00
+3   1990-01-04 15:40:00
+4   1990-01-05 15:40:00
+5   1990-01-06 15:40:00
+6   1990-01-07 15:40:00
+7   1990-01-08 15:40:00
+8   1990-01-09 15:40:00
+9   1990-01-10 15:40:00
+dtype: datetime64[ns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="other-things-to-know">
+<h2>Other Things to Know<a class="headerlink" href="#other-things-to-know" title="Link to this heading">#</a></h2>
+<section id="persist-caching">
+<h3>Persist (caching)<a class="headerlink" href="#persist-caching" title="Link to this heading">#</a></h3>
+<p>Sometimes you want your computers to keep intermediate results in memory (when it’s possible). To “cache” data in this manner, you can to use the <code class="docutils literal notranslate"><span class="pre">persist()</span></code> method to tell dask what results you want to keep around. You can read <a class="reference external" href="https://docs.dask.org/en/latest/dataframe-best-practices.html#persist-intelligently">more here</a>.</p>
+</section>
+<section id="using-parquet">
+<h3>Using Parquet<a class="headerlink" href="#using-parquet" title="Link to this heading">#</a></h3>
+<p>Dask works really efficiently with data stored in parquet format, <a class="reference external" href="https://docs.dask.org/en/latest/dataframe-best-practices.html#store-data-in-apache-parquet-format">as noted here</a>, so keeping data in parquet (as I’ve <a class="reference internal" href="#../parquet.ipynb"><span class="xref myst">suggested you do anyway</span></a>!) will help you with dask.</p>
+</section>
+</section>
+<section id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h2>
+<section id="what-doesn-t-work">
+<h3>What doesn’t work?<a class="headerlink" href="#what-doesn-t-work" title="Link to this heading">#</a></h3>
+<p>Dask.dataframe only covers a small but well-used portion of the Pandas API.
+This limitation is for two reasons:</p>
+<ol class="arabic simple">
+<li><p>The Pandas API is <em>huge</em></p></li>
+<li><p>Some operations are genuinely hard to do in parallel (e.g. sort)</p></li>
+</ol>
+<p>Additionally, some important operations like <code class="docutils literal notranslate"><span class="pre">set_index</span></code> work, but are slower
+than in Pandas because they include substantial shuffling of data, and may write out to disk.</p>
+</section>
+<section id="what-definitely-works">
+<h3>What definitely works?<a class="headerlink" href="#what-definitely-works" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Trivially parallelizable operations (fast):</p>
+<ul>
+<li><p>Elementwise operations:  <code class="docutils literal notranslate"><span class="pre">df.x</span> <span class="pre">+</span> <span class="pre">df.y</span></code></p></li>
+<li><p>Row-wise selections:  <code class="docutils literal notranslate"><span class="pre">df[df.x</span> <span class="pre">&gt;</span> <span class="pre">0]</span></code></p></li>
+<li><p>Loc:  <code class="docutils literal notranslate"><span class="pre">df.loc[4.0:10.5]</span></code></p></li>
+<li><p>Common aggregations:  <code class="docutils literal notranslate"><span class="pre">df.x.max()</span></code></p></li>
+<li><p>Is in:  <code class="docutils literal notranslate"><span class="pre">df[df.x.isin([1,</span> <span class="pre">2,</span> <span class="pre">3])]</span></code></p></li>
+<li><p>Datetime/string accessors:  <code class="docutils literal notranslate"><span class="pre">df.timestamp.month</span></code></p></li>
+</ul>
+</li>
+<li><p>Cleverly parallelizable operations (also fast):</p>
+<ul>
+<li><p>groupby-aggregate (with common aggregations): <code class="docutils literal notranslate"><span class="pre">df.groupby(df.x).y.max()</span></code></p></li>
+<li><p>value_counts:  <code class="docutils literal notranslate"><span class="pre">df.x.value_counts</span></code></p></li>
+<li><p>Drop duplicates:  <code class="docutils literal notranslate"><span class="pre">df.x.drop_duplicates()</span></code></p></li>
+<li><p>Join on index:  <code class="docutils literal notranslate"><span class="pre">dd.merge(df1,</span> <span class="pre">df2,</span> <span class="pre">left_index=True,</span> <span class="pre">right_index=True)</span></code></p></li>
+</ul>
+</li>
+<li><p>Operations requiring a shuffle (slow-ish, unless on index)</p>
+<ul>
+<li><p>Set index:  <code class="docutils literal notranslate"><span class="pre">df.set_index(df.x)</span></code></p></li>
+<li><p>groupby-apply (with anything):  <code class="docutils literal notranslate"><span class="pre">df.groupby(df.x).apply(myfunc)</span></code></p></li>
+<li><p>Join not on the index:  <code class="docutils literal notranslate"><span class="pre">pd.merge(df1,</span> <span class="pre">df2,</span> <span class="pre">on='name')</span></code></p></li>
+</ul>
+</li>
+<li><p>Ingest operations</p>
+<ul>
+<li><p>Files: <code class="docutils literal notranslate"><span class="pre">dd.read_csv,</span> <span class="pre">dd.read_parquet,</span> <span class="pre">dd.read_json,</span> <span class="pre">dd.read_orc</span></code>, etc.</p></li>
+<li><p>Pandas: <code class="docutils literal notranslate"><span class="pre">dd.from_pandas</span></code></p></li>
+<li><p>Anything supporting numpy slicing: <code class="docutils literal notranslate"><span class="pre">dd.from_array</span></code></p></li>
+<li><p>From any set of functions creating sub dataframes via <code class="docutils literal notranslate"><span class="pre">dd.from_delayed</span></code>.</p></li>
+<li><p>Dask.bag: <code class="docutils literal notranslate"><span class="pre">mybag.to_dataframe(columns=[...])</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./exercises"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-dask">Install Dask</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-your-own-cluster">Start your own cluster!</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-data">Real Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-just-happened">What just happened?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-dask-dataframe">Computations with <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-do-some-manipulations">Let’s do some manipulations!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-intermediate-results">Sharing Intermediate Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-scheduled-departure-time-crsdeptime-to-a-timestamp">Converting Scheduled Departure Time (<code class="docutils literal notranslate"><span class="pre">CRSDepTime</span></code>) to a timestamp</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-things-to-know">Other Things to Know</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persist-caching">Persist (caching)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-parquet">Using Parquet</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-doesn-t-work">What doesn’t work?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-definitely-works">What definitely works?</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
