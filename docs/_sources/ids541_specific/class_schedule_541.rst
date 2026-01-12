@@ -8,6 +8,12 @@ Syllabus
 
 A preliminary syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/blob/main/ids541_specific/syllabus/Syllabus_IDS541.pdf>`_.
 
+Books
+-----
+
+- `Python for Geographic Data Analysis (PGDA) <https://pythongis.org/index.html>`_
+- Géron, *Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 3rd Edition*. `Available through Duke library online at <https://learning.oreilly.com/library/view/hands-on-machine-learning/9781098125967/?sso_link=yes&sso_link_from=duke-university>`_.
+
 Class Schedule (Preliminary)
 ----------------------------
 
