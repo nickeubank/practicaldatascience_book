@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Dask DataFrames &#8212; Practical Data Science with Python</title>
+    <title>Dask DataFrame - parallelized pandas &#8212; Practical Data Science with Python</title>
   
   
   
@@ -605,7 +605,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Dask DataFrames</h1>
+    <h1>Dask DataFrame - parallelized pandas</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -615,26 +615,38 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-dask">Install Dask</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-your-own-cluster">Start your own cluster!</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-data">Real Data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-just-happened">What just happened?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-dask-dataframe">When to use <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-your-local-cluster">Set up your local cluster</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-diagnostic-dashboard">Dask Diagnostic Dashboard</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-dask-dataframe">Computations with <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-do-some-manipulations">Let’s do some manipulations!</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-intermediate-results">Sharing Intermediate Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-scheduled-departure-time-crsdeptime-to-a-timestamp">Converting Scheduled Departure Time (<code class="docutils literal notranslate"><span class="pre">CRSDepTime</span></code>) to a timestamp</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-things-to-know">Other Things to Know</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persist-caching">Persist (caching)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-parquet">Using Parquet</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-doesn-t-work">What doesn’t work?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-definitely-works">What definitely works?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-and-working-with-datasets">Reading and working with datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-evaluation">Lazy Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-from-remote-storage">Reading from remote storage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-dask-dataframe">Computations with <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-intermediate-results">Sharing Intermediate Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-compute"><code class="docutils literal notranslate"><span class="pre">dask.compute</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persist"><code class="docutils literal notranslate"><span class="pre">.persist()</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#close-you-local-dask-cluster">Close you local Dask Cluster</a></li>
 </ul>
             </nav>
         </div>
@@ -650,139 +662,885 @@ document.write(`
      align="right"
      width="30%"
      alt="Dask logo\"></p>
-<section class="tex2jax_ignore mathjax_ignore" id="dask-dataframes">
-<h1>Dask DataFrames<a class="headerlink" href="#dask-dataframes" title="Link to this heading">#</a></h1>
-<p>(Note: This tutorial is a fork of the official dask tutorial, which you can <a class="reference external" href="https://github.com/dask/dask-tutorial">find here</a>)</p>
-<p>In this tutorial, we will use <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> to do parallel operations on dask dataframes look and feel like Pandas dataframes but they run on the same infrastructure that powers <code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code>.</p>
-<section id="install-dask">
-<h2>Install Dask<a class="headerlink" href="#install-dask" title="Link to this heading">#</a></h2>
-<p>Let’s start by installing dask with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">dask</span> 
-</pre></div>
-</div>
+<section class="tex2jax_ignore mathjax_ignore" id="dask-dataframe-parallelized-pandas">
+<h1>Dask DataFrame - parallelized pandas<a class="headerlink" href="#dask-dataframe-parallelized-pandas" title="Link to this heading">#</a></h1>
+<p>Looks and feels like the pandas API, but for parallel and distributed workflows.</p>
+<p>At its core, the <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> module implements a “blocked parallel” <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object that looks and feels like the pandas API, but for parallel and distributed workflows. One Dask <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> is comprised of many in-memory pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>s separated along the index. One operation on a Dask <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> triggers many pandas operations on the constituent pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>s in a way that is mindful of potential parallelism and memory constraints.</p>
+<p><img src="https://docs.dask.org/en/stable/_images/dask-dataframe.svg"
+     align="right"
+     width="30%"
+     alt="Dask DataFrame is composed of pandas DataFrames"/></p>
+<p><strong>Related Documentation</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.dask.org/en/latest/dataframe.html">DataFrame documentation</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/AT2XtFehFSQ">DataFrame screencast</a></p></li>
+<li><p><a class="reference external" href="https://docs.dask.org/en/latest/dataframe-api.html">DataFrame API</a></p></li>
+<li><p><a class="reference external" href="https://examples.dask.org/dataframe.html">DataFrame examples</a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/">pandas documentation</a></p></li>
+</ul>
+<section id="when-to-use-dask-dataframe">
+<h2>When to use <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code><a class="headerlink" href="#when-to-use-dask-dataframe" title="Link to this heading">#</a></h2>
+<p>pandas is great for tabular datasets that fit in memory. A general rule of thumb for pandas is:</p>
+<blockquote>
+<div><p>“Have 5 to 10 times as much RAM as the size of your dataset”</p>
+<p>~ Wes McKinney (2017) in <a class="reference external" href="https://wesmckinney.com/blog/apache-arrow-pandas-internals/">10 things I hate about pandas</a></p>
+</div></blockquote>
+<p>Here “size of dataset” means dataset size on <em>the disk</em>.</p>
+<p>Dask becomes useful when the datasets exceed the above rule.</p>
+<p>In this notebook, you will be working with the New York City Airline data. This dataset is only ~200MB, so that you can download it in a reasonable time, but <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> will scale to  datasets <strong>much</strong> larger than memory.</p>
 </section>
-<section id="start-your-own-cluster">
-<h2>Start your own cluster!<a class="headerlink" href="#start-your-own-cluster" title="Link to this heading">#</a></h2>
-<p>dask has many backends, but the one that’s most versitile (and often most performant) is the <code class="docutils literal notranslate"><span class="pre">distributed</span></code> backend, so let’s use that here. Run:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<section id="set-up-your-local-cluster">
+<h2>Set up your local cluster<a class="headerlink" href="#set-up-your-local-cluster" title="Link to this heading">#</a></h2>
+<section id="exercise-1">
+<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
+<p>Create a local Dask cluster and connect it to the client. Don’t worry about this bit of code for now, you will learn more in the Distributed notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">LocalCluster</span>
+
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">LocalCluster</span><span class="p">()</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
 <span class="n">client</span>
 </pre></div>
 </div>
-<p>to create a set of workers on your computer. This cluster is running only on your own computer, but it operates exactly the way it would work on a cloud cluster where these workers live on other computers.</p>
-<p>When you type <code class="docutils literal notranslate"><span class="pre">client</span></code> in a jupyter notebook, you should see the clusters status pop up like this:</p>
-<p><img alt="dask_status" src="images/dask_status.png" /></p>
-<p>This status tells me that I have four processes running on my computer, each of which running 4 threads (for 16 cores total). In addition, it tells me that the cluster sees that I have about 34GB of memory for it to play with.</p>
-<p>One cool thing you’ll see is that this panel includes a link to a Dashboard. Click this link, and a new tab will open in your browser that shows you, in real time, what your dask cluster is doing! We’ll come back to this later.</p>
-<p><strong>Note:</strong> these workers communication via networking protocols, so your firewall / anti-virus may ask if it’s ok to let Python accept connections (it is!). If you can’t get your system running, it may be due to your firewall / anti-virus. In that case, try <code class="docutils literal notranslate"><span class="pre">client</span> <span class="pre">=</span> <span class="pre">Client(processes=False)</span></code>. This will create four workers hiding in the same process (obviating the need for network protocols for communication between processes). Don’t worry if that last bit doesn’t make sense – those are implementation details you don’t ahve to worry about! :)</p>
-<p><img alt="dask network warning" src="images/dask_firewall.png" /></p>
-<p>Just authorize Python 3.10!</p>
-<section id="real-data">
-<h3>Real Data<a class="headerlink" href="#real-data" title="Link to this heading">#</a></h3>
-<p>Lets try this with an extract of flights in the USA across several years. This data is specific to flights out of the three airports in the New York City area. To begin, download <a class="reference external" href="https://storage.googleapis.com/dask-tutorial-data/nycflights.tar.gz">NYC Flight data here</a>, and unzip it somewhere you can find it.</p>
-<p><strong>(1)</strong> Look at the data in the folder. As you will see it is in many files. Unlike pandas, however, dask can load collections of files all at once. Run <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">dask.dataframe</span> <span class="pre">as</span> <span class="pre">dd</span></code>, then using <code class="docutils literal notranslate"><span class="pre">dd.read_csv</span></code> with an asterix wildcard to load all the files at once with something like:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;/users/nick/downloads/nycflights/*.csv&#39;</span><span class="p">,</span>
-                 <span class="n">parse_dates</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]})</span>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+    <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
+    <div style="margin-left: 48px;">
+        <h3 style="margin-bottom: 0px;">Client</h3>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-daf00f94-f562-11f0-b1af-98fdb49a02bc</p>
+        <table style="width: 100%; text-align: left;">
+
+        <tr>
+        
+            <td style="text-align: left;"><strong>Connection method:</strong> Cluster object</td>
+            <td style="text-align: left;"><strong>Cluster type:</strong> distributed.LocalCluster</td>
+        
+        </tr>
+
+        
+            <tr>
+                <td style="text-align: left;">
+                    <strong>Dashboard: </strong> <a href="http://127.0.0.1:8787/status" target="_blank">http://127.0.0.1:8787/status</a>
+                </td>
+                <td style="text-align: left;"></td>
+            </tr>
+        
+
+        </table>
+
+        
+
+        
+            <details>
+            <summary style="margin-bottom: 20px;"><h3 style="display: inline;">Cluster Info</h3></summary>
+            <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-mod-trusted jp-OutputArea-output">
+    <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;">
+    </div>
+    <div style="margin-left: 48px;">
+        <h3 style="margin-bottom: 0px; margin-top: 0px;">LocalCluster</h3>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">63f583a1</p>
+        <table style="width: 100%; text-align: left;">
+            <tr>
+                <td style="text-align: left;">
+                    <strong>Dashboard:</strong> <a href="http://127.0.0.1:8787/status" target="_blank">http://127.0.0.1:8787/status</a>
+                </td>
+                <td style="text-align: left;">
+                    <strong>Workers:</strong> 5
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    <strong>Total threads:</strong> 10
+                </td>
+                <td style="text-align: left;">
+                    <strong>Total memory:</strong> 64.00 GiB
+                </td>
+            </tr>
+            
+            <tr>
+    <td style="text-align: left;"><strong>Status:</strong> running</td>
+    <td style="text-align: left;"><strong>Using processes:</strong> True</td>
+</tr>
+
+            
+        </table>
+
+        <details>
+            <summary style="margin-bottom: 20px;">
+                <h3 style="display: inline;">Scheduler Info</h3>
+            </summary>
+
+            <div style="">
+    <div>
+        <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
+        <div style="margin-left: 48px;">
+            <h3 style="margin-bottom: 0px;">Scheduler</h3>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-7e432d7f-1f52-41dd-b225-644a124d6f0c</p>
+            <table style="width: 100%; text-align: left;">
+                <tr>
+                    <td style="text-align: left;">
+                        <strong>Comm:</strong> tcp://127.0.0.1:54106
+                    </td>
+                    <td style="text-align: left;">
+                        <strong>Workers:</strong> 0 
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">
+                        <strong>Dashboard:</strong> <a href="http://127.0.0.1:8787/status" target="_blank">http://127.0.0.1:8787/status</a>
+                    </td>
+                    <td style="text-align: left;">
+                        <strong>Total threads:</strong> 0
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">
+                        <strong>Started:</strong> Just now
+                    </td>
+                    <td style="text-align: left;">
+                        <strong>Total memory:</strong> 0 B
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <details style="margin-left: 48px;">
+        <summary style="margin-bottom: 20px;">
+            <h3 style="display: inline;">Workers</h3>
+        </summary>
+
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;">Worker: 0</h4>
+                </summary>
+                <table style="width: 100%; text-align: left;">
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Comm: </strong> tcp://127.0.0.1:54122
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Total threads: </strong> 2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:54128/status" target="_blank">http://127.0.0.1:54128/status</a>
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Memory: </strong> 12.80 GiB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Nanny: </strong> tcp://127.0.0.1:54110
+                        </td>
+                        <td style="text-align: left;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-htz_9pq3
+                        </td>
+                    </tr>
+
+                    
+
+                    
+
+                </table>
+            </details>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;">Worker: 1</h4>
+                </summary>
+                <table style="width: 100%; text-align: left;">
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Comm: </strong> tcp://127.0.0.1:54124
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Total threads: </strong> 2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:54133/status" target="_blank">http://127.0.0.1:54133/status</a>
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Memory: </strong> 12.80 GiB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Nanny: </strong> tcp://127.0.0.1:54112
+                        </td>
+                        <td style="text-align: left;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-v3jq_x7k
+                        </td>
+                    </tr>
+
+                    
+
+                    
+
+                </table>
+            </details>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;">Worker: 2</h4>
+                </summary>
+                <table style="width: 100%; text-align: left;">
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Comm: </strong> tcp://127.0.0.1:54121
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Total threads: </strong> 2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:54126/status" target="_blank">http://127.0.0.1:54126/status</a>
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Memory: </strong> 12.80 GiB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Nanny: </strong> tcp://127.0.0.1:54114
+                        </td>
+                        <td style="text-align: left;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-jgm0ci9d
+                        </td>
+                    </tr>
+
+                    
+
+                    
+
+                </table>
+            </details>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;">Worker: 3</h4>
+                </summary>
+                <table style="width: 100%; text-align: left;">
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Comm: </strong> tcp://127.0.0.1:54123
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Total threads: </strong> 2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:54130/status" target="_blank">http://127.0.0.1:54130/status</a>
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Memory: </strong> 12.80 GiB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Nanny: </strong> tcp://127.0.0.1:54116
+                        </td>
+                        <td style="text-align: left;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-mbsr2ql2
+                        </td>
+                    </tr>
+
+                    
+
+                    
+
+                </table>
+            </details>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;">Worker: 4</h4>
+                </summary>
+                <table style="width: 100%; text-align: left;">
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Comm: </strong> tcp://127.0.0.1:54125
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Total threads: </strong> 2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:54132/status" target="_blank">http://127.0.0.1:54132/status</a>
+                        </td>
+                        <td style="text-align: left;">
+                            <strong>Memory: </strong> 12.80 GiB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <strong>Nanny: </strong> tcp://127.0.0.1:54118
+                        </td>
+                        <td style="text-align: left;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <strong>Local directory: </strong> /var/folders/fs/h_8_rwsn5hvg9mhp0txgc_s9v6191b/T/dask-scratch-space/worker-n0stplk1
+                        </td>
+                    </tr>
+
+                    
+
+                    
+
+                </table>
+            </details>
+            </div>
+        </div>
+        
+
+    </details>
+</div>
+
+        </details>
+    </div>
+</div>
+            </details>
+        
+
+    </div>
+</div></div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2026-01-19 13:15:40,606 - distributed.shuffle._scheduler_plugin - WARNING - Shuffle 3db0b756638a84d84430d48301334b0c initialized by task (&#39;shuffle-transfer-3db0b756638a84d84430d48301334b0c&#39;, 4) executed on worker tcp://127.0.0.1:54121
+2026-01-19 13:15:40,815 - distributed.shuffle._scheduler_plugin - WARNING - Shuffle 3db0b756638a84d84430d48301334b0c deactivated due to stimulus &#39;task-finished-1768846540.814343&#39;
+2026-01-19 13:15:46,843 - distributed.scheduler - WARNING - Removing worker &#39;tcp://127.0.0.1:54122&#39; caused the cluster to lose already computed task(s), which will be recomputed elsewhere: {(&#39;read-fused-_to_string_dtype-d26c9c1cd6053a7daf46e012ad20f533&#39;, 5), (&#39;read-fused-_to_string_dtype-d26c9c1cd6053a7daf46e012ad20f533&#39;, 0)} (stimulus_id=&#39;handle-worker-cleanup-1768846546.843791&#39;)
+2026-01-19 13:15:46,844 - distributed.scheduler - WARNING - Removing worker &#39;tcp://127.0.0.1:54124&#39; caused the cluster to lose already computed task(s), which will be recomputed elsewhere: {(&#39;read-fused-_to_string_dtype-d26c9c1cd6053a7daf46e012ad20f533&#39;, 3), (&#39;read-fused-_to_string_dtype-d26c9c1cd6053a7daf46e012ad20f533&#39;, 8)} (stimulus_id=&#39;handle-worker-cleanup-1768846546.844797&#39;)
+2026-01-19 13:15:46,847 - distributed.scheduler - WARNING - Removing worker &#39;tcp://127.0.0.1:54121&#39; caused the cluster to lose already computed task(s), which will be recomputed elsewhere: {(&#39;read-fused-_to_string_dtype-d26c9c1cd6053a7daf46e012ad20f533&#39;, 6), (&#39;read-fused-_to_string_dtype-d26c9c1cd6053a7daf46e012ad20f533&#39;, 1)} (stimulus_id=&#39;handle-worker-cleanup-1768846546.847254&#39;)
+2026-01-19 13:15:46,854 - distributed.scheduler - WARNING - Removing worker &#39;tcp://127.0.0.1:54123&#39; caused the cluster to lose already computed task(s), which will be recomputed elsewhere: {(&#39;read-fused-_to_string_dtype-d26c9c1cd6053a7daf46e012ad20f533&#39;, 2), (&#39;read-fused-_to_string_dtype-d26c9c1cd6053a7daf46e012ad20f533&#39;, 7)} (stimulus_id=&#39;handle-worker-cleanup-1768846546.854811&#39;)
+2026-01-19 13:15:46,881 - distributed.scheduler - WARNING - Removing worker &#39;tcp://127.0.0.1:54125&#39; caused the cluster to lose already computed task(s), which will be recomputed elsewhere: {(&#39;read-fused-_to_string_dtype-d26c9c1cd6053a7daf46e012ad20f533&#39;, 9), (&#39;read-fused-_to_string_dtype-d26c9c1cd6053a7daf46e012ad20f533&#39;, 4)} (stimulus_id=&#39;handle-worker-cleanup-1768846546.881043&#39;)
 </pre></div>
 </div>
-<p>(The <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> option just tells dask that columns 1, 2, and 3 together form a date (they’re year, month, and day of the month respectively), and that dask should convert them to a single column called <code class="docutils literal notranslate"><span class="pre">Date</span></code> that is of type datetime. This isn’t special to dask, it’s just a pandas <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> option.)</p>
-<p><strong>(2)</strong> Look at your dataframe by just calling it (<code class="docutils literal notranslate"><span class="pre">df</span></code>). Notice that the respresentation of the dataframe object contains no data - Dask has just done enough to read the start of the first file, and infer the column names and types.</p>
-<p><strong>(3)</strong> now use <code class="docutils literal notranslate"><span class="pre">df.head()</span></code> to ask dask to actually load a few rows.</p>
-<p>We can view the start and end of the data</p>
-<p><strong>(4)</strong> Now try and run <code class="docutils literal notranslate"><span class="pre">df.tail()</span></code>.</p>
+</div>
+</div>
+<section id="dask-diagnostic-dashboard">
+<h4>Dask Diagnostic Dashboard<a class="headerlink" href="#dask-diagnostic-dashboard" title="Link to this heading">#</a></h4>
+<p>Dask Distributed provides a useful Dashboard to visualize the state of your cluster and computations.</p>
+<p>Just click on the dashboard link displayed in the Client details above: <a class="reference external" href="http://127.0.0.1:8787/status">http://127.0.0.1:8787/status</a>. It will open a new browser tab with the Dashboard.</p>
 </section>
-<section id="what-just-happened">
-<h3>What just happened?<a class="headerlink" href="#what-just-happened" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="reading-and-working-with-datasets">
+<h2>Reading and working with datasets<a class="headerlink" href="#reading-and-working-with-datasets" title="Link to this heading">#</a></h2>
+<section id="exercise-2">
+<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h3>
+<p>Let’s analyze some data using extract of flights in the USA across several years. This data is specific to flights out of the three airports in the New York City area.</p>
+<p>To begin, download <a class="reference external" href="https://storage.googleapis.com/dask-tutorial-data/nycflights.tar.gz">NYC Flight data here</a>, and unzip it somewhere you can find it.</p>
+<p>Let’s read an extract of flights in the USA across several years. This data is specific to flights out of the three airports in the New York City area.</p>
+<p>By convention, we import the module <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> as <code class="docutils literal notranslate"><span class="pre">dd</span></code>.</p>
+<p>The following filename includes a glob pattern <code class="docutils literal notranslate"><span class="pre">*</span></code>, so all files in the path matching that pattern will be read into the same <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. For example, on my computer I’m using the path <code class="docutils literal notranslate"><span class="pre">&quot;/users/nce8/downloads/nycflights/*.csv&quot;</span></code>.</p>
+<p>Load the data, then call the dataframe the way you would normally (e.g., just type <code class="docutils literal notranslate"><span class="pre">flights</span></code> or whatever you called your dataframe).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
+
+<span class="n">flights</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/users/nce8/downloads/nycflights/*.csv&quot;</span><span class="p">)</span>
+<span class="n">flights</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><strong>Dask DataFrame Structure:</strong></div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>DayofMonth</th>
+      <th>DayOfWeek</th>
+      <th>DepTime</th>
+      <th>CRSDepTime</th>
+      <th>ArrTime</th>
+      <th>CRSArrTime</th>
+      <th>UniqueCarrier</th>
+      <th>FlightNum</th>
+      <th>TailNum</th>
+      <th>ActualElapsedTime</th>
+      <th>CRSElapsedTime</th>
+      <th>AirTime</th>
+      <th>ArrDelay</th>
+      <th>DepDelay</th>
+      <th>Origin</th>
+      <th>Dest</th>
+      <th>Distance</th>
+      <th>TaxiIn</th>
+      <th>TaxiOut</th>
+      <th>Cancelled</th>
+      <th>Diverted</th>
+    </tr>
+    <tr>
+      <th>npartitions=10</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>float64</td>
+      <td>int64</td>
+      <td>float64</td>
+      <td>int64</td>
+      <td>string</td>
+      <td>int64</td>
+      <td>float64</td>
+      <td>float64</td>
+      <td>int64</td>
+      <td>float64</td>
+      <td>float64</td>
+      <td>float64</td>
+      <td>string</td>
+      <td>string</td>
+      <td>float64</td>
+      <td>float64</td>
+      <td>float64</td>
+      <td>int64</td>
+      <td>int64</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
+<div>Dask Name: to_string_dtype, 2 expressions</div></div></div>
+</div>
+<p>As you (should) see, Dask has not loaded the data yet, so you’ll see empty rows.</p>
+<p>Basically, dask has:</p>
+<ul class="simple">
+<li><p>investigated the input path and found that there are ten matching files</p></li>
+<li><p>intelligently created a set of jobs for each chunk – one per original CSV file in this case</p></li>
+</ul>
+</section>
+</section>
+<section id="lazy-evaluation">
+<h2>Lazy Evaluation<a class="headerlink" href="#lazy-evaluation" title="Link to this heading">#</a></h2>
+<p>Most Dask Collections, including Dask <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> are evaluated lazily, which means Dask constructs the logic (called task graph) of your computation immediately but “evaluates” them  only when necessary. You can view this task graph using <code class="docutils literal notranslate"><span class="pre">.visualize()</span></code>. (you may be asked to run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">python-graphviz</span></code>).</p>
+<p>You will learn more about this in the Delayed notebook, but for now, note that we need to call <code class="docutils literal notranslate"><span class="pre">.compute()</span></code> to trigger actual computations.</p>
+<p>Some functions like <code class="docutils literal notranslate"><span class="pre">len</span></code> and <code class="docutils literal notranslate"><span class="pre">head</span></code> also trigger a computation. Specifically, calling <code class="docutils literal notranslate"><span class="pre">len</span></code> will:</p>
+<ul class="simple">
+<li><p>load actual data, (that is, load each file into a pandas DataFrame)</p></li>
+<li><p>then apply the corresponding functions to each pandas DataFrame (also known as a partition)</p></li>
+<li><p>combine the subtotals to give you the final grand total</p></li>
+</ul>
+<p>Try using <code class="docutils literal notranslate"><span class="pre">len</span></code> to get the number of rows in the dataframe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load and count number of rows</span>
+<span class="c1"># len(flights)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You <em>should</em> get a bit of an error:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> 
+ 
+
+<span class="nb">len</span><span class="p">(</span><span class="n">flights</span><span class="p">)</span>
+
+<span class="c1"># ValueError: Mismatched dtypes found in `pd.read_csv`/`pd.read_table`.</span>
+
+<span class="c1"># +----------------+---------+----------+</span>
+<span class="c1"># | Column         | Found   | Expected |</span>
+<span class="c1"># +----------------+---------+----------+</span>
+<span class="c1"># | CRSElapsedTime | float64 | int64    |</span>
+<span class="c1"># | TailNum        | object  | float64  |</span>
+<span class="c1"># +----------------+---------+----------+</span>
+
+<span class="c1"># The following columns also raised exceptions on conversion:</span>
+
+<span class="c1"># - TailNum</span>
+<span class="c1">#   ValueError(&quot;could not convert string to float: &#39;N54711&#39;&quot;)</span>
+
+<span class="c1"># Usually this is due to dask&#39;s dtype inference failing, and</span>
+<span class="c1"># *may* be fixed by specifying dtypes manually by adding:</span>
+
+<span class="c1"># dtype={&#39;CRSElapsedTime&#39;: &#39;float64&#39;,</span>
+<span class="c1">#        &#39;TailNum&#39;: &#39;object&#39;}</span>
+
+<span class="c1"># to the call to `read_csv`/`read_table`.</span>
+
+</pre></div>
+</div>
 <p>Unlike <code class="docutils literal notranslate"><span class="pre">pandas.read_csv</span></code> which reads in the entire file before inferring datatypes, <code class="docutils literal notranslate"><span class="pre">dask.dataframe.read_csv</span></code> only reads in a sample from the beginning of the file (or first file if using a glob). These inferred datatypes are then enforced when reading all partitions.</p>
 <p>In this case, the datatypes inferred in the sample are incorrect. The first <code class="docutils literal notranslate"><span class="pre">n</span></code> rows have no value for <code class="docutils literal notranslate"><span class="pre">CRSElapsedTime</span></code> (which pandas infers as a <code class="docutils literal notranslate"><span class="pre">float</span></code>), and later on turn out to be strings (<code class="docutils literal notranslate"><span class="pre">object</span></code> dtype). Note that Dask gives an informative error message about the mismatch. When this happens you have a few options:</p>
 <ul class="simple">
 <li><p>Specify dtypes directly using the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword. This is the recommended solution, as it’s the least error prone (better to be explicit than implicit) and also the most performant.</p></li>
 <li><p>Increase the size of the <code class="docutils literal notranslate"><span class="pre">sample</span></code> keyword (in bytes)</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">assume_missing</span></code> to make <code class="docutils literal notranslate"><span class="pre">dask</span></code> assume that columns inferred to be <code class="docutils literal notranslate"><span class="pre">int</span></code> (which don’t allow missing values) are actually floats (which do allow missing values). In our particular case this doesn’t apply.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">assume_missing</span></code> to make <code class="docutils literal notranslate"><span class="pre">dask</span></code> assume that columns inferred to be <code class="docutils literal notranslate"><span class="pre">int</span></code> (which don’t allow missing values) are actually <code class="docutils literal notranslate"><span class="pre">floats</span></code> (which do allow missing values). In our particular case this doesn’t apply.</p></li>
 </ul>
-<p>In our case we’ll use the first option and directly specify the <code class="docutils literal notranslate"><span class="pre">dtypes</span></code> of the offending columns: set <code class="docutils literal notranslate"><span class="pre">TailNum</span></code> to <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">CRSElapsedTime</span></code> to <code class="docutils literal notranslate"><span class="pre">float</span></code> and <code class="docutils literal notranslate"><span class="pre">Cancelled</span></code> to <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</p>
+<p>In our case we’ll use the first option and directly specify the <code class="docutils literal notranslate"><span class="pre">dtypes</span></code> of the offending columns.</p>
+<p>Load the data again, this time specifying <code class="docutils literal notranslate"><span class="pre">dtype</span></code>, and then ask for the <code class="docutils literal notranslate"><span class="pre">len</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flights</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;/users/nce8/downloads/nycflights/*.csv&quot;</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;TailNum&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;CRSElapsedTime&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">flights</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2611892
+</pre></div>
+</div>
+</div>
+</div>
+<section id="reading-from-remote-storage">
+<h3>Reading from remote storage<a class="headerlink" href="#reading-from-remote-storage" title="Link to this heading">#</a></h3>
+<p>If you’re thinking about distributed computing, your data is probably stored remotely on services (like Amazon’s S3 or Google’s cloud storage) and is in a friendlier format (like Parquet). Dask can read data in various formats directly from these remote locations <strong>lazily</strong> and <strong>in parallel</strong>.</p>
+<p>Here’s how you can read the NYC taxi cab data from Amazon S3:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">flights</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span>
+    <span class="s2">&quot;s3://nyc-tlc/trip data/yellow_tripdata_2012-*.parquet&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>You can also leverage Parquet-specific optimizations like column selection and metadata handling, learn more in <a class="reference external" href="https://docs.dask.org/en/stable/dataframe-parquet.html">the Dask documentation on working with Parquet files</a>.</p>
 </section>
 </section>
 <section id="computations-with-dask-dataframe">
 <h2>Computations with <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code><a class="headerlink" href="#computations-with-dask-dataframe" title="Link to this heading">#</a></h2>
-<p>Suppose we want to compute the maximum of the <code class="docutils literal notranslate"><span class="pre">DepDelay</span></code> (short for Departure Delays) column. With just pandas, we would loop over each file to find the individual maximums, then find the final maximum over all the individual maximums</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">maxes</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+<p>Let’s compute the maximum of the flight delay.</p>
+<p>With just pandas, we would loop over each file to find the individual maximums, then find the final maximum over all the individual maximums.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;/users/nce8/downloads/nycflights&quot;</span><span class="p">)</span>
+
+<span class="n">maxes</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;/users/nce8/downloads/nycflights/</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
     <span class="n">maxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
     
 <span class="n">final_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxes</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>But this is a far cry from what we do with smaller pandas dataset, which is just</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>To solve this, we can use <code class="docutils literal notranslate"><span class="pre">dask</span></code>! <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> lets us write pandas-like code, that operates on larger than memory datasets in parallel. To get the maximium value of the column, we can run:</p>
+<p><code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> lets us write pandas-like code, that operates on larger-than-memory datasets in parallel.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">time</span> df.DepDelay.max().compute()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">flights</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">result</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 127 ms, sys: 29.9 ms, total: 157 ms
-Wall time: 1.98 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 43 ms, sys: 9.87 ms, total: 52.9 ms
+Wall time: 495 ms
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1435.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(1435.0)
 </pre></div>
 </div>
 </div>
 </div>
-<p>This writes the delayed computation for us and then runs it.</p>
-<p>Some things to note:</p>
-<ol class="arabic simple">
-<li><p>Dask uses lazy evaluation, which means it doesn’t actually do any work till we call <code class="docutils literal notranslate"><span class="pre">.compute()</span></code>. If you just ran <code class="docutils literal notranslate"><span class="pre">df.DepDelay.max()</span></code>, you’d just get back a placeholder:</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">df</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-
-<span class="n">dd</span><span class="o">.</span><span class="n">Scalar</span><span class="o">&lt;</span><span class="n">series</span><span class="o">-...</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float64</span><span class="o">&gt;</span>
+<p>This creates the lazy computation for us and then runs it.</p>
+<p><strong>Note:</strong> Dask will delete intermediate results (like the full pandas DataFrame for each file) as soon as possible. This means you can handle datasets that are larger than memory but, repeated computations will have to load all of the data in each time. (Run the code above again, is it faster or slower than you would expect?)</p>
+<p>You can view the underlying task graph using <code class="docutils literal notranslate"><span class="pre">.visualize()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># notice the parallelism</span>
+<span class="n">result</span><span class="o">.</span><span class="n">visualize</span><span class="p">()</span>
 </pre></div>
 </div>
-<ol class="arabic simple" start="2">
-<li><p>Dask will delete intermediate results (like the full pandas dataframe for each file) as soon as possible.</p>
-<ul class="simple">
-<li><p>This lets us handle datasets that are larger than memory</p></li>
-<li><p>This means that repeated computations will have to load all of the data in each time (run the code above again, is it faster or slower than you would expect?)</p></li>
-</ul>
-</li>
-</ol>
-<p><strong>(5)</strong> Want to know more about what dask is doing? First, just store <code class="docutils literal notranslate"><span class="pre">df.DepDelay.max()</span></code> as a new variable and look at it. Can you see the placeholder? It tells you what it will eventually be (a scalar (single value) float64). But you don’t see the actual maximum value.</p>
-<p><strong>(6)</strong>  You can actually see how dask is developing a plan for getting you the maximum value if you were to run your code right now. We do this with the <code class="docutils literal notranslate"><span class="pre">.dask</span></code> attribute, which you can run on any dask object before you’ve run <code class="docutils literal notranslate"><span class="pre">.compute()</span></code>.</p>
-<p><a class="reference external" href="https://docs.dask.org/en/stable/graphviz.html#visualize-the-low-level-graph">For more on task graphs, see here.</a></p>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/665885cd68a17894a80c39e2573f5d039bd12bb423ecea95225e184dad922a36.svg" src="../_images/665885cd68a17894a80c39e2573f5d039bd12bb423ecea95225e184dad922a36.svg" />
+</div>
+</div>
+<section id="exercise-3">
+<h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
+<p>Calculate how many flights had been cancelled.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flights</span><span class="o">.</span><span class="n">Cancelled</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cancelled
+1      70931
+0    2540961
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">flights</span><span class="p">[</span><span class="n">flights</span><span class="o">.</span><span class="n">Cancelled</span> <span class="o">==</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>70931
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flights</span><span class="o">.</span><span class="n">Cancelled</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.int64(70931)
+</pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="let-s-do-some-manipulations">
-<h2>Let’s do some manipulations!<a class="headerlink" href="#let-s-do-some-manipulations" title="Link to this heading">#</a></h2>
-<p>In this section we do a few <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> computations. If you are comfortable with Pandas then these should be familiar. You will have to think about when to call <code class="docutils literal notranslate"><span class="pre">.compute()</span></code>.</p>
-<p>When you run <code class="docutils literal notranslate"><span class="pre">.compute()</span></code>, you can also move over to your Dashboard (remember that link in the panel that openned when you created <code class="docutils literal notranslate"><span class="pre">client</span></code>?) to see your cluster working!</p>
-<p><strong>(7)</strong> In total, what is the average delay (<code class="docutils literal notranslate"><span class="pre">DepDelay</span></code>) for non-canceled flights?</p>
-<p><strong>(8)</strong> In total, how many non-cancelled flights were taken from each airport?</p>
-<p><em>Hint</em>: use <code class="docutils literal notranslate"><span class="pre">df.groupby</span></code> and <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
-<p><strong>(9)</strong> What was the average departure delay from each airport? (<code class="docutils literal notranslate"><span class="pre">DepDelay</span></code>)</p>
-<p><strong>(10)</strong> How many rows are in our dataset?</p>
-<p>Note you’ve probably just found what I think is one of the trickiest things to figure out with a distributed computing system like dask: <em>some</em> functions don’t follow the rules of delayed evaluation, and when you run them, dask executes immediately. <code class="docutils literal notranslate"><span class="pre">len</span></code> is one of those functions.</p>
-<p>As we’ll discuss below, a good rule of thumb is that anything that isn’t either (a) a method on the dask dataframe (i.e. something that isn’t of the form <code class="docutils literal notranslate"><span class="pre">df.METHOD()</span></code>), or an explicit dask function (something you call from the dask library, like <code class="docutils literal notranslate"><span class="pre">dd.to_parquet</span></code>), it will probably execute immediately.</p>
-<p><code class="docutils literal notranslate"><span class="pre">len</span></code> is pretty safe since all it returns is a single number, so it’s unlikely to blow up your computer if it runs before you want, but you have to be careful with other functions, because if you were to us a pandas function like <code class="docutils literal notranslate"><span class="pre">pd.to_numeric(df)</span></code>, it will execute immediately, and it will do so by pulling all the data into your client session as a single giant dataframe, and with a larger dataset, it is likely to crash you computer when you do so.</p>
-<p>An alternative that <em>won’t</em> execute until you run <code class="docutils literal notranslate"><span class="pre">compute</span></code> is <code class="docutils literal notranslate"><span class="pre">df.shape[0]</span></code> (see how it takes the form of a method on our dask dataframe <code class="docutils literal notranslate"><span class="pre">df</span></code>?) Try it to see!</p>
+<section id="exercise-4">
+<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
+<p>In total, how many non-canceled flights were taken from each airport?</p>
+<p><em>Hint</em>: use <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/groupby.html">groupby</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flights</span><span class="p">[</span><span class="n">flights</span><span class="o">.</span><span class="n">Cancelled</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Origin&quot;</span><span class="p">)[</span><span class="s2">&quot;Origin&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Origin
+EWR    1139451
+JFK     427243
+LGA     974267
+Name: Origin, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-5">
+<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
+<p>What was the average departure delay from each airport?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flights</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Origin&quot;</span><span class="p">)[</span><span class="s2">&quot;DepDelay&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Origin
+EWR    10.295469
+JFK    10.351299
+LGA     7.431142
+Name: DepDelay, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-6">
+<h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
+<p>What day of the week has the worst average departure delay?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delays</span> <span class="o">=</span> <span class="n">flights</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;DayOfWeek&quot;</span><span class="p">)[</span><span class="s2">&quot;DepDelay&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="n">delays</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">delays</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.int64(5)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="sharing-intermediate-results">
 <h2>Sharing Intermediate Results<a class="headerlink" href="#sharing-intermediate-results" title="Link to this heading">#</a></h2>
-<p>When computing all of the above, we sometimes did the same operation more than once. For most operations, <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> hashes the arguments, allowing duplicate computations to be shared, and only computed once.</p>
-<p>For example, lets compute the mean and standard deviation for departure delay of all non-canceled flights. Since dask operations are lazy, those values aren’t the final results yet. They’re just the recipe required to get the result.</p>
-<p>If we compute them with two calls to compute, there is no sharing of intermediate computations.</p>
+<p>When computing all of the above, we sometimes did the same operation more than once. For most operations, <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code> stores the arguments, allowing duplicate computations to be shared and only computed once.</p>
+<p>For example, let’s compute the mean and standard deviation for departure delay of all non-canceled flights. Since Dask operations are lazy, those values aren’t the final results yet. They’re just the steps required to get the result.</p>
+<p>If you compute them with two calls to compute, there is no sharing of intermediate computations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">non_cancelled</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">Cancelled</span><span class="p">]</span>
-<span class="n">mean_delay</span> <span class="o">=</span> <span class="n">non_cancelled</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">std_delay</span> <span class="o">=</span> <span class="n">non_cancelled</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">non_canceled</span> <span class="o">=</span> <span class="n">flights</span><span class="p">[</span><span class="n">flights</span><span class="o">.</span><span class="n">Cancelled</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">mean_delay</span> <span class="o">=</span> <span class="n">non_canceled</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">std_delay</span> <span class="o">=</span> <span class="n">non_canceled</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -797,13 +1555,15 @@ Wall time: 1.98 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 376 ms, sys: 43.4 ms, total: 419 ms
-Wall time: 3.88 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 107 ms, sys: 21.2 ms, total: 128 ms
+Wall time: 997 ms
 </pre></div>
 </div>
 </div>
 </div>
-<p>But lets try by passing both to a single <code class="docutils literal notranslate"><span class="pre">compute</span></code> call.</p>
+<section id="dask-compute">
+<h3><code class="docutils literal notranslate"><span class="pre">dask.compute</span></code><a class="headerlink" href="#dask-compute" title="Link to this heading">#</a></h3>
+<p>But let’s try by passing both to a single <code class="docutils literal notranslate"><span class="pre">compute</span></code> call.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dask</span>
@@ -820,8 +1580,8 @@ Wall time: 3.88 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 237 ms, sys: 26.5 ms, total: 264 ms
-Wall time: 2 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 62.6 ms, sys: 13.1 ms, total: 75.7 ms
+Wall time: 511 ms
 </pre></div>
 </div>
 </div>
@@ -829,154 +1589,84 @@ Wall time: 2 s
 <p>Using <code class="docutils literal notranslate"><span class="pre">dask.compute</span></code> takes roughly 1/2 the time. This is because the task graphs for both results are merged when calling <code class="docutils literal notranslate"><span class="pre">dask.compute</span></code>, allowing shared operations to only be done once instead of twice. In particular, using <code class="docutils literal notranslate"><span class="pre">dask.compute</span></code> only does the following once:</p>
 <ul class="simple">
 <li><p>the calls to <code class="docutils literal notranslate"><span class="pre">read_csv</span></code></p></li>
-<li><p>the filter (<code class="docutils literal notranslate"><span class="pre">df[~df.Cancelled]</span></code>)</p></li>
+<li><p>the filter (<code class="docutils literal notranslate"><span class="pre">flights[flights.Cancelled</span> <span class="pre">==</span> <span class="pre">0]</span></code>)</p></li>
 <li><p>some of the necessary reductions (<code class="docutils literal notranslate"><span class="pre">sum</span></code>, <code class="docutils literal notranslate"><span class="pre">count</span></code>)</p></li>
 </ul>
-<p>To see what the merged task graphs between multiple results look like (and what’s shared), you can use the <code class="docutils literal notranslate"><span class="pre">dask.visualize</span></code> function (we might want to use <code class="docutils literal notranslate"><span class="pre">filename='graph.pdf'</span></code> to zoom in on the graph better):</p>
+</section>
+</section>
+<section id="persist">
+<h2><code class="docutils literal notranslate"><span class="pre">.persist()</span></code><a class="headerlink" href="#persist" title="Link to this heading">#</a></h2>
+<p>While using a distributed scheduler (you will learn more about schedulers in the upcoming notebooks), you can keep some <em>data that you want to use often</em> in the <em>distributed memory</em>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">persist</span></code> generates “Futures” (more on this later as well) and stores them in the same structure as your output. You can use <code class="docutils literal notranslate"><span class="pre">persist</span></code> with any data or computation that fits in memory.</p>
+<p>If you want to analyze data only for non-canceled flights departing from JFK airport, you can either have two compute calls like in the previous section:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dask</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">mean_delay</span><span class="p">,</span> <span class="n">std_delay</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">non_cancelled</span> <span class="o">=</span> <span class="n">flights</span><span class="p">[</span><span class="n">flights</span><span class="o">.</span><span class="n">Cancelled</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">flights_jfk</span> <span class="o">=</span> <span class="n">non_cancelled</span><span class="p">[</span><span class="n">non_cancelled</span><span class="o">.</span><span class="n">Origin</span> <span class="o">==</span> <span class="s2">&quot;JFK&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">flights_jfk</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="n">flights_jfk</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/552a8c4802fa7afa5f7fee8538cad7f4a487dadc00f1bb169af1478ce93d0ff1.png" src="../_images/552a8c4802fa7afa5f7fee8538cad7f4a487dadc00f1bb169af1478ce93d0ff1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 134 ms, sys: 25.9 ms, total: 160 ms
+Wall time: 1.11 s
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(4422520.0)
+</pre></div>
 </div>
 </div>
-<p>But lets try by passing both to a single <code class="docutils literal notranslate"><span class="pre">compute</span></code> call.</p>
-<p><strong>(11)</strong> Now you try – for each airport, get both the average delay and the maximum delay in the data for flights that weren’t cancelled.</p>
-<p>(As another example of places that distributed computing gets tricky, while it’s easy to do means and maxes, you can’t easily get the median of a group (e.g.<code class="docutils literal notranslate"><span class="pre">df.groupby('Origin)['DepDelay'].median()</span></code>) in a distributed manner. There are workarounds, but these are the kinds of “fragile” things that make distributed computing a bit of a pain).</p>
-</section>
-<section id="converting-scheduled-departure-time-crsdeptime-to-a-timestamp">
-<h2>Converting Scheduled Departure Time (<code class="docutils literal notranslate"><span class="pre">CRSDepTime</span></code>) to a timestamp<a class="headerlink" href="#converting-scheduled-departure-time-crsdeptime-to-a-timestamp" title="Link to this heading">#</a></h2>
-<p>This dataset stores the scheduled departure times of flights in the format <code class="docutils literal notranslate"><span class="pre">HHMM</span></code>, which are read in as integers in <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>:</p>
+</div>
+<p>Or, consider persisting that subset of data in memory.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crs_dep_time</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">CRSDepTime</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">crs_dep_time</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flights_jfk</span> <span class="o">=</span> <span class="n">flights_jfk</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">flights_jfk</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="n">flights_jfk</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    1540
-1    1540
-2    1540
-3    1540
-4    1540
-5    1540
-6    1540
-7    1540
-8    1540
-9    1540
-Name: CRSDepTime, dtype: int64
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 61.9 ms, sys: 15.2 ms, total: 77.1 ms
+Wall time: 549 ms
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(31.242509798271147)
 </pre></div>
 </div>
 </div>
 </div>
-<p>To combine the data we have on flight dates with these departure times into a single column that includes all that information in a single <code class="docutils literal notranslate"><span class="pre">datetime</span></code> format, we have to convert the time of day into a Timedelta type, then add those Timedeltas to our Date column to get a single column that knows the date AND time of day of departures. (Implicitly, dates think of themselves as living at midnight, so adding a timedelta of 10 hours moves them to 10am).</p>
-<p>To convert these to timestamps of scheduled departure time, we need to convert these integers into <code class="docutils literal notranslate"><span class="pre">pd.Timedelta</span></code> objects, and then combine them with the <code class="docutils literal notranslate"><span class="pre">Date</span></code> column.</p>
-<p>In pandas we’d do this using the <code class="docutils literal notranslate"><span class="pre">pd.to_timedelta</span></code> function, and a bit of arithmetic:</p>
+<p>Analyses on this persisted data is faster because we are not repeating the loading and selecting (non-canceled, JFK departure) operations.</p>
+<section id="exercise-7">
+<h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
+<p>Find what airport has the most cancelled flights and what day of the week has the most cancelled flights. Use <code class="docutils literal notranslate"><span class="pre">.persist()</span></code> in the course of these manipulations.</p>
+</section>
+</section>
+<section id="close-you-local-dask-cluster">
+<h2>Close you local Dask Cluster<a class="headerlink" href="#close-you-local-dask-cluster" title="Link to this heading">#</a></h2>
+<p>It’s good practice to always close any Dask cluster you create:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="c1"># Get the first 10 dates to complement our `crs_dep_time`</span>
-<span class="n">date</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># Get hours as an integer, convert to a timedelta</span>
-<span class="n">hours</span> <span class="o">=</span> <span class="n">crs_dep_time</span> <span class="o">//</span> <span class="mi">100</span>
-<span class="n">hours_timedelta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
-
-<span class="c1"># Get minutes as an integer, convert to a timedelta</span>
-<span class="n">minutes</span> <span class="o">=</span> <span class="n">crs_dep_time</span> <span class="o">%</span> <span class="mi">100</span>
-<span class="n">minutes_timedelta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
-
-<span class="c1"># Apply the timedeltas to offset the dates by the departure time</span>
-<span class="n">departure_timestamp</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">hours_timedelta</span> <span class="o">+</span> <span class="n">minutes_timedelta</span>
-<span class="n">departure_timestamp</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0   1990-01-01 15:40:00
-1   1990-01-02 15:40:00
-2   1990-01-03 15:40:00
-3   1990-01-04 15:40:00
-4   1990-01-05 15:40:00
-5   1990-01-06 15:40:00
-6   1990-01-07 15:40:00
-7   1990-01-08 15:40:00
-8   1990-01-09 15:40:00
-9   1990-01-10 15:40:00
-dtype: datetime64[ns]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="other-things-to-know">
-<h2>Other Things to Know<a class="headerlink" href="#other-things-to-know" title="Link to this heading">#</a></h2>
-<section id="persist-caching">
-<h3>Persist (caching)<a class="headerlink" href="#persist-caching" title="Link to this heading">#</a></h3>
-<p>Sometimes you want your computers to keep intermediate results in memory (when it’s possible). To “cache” data in this manner, you can to use the <code class="docutils literal notranslate"><span class="pre">persist()</span></code> method to tell dask what results you want to keep around. You can read <a class="reference external" href="https://docs.dask.org/en/latest/dataframe-best-practices.html#persist-intelligently">more here</a>.</p>
-</section>
-<section id="using-parquet">
-<h3>Using Parquet<a class="headerlink" href="#using-parquet" title="Link to this heading">#</a></h3>
-<p>Dask works really efficiently with data stored in parquet format, <a class="reference external" href="https://docs.dask.org/en/latest/dataframe-best-practices.html#store-data-in-apache-parquet-format">as noted here</a>, so keeping data in parquet (as I’ve <a class="reference internal" href="#../parquet.ipynb"><span class="xref myst">suggested you do anyway</span></a>!) will help you with dask.</p>
-</section>
-</section>
-<section id="limitations">
-<h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h2>
-<section id="what-doesn-t-work">
-<h3>What doesn’t work?<a class="headerlink" href="#what-doesn-t-work" title="Link to this heading">#</a></h3>
-<p>Dask.dataframe only covers a small but well-used portion of the Pandas API.
-This limitation is for two reasons:</p>
-<ol class="arabic simple">
-<li><p>The Pandas API is <em>huge</em></p></li>
-<li><p>Some operations are genuinely hard to do in parallel (e.g. sort)</p></li>
-</ol>
-<p>Additionally, some important operations like <code class="docutils literal notranslate"><span class="pre">set_index</span></code> work, but are slower
-than in Pandas because they include substantial shuffling of data, and may write out to disk.</p>
-</section>
-<section id="what-definitely-works">
-<h3>What definitely works?<a class="headerlink" href="#what-definitely-works" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Trivially parallelizable operations (fast):</p>
-<ul>
-<li><p>Elementwise operations:  <code class="docutils literal notranslate"><span class="pre">df.x</span> <span class="pre">+</span> <span class="pre">df.y</span></code></p></li>
-<li><p>Row-wise selections:  <code class="docutils literal notranslate"><span class="pre">df[df.x</span> <span class="pre">&gt;</span> <span class="pre">0]</span></code></p></li>
-<li><p>Loc:  <code class="docutils literal notranslate"><span class="pre">df.loc[4.0:10.5]</span></code></p></li>
-<li><p>Common aggregations:  <code class="docutils literal notranslate"><span class="pre">df.x.max()</span></code></p></li>
-<li><p>Is in:  <code class="docutils literal notranslate"><span class="pre">df[df.x.isin([1,</span> <span class="pre">2,</span> <span class="pre">3])]</span></code></p></li>
-<li><p>Datetime/string accessors:  <code class="docutils literal notranslate"><span class="pre">df.timestamp.month</span></code></p></li>
-</ul>
-</li>
-<li><p>Cleverly parallelizable operations (also fast):</p>
-<ul>
-<li><p>groupby-aggregate (with common aggregations): <code class="docutils literal notranslate"><span class="pre">df.groupby(df.x).y.max()</span></code></p></li>
-<li><p>value_counts:  <code class="docutils literal notranslate"><span class="pre">df.x.value_counts</span></code></p></li>
-<li><p>Drop duplicates:  <code class="docutils literal notranslate"><span class="pre">df.x.drop_duplicates()</span></code></p></li>
-<li><p>Join on index:  <code class="docutils literal notranslate"><span class="pre">dd.merge(df1,</span> <span class="pre">df2,</span> <span class="pre">left_index=True,</span> <span class="pre">right_index=True)</span></code></p></li>
-</ul>
-</li>
-<li><p>Operations requiring a shuffle (slow-ish, unless on index)</p>
-<ul>
-<li><p>Set index:  <code class="docutils literal notranslate"><span class="pre">df.set_index(df.x)</span></code></p></li>
-<li><p>groupby-apply (with anything):  <code class="docutils literal notranslate"><span class="pre">df.groupby(df.x).apply(myfunc)</span></code></p></li>
-<li><p>Join not on the index:  <code class="docutils literal notranslate"><span class="pre">pd.merge(df1,</span> <span class="pre">df2,</span> <span class="pre">on='name')</span></code></p></li>
-</ul>
-</li>
-<li><p>Ingest operations</p>
-<ul>
-<li><p>Files: <code class="docutils literal notranslate"><span class="pre">dd.read_csv,</span> <span class="pre">dd.read_parquet,</span> <span class="pre">dd.read_json,</span> <span class="pre">dd.read_orc</span></code>, etc.</p></li>
-<li><p>Pandas: <code class="docutils literal notranslate"><span class="pre">dd.from_pandas</span></code></p></li>
-<li><p>Anything supporting numpy slicing: <code class="docutils literal notranslate"><span class="pre">dd.from_array</span></code></p></li>
-<li><p>From any set of functions creating sub dataframes via <code class="docutils literal notranslate"><span class="pre">dd.from_delayed</span></code>.</p></li>
-<li><p>Dask.bag: <code class="docutils literal notranslate"><span class="pre">mybag.to_dataframe(columns=[...])</span></code></p></li>
-</ul>
-</li>
-</ul>
-</section>
 </section>
 </section>
 
@@ -1026,26 +1716,38 @@ than in Pandas because they include substantial shuffling of data, and may write
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-dask">Install Dask</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-your-own-cluster">Start your own cluster!</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-data">Real Data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-just-happened">What just happened?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-dask-dataframe">When to use <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-your-local-cluster">Set up your local cluster</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-diagnostic-dashboard">Dask Diagnostic Dashboard</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-dask-dataframe">Computations with <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-do-some-manipulations">Let’s do some manipulations!</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-intermediate-results">Sharing Intermediate Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-scheduled-departure-time-crsdeptime-to-a-timestamp">Converting Scheduled Departure Time (<code class="docutils literal notranslate"><span class="pre">CRSDepTime</span></code>) to a timestamp</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-things-to-know">Other Things to Know</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persist-caching">Persist (caching)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-parquet">Using Parquet</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-doesn-t-work">What doesn’t work?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-definitely-works">What definitely works?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-and-working-with-datasets">Reading and working with datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-evaluation">Lazy Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-from-remote-storage">Reading from remote storage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-dask-dataframe">Computations with <code class="docutils literal notranslate"><span class="pre">dask.dataframe</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-intermediate-results">Sharing Intermediate Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-compute"><code class="docutils literal notranslate"><span class="pre">dask.compute</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persist"><code class="docutils literal notranslate"><span class="pre">.persist()</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#close-you-local-dask-cluster">Close you local Dask Cluster</a></li>
 </ul>
   </nav></div>
 
