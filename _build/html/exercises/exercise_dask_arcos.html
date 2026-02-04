@@ -639,6 +639,7 @@ document.write(`
 <section id="exercise-1">
 <h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
 <p>Download the thinned ARCOS data <a class="reference external" href="https://www.dropbox.com/s/o7nc6yvrwog4ozi/arcos_2011_2012.tsv.zip?dl=0">from this link</a>. It should be about 2GB zipped, 25 GB unzipped.</p>
+<p><strong>Note:</strong> On windows, it seems you will probably need to unzip the file on the command line to avoid getting an “unspecified error.” In your git-bash/bash terminal, navigate to where you downloaded the file and run <code class="docutils literal notranslate"><span class="pre">unzip</span> <span class="pre">arcos_2011_212.tsv.zip</span></code>. It’ll seem to hang for a while, but it’s working!</p>
 </section>
 <section id="exercise-2">
 <h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
@@ -663,8 +664,10 @@ document.write(`
 </section>
 <section id="exercise-4">
 <h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h2>
-<p>Now let’s calculate, <em>for each state</em>, what company shipped the most opioids?</p>
+<p>Now let’s calculate, <em>for each state</em>, what company shipped the most opioids to that state?</p>
 <p>Note you will quickly find that you can’t sort in dask – sorting in parallel is <em>really</em> tricky! So you’ll have to work around that. Do what you need to do on the big dataset first, then compute it all so you get it as a regular pandas dataframe, then finish.</p>
+<p>If you get a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>, it’s probably that classic dask problem where it guesses at the type of a column based on the early rows, then later finds its guess was wrong. Remember: dask will give you advice at the end of the error message on one way to solve the problem! You may have to unfold the error in VS Code if VS Code collapsed the output by clicking “make scrollable element.”</p>
+<p>Note further this error can occur repeatedly: first, it discovers at chunk 100 that its guesses for some columns were wrong. So you fix it, and it gets further, and discovers at chunk 200 another guess was wrong, so you have to fix that, etc.</p>
 <p>Does this seem like a situation where a single company is responsible for the opioid epidemic?</p>
 </section>
 <section id="exercise-5">
