@@ -669,6 +669,7 @@ document.write(`
     <span class="s2">&quot;ex14_distance&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ex14_nearest_name&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ex15_change&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex16_units&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ex17_utmzone&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ex18_distance&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ex18_nearest_name&quot;</span><span class="p">,</span>
@@ -787,12 +788,13 @@ document.write(`
 </section>
 <section id="exercise-13">
 <h3>Exercise 13<a class="headerlink" href="#exercise-13" title="Link to this heading">#</a></h3>
-<p>What are the units of that distance? How do you know? (Hint, you may want to check the CRS documentation). Store your answer as a string in <code class="docutils literal notranslate"><span class="pre">&quot;ex13_distance_units&quot;</span></code>.</p>
-<p>Note: there may be some ambiguity about spelling. Please use the spelling you find documented which will not be an American spelling. Please use the singular form.</p>
+<p>What are the units of that distance? How do you know?</p>
+<p>Hint: you can find the answer in <code class="docutils literal notranslate"><span class="pre">delhi.crs.axis_info</span></code> as the <code class="docutils literal notranslate"><span class="pre">unit_name</span></code>. You’ll see one record for each axis — Northing (the y-axis, with positive values to the North) and Easting (the x-axis, with positive values to the East.)</p>
+<p>Store your answer as a string in <code class="docutils literal notranslate"><span class="pre">&quot;ex13_distance_units&quot;</span></code>. Americans: you will find the spelling is not the one you prefer. Please use the version provided by the projection.</p>
 </section>
 <section id="exercise-14">
 <h3>Exercise 14<a class="headerlink" href="#exercise-14" title="Link to this heading">#</a></h3>
-<p>Use <code class="docutils literal notranslate"><span class="pre">to.crs()</span></code> to reproject your data back to latitude and longitude (<code class="docutils literal notranslate"><span class="pre">epsg=4326</span></code>). Then recalculate the distance to the nearest station. What is the name of the station that is now nearest to <code class="docutils literal notranslate"><span class="pre">&quot;Sonia</span> <span class="pre">Vihar,</span> <span class="pre">Delhi</span> <span class="pre">-</span> <span class="pre">DPCC&quot;</span></code>? Store your answer in <code class="docutils literal notranslate"><span class="pre">&quot;ex13_nearest_name&quot;</span></code>.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">to_crs()</span></code> to reproject your data back to latitude and longitude (<code class="docutils literal notranslate"><span class="pre">epsg=4326</span></code>). Then recalculate the distance to the nearest station. What is the name of the station that is now nearest to <code class="docutils literal notranslate"><span class="pre">&quot;Sonia</span> <span class="pre">Vihar,</span> <span class="pre">Delhi</span> <span class="pre">-</span> <span class="pre">DPCC&quot;</span></code>? Store your answer in <code class="docutils literal notranslate"><span class="pre">&quot;ex14_nearest_name&quot;</span></code>.</p>
 <p>How are away is it? Store your answer under <code class="docutils literal notranslate"><span class="pre">&quot;ex14_distance&quot;</span></code>.</p>
 <p>NOTE: You will get a warning from this operation! Can you tell why? This is <strong>NOT</strong> a warning you should normally ignore!</p>
 </section>
@@ -802,7 +804,8 @@ document.write(`
 </section>
 <section id="exercise-16">
 <h3>Exercise 16<a class="headerlink" href="#exercise-16" title="Link to this heading">#</a></h3>
-<p>What are the units of that distance? Answer in Markdown.</p>
+<p>What are the units of that distance? Again, I’d suggest using <code class="docutils literal notranslate"><span class="pre">.crs.axis_info</span></code>. Store your answer in <code class="docutils literal notranslate"><span class="pre">&quot;ex16_units&quot;</span></code>.</p>
+<p>If I asked you to translate those units to feet, could you? Answer in markdown.</p>
 </section>
 <section id="exercise-17">
 <h3>Exercise 17<a class="headerlink" href="#exercise-17" title="Link to this heading">#</a></h3>
@@ -812,8 +815,9 @@ document.write(`
 <p>When analyzing a relatively small geographic area like a city and when you don’t have a good reason to pick a different projection, a good default choice is to use a <a class="reference external" href="https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system">Universal Transverse Mercator (UTM)</a>. UTM projections are a <em>conformal</em> projection, meaning that excel at preserving shape. Since we’re mostly measuring distances, an equidistant projection would probably be a little more appropriate, but distortions at the city level shouldn’t be large given the level of precision we’re looking for.</p>
 <p>The UTM system divides the world up into 60 different zones, <a class="reference external" href="https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system#/media/File:Universal_Transverse_Mercator_zones.svg">as shown here</a>.</p>
 <p>UTM Zones are such a common “reasonable starting point” choice of projection, though, that you don’t need to dig through these maps to figure out what UTM zone covers your data — you can just ask GeoPandas using the <code class="docutils literal notranslate"><span class="pre">.estimate_utm_crs()</span></code> method!</p>
+<p>This method will give you back a CRS object you can use directly to reproject your data.</p>
 <p>Reproject your data using the CRS provided.</p>
-<p>Store the name of the UTM zone you’re now using in <code class="docutils literal notranslate"><span class="pre">ex17_utmzone</span></code>. The name should be three characters long, starting with two digits (a leading zero if required) and ending with a <code class="docutils literal notranslate"><span class="pre">N</span></code> or <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p>
+<p>Store the name of the UTM zone you’re now using in <code class="docutils literal notranslate"><span class="pre">&quot;ex17_utmzone&quot;</span></code>. Note the full name will start with <code class="docutils literal notranslate"><span class="pre">&quot;WGS</span> <span class="pre">84</span> <span class="pre">/</span> <span class="pre">UTM</span> <span class="pre">zone&quot;</span></code> followed by two numbers (a leading zero if required) and either a <code class="docutils literal notranslate"><span class="pre">N</span></code> or <code class="docutils literal notranslate"><span class="pre">S</span></code>. Please only put the last three characters (two numbers and a capital N or S). in <code class="docutils literal notranslate"><span class="pre">&quot;ex17_utmzone&quot;</span></code>.</p>
 </section>
 <section id="exercise-18">
 <h3>Exercise 18<a class="headerlink" href="#exercise-18" title="Link to this heading">#</a></h3>
@@ -828,7 +832,7 @@ document.write(`
 <h3>Exercise 19<a class="headerlink" href="#exercise-19" title="Link to this heading">#</a></h3>
 <p>Just for fun, an illustration of some cool stuff you can do with point data.</p>
 <p>Just as it is possible to fit a model to “fill in the gaps” between data points with normal data, it is also possible to interpolate the values of a variable between spatial points.</p>
-<p>The practice is called <code class="docutils literal notranslate"><span class="pre">krigging</span></code>, and can be accomplished using the <code class="docutils literal notranslate"><span class="pre">pykrige</span></code> package. Kriging is a domain of modelling onto itself, and we don’t have space to really get into it. But in the interest of showing you what you can do with geospatial stuff, please install <code class="docutils literal notranslate"><span class="pre">pykrige</span></code> and run the following code to interpolate measures of air pollution in the Delhi area. But please DO try and understand as much of the code as you can.</p>
+<p>The practice is called <code class="docutils literal notranslate"><span class="pre">kriging</span></code>, and can be accomplished using the <code class="docutils literal notranslate"><span class="pre">pykrige</span></code> package. Kriging is a domain of modelling onto itself, and we don’t have space to really get into it. But in the interest of showing you what you can do with geospatial stuff, please install <code class="docutils literal notranslate"><span class="pre">pykrige</span></code> and run the following code to interpolate measures of air pollution in the Delhi area. But please DO try and understand as much of the code as you can.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pykrige.ok</span> <span class="kn">import</span> <span class="n">OrdinaryKriging</span>
 
 <span class="c1"># PyKrige only works with numpy arrays, not pandas</span>
