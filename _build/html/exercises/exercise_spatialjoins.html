@@ -635,8 +635,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11">Exercise 11</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12">Exercise 12</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-13">Exercise 13</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14">Exercise 14</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-15">Exercise 15</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
             </nav>
         </div>
@@ -650,30 +653,27 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="delhi-air-quality-and-voting">
 <h1>Delhi Air Quality and Voting<a class="headerlink" href="#delhi-air-quality-and-voting" title="Link to this heading">#</a></h1>
-<p>In this exercise, we will continue our exploration of Delhi air quality from our previous exercise. But we will also be adding election data to answer the question: are people experiencing worse air quality more likely to vote <em>against</em> the incumbent political party in Delhi?</p>
-<p>To answer this question, we will bring State Assembly boundaries provided by the <a class="reference external" href="https://projects.datameet.org/maps/assembly-constituencies/#attribute">Data{Meet} Community Maps Project</a> and Assembly-level electoral returns provided by <a class="reference external" href="https://tcpd.ashoka.edu.in/lok-dhaba/">Ashoka University’s Trivedi Centre for Political Data</a>.</p>
-<blockquote>
-<div><p>A note to Indian users or users likely to travel to India: a colleague tells me that this site’s shapefiles are scraped from the Indian Department of Rural Development, and so reflect Government approved boundaries for Jammu and Kashmir, and so <em>should</em> be safer than those from some internal sources to use and publish. Note that in this exercise we will only use data on Delhi.</p>
-</div></blockquote>
+<p>One of the best uses of geospatial tools is to link different data sources based on their spatial relationship. Often, this can make it possible to study the relationship between different phenomena in the world that would otherwise be impossible to get into the same database.</p>
+<p>At the same time, relating different spatial data is not always easy. Administrative data, for example, is often aggregated to the level of administrative units whose boundaries may be defined by oddly shaped polygons. The mapping of these polygons to other datasets — that may be organized into polygons that are not neatly nested into administrative boundaries — is not straight forward.</p>
+<p>In this exercise, we will relate data on air pollution with data on voting behavior. Both will be provided as GeoDataFrames of polygons, but these polygons do not relate neatly to one another. Data on voting is aggregated to the level of electoral districts, while data on air pollution comes in the form of a regular grid of square polygons. In some cases — like when an entire air pollution polygon fits inside an electoral district — its easy to tell how the datasets should relate. But in other cases — like when an air pollution polygon intersects multiple districts — the mapping between datasets will be less clear.</p>
 <section id="gradescope-autograding">
 <h2>Gradescope Autograding<a class="headerlink" href="#gradescope-autograding" title="Link to this heading">#</a></h2>
 <p>Please follow <a class="reference external" href="https://www.practicaldatascience.org/ids720_specific/autograder_guidelines.html">all standard guidance</a> for submitting this assignment to the Gradescope autograder, including storing your solutions in a dictionary called <code class="docutils literal notranslate"><span class="pre">results</span></code> and ensuring your notebook runs from the start to completion without any errors.</p>
-<p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_projections.ipynb</span></code> before uploading.</p>
+<p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_spatialjoins.ipynb</span></code> before uploading.</p>
 <p>You can check that you have answers for all questions in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary with this code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">{</span>
-    <span class="s2">&quot;ex6_world_crs_str&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex9_delhi_mean_so2&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex9_delhi_crs_str&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex12_distance&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex12_nearest_name&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex13_distance_units&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex14_distance&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex14_nearest_name&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex15_change&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex17_utmzone&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex18_distance&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex18_nearest_name&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex18_units&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex3_aap_avg&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex4_merge_type&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex7_no_pollution&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex8_n_in_raw&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex8_n_in_merged&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex9_within_corr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex10_no_pollution&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex10_n_in_merged&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex11_intersect_corr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex12_within_corr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex13_num_intersected_polygons&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex15_weighted_corr&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -683,57 +683,49 @@ document.write(`
 </section>
 <section id="exercise-1">
 <h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
-<p>Please load the air pollution data <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/air_pollution/other/delhi_air_krig.geojson">from this URL</a>. What you will get is a GeoDataFrame, but if you plot it, you will see it looks a lot like the raster we created by kriging in the last exercise. That’s because… it is! Or rather, this is a <em>vectorized</em> version of that data — we took that grid, created a polygon for each grid square, and put it in a GeoDataFrame as its own row with the associated value.</p>
-<p>This isn’t something we’ll do much, but since we haven’t worked with raster data yet, this way we can have that nice interpolated grid of values for all of Delhi while still only working with geopandas.</p>
-<p>So load the data and plot it.</p>
+<p>Please load the air pollution data we will use for this exercise <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/air_pollution/other/delhi_air_krig.geojson">from this URL</a>. What you will get is a GeoDataFrame, but if you plot it, you will see it looks a lot like the raster we created by kriging in the last exercise. That’s because… it is! Or rather, this is a <em>vectorized</em> version of that data — we took that grid, created a polygon for each grid square, and put it in a GeoDataFrame as its own row with the associated value.</p>
+<p>As you will see in a few classes, this is probably not how you will usually work with raster data, though it is also not unheard of. But it gives us a good example of a GeoDataFrame of polygons that are not neatly nested in the other data we will use, and since we haven’t worked with raster data much before it allows us to explore some important ideas that apply whether one is working with vector or raster GIS data.</p>
+<p>So please load the data and plot it.</p>
 </section>
 <section id="exercise-2">
 <h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h3>
-<p>Now download Assembly District boundaries from this <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/delhi_elections/delhi_assembly_districts.geojson">URL</a>. Again, these are from <a class="reference external" href="https://projects.datameet.org/maps/assembly-constituencies/#attribute">Data{Meet} Community Maps Project</a>, but this is already filtered down to Delhi.</p>
+<p>Our goal will be to correlate this air pollution data with data on how people vote. Data on voting is not provided at the individual level (for what I hope are obvious reasons). Rather, it is provided at the level of electoral districts.</p>
+<p>In this exercise, we will be working with the electoral districts used for State Assembly elections in India. Please load the spatial data for these districts in Delhi from this <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/delhi_elections/delhi_assembly_districts.geojson">URL</a>. These district boundaries are from <a class="reference external" href="https://projects.datameet.org/maps/assembly-constituencies/#attribute">Data{Meet} Community Maps Project</a>, but the link will give you a version that is already filtered down to Delhi.</p>
 <p>For Indiaphiles: <a class="reference external" href="https://github.com/datameet/maps/issues/86">These appear to have been scraped in 2016</a>, and so at least for Delhi are Post-Delimitation boundaries.</p>
+<p>Please plot these boundaries.</p>
 </section>
 <section id="exercise-3">
 <h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
-<p>As you look at the Assembly District boundaries, you will notice a pronounced lack of electoral data! This is actually not all that uncommon — many times spatial boundaries and the tabular data you may wish to join with the spatial boundaries are provided separately.</p>
-<p>Download the 2020 Delhi Assembly electoral returns <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/delhi_elections/2020_delhi_assembly_returns.csv">from here</a>. This data comes from <a class="reference external" href="https://tcpd.ashoka.edu.in/lok-dhaba/">this site</a>, and you can find the codebook for the <a class="reference external" href="https://lokdhaba.ashoka.edu.in/static/media/2022Feb12LokDhabaCodebook.21040cf7.pdf">data here</a>.</p>
-<p>Before we merge this data with our Assembly District boundaries, it can be helpful to clean the data so we have only one row in our tabular election-return data per Assembly District.</p>
-<p>Since not everyone here is a political scientist: each row of this data corresponds to a District-Candidate pair, and has data on the votes earned by a given candidate in the given district. As such, there are many rows per Assembly District (since many candidates run in each District).</p>
-<p>Since we’re just interested in the vote share of the incumbent party in Delhi (the Aam Aadmi Party (the “common man”  party), denoted <code class="docutils literal notranslate"><span class="pre">&quot;AAAP&quot;</span></code> in the <code class="docutils literal notranslate"><span class="pre">Party</span></code> column). This can be accomplished through subsetting and the use of the <code class="docutils literal notranslate"><span class="pre">Votes</span></code> and <code class="docutils literal notranslate"><span class="pre">Valid_Votes</span></code> columns (see the codebook if needed).</p>
-<p>Calculate the average AAAP vote share across Districts and store your answer in <code class="docutils literal notranslate"><span class="pre">&quot;ex3_aaap_avg&quot;</span></code>.</p>
+<p>As you look at the electoral district boundary GeoDataFrame, you will notice a pronounced lack of electoral data! This is actually not all that uncommon — many times spatial boundaries and the tabular data you may wish to join with the spatial boundaries are provided separately.</p>
+<p>To get actual vote counts, please download the 2020 Delhi Assembly electoral returns <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/delhi_elections/2020_delhi_assembly_incumbent_returns.csv">from here</a>. This is a filtered version of data from <a class="reference external" href="https://tcpd.ashoka.edu.in/lok-dhaba/">this site</a>, and you can find the codebook for the <a class="reference external" href="https://lokdhaba.ashoka.edu.in/static/media/2022Feb12LokDhabaCodebook.21040cf7.pdf">data here</a>.</p>
+<p>Each row of this dataset reports the election result for the political party that held a majority in Delhi at the time of this election — Aam Aadmi Party (AAP). Political scientists often theorize that when things go wrong, voters tend to punish whatever power is in power at the time. So for this analysis, we will be looking at whether places in Delhi with worse air pollution were less likely to vote for the incumbent party.</p>
+<p>You can find the share of votes in each district that went to the candidate from the incumbent party in the variable <code class="docutils literal notranslate"><span class="pre">incumbent_party_vote_share</span></code>. Calculate the average AAP vote share across electoral districts and store your answer in <code class="docutils literal notranslate"><span class="pre">&quot;ex3_aap_avg&quot;</span></code>.</p>
 </section>
 <section id="exercise-4">
 <h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
-<p>Now that you only have one record per Assembly District, let’s merge our election returns with our District boundaries.</p>
+<p>Now let’s merge our electoral data with our election district boundary file. This will not be a spatial join, but rather a normal merge on a variable — in this case, we will be merging <code class="docutils literal notranslate"><span class="pre">AC_NO</span></code> in our GeoDataFrame to <code class="docutils literal notranslate"><span class="pre">Constituency_No</span></code> in our election results.</p>
 <p><strong>Note:</strong> to ensure you get back a GeoDataFrame, it is recommended you use the <code class="docutils literal notranslate"><span class="pre">.merge</span></code> syntax with the GeoDataFrame coming first:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_geodataframe</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">my_pandas_dataframe</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;common_var&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can also get away with <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code> if the GeoDataFrame is in the left position, apparently, but the above syntax is recommended. If you don’t do this, the merge will work but you’ll end up with a pandas DataFrame rather than a GeoDataFrame.</p>
 <p>So now merge your data. Store the kind of merge you are doing as a string (<code class="docutils literal notranslate"><span class="pre">&quot;1:1&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;1:m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;m:1&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;m:m&quot;</span></code>) under <code class="docutils literal notranslate"><span class="pre">&quot;ex4_merge_type&quot;</span></code>. (forget about merge validation? <a class="reference external" href="https://www.practicaldatascience.org/notebooks/class_3/week_4/15.3_validating_a_merge.html">Re-read here</a>!)</p>
+<p>Now make a new map of electoral districts colored by the vote share won by the AAP.</p>
 </section>
 <section id="exercise-5">
 <h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
-<p>As a first, simple exercise, plot both Assembly Districts and air quality monitor air pollution on the same plot. Color air quality monitor markers according to SO2 levels and Assembly Districts according to AAAP vote share.</p>
+<p>As a first, simple exercise, plot both electoral districts and air pollution on the same plot. Color air quality monitor markers according to SO2 levels and electoral districts according to AAP vote share.</p>
 <p>Note: if this doesn’t work at first, you probably forgot something important! :)</p>
 </section>
 </section>
 <section id="correlating-pollution-and-incumbent-party-support">
 <h2>Correlating Pollution and Incumbent Party Support<a class="headerlink" href="#correlating-pollution-and-incumbent-party-support" title="Link to this heading">#</a></h2>
-<p>In our next few exercises, we are going to calculate the average air pollution in across each District. We will then correlate that average with the District’s AAAP vote share to see if AAAP vote share is lower in Districts with worse air pollution.</p>
-<p>First, though, a few caveats are in order:</p>
-<ul class="simple">
-<li><p>This is not a good empirical strategy for estimating the causal effect of air quality on support for the incumbent party. Air pollution tends to be worse in Delhi’s city center, and the type of people who live in the city center are not the same as the type of people who live on the city’s outskirts. Given that, our correlation may be telling us more about the type of people who support the AAAP than the effect of air pollution.</p>
-<ul>
-<li><p>If this were a serious research project, a simple strategy that would improve on this immensely would be to collect air pollution data and election returns over a longer period of time and measure how <em>changes</em> in air pollution correlate with <em>changes</em> in incumbent support at the District level. But this is just a class exercise, so… 🤷‍♂️</p></li>
-</ul>
-</li>
-<li><p>These Air Quality stations are also not the best data available on air pollution averaged over a longer period of time — that would come from satellite data as we’ll see in the coming weeks. These type of stations are primarily valuable for measuring pollution in real time.</p></li>
-</ul>
-<p>But with those caveats out of the way, let’s do some analyses!</p>
+<p>We now have two spatial datasets — one of election results organized by electoral district polygons, and one of air pollution organized in regular grid cells.</p>
+<p>We now want to do a spatial join of these two datasets — but how do we do it? Ignoring the details of how to get it to happen in Python, how would you use these squares to estimate the average air pollution in each district? Would you average over all the polygons that are fully in the district? Would you average over all the polygons that touch the district? If we average over all the polygons that touch a district, is it a problem that we’re giving as much weight to a polygon that just touches the district as one that’s fully in the district?</p>
+<p>In our next few exercises, we are going to explore a few strategies and see how they play out.</p>
 <section id="exercise-6">
 <h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
-<p>We now have two GeoDataFrames full of Polygon shapes we want to join. This is actually a slightly tricky thing to do. When one polygon lies fully within another, of course, we know they should join, and if two polygons don’t touch at all, they should not. But what about partially overlapping polygons?</p>
-<p>The geopandas <code class="docutils literal notranslate"><span class="pre">sjoin</span></code> method provides a few options, which you can read about in the <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mergingdata.html#binary-predicate-joins">Merging Data</a> documentation under the <code class="docutils literal notranslate"><span class="pre">predicates</span></code> section. In particular, one can join records that have any of the following relationships to one another:</p>
+<p>The geopandas <code class="docutils literal notranslate"><span class="pre">sjoin</span></code> method is designed for precisely this type of situation, and can easily relate datasets based on different types of spatial relations. In particular, one can join records that have any of the following relationships to one another:</p>
 <ul class="simple">
 <li><p>intersects</p></li>
 <li><p>contains</p></li>
@@ -742,8 +734,10 @@ document.write(`
 <li><p>crosses</p></li>
 <li><p>overlaps</p></li>
 </ul>
+<p>(You can review the <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mergingdata.html#binary-predicate-joins">Merging Data</a> documentation for more details)</p>
 <p>Let’s start with the simplest option: joining our constituency polygons to the pollution polygons that are fully within each constituency. This should be a <code class="docutils literal notranslate"><span class="pre">left</span></code> join.</p>
 <p><strong>Note</strong> to ensure we’re all working with the same data, make sure you’re using <code class="docutils literal notranslate"><span class="pre">UTM</span> <span class="pre">zone</span> <span class="pre">43N</span></code> as your CRS. You probably switched to it in Exercise 5, but if you projected both datasets into Lat-Long (epsg 4326), well… shame on you. :) Use UTM zone 43N.</p>
+<p><strong>NOTE 2:</strong> Be careful with <code class="docutils literal notranslate"><span class="pre">contains</span></code> and <code class="docutils literal notranslate"><span class="pre">within</span></code>, as it’s easy to get them backwards. GeoPandas thinks about things in terms of the first GeoDataFrame called, so <code class="docutils literal notranslate"><span class="pre">df1.sjoin(df2,</span> <span class="pre">predicate=&quot;contains&quot;)</span></code> will get you all the shapes from df2 that are within <code class="docutils literal notranslate"><span class="pre">df1</span></code> (the shapes that the df1 polygons “contains”).</p>
 <p>When you are done, store the number of rows in your resulting dataset in <code class="docutils literal notranslate"><span class="pre">&quot;ex6_nrows&quot;</span></code>.</p>
 </section>
 <section id="exercise-7">
@@ -752,36 +746,49 @@ document.write(`
 </section>
 <section id="exercise-8">
 <h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
-<p>How many pollution polygons did you have in your raw data and how many ended up in the merged data (i.e., how many rows of the merged data have SO2_predicted values)? Store your answers in <code class="docutils literal notranslate"><span class="pre">&quot;ex8_n_in_raw&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;ex8_n_in_merged&quot;</span></code>. Why did this happen? Answer in Markdown.</p>
+<p>How many pollution polygons did you have in your raw data and how many ended up in the merged data (i.e., how many rows of the merged data have SO2_predicted values)? Store your answers in <code class="docutils literal notranslate"><span class="pre">&quot;ex8_n_in_raw&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;ex8_n_in_merged&quot;</span></code>. Why did this happen? (Note that this discrepancy is not <em>necessarily</em> as much of a problem as Ex 7, but is still an issue.) Answer in Markdown.</p>
 </section>
 <section id="exercise-9">
 <h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
-<p>OK, we’ve now see the issues that arise within <code class="docutils literal notranslate"><span class="pre">within</span></code>. Now let’s try <code class="docutils literal notranslate"><span class="pre">intersects</span></code>. Before we try, can you predict what will happen?</p>
-<p>Store the number of Districts with no pollution data in <code class="docutils literal notranslate"><span class="pre">&quot;ex9_no_pollution&quot;</span></code> and the number of pollution records (rows with pollution data) in <code class="docutils literal notranslate"><span class="pre">&quot;ex9_n_in_merged&quot;</span></code>. How does <code class="docutils literal notranslate"><span class="pre">&quot;ex9_n_in_merged&quot;</span></code> compare to <code class="docutils literal notranslate"><span class="pre">&quot;ex8_n_in_raw&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;ex8_n_in_merged&quot;</span></code>?</p>
+<p>For each district, calculate the average value of SO2. That should give you a dataset with one observation per electoral district (or less than one per district, given your answer to Ex 7).</p>
+<p>Then calculate correlation across those &lt;70 districts between SO2 and incumbent party vote share. Store the result in <code class="docutils literal notranslate"><span class="pre">&quot;ex9_within_corr&quot;</span></code>.</p>
 </section>
 <section id="exercise-10">
 <h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Link to this heading">#</a></h3>
+<p>Now that we’ve seen some of the issues that arise when we limit our attention to polygons that fall fully within each electoral district, why don’t we try the opposite: let’s try a spatial join in which we match electoral districts with any air pollution polygons that intersect the electoral district.</p>
+<p>Before we try, can you predict what will happen?</p>
+<p>Store the number of Districts with no pollution data in <code class="docutils literal notranslate"><span class="pre">&quot;ex10_no_pollution&quot;</span></code> and the number of pollution records (rows with pollution data) in <code class="docutils literal notranslate"><span class="pre">&quot;ex10_n_in_merged&quot;</span></code>. How does <code class="docutils literal notranslate"><span class="pre">&quot;ex10_n_in_merged&quot;</span></code> compare to <code class="docutils literal notranslate"><span class="pre">&quot;ex8_n_in_raw&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;ex8_n_in_merged&quot;</span></code>?</p>
+</section>
+<section id="exercise-11">
+<h3>Exercise 11<a class="headerlink" href="#exercise-11" title="Link to this heading">#</a></h3>
+<p>For each district, calculate the average value of SO2. That should give you a dataset with one observation per electoral district.</p>
+<p>Then calculate correlation across those 70 districts between SO2 and incumbent party vote share. Store the result in <code class="docutils literal notranslate"><span class="pre">&quot;ex11_intersect_corr&quot;</span></code>.</p>
+</section>
+<section id="exercise-12">
+<h3>Exercise 12<a class="headerlink" href="#exercise-12" title="Link to this heading">#</a></h3>
 <p>Now that you’ve seen the two extremes of polygon merging, let’s look for something in the middle.</p>
 <p>First, we’ll take try the “quick and dirty” strategy.</p>
 <p>Take your pollution data, and replace your polygons with centroids. A <a class="reference external" href="https://en.wikipedia.org/wiki/Centroid">centroid</a> is a single point in the “middle” of a polygon, where “middle” is defined as the point where you could balance the polygon on a pin if you cut it out of a uniform material.</p>
 <p>Make sure you both construct your centroids <em>and</em> make them the active geometry before merging!</p>
 <p>Then merge your Districts with all the centroids they contain.</p>
-<p>Store the number of districts with no polygon data in <code class="docutils literal notranslate"><span class="pre">&quot;ex10_no_pollution&quot;</span></code> and the number of rows with pollution data in <code class="docutils literal notranslate"><span class="pre">&quot;ex10_n_in_merged&quot;</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">&quot;ex10_n_in_merged&quot;</span></code> may seem a little lower than you’d expect, but if you look at your plot in Exercise 5 you can probably tell why.</p>
-</section>
-<section id="exercise-11">
-<h3>Exercise 11<a class="headerlink" href="#exercise-11" title="Link to this heading">#</a></h3>
-<p>And now for the final, complicated operation.</p>
-<p>Basically, we are going to say that the air pollution in each constituency is an <em>area-weighed average</em> of the pollution in each intersecting polygon. That means that all polygons that are fully within a district will get equal weight, but a polygon that is only half-in a district will only get half-weight.</p>
-<p>To do so, we will first have to <em>overlay</em> our two polygon layers to create a new GeoDataFrame. In particular, we will need to <code class="docutils literal notranslate"><span class="pre">intersect</span></code> our polygon layers. If you don’t remember set operations, <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/set_operations.html">please review them now</a>!</p>
-<p>Union your two layers. Store the resulting number of polygons in <code class="docutils literal notranslate"><span class="pre">&quot;ex11_num_intersected_polygons&quot;</span></code>.</p>
-</section>
-<section id="exercise-12">
-<h3>Exercise 12<a class="headerlink" href="#exercise-12" title="Link to this heading">#</a></h3>
-<p>Now in order to take an area-weighted average, we will need each polygon’s area! Create a new column with each polygon’s area using <code class="docutils literal notranslate"><span class="pre">.area</span></code>.</p>
+<p>Finally, as before, calculate the average value of SO2 per district. That should give you a dataset with one observation per electoral district.</p>
+<p>Then calculate correlation across those 70 districts between SO2 and incumbent party vote share. Store the result in <code class="docutils literal notranslate"><span class="pre">&quot;ex12_within_corr&quot;</span></code>.</p>
 </section>
 <section id="exercise-13">
 <h3>Exercise 13<a class="headerlink" href="#exercise-13" title="Link to this heading">#</a></h3>
-<p>And now we need to do a good old-fashioned tabular <code class="docutils literal notranslate"><span class="pre">groupby</span></code>. Basically, for each District, we want to calculate:</p>
+<p>And now for the final, most precise but also most complicated solution.</p>
+<p>Basically, we are going to say that the air pollution in each constituency is an <em>area-weighed average</em> of the pollution in each intersecting polygon. That means that all polygons that are fully within a district will get equal weight, but a polygon that is only half-in a district will only get half-weight.</p>
+<p>To do so, we will first have to <em>overlay</em> our two polygon layers to create a new GeoDataFrame. In particular, we will need to <code class="docutils literal notranslate"><span class="pre">intersect</span></code> our polygon layers. If you don’t remember set operations, <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/set_operations.html">please review them now</a>!</p>
+<p>Intersect your two layers. Store the resulting number of polygons in <code class="docutils literal notranslate"><span class="pre">&quot;ex13_num_intersected_polygons&quot;</span></code>.</p>
+</section>
+<section id="exercise-14">
+<h3>Exercise 14<a class="headerlink" href="#exercise-14" title="Link to this heading">#</a></h3>
+<p>Now in order to take an area-weighted average, we will need each polygon’s area! Create a new column with each polygon’s area using <code class="docutils literal notranslate"><span class="pre">.area</span></code>.</p>
+</section>
+<section id="exercise-15">
+<h3>Exercise 15<a class="headerlink" href="#exercise-15" title="Link to this heading">#</a></h3>
+<p>Finally, we need to do a good old-fashioned tabular <code class="docutils literal notranslate"><span class="pre">groupby</span></code> to calculate a weighted average.</p>
+<p>Basically, for each District, we want to calculate:</p>
 <div class="math notranslate nohighlight">
 \[\sum_{i \in D} \frac{area_i}{(\sum_{i \in D} area_i)} * \text{SO2\_predicted}_i \]</div>
 <p>Where <span class="math notranslate nohighlight">\(i\)</span> is an index of all polygons in District D.</p>
@@ -797,8 +804,14 @@ document.write(`
 <span class="n">district_area_weighted_SO2</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">district_size</span>
 </pre></div>
 </div>
-<p>Now as with most things data science, I wouldn’t do it in a loop, but if you find that helpful there it is!</p>
+<p>Now as with most things data science, I wouldn’t do it in a loop, but if you find that helpful there it is! Personally, I’d use <code class="docutils literal notranslate"><span class="pre">groupby</span></code> and <code class="docutils literal notranslate"><span class="pre">transform</span></code>, but you can also use <code class="docutils literal notranslate"><span class="pre">groupby</span></code> and <code class="docutils literal notranslate"><span class="pre">merge</span></code>.</p>
+<p>After you have calculated this weighted average for each constituency, calculate the correlation between SO2 and incumbent party vote share and store it in <code class="docutils literal notranslate"><span class="pre">&quot;ex15_weighted_corr&quot;</span></code></p>
 </section>
+</section>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<p>At this point, you’ve probably realized that air pollution is <em>not</em> negatively correlated with the vote share of the incumbent party! Honestly, that shouldn’t be too surprising — this type of cross-sectional correlation is not a good way to answer causal questions. Odds are, air pollution is worse in the city center, and the people in the city center are different from people who live in the areas around central Delhi, and those differences are what are driving support for AAP. If we were being more rigorous, we would do something like correlate <em>changes</em> in air pollution with <em>changes</em> in AAP support.</p>
+<p>Nevertheless, hopefully this has given you a feel for some of the challenges of spatial joins, and also given you a chance to see how geometric operations can be paired with spatial joins in interesting ways!</p>
 </section>
 </section>
 
@@ -866,8 +879,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11">Exercise 11</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12">Exercise 12</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-13">Exercise 13</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14">Exercise 14</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-15">Exercise 15</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
   </nav></div>
 
