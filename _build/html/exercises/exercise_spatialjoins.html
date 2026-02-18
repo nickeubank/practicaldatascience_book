@@ -737,7 +737,7 @@ document.write(`
 <p>(You can review the <a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/mergingdata.html#binary-predicate-joins">Merging Data</a> documentation for more details)</p>
 <p>Let’s start with the simplest option: joining our constituency polygons to the pollution polygons that are fully within each constituency. This should be a <code class="docutils literal notranslate"><span class="pre">left</span></code> join.</p>
 <p><strong>Note</strong> to ensure we’re all working with the same data, make sure you’re using <code class="docutils literal notranslate"><span class="pre">UTM</span> <span class="pre">zone</span> <span class="pre">43N</span></code> as your CRS. You probably switched to it in Exercise 5, but if you projected both datasets into Lat-Long (epsg 4326), well… shame on you. :) Use UTM zone 43N.</p>
-<p><strong>NOTE 2:</strong> Be careful with <code class="docutils literal notranslate"><span class="pre">contains</span></code> and <code class="docutils literal notranslate"><span class="pre">within</span></code>, as it’s easy to get them backwards. GeoPandas thinks about things in terms of the first GeoDataFrame called, so <code class="docutils literal notranslate"><span class="pre">df1.sjoin(df2,</span> <span class="pre">predicate=&quot;contains&quot;)</span></code> will get you all the shapes from df2 that are within <code class="docutils literal notranslate"><span class="pre">df1</span></code> (the shapes that the df1 polygons “contains”).</p>
+<p><strong>NOTE 2:</strong> Be careful with <code class="docutils literal notranslate"><span class="pre">contains</span></code> and <code class="docutils literal notranslate"><span class="pre">within</span></code>, as it’s easy to get them backwards. GeoPandas thinks about things in terms of the first GeoDataFrame called, so <code class="docutils literal notranslate"><span class="pre">df1.sjoin(df2,</span> <span class="pre">predicate=&quot;contains&quot;)</span></code> will get you all the shapes from df2 that are within <code class="docutils literal notranslate"><span class="pre">df1</span></code> (the shapes that the df1 polygons “contains”). Personally, I usually find the correct predicate is the opposite of what I think it should be intuitively.</p>
 <p>When you are done, store the number of rows in your resulting dataset in <code class="docutils literal notranslate"><span class="pre">&quot;ex6_nrows&quot;</span></code>.</p>
 </section>
 <section id="exercise-7">
@@ -773,6 +773,7 @@ document.write(`
 <p>Then merge your Districts with all the centroids they contain.</p>
 <p>Finally, as before, calculate the average value of SO2 per district. That should give you a dataset with one observation per electoral district.</p>
 <p>Then calculate correlation across those 70 districts between SO2 and incumbent party vote share. Store the result in <code class="docutils literal notranslate"><span class="pre">&quot;ex12_within_corr&quot;</span></code>.</p>
+<p>(Again, be careful with the choice of predicate and review the note in Ex 6)</p>
 </section>
 <section id="exercise-13">
 <h3>Exercise 13<a class="headerlink" href="#exercise-13" title="Link to this heading">#</a></h3>
@@ -799,7 +800,7 @@ document.write(`
 
 <span class="n">numerator</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">polygons_in_district</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
-    <span class="n">numerator</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">area</span> <span class="o">*</span> <span class="n">row</span><span class="o">.</span><span class="n">SO2_predicted</span>
+    <span class="n">numerator</span> <span class="o">+=</span> <span class="n">row</span><span class="o">.</span><span class="n">area</span> <span class="o">*</span> <span class="n">row</span><span class="o">.</span><span class="n">SO2_predicted</span>
 
 <span class="n">district_area_weighted_SO2</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">district_size</span>
 </pre></div>
