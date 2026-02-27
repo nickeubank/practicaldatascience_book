@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Defining a Circle Class &#8212; Practical Data Science with Python</title>
   
@@ -28,11 +28,11 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -646,7 +646,7 @@ document.write(`
 <section id="bringing-in-your-point-class">
 <h2>Bringing In Your Point Class<a class="headerlink" href="#bringing-in-your-point-class" title="Link to this heading">#</a></h2>
 <p>The first thing you will put at the top of your code for this assignment — which should be in a file called <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> — will be the line:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">point</span> <span class="kn">import</span> <span class="n">Point</span> 
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">point</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span> 
 </pre></div>
 </div>
 <p><em>Provided your <code class="docutils literal notranslate"><span class="pre">point.py</span></code> file is in the same directory as your <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> file</em>, this line will import your Point class and make it accessible from within this <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> file. You can refer to it as just <code class="docutils literal notranslate"><span class="pre">Point</span></code> (like <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">Point()</span></code>). Note that if we had just said <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">point</span></code> instead of <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">point</span> <span class="pre">import</span> <span class="pre">Point</span></code>, you would need to write <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">point.Point()</span></code> to create a point object.</p>
@@ -667,7 +667,7 @@ document.write(`
 <li><p>Because <code class="docutils literal notranslate"><span class="pre">Point</span></code> is a mutable type, so you do not want to actually make the default value <code class="docutils literal notranslate"><span class="pre">Point(0,</span> <span class="pre">0)</span></code> as that will cause problems (if you don’t remember why, you might want to revisit the reading “Default Arguments Revisited” in Coursera PPF, Module 4 “Diving Deeper with Lists”, in subsection “Looking More into Lists.” <a class="reference external" href="https://www.coursera.org/learn/python-programming-fundamentals/supplement/a2NqQ/default-arguments-revisited">Here’s a link</a> that might work but hard to link into Coursera courses.). Instead, you use the “default value is None, check for None, make the value you want” idiom that you learned in that reading:</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
@@ -716,28 +716,28 @@ document.write(`
 <h2>Scaffolding<a class="headerlink" href="#scaffolding" title="Link to this heading">#</a></h2>
 <p>Please copy-paste the following code into your <code class="docutils literal notranslate"><span class="pre">circle.py</span></code> file as a starting place.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
-<span class="kn">from</span> <span class="nn">point</span> <span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">point</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
 
 
-<span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Circle</span><span class="p">:</span>
     <span class="c1"># write a docstring here!</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="c1"># WRITE ME</span>
         <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># WRITE ME</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
         <span class="c1"># WRITE ME</span>
         <span class="c1"># hint: you should be calling move(dx,dy)</span>
         <span class="c1"># on the Point that is the center of the circle</span>
         <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="nf">intersection_area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_circle</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">intersection_area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_circle</span><span class="p">):</span>
         <span class="c1"># WRITE ME</span>
         <span class="c1"># first check if no overlap</span>
         <span class="c1">#   if no overlap, return 0</span>

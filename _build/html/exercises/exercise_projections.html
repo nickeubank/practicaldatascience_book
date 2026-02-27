@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Mapping Air Quality in New Delhi, India &#8212; Practical Data Science with Python</title>
   
@@ -28,11 +28,11 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -690,7 +690,7 @@ document.write(`
 <p>As you will see, each observation in this data is a reading of a specific pollutant from an air quality monitoring station. The location of the station is given by two columns: <code class="docutils literal notranslate"><span class="pre">latitude</span></code> and <code class="docutils literal notranslate"><span class="pre">longitude</span></code>.</p>
 <p>Getting point data in a normal spreadsheet with lat and long is pretty common, and so geopandas actually has a utility for converting this kind of data into a GeoDataFrame: <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.points_from_xy.html">gpd.points_from_xy()</a></p>
 <p>Convert your pandas dataframe into a GeoDataFrame using <code class="docutils literal notranslate"><span class="pre">gpd.points_from_xy()</span></code> and the following template (obviously changing data frame name and column names):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 
 <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
     <span class="n">df</span><span class="p">,</span> 
@@ -715,7 +715,7 @@ document.write(`
 <h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
 <p>Now create a matplotlib axes object and plot both GeoDataFrames onto the axes with different colors.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">india</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
@@ -833,7 +833,7 @@ document.write(`
 <p>Just for fun, an illustration of some cool stuff you can do with point data.</p>
 <p>Just as it is possible to fit a model to “fill in the gaps” between data points with normal data, it is also possible to interpolate the values of a variable between spatial points.</p>
 <p>The practice is called <code class="docutils literal notranslate"><span class="pre">kriging</span></code>, and can be accomplished using the <code class="docutils literal notranslate"><span class="pre">pykrige</span></code> package. Kriging is a domain of modelling onto itself, and we don’t have space to really get into it. But in the interest of showing you what you can do with geospatial stuff, please install <code class="docutils literal notranslate"><span class="pre">pykrige</span></code> and run the following code to interpolate measures of air pollution in the Delhi area. But please DO try and understand as much of the code as you can.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pykrige.ok</span> <span class="kn">import</span> <span class="n">OrdinaryKriging</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pykrige.ok</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrdinaryKriging</span>
 
 <span class="c1"># PyKrige only works with numpy arrays, not pandas</span>
 <span class="n">delhi_has_data</span> <span class="o">=</span> <span class="n">delhi_utm</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>

@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Solving Performance Issues &#8212; Practical Data Science with Python</title>
   
@@ -28,11 +28,11 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -667,24 +667,24 @@ document.write(`
 <p>To illustrate, let’s write a function (called <code class="docutils literal notranslate"><span class="pre">my_analysis</span></code>) which we can pretend is a big analysis that’s causing me problems. Within this analysis we’ll place several functions, most of which are fast, but one of which is slow. To make it <em>really</em> easy to see what is fast and what is slow, these functions will just call the <code class="docutils literal notranslate"><span class="pre">time.sleep()</span></code> function, which literally just tells the computer to pause for a given number of seconds (i.e. <code class="docutils literal notranslate"><span class="pre">time.sleep(10)</span></code> makes execution pause for 10 seconds).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
 
-<span class="k">def</span> <span class="nf">a_slow_function</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">a_slow_function</span><span class="p">():</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
     <span class="k">return</span> <span class="mi">1</span>
 
 
-<span class="k">def</span> <span class="nf">a_medium_function</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">a_medium_function</span><span class="p">():</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="mi">1</span>
 
 
-<span class="k">def</span> <span class="nf">a_fast_function</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">a_fast_function</span><span class="p">():</span>
     <span class="k">return</span> <span class="mi">1</span>
 
 
-<span class="k">def</span> <span class="nf">my_analysis</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_analysis</span><span class="p">():</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">a_slow_function</span><span class="p">()</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">a_medium_function</span><span class="p">()</span>
@@ -756,7 +756,7 @@ document.write(`
 <p>There are two libraries designed to allow you to massively speed up Python code. The first is called <code class="docutils literal notranslate"><span class="pre">Cython</span></code>, and it is a way of writing code that is basically Python with type declarations. For example, if you wanted to add up all the numbers to a million in Python, you could write something like the following (obviously not the most concise way to do it, but you get the idea):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">avg_numbers_up_to</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">avg_numbers_up_to</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
     <span class="n">adding_total</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
         <span class="n">adding_total</span> <span class="o">=</span> <span class="n">adding_total</span> <span class="o">+</span> <span class="n">i</span>
@@ -769,8 +769,8 @@ document.write(`
 </div>
 </div>
 <p>But in Cython, you would write:</p>
-<div class="highlight-cython notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">avg_numbers_up_to</span><span class="p">(</span><span class="nb">int</span> <span class="n">N</span><span class="p">):</span>
-        <span class="k">cdef</span> <span class="kt">int</span> <span class="nf">adding_total</span>
+<div class="highlight-cython notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span><span class="w"> </span><span class="nf">avg_numbers_up_to</span><span class="p">(</span><span class="nb">int</span> <span class="n">N</span><span class="p">):</span>
+        <span class="k">cdef</span><span class="w"> </span><span class="kt">int</span> <span class="nf">adding_total</span>
 
         <span class="n">adding_total</span> <span class="o">=</span> <span class="mf">0</span>
 
@@ -781,8 +781,8 @@ document.write(`
 </pre></div>
 </div>
 <p>Then to integrate this into your Python code, you would save this function definition into a new file (with the suffix <code class="docutils literal notranslate"><span class="pre">.pyx</span></code> (say, <code class="docutils literal notranslate"><span class="pre">avg_numbers.pyx</span></code>), and put this code at the top of your Python script:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
-<span class="kn">from</span> <span class="nn">Cython.Build</span> <span class="kn">import</span> <span class="n">cythonize</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">distutils.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Cython.Build</span><span class="w"> </span><span class="kn">import</span> <span class="n">cythonize</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">ext_modules</span><span class="o">=</span><span class="n">cythonize</span><span class="p">(</span><span class="s1">&#39;avg_numbers.pyx&#39;</span><span class="p">))</span>
 </pre></div>
@@ -900,7 +900,7 @@ def cython_w_overflow_avg_numbers_up_to(long N):
 <p>The idea of <code class="docutils literal notranslate"><span class="pre">numba</span></code> is that it treats each function like it’s own little program, and tries to compile it to make it faster.</p>
 <p>It can operate in two modes. In the first (“python mode”), it achieves it’s speed-up by saving the machine code that was used the first time a function is run. The speed benefits of this aren’t huge – Python still has to do all the work of doing type checking and de-referencing, but it only has to actually convert what it’s doing to machine code once, so if you plan on using a function over and over, it can be beneficial.</p>
 <p>The second mode (“nopython mode”) is blazing fast. In nopython mode, <code class="docutils literal notranslate"><span class="pre">numba</span></code> analyzes your function, and then makes inferences about the types of variables that it will encounter. For example, if you gave the following code to Python:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_big_loop</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">my_big_loop</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
     <span class="n">accumulator</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
         <span class="n">accumulator</span> <span class="o">=</span> <span class="n">accumulator</span> <span class="o">+</span> <span class="n">i</span>
@@ -913,7 +913,7 @@ def cython_w_overflow_avg_numbers_up_to(long N):
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Without numba</span>
-<span class="k">def</span> <span class="nf">my_big_loop</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_big_loop</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
     <span class="n">accumulator</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
         <span class="n">accumulator</span> <span class="o">=</span> <span class="n">accumulator</span> <span class="o">+</span> <span class="n">i</span>
@@ -937,13 +937,13 @@ def cython_w_overflow_avg_numbers_up_to(long N):
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># With numba</span>
-<span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">jit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numba</span><span class="w"> </span><span class="kn">import</span> <span class="n">jit</span>
 
 <span class="c1"># We just add this &quot;decorator&quot; (A line that starts with @ just above a function)</span>
 <span class="c1"># The &quot;nopython=True&quot; option says to jit &quot;tell me if you can&#39;t work in nopython more, </span>
 <span class="c1"># dont&#39; just silently revert to Python mode.&quot;</span>
 <span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
-<span class="k">def</span> <span class="nf">my_big_loop</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_big_loop</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
     <span class="n">accumulator</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
         <span class="n">accumulator</span> <span class="o">=</span> <span class="n">accumulator</span> <span class="o">+</span> <span class="n">i</span>
@@ -968,7 +968,7 @@ def cython_w_overflow_avg_numbers_up_to(long N):
 <p>For example, consider the following code:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_doubler</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">my_doubler</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
     <span class="k">return</span> <span class="n">y</span>
 </pre></div>
@@ -981,7 +981,7 @@ def cython_w_overflow_avg_numbers_up_to(long N):
 <p>But now consider the following code:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_this_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">is_this_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
     <span class="k">else</span><span class="p">:</span>
@@ -995,7 +995,7 @@ def cython_w_overflow_avg_numbers_up_to(long N):
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">is_this_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_this_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
     <span class="k">else</span><span class="p">:</span>
@@ -1042,7 +1042,7 @@ def cython_w_overflow_avg_numbers_up_to(long N):
 <span class="n">Cannot</span> <span class="n">unify</span> <span class="n">int64</span> <span class="ow">and</span> <span class="n">Literal</span><span class="p">[</span><span class="nb">str</span><span class="p">](</span><span class="ow">not</span> <span class="n">even</span><span class="p">,</span> <span class="n">sorry</span><span class="o">!)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;y&#39;</span>,<span class="w"> </span>defined<span class="w"> </span>at<span class="w"> </span>&lt;ipython-input-15-9cd2f2682352&gt;<span class="w"> </span><span class="o">(</span><span class="m">4</span><span class="o">)</span>
 
 <span class="n">File</span> <span class="s2">&quot;&lt;ipython-input-15-9cd2f2682352&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">4</span><span class="p">:</span>
-<span class="k">def</span> <span class="nf">is_this_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_this_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="o">&lt;</span><span class="n">source</span> <span class="n">elided</span><span class="o">&gt;</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
@@ -1051,7 +1051,7 @@ def cython_w_overflow_avg_numbers_up_to(long N):
 <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">During</span><span class="p">:</span> <span class="n">typing</span> <span class="n">of</span> <span class="n">assignment</span> <span class="n">at</span> <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">15</span><span class="o">-</span><span class="mi">9</span><span class="n">cd2f2682352</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 
 <span class="n">File</span> <span class="s2">&quot;&lt;ipython-input-15-9cd2f2682352&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">6</span><span class="p">:</span>
-<span class="k">def</span> <span class="nf">is_this_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_this_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="o">&lt;</span><span class="n">source</span> <span class="n">elided</span><span class="o">&gt;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;not even, sorry!&#39;</span>

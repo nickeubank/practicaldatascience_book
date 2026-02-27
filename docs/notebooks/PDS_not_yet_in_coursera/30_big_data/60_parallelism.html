@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Parallel Computing &#8212; Practical Data Science with Python</title>
   
@@ -28,11 +28,11 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -701,15 +701,15 @@ document.write(`
 <p>First, let’s develop a dumb little weather simulation with a central tendency so the temperature tomorrow is the function of some anchor temperature (let’s say 72 degrees farenheit) and the realized temperature today (so if it’s hot today, it’s likely to be hot tomorrow, but if it’s above the long-term average of 72, it’s also likely to be closer to 72 than the temp today).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">npr</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npr</span>
 
 
-<span class="k">def</span> <span class="nf">weather_at_t_plus_one</span><span class="p">(</span><span class="n">temp_at_t</span><span class="p">,</span> <span class="n">std_dev</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">weather_at_t_plus_one</span><span class="p">(</span><span class="n">temp_at_t</span><span class="p">,</span> <span class="n">std_dev</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">npr</span><span class="o">.</span><span class="n">normal</span><span class="p">((</span><span class="mi">72</span> <span class="o">+</span> <span class="n">temp_at_t</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">std_dev</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">simulate_weather</span><span class="p">(</span><span class="n">starting_temp</span><span class="p">,</span> <span class="n">weather_std_dev</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">simulate_weather</span><span class="p">(</span><span class="n">starting_temp</span><span class="p">,</span> <span class="n">weather_std_dev</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
     <span class="n">weather_at_time_t</span> <span class="o">=</span> <span class="n">starting_temp</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
@@ -766,14 +766,14 @@ Wall time: 23.1 s
 <p>So let’s try parallelizing these simulations using <code class="docutils literal notranslate"><span class="pre">joblib</span></code>. (Make sure to install joblib if you haven’t yet with <code class="docutils literal notranslate"><span class="pre">conda</span></code> or <code class="docutils literal notranslate"><span class="pre">pip</span></code>!)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>  <span class="c1"># Import the relevant tools</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">joblib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>  <span class="c1"># Import the relevant tools</span>
 
 <span class="c1"># Joblib wants a function that only takes a single argument.</span>
 <span class="c1"># Since we&#39;re not changing our parameters with each run, we just create a</span>
 <span class="c1"># &quot;little barrier function&quot; that takes one argument.</span>
 
 
-<span class="k">def</span> <span class="nf">run_simulation</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_simulation</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">simulate_weather</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
 
@@ -793,7 +793,7 @@ Wall time: 23.1 s
 <p><code class="docutils literal notranslate"><span class="pre">Parallel(n_jobs=10)</span></code>: this is where you specify how many processes you want to spin up. You don’t want to parallelize to more logical cores than are available on your computer (generally, two times the number of physical cores on your computer if you have an Intel chip). If you try and parallelize to 4 cores but your computer only has 2, then your operating system will just keep forcing your cores to stop and switch from running one pair of processes to running the other pair, back and forth, and that switching takes time. To see how many cores you have, run:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
 <span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
 </pre></div>
@@ -865,7 +865,7 @@ Wall time: 3min 40s
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="k">def</span> <span class="nf">run_simulation</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_simulation</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">simulate_weather</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">10</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">run_simulation</span><span class="p">)(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">))</span>
 </pre></div>
@@ -884,8 +884,8 @@ Wall time: 32.7 s
 <p>But at the risk of beating a dead horse, we can get far better performance benefits just by using the tips in the <a class="reference internal" href="40_performance_understanding.html"><span class="std std-doc">performance section</span></a> like vectorizing:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">npr</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npr</span>
 </pre></div>
 </div>
 </div>

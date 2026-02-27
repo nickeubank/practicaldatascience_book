@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Mapping Race and Ethnicity in Durham, NC &#8212; Practical Data Science with Python</title>
   
@@ -28,11 +28,11 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -650,7 +650,7 @@ document.write(`
 <p>It can be hard to “see” how these polygons correspond to places you know in the real world when you just see these shapes. To help, add a basemap using the <a class="reference external" href="https://contextily.readthedocs.io/en/latest/">contextily</a> package (you will need to install the package first).</p>
 <p>Just plot your map explicitly onto a matplotlib axes <code class="docutils literal notranslate"><span class="pre">ax</span></code>, then run:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="kn">import</span> <span class="nn">contextily</span> <span class="k">as</span> <span class="nn">cx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cx</span>
 <span class="n">cx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">your_geodataframe_name</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -683,9 +683,9 @@ and <code class="docutils literal notranslate"><span class="pre">ax.set_ylim()</
 <p>Use the <code class="docutils literal notranslate"><span class="pre">sample_points()</span></code> method to create one point in each polygon for every 100 people in each polygon. Then plot that dot-plot. You will probably need to reduce the size of your dots (<code class="docutils literal notranslate"><span class="pre">markersize</span></code> argument).
 <strong>NOTE:</strong> Calculating the right number of points in each block group requires a little nuance. It’s easy to get <em>about</em> right — divide number of people by 100. But since the number of points has to be an integer, you have to add one point with a probability equal to the non-integer component that’s left.</p>
 <p>I used this little function which takes a vector of populations (<code class="docutils literal notranslate"><span class="pre">population</span></code>) and returns a number of points per row.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">npr</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npr</span>
 
-<span class="k">def</span> <span class="nf">get_num_points</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">people_per_point</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_num_points</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">people_per_point</span><span class="p">):</span>
         
     <span class="n">integer_component</span> <span class="o">=</span> <span class="p">(</span><span class="n">population</span> <span class="o">/</span> <span class="n">people_per_point</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
     <span class="n">just_decimal_component</span> <span class="o">=</span> <span class="p">(</span><span class="n">population</span> <span class="o">/</span> <span class="n">people_per_point</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1</span>

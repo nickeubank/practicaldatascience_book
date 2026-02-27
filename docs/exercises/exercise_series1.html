@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Measuring Income Equality with the Gini Coefficient &#8212; Practical Data Science with Python</title>
   
@@ -28,11 +28,11 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -662,7 +662,7 @@ document.write(`
 <h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
 <p>To begin, load data on countries’ Gross Domestic Product (GDP) per capita. GDP is a measure of how much is produced by a country’s entire economy in a year, and “per capita” just means the number has been divided by each country’s population, given a measure of the amount of economic production generated per person in a country. Essentially, this is a very crude measure of the wealth of each country.</p>
 <p>Note that GDP per capita is measured in US dollars (so you can make comparisons across countries), and conversions from local currency to the US dollar were made using <a class="reference external" href="https://en.wikipedia.org/wiki/Purchasing_power_parity">Purchasing Power Parity (PPP)</a> exchange rates (don’t worry if that doesn’t mean anything to you—just an added detail for any economists reading this).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="n">gdppercap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">34605</span><span class="p">,</span> <span class="mi">34493</span><span class="p">,</span> <span class="mi">12393</span><span class="p">,</span> <span class="mi">44200</span><span class="p">,</span> <span class="mi">10041</span><span class="p">,</span> 
                        <span class="mi">58138</span><span class="p">,</span> <span class="mi">4709</span><span class="p">,</span> <span class="mi">49284</span><span class="p">,</span> <span class="mi">10109</span><span class="p">,</span> <span class="mi">42536</span><span class="p">],</span>
                       <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Bahrain&#39;</span><span class="p">,</span> <span class="s1">&#39;Belgium&#39;</span><span class="p">,</span> <span class="s1">&#39;Bulgaria&#39;</span><span class="p">,</span>
@@ -684,7 +684,7 @@ document.write(`
 <p>Hint: Country names form the index for this Series, so to get country names you’ll need to access the index.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="n">gdppercap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">34605</span><span class="p">,</span> <span class="mi">34493</span><span class="p">,</span> <span class="mi">12393</span><span class="p">,</span> <span class="mi">44200</span><span class="p">,</span> <span class="mi">10041</span><span class="p">,</span> 
                        <span class="mi">58138</span><span class="p">,</span> <span class="mi">4709</span><span class="p">,</span> <span class="mi">49284</span><span class="p">,</span> <span class="mi">10109</span><span class="p">,</span> <span class="mi">42536</span><span class="p">],</span>
                       <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Bahrain&#39;</span><span class="p">,</span> <span class="s1">&#39;Belgium&#39;</span><span class="p">,</span> <span class="s1">&#39;Bulgaria&#39;</span><span class="p">,</span>
