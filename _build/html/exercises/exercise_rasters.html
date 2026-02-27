@@ -70,6 +70,8 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'exercises/exercise_rasters';</script>
     <link rel="icon" href="../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -624,11 +626,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#warning-on-projections">WARNING ON PROJECTIONS</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10">Exercise 10</a></li>
 </ul>
 </li>
 </ul>
@@ -662,9 +665,9 @@ document.write(`
 <p>You can check that you have answers for all questions in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary with this code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">{</span>
     <span class="s2">&quot;ex2_mean_july_no2&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex6_mean_nc_july&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex7_mean_nc_year&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex9_mean_durham&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex7_mean_nc_july&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex8_mean_nc_year&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex10_mean_durham&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -674,7 +677,7 @@ document.write(`
 </section>
 <section id="exercise-1">
 <h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
-<p>You can find the raster data we will be working <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/air_pollution/us_no2_raster.nc4">with here</a>. This was created from <a class="reference external" href="https://disc.gsfc.nasa.gov/datasets/HAQ_TROPOMI_NO2_CONUS_M_L3_2.4/summary?keywords=nitrogen">this data page</a> by combining monthly average data from September 2024 to July 2025.</p>
+<p>You can find the raster data we will be working <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/air_pollution/us_no2_raster.nc4">with here</a>. This was created from <a class="reference external" href="https://disc.gsfc.nasa.gov/datasets/HAQ_TROPOMI_NO2_CONUS_M_L3_2.4/summary?keywords=nitrogen">this data page</a> by combining monthly average data from August 2024 to July 2025.</p>
 <p>To load it properly, use the following imports and read command:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">rioxarray</span>
@@ -686,7 +689,13 @@ document.write(`
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>You’ll probably need to install <code class="docutils literal notranslate"><span class="pre">h5netcdf</span></code>, even if you already have <code class="docutils literal notranslate"><span class="pre">xarray</span></code>. The netCDF file type has changed a few times over the years, and <code class="docutils literal notranslate"><span class="pre">h5netcdf</span></code> seems to be the best library for reading the newest generation of netCDFs. You may also be asked to install <code class="docutils literal notranslate"><span class="pre">aiohttp</span></code>, which helps loading large files over the internet.</p>
+<p>You’ll probably need to install:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">h5netcdf</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fsspec</span></code>,</p></li>
+<li><p>and <code class="docutils literal notranslate"><span class="pre">aiohttp</span></code></p></li>
+</ul>
+<p>even if you already have <code class="docutils literal notranslate"><span class="pre">xarray</span></code>. The netCDF file type has changed a few times over the years, and <code class="docutils literal notranslate"><span class="pre">h5netcdf</span></code> seems to be the best library for reading the newest generation of netCDFs. <code class="docutils literal notranslate"><span class="pre">aiohttp</span></code> helps loading large files over the internet. I have no idea what <code class="docutils literal notranslate"><span class="pre">fsspec</span></code> is but they say they want it so… 🤷‍♂️</p>
 <p>It’s important to import <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> even if we don’t use it directly — when imported, it empowers xarray to do things with spatial data it otherwise would not be able to. Basically, all the functionality of <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> is exposed through <code class="docutils literal notranslate"><span class="pre">my_xarray_dataset.rio.</span></code> methods, which appear when imported.</p>
 <p><strong>NOTE:</strong> This is a big dataset, so loading will take around 5 minutes.</p>
 <p>Once you get better with xarray, you may prefer to use <code class="docutils literal notranslate"><span class="pre">open_dataset</span></code> rather than <code class="docutils literal notranslate"><span class="pre">load_dataset</span></code>. <code class="docutils literal notranslate"><span class="pre">open_dataset</span></code> just loads metadata about the dataset, and waits to load actual data till you ask for it (a little like dask). That <em>can</em> be much faster, though while learning xarray you’ll probably keep manipulating the data in different ways, so it’s probably better to use <code class="docutils literal notranslate"><span class="pre">load_dataset</span></code> and not try to pull the data across the internet over and over.</p>
@@ -702,6 +711,13 @@ document.write(`
 </section>
 <section id="exercise-3">
 <h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
+<p>A great thing about xarray is that it tries to keep track of the units of measurement for different variables.</p>
+<p>In this case, as you may have seen in answering number 2, the units being used result in some very, <em>very</em> large numbers.</p>
+<p>Please rescale the current variable so moving forward we are measuring Tropospheric NO2 in units of quadrillions (that’s <span class="math notranslate nohighlight">\(10^{15}\)</span>) of molecules of nitrogen dioxide per cubic centimeter.</p>
+<p>Be sure to not just re-scale the numeric values, but to also update the meta-data so it properly reflects the new units.</p>
+</section>
+<section id="exercise-4">
+<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
 <p>You can probably see the outline of the US in this figure, but it isn’t super clear. To help with readability, it’s often helpful to plot with a vector-based administrative outline.</p>
 <p>The easiest way to get US administrative shapefiles is with <code class="docutils literal notranslate"><span class="pre">pygris</span></code>. For example, you can get a GeoDataFrame with US Census Bureau official country boundaries with:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygris</span>
@@ -712,38 +728,42 @@ document.write(`
 <p>(The analogue for international data is <a class="reference external" href="https://pygadm.readthedocs.io/en/latest/usage.html">pygadm</a>. For example, <code class="docutils literal notranslate"><span class="pre">sudan_gdf</span> <span class="pre">=</span> <span class="pre">pygadm.Items(name=&quot;Sudan&quot;,</span> <span class="pre">content_level=2)</span></code> gets you Sudanese District shapes. <code class="docutils literal notranslate"><span class="pre">content_level</span></code> specifies the administrative level you want. India and China seem to be broken because of some issues around contested territories that will hopefully be fixed soon, though.)</p>
 <p>Using <code class="docutils literal notranslate"><span class="pre">pygris</span></code>, add the outline of the US to your plot. You can do this precisely how you overlaid vector geometries on the same matplotlib axes previously. The one trick is that because our raster is using longitude for x coordinates and latitude for y coordinates, you will need to change the CRS of what you get from pygris to epsg 4326. We haven’t talked about the CRS of our raster yet, so just change the CRS of the US GeoDataFrame explicitly (<code class="docutils literal notranslate"><span class="pre">.to_crs(epsg=4326)</span></code>).</p>
 </section>
-<section id="exercise-4">
-<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
+<section id="exercise-5">
+<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
 <p>Let’s suppose we’re only really interested in North Carolina. What can we do with all the rest of this raster data? How do we “select” it to drop it?</p>
 <p>Welcome to the world of clipping! Clipping is when you subset your raster, either by specifying a range of x and y values to keep (clipping using a bounding box using the <code class="docutils literal notranslate"><span class="pre">.rio.clip_box()</span></code> method), or by using vector data to clip a region of your raster like a cookie cutter.</p>
 <p>Let’s use a North Carolina GeoDataFrame to clip our raster data to just North Carolina.</p>
 <p>First, use <code class="docutils literal notranslate"><span class="pre">pygris</span></code> to get a GeoDataFrame of North Carolina.</p>
-</section>
-<section id="exercise-5">
-<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
-<p>Now try using <code class="docutils literal notranslate"><span class="pre">.rio.clip</span></code>. Note that to do so, you’ll need to use a <a class="reference external" href="https://corteva.github.io/rioxarray/stable/examples/clip_geom.html#Clip-using-a-GeoDataFrame">slightly strange syntax</a> — basically, <code class="docutils literal notranslate"><span class="pre">.rio.clip</span></code> doesn’t quite understand GeoDataFrames, so we have to pull out the geometry column (the same way that when using packages that don’t know about pandas, we have to pull out the underlying numpy array with <code class="docutils literal notranslate"><span class="pre">.values</span></code>).</p>
-<p>Give it a shot, but you’ll <em>probably</em> get an error… when you do read on.</p>
+<p>At levels of states and below, <code class="docutils literal notranslate"><span class="pre">pygris</span></code> offers two types of outlines: <a class="reference external" href="https://walker-data.com/pygris/01-basic-usage/">TIGER/Line polygons and cartographic polygons</a> (which are clipped to shorelines, making them more accurate but a little slower and causes them to need more memory.)</p>
+<p>Since we probably don’t need to consider air pollution over water, please use the cartographic boundaries.</p>
 </section>
 <section id="exercise-6">
 <h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
+<p>Now try using <code class="docutils literal notranslate"><span class="pre">.rio.clip</span></code>. Note that to do so, you’ll need to use a <a class="reference external" href="https://corteva.github.io/rioxarray/stable/examples/clip_geom.html#Clip-using-a-GeoDataFrame">slightly strange syntax</a> — basically, <code class="docutils literal notranslate"><span class="pre">.rio.clip</span></code> doesn’t quite understand GeoDataFrames, so we have to pull out the geometry column (the same way that when using packages that don’t know about pandas, we have to pull out the underlying numpy array with <code class="docutils literal notranslate"><span class="pre">.values</span></code>).</p>
+<p>Give it a shot, but you’ll <em>probably</em> get an error… when you do read on.</p>
+</section>
+<section id="exercise-7">
+<h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
 <p>Raster data often does not come with an embedded CRS the way shapefiles or geoJSON files do. This raster has meta-data telling us its working with latitudes and longitudes, but it hasn’t actually been interalized into a CRS, which you can see by looking at <code class="docutils literal notranslate"><span class="pre">.rio.crs</span></code>.</p>
 <p>To set the CRS for the raster data, we use the <code class="docutils literal notranslate"><span class="pre">.rio.write_crs()</span></code> method, and because this is just latitude-longitude, we can use our old friend epsg 4326.</p>
 <p>(If you want it to look less squished, plot it onto an <code class="docutils literal notranslate"><span class="pre">ax</span></code> and the run <code class="docutils literal notranslate"><span class="pre">ax.set_aspect(&quot;equal&quot;)</span></code>).</p>
 <p>Set the CRS, then clip again.</p>
-<p>Plot the clipped data, and store the average value of NO2 for July 2025 under <code class="docutils literal notranslate"><span class="pre">&quot;ex6_mean_nc_july&quot;</span></code>.</p>
-</section>
-<section id="exercise-7">
-<h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
-<p>Great!</p>
-<p>OK, next step: we have a full year of data here divided by months. What if we just wanted to see the annual average?</p>
-<p>Answer: we’d take the <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>! Take the mean, but think carefully about the <code class="docutils literal notranslate"><span class="pre">dim</span></code> keyword and what you want to be averaging over…</p>
-<p>Plot the annual average NO2 pollution for NC over this year and store the mean value (of this average over the year) in <code class="docutils literal notranslate"><span class="pre">&quot;ex7_mean_nc_year&quot;</span></code>.</p>
+<p>Plot the clipped data, and store the average value of NO2 for July 2025 under <code class="docutils literal notranslate"><span class="pre">&quot;ex7_mean_nc_july&quot;</span></code>.</p>
 </section>
 <section id="exercise-8">
 <h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
+<p>Great!</p>
+<p>OK, next step: we have a full year of data here divided by months. What if we just wanted to see the annual average?</p>
+<p>Answer: we’d take the <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>! Take the mean, but think carefully about the <code class="docutils literal notranslate"><span class="pre">dim</span></code> keyword and what you want to be averaging over…</p>
+<p>Plot the annual average NO2 pollution for NC over this year.</p>
+<p>For the autograder, store the mean value of these annual averages — that is: $<span class="math notranslate nohighlight">\(mean_{\text{all pixels}}\big( \frac{1}{12} \sum_{m\in \text{months}} NO2_{t,p}\big)\)</span>$ in <code class="docutils literal notranslate"><span class="pre">&quot;ex8_mean_nc_year&quot;</span></code>.</p>
+</section>
+<section id="exercise-9">
+<h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
 <p>Enough visualizing, let’s do some analyses!</p>
-<p>First, get a GeoDataFrame of all counties in North Carolina with pygris.</p>
-<p>Then, using the <code class="docutils literal notranslate"><span class="pre">xvec</span></code> package, calculate the mean, median, and maximum NO2 level in each county. Use the average pollution values you calculated in Ex 7 so that when you calculate mean, median, and maximum NO2 values, those are the mean, median, and maximum values <em>across</em> all the pixels in each county where those pixels themselves are the average value for that pixel over the year.</p>
+<p>First, get a GeoDataFrame of all counties in North Carolina with pygris. Again, be sure to use cartographic boundaries.</p>
+<p>Then, using the <code class="docutils literal notranslate"><span class="pre">xvec</span></code> package, calculate the mean, median, and maximum NO2 level in each county. Use the average pollution values you calculated in Ex 8 so that when you calculate mean, median, and maximum NO2 values, those are the mean, median, and maximum values <em>across</em> all the pixels in each county where those pixels themselves are the average value for that pixel over the year.</p>
+<p>Note the like <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>, importing <code class="docutils literal notranslate"><span class="pre">xvec</span></code> adds <code class="docutils literal notranslate"><span class="pre">.xvec.</span></code> methods to <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, so it’s important to import it even though it seems like we aren’t using it.</p>
 <p>Put the results back in a GeoDataFrame.</p>
 <p><strong>NOTE:</strong> Index alignment — that great pandas challenge — will bite you in the butt if you aren’t careful!</p>
 <section id="warning-on-projections">
@@ -752,10 +772,10 @@ document.write(`
 <p>We haven’t yet discussed reprojecting raster data, so for the moment we’ll leave it in a latitude-longitude grid (epsg 4326). <strong>But if this were a real analysis, you’d want to reproject this raster data before calculating these quantities for the same reason you wouldn’t use epsg 4326 to do a GIS analysis with vector data.</strong></p>
 </section>
 </section>
-<section id="exercise-9">
-<h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
+<section id="exercise-10">
+<h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Link to this heading">#</a></h3>
 <p>Now make a histogram of counties’ mean NO2 levels.</p>
-<p>Store the mean NO2 for Durham County under <code class="docutils literal notranslate"><span class="pre">&quot;ex9_mean_durham&quot;</span></code>.</p>
+<p>Store the mean NO2 for Durham County under <code class="docutils literal notranslate"><span class="pre">&quot;ex10_mean_durham&quot;</span></code>.</p>
 </section>
 </section>
 </section>
@@ -815,11 +835,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#warning-on-projections">WARNING ON PROJECTIONS</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10">Exercise 10</a></li>
 </ul>
 </li>
 </ul>
