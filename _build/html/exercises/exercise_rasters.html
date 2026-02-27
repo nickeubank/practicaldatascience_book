@@ -699,6 +699,7 @@ document.write(`
 <p>It’s important to import <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> even if we don’t use it directly — when imported, it empowers xarray to do things with spatial data it otherwise would not be able to. Basically, all the functionality of <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> is exposed through <code class="docutils literal notranslate"><span class="pre">my_xarray_dataset.rio.</span></code> methods, which appear when imported.</p>
 <p><strong>NOTE:</strong> This is a big dataset, so loading will take around 5 minutes.</p>
 <p>Once you get better with xarray, you may prefer to use <code class="docutils literal notranslate"><span class="pre">open_dataset</span></code> rather than <code class="docutils literal notranslate"><span class="pre">load_dataset</span></code>. <code class="docutils literal notranslate"><span class="pre">open_dataset</span></code> just loads metadata about the dataset, and waits to load actual data till you ask for it (a little like dask). That <em>can</em> be much faster, though while learning xarray you’ll probably keep manipulating the data in different ways, so it’s probably better to use <code class="docutils literal notranslate"><span class="pre">load_dataset</span></code> and not try to pull the data across the internet over and over.</p>
+<p><strong>TIP:</strong> You may find it easier to download the netCDF to your computer and load the local version until it’s time to upload to the autograder — it’s MUCH faster that way.</p>
 </section>
 <section id="exercise-2">
 <h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h3>
@@ -748,7 +749,7 @@ document.write(`
 <p>To set the CRS for the raster data, we use the <code class="docutils literal notranslate"><span class="pre">.rio.write_crs()</span></code> method, and because this is just latitude-longitude, we can use our old friend epsg 4326.</p>
 <p>(If you want it to look less squished, plot it onto an <code class="docutils literal notranslate"><span class="pre">ax</span></code> and the run <code class="docutils literal notranslate"><span class="pre">ax.set_aspect(&quot;equal&quot;)</span></code>).</p>
 <p>Set the CRS, then clip again.</p>
-<p>Plot the clipped data, and store the average value of NO2 for July 2025 under <code class="docutils literal notranslate"><span class="pre">&quot;ex7_mean_nc_july&quot;</span></code>.</p>
+<p>Plot the clipped data, and store the average value of NO2 for July 2025 under <code class="docutils literal notranslate"><span class="pre">&quot;ex7_mean_nc_july&quot;</span></code>. <strong>Round your answer to three decimal places</strong></p>
 </section>
 <section id="exercise-8">
 <h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
@@ -756,7 +757,7 @@ document.write(`
 <p>OK, next step: we have a full year of data here divided by months. What if we just wanted to see the annual average?</p>
 <p>Answer: we’d take the <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>! Take the mean, but think carefully about the <code class="docutils literal notranslate"><span class="pre">dim</span></code> keyword and what you want to be averaging over…</p>
 <p>Plot the annual average NO2 pollution for NC over this year.</p>
-<p>For the autograder, store the mean value of these annual averages — that is: $<span class="math notranslate nohighlight">\(mean_{\text{all pixels}}\big( \frac{1}{12} \sum_{m\in \text{months}} NO2_{t,p}\big)\)</span>$ in <code class="docutils literal notranslate"><span class="pre">&quot;ex8_mean_nc_year&quot;</span></code>.</p>
+<p>For the autograder, store the mean value of these annual averages — that is: $<span class="math notranslate nohighlight">\(mean_{\text{all pixels}}\big( \frac{1}{12} \sum_{m\in \text{months}} NO2_{t,p}\big)\)</span>$ in <code class="docutils literal notranslate"><span class="pre">&quot;ex8_mean_nc_year&quot;</span></code>. <strong>Round your answer to 3 decimal places</strong></p>
 </section>
 <section id="exercise-9">
 <h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
@@ -775,7 +776,7 @@ document.write(`
 <section id="exercise-10">
 <h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Link to this heading">#</a></h3>
 <p>Now make a histogram of counties’ mean NO2 levels.</p>
-<p>Store the mean NO2 for Durham County under <code class="docutils literal notranslate"><span class="pre">&quot;ex10_mean_durham&quot;</span></code>.</p>
+<p>Store the mean NO2 for Durham County under <code class="docutils literal notranslate"><span class="pre">&quot;ex10_mean_durham&quot;</span></code>. <strong>Round you answer to three decimal places.</strong></p>
 </section>
 </section>
 </section>
