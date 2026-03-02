@@ -42,7 +42,7 @@ The following is a list of the most popular electives taken by MIDS students fro
 
 Below are a list of electives by topic area. Again, this is **not** an exhaustive list of electives you *can* take, or even an exhaustive list of electives MIDS students *have* taken — just some classes and topic areas to get you thinking!
 
-### AI
+### AIPI
 
 The Duke Masters of Engineering, AI for Product Innovation has lots of courses that they list under the AIPI course codes. Many of these are listed under the "Special Topcis" course number (AIPI 590) and change semester to semester, but have included topics like Explainable AI, Reinforcement Learning, Alternative Data, Intelligent Agents, etc. Check the Duke Catalogue under AIPI's 590 code to see what's currently on offer.
 
