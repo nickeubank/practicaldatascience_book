@@ -42,6 +42,10 @@ The following is a list of the most popular electives taken by MIDS students fro
 
 Below are a list of electives by topic area. Again, this is **not** an exhaustive list of electives you *can* take, or even an exhaustive list of electives MIDS students *have* taken — just some classes and topic areas to get you thinking!
 
+### AI
+
+The Duke Masters of Engineering, AI for Product Innovation has lots of courses that they list under the AIPI course codes. Many of these are listed under the "Special Topcis" course number (AIPI 590) and change semester to semester, but have included topics like Explainable AI, Reinforcement Learning, Alternative Data, Intelligent Agents, etc. Check the Duke Catalogue under AIPI's 590 code to see what's currently on offer.
+
 ### Bayesian Statistics
 
 - [POLSCI 643S: Applied Bayesian Modeling](https://polisci.duke.edu/courses/applied-bayesian-modeling) <details><summary>Course Description</summary>This course covers the theoretical and applied foundations of Bayesian statistical analysis. It introduces the logic of Bayesian inference, the idea of regularization, the role of subjective priors, the likelihood, and the posterior distribution. We will discuss model checking and model comparison. Applied Bayesian models include Hierarchical models, factor analysis and item response theory models, treatment effect models, and generalized additive models. Throughout the course, we will focus on the flexible modeling of data arising in social/political science, as well as in public health. We will also pay close attention to the presentation and interpretation of substantive results.</details>
