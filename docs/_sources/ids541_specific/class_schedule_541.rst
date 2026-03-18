@@ -24,6 +24,7 @@ Books
 -----
 
 - `Python for Geographic Data Analysis (PGDA) <https://pythongis.org/index.html>`_
+- `Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 3rd Edition <https://learning.oreilly.com/library/view/hands-on-machine-learning/9781098125967/>`_ . Available online via `Duke Library for Duke students here <https://find.library.duke.edu/catalog/DUKE99119285416808501>`_.
 
 Class Schedule (Preliminary)
 ----------------------------
