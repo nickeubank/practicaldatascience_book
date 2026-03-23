@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PDS II (IDS 541) &#8212; Practical Data Science with Python</title>
+    <title>Predicting Mortgage Delinquency Risk &#8212; Practical Data Science with Python</title>
   
   
   
@@ -70,12 +70,12 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ids541_specific/class_schedule_541';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'exercises/exercise_passiveprediction_workflow';</script>
     <link rel="icon" href="../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="PDS (MIDS) (IDS 720)" href="../ids720_specific/class_schedule_720.html" />
-    <link rel="prev" title="PDS I (IDS 540)" href="../ids540_specific/class_schedule_540.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -138,6 +138,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -194,9 +196,9 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Duke IDS Classes</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../ids540_specific/class_schedule_540.html">PDS I (IDS 540)</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">PDS II (IDS 541)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ids541_specific/class_schedule_541.html">PDS II (IDS 541)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ids720_specific/class_schedule_720.html">PDS (MIDS) (IDS 720)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
@@ -491,7 +493,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids541_specific/class_schedule_541.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fexercises/exercise_passiveprediction_workflow.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -521,7 +523,7 @@
       
       
       
-      <li><a href="../_sources/ids541_specific/class_schedule_541.rst" target="_blank"
+      <li><a href="../_sources/exercises/exercise_passiveprediction_workflow.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -531,7 +533,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.rst</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -605,7 +607,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>PDS II (IDS 541)</h1>
+    <h1>Predicting Mortgage Delinquency Risk</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -615,10 +617,25 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syllabus">Syllabus</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#office-hours">Office Hours</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#books">Books</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-schedule-preliminary">Class Schedule (Preliminary)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-supervised-machine-learning-workflow">The Supervised Machine Learning Workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradescope-autograding">Gradescope Autograding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-limits">Submission Limits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-load-and-explore-the-data">Exercise 1: Load and Explore the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-check-class-balance">Exercise 2: Check Class Balance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-define-x-and-y">Exercise 3: Define X and y</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-train-test-split">Exercise 4: Train/Test Split</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-fit-baseline-model-logistic-regression">Exercise 5: Fit Baseline Model (Logistic Regression)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-evaluate-model">Exercise 6: Evaluate Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-scores">Exercise 7: Scores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-workflow-summary">Machine Learning Workflow Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-second-model-random-forest-classifier">Exercise 8: Second Model (Random Forest Classifier)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9-plot-the-random-forest-confusion-matrix">Exercise 9: Plot the Random Forest Confusion Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10-compare-models-and-conclude">Exercise 10: Compare Models and Conclude</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#is-that-it">Is That It?</a></li>
 </ul>
             </nav>
         </div>
@@ -630,369 +647,205 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="pds-ii-ids-541">
-<h1>PDS II (IDS 541)<a class="headerlink" href="#pds-ii-ids-541" title="Link to this heading">#</a></h1>
-<p>Practical Data Science II is a flipped-classroom, exercise and project-focused course. Building on the computational thinking skills developed in Practical Data Science I, this course introduces students to a range of computational inquiry methods, including network analysis, geospatial analysis, advanced plotting, and natural language processing (NLP). Throughout, the focus will be on developing hands-on experience implementing these methods with messy real-world data to ensure students are prepared to deploy these tools to answer the questions they care about. Requirements: Practical Data Science I.</p>
-<section id="syllabus">
-<h2>Syllabus<a class="headerlink" href="#syllabus" title="Link to this heading">#</a></h2>
-<p>A preliminary syllabus can be found <a class="reference external" href="https://github.com/nickeubank/practicaldatascience_book/blob/main/ids541_specific/syllabus/Syllabus_IDS541.pdf">here</a>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="predicting-mortgage-delinquency-risk">
+<h1>Predicting Mortgage Delinquency Risk<a class="headerlink" href="#predicting-mortgage-delinquency-risk" title="Link to this heading">#</a></h1>
+<p>You have been hired by a mortgage servicing firm (a company that buys mortgages and then collects mortgage payments from homeowners) to build a model to answer the question:</p>
+<p>Given all available information about a newly issued mortgage, what is the likelihood that the mortgage will enter delinquency (the homeowner will be at least 30 days late on a mortgage payment) during the first two years of the mortgage?</p>
+<p>The servicer’s hope, obviously, is to differentiate between good mortgages they may wish to purchase (those that will be consistently paid) and mortgages they wish to avoid.</p>
+<p>For this task, you have been given <a class="reference external" href="https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset">REAL data on a sample of all US Standard single family home mortgages purchased or insured by Freddie Mac</a> in a single calendar year along with payment data from that and two subsequent years.</p>
+<section id="the-supervised-machine-learning-workflow">
+<h2>The Supervised Machine Learning Workflow<a class="headerlink" href="#the-supervised-machine-learning-workflow" title="Link to this heading">#</a></h2>
+<p>To answer this passive prediction question, we will use the most used machine learning package in Python: <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>. In particular, we will use this library to try to predict which mortgages will enter delinquency using both logistic regression and a random forest model.</p>
+<p>The goal of this exercise is not to understand the nuances of these specific models, but instead to get a feel for the standard workflow used in Supervised Machine Learning (the approach we generally use to answer Passive Prediction questions). As you will see, the workflow for this kind of analysis is basically the same no matter what model you choose to use.</p>
 </section>
-<section id="office-hours">
-<h2>Office Hours<a class="headerlink" href="#office-hours" title="Link to this heading">#</a></h2>
-<p>Adriane: <a class="reference external" href="https://calendly.com/adriane-adrianefresh/20min">Signup with this link</a></p>
-<p><a class="reference external" href="https://duke.zoom.us/my/nickeubank">Nick</a> (Zoom or in Gross 231): Thursday 9 am - 10:00 am. <em>Please email me in advance if you plan to attend.</em> I’ll <em>usually</em> be there regardless, but knowing people are coming is useful if conflicts arise.</p>
-<p><a class="reference external" href="https://duke.zoom.us/j/93574019912">Diego</a> (Zoom or Gross Hall 2nd Floor, 230K): Monday 12:00 - 1:00 pm</p>
-<p><a class="reference external" href="https://duke.zoom.us/j/7699232186">Meron</a> (Zoom or Gross Hall 2nd Floor, 230N): Wednesday 12:00 - 1:00 pm.</p>
-</section>
-<section id="books">
-<h2>Books<a class="headerlink" href="#books" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://pythongis.org/index.html">Python for Geographic Data Analysis (PGDA)</a></p></li>
-<li><p><a class="reference external" href="https://learning.oreilly.com/library/view/hands-on-machine-learning/9781098125967/">Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 3rd Edition</a> . Available online via <a class="reference external" href="https://find.library.duke.edu/catalog/DUKE99119285416808501">Duke Library for Duke students here</a>.</p></li>
-</ul>
-</section>
-<section id="class-schedule-preliminary">
-<h2>Class Schedule (Preliminary)<a class="headerlink" href="#class-schedule-preliminary" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 17.7%" />
-<col style="width: 35.4%" />
-<col style="width: 40.5%" />
-<col style="width: 6.3%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Date</p></th>
-<th class="head"><p>Topic</p></th>
-<th class="head"><p>Do Before Class</p></th>
-<th class="head"><p>In-Class Exercise</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Mon Jan 12</p></td>
-<td><ul class="simple">
-<li><p>Pandas: Reshaping</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="http://vita.had.co.nz/papers/tidy-data.html">Tidy Data Format: the goal of reshaping</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_3/week_4/20.2_reshaping_data.html">Reshaping</a></p></li>
-<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/reshaping.html">Pandas reshaping (with pics!)</a></p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../exercises/exercise_reshaping.html">Link</a></p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-odd"><td><p>Wed Jan 14</p></td>
-<td><ul class="simple">
-<li><p>Speed and Performance in Python</p></li>
-<li><p>Pandas: Categoricals</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/40_performance_understanding.html">Understanding Performance</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Problems</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon Jan 19</p></td>
-<td><ul class="simple">
-<li><p>MLK DAY NO CLASS</p></li>
-</ul>
-</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed Jan 21</p></td>
-<td><ul class="simple">
-<li><p>Big Data: What is it, how do I work with it?</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Strategies for Big Data</a></p></li>
-<li><p>Download the dataset linked at the top of the linked exercise before class.</p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet Format</a></p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../exercises/exercise_bigdata.html">Link</a></p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><p>Mon Jan 26</p></td>
-<td><p><strong>SNOW</strong></p></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed Jan 28</p></td>
-<td><ul class="simple">
-<li><p>Parallelism</p></li>
-<li><p>Distributed Computing</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></p></li>
-</ul>
-<p>(Note reading includes a 45 minute video to watch)</p>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../exercises/exercise_dask.html">Dask</a></p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><p>Mon Feb 2</p></td>
-<td><p><strong>SNOW AGAIN</strong></p></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed Feb 4</p></td>
-<td></td>
-<td><ul class="simple">
-<li><p>More Dask</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../exercises/exercise_dask_arcos.html">Dask ARCOS</a></p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><p>Mon Feb 9</p></td>
-<td><p>-GIS: Vector Data</p></td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/gis/10_gis_what_is_gis.html">What is GIS?</a></p></li>
-<li><p><a class="reference external" href="../notebooks/gis/15_gis_setup_geopandas.html">Installing Geopandas</a></p></li>
-<li><p><a class="reference external" href="../notebooks/gis/20_gis_geopandas.html">Intro to Geopandas</a></p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../exercises/exercise_census.html">Census</a></p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-odd"><td><p>Wed Feb 11</p></td>
-<td><p>-GIS: Vector Data</p></td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/gis/25_gis_mapping.html">Mapping</a></p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../exercises/exercise_mapping.html">Mapping</a></p></li>
-<li><p>Colormaps</p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><p>Mon Feb 16</p></td>
-<td><p>-GIS: Vector Data</p></td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/gis/40_gis_projections.html">Projections</a></p></li>
-<li><p><a class="reference external" href="../notebooks/gis/50_gis_crs_geopandas.html">Projections and Geopandas</a></p></li>
-<li><p><a class="reference external" href="../notebooks/gis/60_gis_data.html">GIS Data Formats</a></p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../exercises/exercise_projections.html">Projections</a></p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-odd"><td><p>Wed Feb 18</p></td>
-<td><p>-GIS: Vector Data</p></td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/gis/30_gis_spatial_joins.html">Spatial Joins</a></p></li>
-<li><p><a class="reference external" href="https://geopandas.org/en/stable/docs/user_guide/set_operations.html">Set Operations</a></p></li>
-</ul>
-<p>(Yes, this is just the docs. But I wrote a lot of them so it’s not cheating!)</p>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../exercises/exercise_spatialjoins.html">Joins</a></p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><p>Mon Feb 23</p></td>
-<td><ul class="simple">
-<li><p>WORK DAY</p></li>
-</ul>
-</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed Feb 25</p></td>
-<td><ul class="simple">
-<li><p>GIS: Rasters</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="https://pythongis.org/part2/chapter-07/nb/0-learning-objectives.html">PGDA Chpt 7 through 7.2 (x-array)</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon Mar 2</p></td>
-<td><ul class="simple">
-<li><p>GIS: Rasters</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="https://pythongis.org/part2/chapter-07/nb/02-common-raster-operations.html">PGDA 7.3 through “Creating a raster mosaic by merging datasets”</a> (stop before Raster to vector conversion)</p></li>
-<li><p><a class="reference external" href="https://pythongis.org/part2/chapter-07/nb/04-map-algebra.html">PGDA 7.5</a></p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../exercises/exercise_rasters.html">Rasters</a></p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-odd"><td><p>Wed Mar 4</p></td>
-<td><ul class="simple">
-<li><p>GIS: Rasters</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="https://pythongis.org/part2/chapter-07/nb/02-common-raster-operations.html#creating-a-raster-mosaic-by-merging-datasets">Finish PGDA 7.3 (Creating a raster mosaic sub section to the end)</a></p></li>
-<li><p><a class="reference external" href="https://pythongis.org/part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">PGDA 7.4</a></p></li>
-<li><p><a class="reference external" href="https://corteva.github.io/rioxarray/stable/examples/reproject_match.html">Reproject Match</a></p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../exercises/exercise_choose_your_own_adventure.html">Choose your own</a></p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><p>Mon Mar 9</p></td>
-<td><p><strong>NO CLASS</strong></p></td>
-<td><p><strong>SPRING BREAK</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed Mar 11</p></td>
-<td><p><strong>NO CLASS</strong></p></td>
-<td><p><strong>SPRING BREAK</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon Mar 16</p></td>
-<td><ul class="simple">
-<li><p>Data Science Questions</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="https://ds4humans.com/10_introduction/10_solving_problems_with_data.html">Solving Probs with Data</a></p></li>
-<li><p><a class="reference external" href="https://ds4humans.com/20_problems_to_questions/10_solving_the_right_problem.html">Solving Right Problem (include second page with  solving wrong problem example)</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed Mar 18</p></td>
-<td><ul class="simple">
-<li><p>Data Science Questions</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="https://ds4humans.com/30_questions/00_solving_problems_by_answering_questions.html">Answering Questions (include inference/prediction comparison)</a></p></li>
-</ul>
-</td>
-<td><p><a class="reference external" href="https://ds4humans.com/99_exercises/exercise_probs_and_questions.html">Questions Ex</a></p></td>
-</tr>
-<tr class="row-even"><td><p>Mon Mar 23</p></td>
-<td><ul class="simple">
-<li><p>Machine Learning</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>Géron, Chpt 1: The Machine Learning Landscape (stop before “Batch and Online Learning,” then read the “Testing and Validating” section)</p></li>
-<li><p>Géron, Chpt 2: End-to-End Machine Learning Project</p></li>
-</ul>
-</td>
-<td><p><a class="reference external" href="https://ds4humans.com/99_exercises/exercise_passiveprediction_workflow.html">Supervised ML</a></p></td>
-</tr>
-<tr class="row-odd"><td><p>Wed Mar 25</p></td>
-<td><ul class="simple">
-<li><p>Machine Learning</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="https://www.practicaldatascience.org/notebooks/class_5/week_3/35_pandas_to_numpy_with_patsy.html">Pandas, Numpy, and Patsy</a></p></li>
-<li><p>Spend more time with Géron 1 and 2</p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon Mar 30</p></td>
-<td><ul class="simple">
-<li><p>Machine Learning</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>SciKit-Learn</p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed Apr 1</p></td>
-<td><ul class="simple">
-<li><p>Git and github</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/10_commandline/git_and_github.html">Git and Github</a></p></li>
-<li><p><a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Create an ssh key and register with ssh-agent (you don’t need to create a passphrase)</a></p></li>
-<li><p>If you don’t have a github account, make one. Register a passkey or at least two factor authentication.</p></li>
-<li><p><a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">Add your ssh key to your github account</a></p></li>
-<li><p><a class="reference external" href="https://learngitbranching.js.org/">Visualize Git Branches</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon Apr 6</p></td>
-<td><ul class="simple">
-<li><p>Git and github</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>Defensive Programming: from <a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">first reading</a> through <a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">Iceberg Principle</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Code Reviews</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed Apr 8</p></td>
-<td><ul class="simple">
-<li><p>Network Data</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>Intro to graph-tool</p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon Apr 13</p></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed Apr 15</p></td>
-<td><p>LAST CLASS</p></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<section id="gradescope-autograding">
+<h2>Gradescope Autograding<a class="headerlink" href="#gradescope-autograding" title="Link to this heading">#</a></h2>
+<p>Please follow <a class="reference external" href="https://www.practicaldatascience.org/ids720_specific/autograder_guidelines.html">all standard guidance</a> for submitting this assignment to the Gradescope autograder, including storing your solutions in a dictionary called <code class="docutils literal notranslate"><span class="pre">results</span></code> and ensuring your notebook runs from the start to completion without any errors.</p>
+<p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_passiveprediction_workflow.ipynb</span></code> before uploading.</p>
+<p>You can check that you have answers for all questions in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary with this code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">{</span>
+    <span class="s2">&quot;ex1_target_var&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex2_delinquency_rate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex3_num_features&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex4_train_rows&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex4_test_rows&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex6_true_negatives&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex5_baseline_accuracy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex5_baseline_f1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex8_rf_accuracy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex8_rf_f1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex9_better_model&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
 </div>
+<section id="submission-limits">
+<h3>Submission Limits<a class="headerlink" href="#submission-limits" title="Link to this heading">#</a></h3>
+<p>Please remember that you are <strong>only allowed THREE submissions to the autograder.</strong> Your last submission (if you submit 3 or fewer times), or your third submission (if you submit more than 3 times) will determine your grade. Submissions that error out will <strong>not</strong> count against this total.</p>
+</section>
+<section id="exercise-1-load-and-explore-the-data">
+<h3>Exercise 1: Load and Explore the Data<a class="headerlink" href="#exercise-1-load-and-explore-the-data" title="Link to this heading">#</a></h3>
+<p>Load the dataset from <code class="docutils literal notranslate"><span class="pre">balanced_cleaned_encoded.csv</span></code> which you can find <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/mortgages/exercise_passiveprediction_workflow/balanced_cleaned_encoded.csv">here</a> and look at it.</p>
+<p>Given the goal of the assignment and the columns you find, store the name of the “target variable” that the mortgage servicing firm would want you to predict, and save it to <code class="docutils literal notranslate"><span class="pre">results[&quot;ex1_target_var&quot;]</span></code>.</p>
+<p>Some cleaning has been done to the dataset, but this is <em>real</em> mortgage data. You can also find the <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/tree/master/mortgages/2004">original dataset here</a>. There is <a class="reference external" href="https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset">supplemental documentation here</a> on the dataset.</p>
+</section>
+<section id="exercise-2-check-class-balance">
+<h3>Exercise 2: Check Class Balance<a class="headerlink" href="#exercise-2-check-class-balance" title="Link to this heading">#</a></h3>
+<p>Inspect the distribution of <code class="docutils literal notranslate"><span class="pre">ever_delinquent</span></code> to understand how balanced the dataset is. A balanced dataset has roughly equal representation of each class (~50%) of the variable you are trying to predict.</p>
+<p>Balance is an important attribute of data when doing supervised machine learning. When data is really imbalanced, models have a tendency to just predict that all observations have the value that appears most frequently in the data.</p>
+<p>To illustrate how this might work, suppose you had data on routine mammograms. Because routine mammograms are given to all women above a certain age as a precaution, the <em>vast</em> majority of routine mammograms are benign. Suppose you took mammogram data in which 99% of cases were benign and 1% were potentially malignant (might indicate breast cancer), and asked a model to predict whether a given mammogram was benign or malignant. If the model just said “this is benign” for <strong>all</strong> mammograms, it would be correct 99% of the time, and thus have a 99% accuracy rate.</p>
+<p>In real-world mortgage data, delinquencies are rare, as most loans are repaid on time, so the raw data is destined to be imbalanced. To help prevent the imbalance problem describe above, we’ve sampled the data to improve the balance — one of several strategies to address imbalanced data.</p>
+<p>Store the overall delinquency rate (share of rows where <code class="docutils literal notranslate"><span class="pre">ever_delinquent</span> <span class="pre">==</span> <span class="pre">1</span></code>) <strong>rounded to 4 decimal places</strong> in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex2_delinquency_rate&quot;]</span></code>.</p>
+</section>
+<section id="exercise-3-define-x-and-y">
+<h3>Exercise 3: Define X and y<a class="headerlink" href="#exercise-3-define-x-and-y" title="Link to this heading">#</a></h3>
+<p>When working with <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>, we were able to fit our regressions by passing a DataFrame and a formula string:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit model</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
+
+<span class="n">my_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span>
+    <span class="s2">&quot;income ~ age + C(education) + female&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">salaries</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In genera, however, most machine learning algorithms (like those in scikit-learn) don’t directly support formulas. Instead, for a dataset with <code class="docutils literal notranslate"><span class="pre">N</span></code> observations and <code class="docutils literal notranslate"><span class="pre">M</span></code> explanatory variables, they expect to be given to two arrays: a one-dimensional vector of length <code class="docutils literal notranslate"><span class="pre">N</span></code> containing the values of the variable you want to learn to predict, and an <code class="docutils literal notranslate"><span class="pre">NxM</span></code> “feature matrix” with the explanatory variables.</p>
+<p>Separate the feature matrix <code class="docutils literal notranslate"><span class="pre">X</span></code> from the target vector <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<p>Store the number of feature columns (<code class="docutils literal notranslate"><span class="pre">M</span></code>) in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex3_num_features&quot;]</span></code>.</p>
+</section>
+<section id="exercise-4-train-test-split">
+<h3>Exercise 4: Train/Test Split<a class="headerlink" href="#exercise-4-train-test-split" title="Link to this heading">#</a></h3>
+<p>If you were trained in statistical inference by economists or social scientists, you were likely taught that you should use theory and domain expertise to decide on what variables go into your model, and whether to use interaction terms, log the variables, etc. Theory, I know I was taught as a graduate student, is <em>the</em> thing that determines whether our model is correctly specified.</p>
+<p>Supervised Machine Learning takes a different approach to modelling. Because Supervised Machine Learning often uses <em>extremely</em> flexible models, it will often be the case that the model will <em>overfit</em> the data. <em>Overfitting</em> is when a model tries to accommodate all of the individual observations in the dataset being used for training in a way that causes it to not be very good when it sees new data.</p>
+<p>Consider the following illustration. The plot shows a set of points (blue) generated with the model <span class="math notranslate nohighlight">\(y =  18x + \epsilon\)</span> where <span class="math notranslate nohighlight">\(\epsilon \sim Normal(0, 5)\)</span>. The true relationship between X and Y is given by the green line. The red line is an example of a model that is massively <em>overfit</em> — it has bent itself every which way in order to perfectly fit the specific observations in the data rather than try to model the underlying distribution. As a result, the model has zero errors <em>for these specific observation data</em>. But if we asked this model about values for observations that weren’t in the training data — like <span class="math notranslate nohighlight">\(x=0.5\)</span>, the answer it gives us would be pretty useless.</p>
+<p><img alt="overfitting" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Pyplot_overfitting.png" /></p>
+<p>To help address this problem, in Supervised Machine Learning we usually start by splitting our data into a test dataset (often about 20% of the data) and a training dataset (80%). We then fit our data on the training dataset, then evaluate it by seeing how it performs at predicting values in the test dataset (which it didn’t see during training).</p>
+<p>You <em>can</em> do this just by sampling the data, but <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> offers a nice convenience function that is commonly used.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> from <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection</span></code> to split the data into a training set and a test set. Note that <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> will give you back four objects: <code class="docutils literal notranslate"><span class="pre">X_train,</span> <span class="pre">X_test,</span> <span class="pre">y_train,</span> <span class="pre">y_test</span></code>. Thus a common syntax for using it is something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Use 80% for training and the rest for testing (<code class="docutils literal notranslate"><span class="pre">test_size=0.2</span></code>).</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">random_state=42</span></code> argument so results are reproducible.</p></li>
+</ul>
+<p>Store the number of rows in the training set in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex4_train_rows&quot;]</span></code> and the number of rows in the testing set in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex4_test_rows&quot;]</span></code>.</p>
+</section>
+<section id="exercise-5-fit-baseline-model-logistic-regression">
+<h3>Exercise 5: Fit Baseline Model (Logistic Regression)<a class="headerlink" href="#exercise-5-fit-baseline-model-logistic-regression" title="Link to this heading">#</a></h3>
+<p>Now that we’ve set aside a <code class="docutils literal notranslate"><span class="pre">test</span></code> dataset we can use later to evaluate our model, let’s use a logistic regression to predict our target variable (delinquency) using our features!</p>
+<p>Fit a <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code> model as the baseline classifier. You can read more about logistic regression and how to import it on the Scikit-learn <a class="reference external" href="https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression">documentation</a>.</p>
+<p>Set the solver to <code class="docutils literal notranslate"><span class="pre">liblinear</span></code> and the max iterations to <code class="docutils literal notranslate"><span class="pre">1000</span></code>. Specify the <code class="docutils literal notranslate"><span class="pre">random_state=42</span></code> for reproducibility.</p>
+<p>Basically, you will first create a model object with <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, then fit it to your data using the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method and your training data.</p>
+<p><strong>Note:</strong> with <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>, when you use <code class="docutils literal notranslate"><span class="pre">.fit</span></code> you get back a new object. In scikit-learn, <code class="docutils literal notranslate"><span class="pre">.fit</span></code> modifies the model object in place. So don’t do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_model</span> <span class="o">=</span> <span class="n">my_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="exercise-6-evaluate-model">
+<h3>Exercise 6: Evaluate Model<a class="headerlink" href="#exercise-6-evaluate-model" title="Link to this heading">#</a></h3>
+<p>To see how our model has performed, let’s let it predict the target variable on our test data. We do this by passing our <code class="docutils literal notranslate"><span class="pre">X_test</span></code> data to the <code class="docutils literal notranslate"><span class="pre">.predict()</span></code> method of our fit model. Then we can compare the predicted values of the target variable to the true values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_lr</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The most intuitive way to compare predictions to true values when dealing with discrete target variables (like <code class="docutils literal notranslate"><span class="pre">ever_delinquent</span></code>, which is only ever 0 or 1) is with a “confusion matrix”, which you can easily do with the <code class="docutils literal notranslate"><span class="pre">confusion_matrix</span></code> and <code class="docutils literal notranslate"><span class="pre">ConfusionMatrixDisplay</span></code> functions in scikit-learn. In the case, a confusion matrix is a 2x2 matrix with the true value of our target variable on one side and the values predicted by the model on the other. Each cell then has the number of observations in each category. The goal, obviously, is to have as many observations as possible along the diagonal where the predicted value is equal to the true value.</p>
+<p>Use code along these lines to make a confusion matrix:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span>
+
+<span class="n">cm_lr</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+<span class="n">disp</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span>
+    <span class="n">confusion_matrix</span><span class="o">=</span><span class="n">cm_lr</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Not Delinquent&quot;</span><span class="p">,</span> <span class="s2">&quot;Delinquent&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">disp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using the confusion_matrix object, get the number of observations in your data that were actually Not Delinquent that were also predicted to be Not Delinquent (i.e., the number of True Negatives) and store it in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex6_true_negatives&quot;]</span></code>.</p>
+<p><strong>Note</strong> The terms “positive” and “negative” are arbitrary — since <code class="docutils literal notranslate"><span class="pre">ever_delinquent</span></code> is 1 for a delinquent mortgage and 0 for a non-delinquent mortgage, Python will think about a delinquent mortgage as a “positive” observation and a non-delinquent as a “negative” observation. But we could have flipped them if we’d wanted to.</p>
+</section>
+<section id="exercise-7-scores">
+<h3>Exercise 7: Scores<a class="headerlink" href="#exercise-7-scores" title="Link to this heading">#</a></h3>
+<p>There are a near infinite number of ways to evaluate a model like this. Indeed, <a class="reference external" href="https://en.wikipedia.org/wiki/Confusion_matrix#Table_of_confusion">if you hop over to wikipedia</a>, you can see the <em>many</em> ways that you can measure performance just by adding up different elements of the confusion matrix and dividing by different elements. For example, accuracy is the sum of true positives and true negatives divided by total number of observations; sensitivity is the number of True Positives (delinquent mortgages predicted as delinquent) divided by the total number of positive observations), etc.</p>
+<p>While you <em>can</em> calculate all these by hand, scikit-learn also provides some convenience functions in the <a class="reference external" href="https://scikit-learn.org/stable/api/sklearn.metrics.html">sklearn.metrics module</a>.</p>
+<p>To illustrate, import and estimate both the model’s <code class="docutils literal notranslate"><span class="pre">accuracy_score</span></code> and <code class="docutils literal notranslate"><span class="pre">f1_score</span></code> (you can lookup F1 in that wikipedia page). Store the test accuracy in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex5_baseline_accuracy&quot;]</span></code> and the F1 score in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex5_baseline_f1&quot;]</span></code>. <strong>Round both to 4 decimal places.</strong></p>
+<p>After fitting, generate predictions using the <code class="docutils literal notranslate"><span class="pre">predict</span></code> method and your test data. Generate:</p>
+<ul class="simple">
+<li><p>Accuracy, Precision, Recall, and F1 Score</p></li>
+</ul>
+<p>Store the test accuracy in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex5_baseline_accuracy&quot;]</span></code> and the F1 score in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex5_baseline_f1&quot;]</span></code>. <strong>Round both to 4 decimal places.</strong></p>
+</section>
+</section>
+<section id="machine-learning-workflow-summary">
+<h2>Machine Learning Workflow Summary<a class="headerlink" href="#machine-learning-workflow-summary" title="Link to this heading">#</a></h2>
+<p>Congratulations! You just did fit your first machine learning algorithm! And you also learned that sometimes what constitutes “supervised machine learning” is more about your objectives and how you evaluate your model given that fitting a logistic regression is the same thing you’ve likely done in a standard statistics class.</p>
+<p>But hopefully that’s given you a general sense for the work-flow of scikit-learn:</p>
+<ol class="arabic simple">
+<li><p><strong>Split</strong> your data:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Fit</strong> a model:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="n">my_model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">my_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Predict</strong> target variable values for the test data.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_predictions</span> <span class="o">=</span> <span class="n">my_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Evaluate</strong> your predictions:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Yup, <strong>split, fit, predict</strong>: if you understand that work flow, you’re well on your way to understanding Supervised Machine Learning.</p>
+<section id="exercise-8-second-model-random-forest-classifier">
+<h3>Exercise 8: Second Model (Random Forest Classifier)<a class="headerlink" href="#exercise-8-second-model-random-forest-classifier" title="Link to this heading">#</a></h3>
+<p>One of the great advantages of the <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> API is that models are interchangeable. You can swap in a completely different algorithm with minimal code changes.</p>
+<p>To illustrate, let’s fit a <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> using the exact same train/test split from previous exercise. Random Forests are an ensemble of decision trees that tend to capture non-linear relationships and interaction effects that Logistic Regression cannot. You can find it in <code class="docutils literal notranslate"><span class="pre">sklearn.ensemble</span></code>. Use <code class="docutils literal notranslate"><span class="pre">n_estimators=80</span></code>, <code class="docutils literal notranslate"><span class="pre">max_depth=2</span></code> and <code class="docutils literal notranslate"><span class="pre">random_state=42</span></code> when initializing the model.</p>
+<p>Just trade <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> in for <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code> and use the same <code class="docutils literal notranslate"><span class="pre">.fit()</span></code>, <code class="docutils literal notranslate"><span class="pre">.predict()</span></code>, <code class="docutils literal notranslate"><span class="pre">accuracy_score</span></code>, <code class="docutils literal notranslate"><span class="pre">f1_score</span></code>, and <code class="docutils literal notranslate"><span class="pre">confusion_matrx</span></code> code you already have. scikit-learn is plug-and-play.</p>
+<p>Evaluate this model with the same metrics as the baseline model. Store test accuracy in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex8_rf_accuracy&quot;]</span></code> and F1 score in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex8_rf_f1&quot;]</span></code>. <strong>Round both to 4 decimal places.</strong></p>
+</section>
+<section id="exercise-9-plot-the-random-forest-confusion-matrix">
+<h3>Exercise 9: Plot the Random Forest Confusion Matrix<a class="headerlink" href="#exercise-9-plot-the-random-forest-confusion-matrix" title="Link to this heading">#</a></h3>
+<p>Plot the confusion matrix for your Random Forest predictions against the true labels.</p>
+</section>
+<section id="exercise-10-compare-models-and-conclude">
+<h3>Exercise 10: Compare Models and Conclude<a class="headerlink" href="#exercise-10-compare-models-and-conclude" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Which model performed better overall?</p></li>
+<li><p>Given the business context (avoiding costly delinquent loans), which metric do you think matters most here? Why?</p></li>
+</ul>
+<p>Store the name of the better model (by F1 score) as a string in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex9_better_model&quot;]</span></code>. Use either <code class="docutils literal notranslate"><span class="pre">&quot;logistic_regression&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;random_forest&quot;</span></code>.</p>
+</section>
+</section>
+<section id="is-that-it">
+<h2>Is That It?<a class="headerlink" href="#is-that-it" title="Link to this heading">#</a></h2>
+<p>So is that all there is to this magical machine learning?</p>
+<p>No, not exactly. Understanding the split-fit-predict workflow, and how easy it is to swap out models once it’s setup, is a <em>big</em> part of supervised machine learning. But we’ve glossed over a couple things:</p>
+<ul class="simple">
+<li><p><strong>How do you decide what “score” you want to maximize?</strong> This, in my view, is the least appreciated but most important part of machine learning, because it’s not a <em>technical</em> question, it’s a <em>substantive</em> question. What errors do you care about most? How do you want to balance different goals for the model? Answering those questions means talking to stakeholders and thinking about how the model will be used.</p></li>
+<li><p><strong>Hyper-parameter tuning</strong>: You know those values we told you to give to the models (<code class="docutils literal notranslate"><span class="pre">n_estimators=80</span></code>, <code class="docutils literal notranslate"><span class="pre">max_depth=2</span></code>)? Those are called “hyper-parameters,” parameters that the model won’t just pick on its own when you call <code class="docutils literal notranslate"><span class="pre">.fit()</span></code>. Picking those correctly is also important, though it isn’t as hard as deciding on the right score to maximize. Often, you just loop over a lot of values, fit the model, and see how it does.</p></li>
+<li><p><strong>Feature engineering</strong>: we didn’t think a lot about what variables we gave to the model. Feature engineering is what machine learning people call “picking your explanatory variables”, and it is a bit of an art.</p></li>
+</ul>
+<p>Some of this we’ll get into shortly, some is beyond the scope of this course, but none of it should feel out of reach — most machine learning is about experimenting and seeing what happens, and now that you know how to implement models, you’re ready to do just that!</p>
 </section>
 </section>
 
@@ -1009,7 +862,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./ids541_specific"
+            path: "./exercises"
         },
         predefinedOutput: true
     }
@@ -1026,24 +879,6 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../ids540_specific/class_schedule_540.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">PDS I (IDS 540)</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="../ids720_specific/class_schedule_720.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">PDS (MIDS) (IDS 720)</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -1060,10 +895,25 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syllabus">Syllabus</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#office-hours">Office Hours</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#books">Books</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-schedule-preliminary">Class Schedule (Preliminary)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-supervised-machine-learning-workflow">The Supervised Machine Learning Workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradescope-autograding">Gradescope Autograding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-limits">Submission Limits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-load-and-explore-the-data">Exercise 1: Load and Explore the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-check-class-balance">Exercise 2: Check Class Balance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-define-x-and-y">Exercise 3: Define X and y</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-train-test-split">Exercise 4: Train/Test Split</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-fit-baseline-model-logistic-regression">Exercise 5: Fit Baseline Model (Logistic Regression)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-evaluate-model">Exercise 6: Evaluate Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-scores">Exercise 7: Scores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-workflow-summary">Machine Learning Workflow Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-second-model-random-forest-classifier">Exercise 8: Second Model (Random Forest Classifier)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9-plot-the-random-forest-confusion-matrix">Exercise 9: Plot the Random Forest Confusion Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10-compare-models-and-conclude">Exercise 10: Compare Models and Conclude</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#is-that-it">Is That It?</a></li>
 </ul>
   </nav></div>
 
