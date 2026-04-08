@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Evaluating KNN regression results &#8212; Practical Data Science with Python</title>
   
@@ -413,6 +413,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/getting_involved_in_research.html">Getting Involved in Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/public_oriented_data_science.html">Public-Good Oriented DS Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
@@ -658,7 +659,8 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x13906f650&gt;
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/5a643bb551c9885e1c6b6a24a38ffda89682e4e7b9adc4a0b2d322b121c9d6a2.png"><img alt="../../../_images/5a643bb551c9885e1c6b6a24a38ffda89682e4e7b9adc4a0b2d322b121c9d6a2.png" src="../../../_images/5a643bb551c9885e1c6b6a24a38ffda89682e4e7b9adc4a0b2d322b121c9d6a2.png" style="width: 569px; height: 452px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/5a643bb551c9885e1c6b6a24a38ffda89682e4e7b9adc4a0b2d322b121c9d6a2.png"><img alt="../../../_images/5a643bb551c9885e1c6b6a24a38ffda89682e4e7b9adc4a0b2d322b121c9d6a2.png" height="452" src="../../../_images/5a643bb551c9885e1c6b6a24a38ffda89682e4e7b9adc4a0b2d322b121c9d6a2.png" width="569" />
+</a>
 </div>
 </div>
 <p>The majority of the data are bunched in the lower left corner, unfortunately. To get a better sense of this, let’s adjust the scale of x and y axes to be logarithmic, meaning that the major ticks will be factors of 10 (e.g. 10, 100, 1000) rather than equally spaced intervals as would be the case for a linear plot (e.g. 1, 2, 3, 4, …). In this plot while there is some nuance in interpreting the data in logarithmic space, the base idea that perfect predictions should be along a diagonal line remains true.</p>
@@ -680,7 +682,8 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x1391ae2a0&gt;
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/fcaae85dac31078aafe66422ae3b27afe8ee30b3047d670581221ad36b9c3fbf.png"><img alt="../../../_images/fcaae85dac31078aafe66422ae3b27afe8ee30b3047d670581221ad36b9c3fbf.png" src="../../../_images/fcaae85dac31078aafe66422ae3b27afe8ee30b3047d670581221ad36b9c3fbf.png" style="width: 571px; height: 438px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/fcaae85dac31078aafe66422ae3b27afe8ee30b3047d670581221ad36b9c3fbf.png"><img alt="../../../_images/fcaae85dac31078aafe66422ae3b27afe8ee30b3047d670581221ad36b9c3fbf.png" height="438" src="../../../_images/fcaae85dac31078aafe66422ae3b27afe8ee30b3047d670581221ad36b9c3fbf.png" width="571" />
+</a>
 </div>
 </div>
 <p>What’s clear is that the predictions do trend together, which is encouraging, but they do not trend together perfectly. We need other ways of evaluating the quality of our predictions. Let’s take a look at the distribution of prediction errors by creating a histogram of the prediction errors from our data.</p>
@@ -699,7 +702,8 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Count&#39;)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/32724ac1ad49806818db0bf45afb79f2b0aa319269c36ad685b943905104c461.png"><img alt="../../../_images/32724ac1ad49806818db0bf45afb79f2b0aa319269c36ad685b943905104c461.png" src="../../../_images/32724ac1ad49806818db0bf45afb79f2b0aa319269c36ad685b943905104c461.png" style="width: 575px; height: 432px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/32724ac1ad49806818db0bf45afb79f2b0aa319269c36ad685b943905104c461.png"><img alt="../../../_images/32724ac1ad49806818db0bf45afb79f2b0aa319269c36ad685b943905104c461.png" height="432" src="../../../_images/32724ac1ad49806818db0bf45afb79f2b0aa319269c36ad685b943905104c461.png" width="575" />
+</a>
 </div>
 </div>
 <p>You’ll notice that the extent of x is REALLY wide since we must have a few extreme errors. We can fix this by using the <code class="docutils literal notranslate"><span class="pre">np.clip()</span></code> function to set any values higher than a specified value to that value. That’s will give us the spikes at either end of the histogram because the data actually extend well-beyond that boundary. However, it’s important to view the data closely enough to get a sense for its distribution. If we perform this clip, the results look like this, which is easier to read and interpret:</p>
@@ -724,7 +728,8 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Count&#39;)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/b6e8fe89b8b43ca79cd32527a6bcf5711c2e3a562f54f55f4139c70ce87fe2ce.png"><img alt="../../../_images/b6e8fe89b8b43ca79cd32527a6bcf5711c2e3a562f54f55f4139c70ce87fe2ce.png" src="../../../_images/b6e8fe89b8b43ca79cd32527a6bcf5711c2e3a562f54f55f4139c70ce87fe2ce.png" style="width: 571px; height: 436px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/b6e8fe89b8b43ca79cd32527a6bcf5711c2e3a562f54f55f4139c70ce87fe2ce.png"><img alt="../../../_images/b6e8fe89b8b43ca79cd32527a6bcf5711c2e3a562f54f55f4139c70ce87fe2ce.png" height="436" src="../../../_images/b6e8fe89b8b43ca79cd32527a6bcf5711c2e3a562f54f55f4139c70ce87fe2ce.png" width="571" />
+</a>
 </div>
 </div>
 <p>Let’s repeat this process, but this time look at <em>percentage</em> error:</p>
@@ -749,7 +754,8 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Count&#39;)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/33b26d0ab5f438e3df16ff5c010b3e7d5f004de5c26e98c7bc3854e51e12b1d1.png"><img alt="../../../_images/33b26d0ab5f438e3df16ff5c010b3e7d5f004de5c26e98c7bc3854e51e12b1d1.png" src="../../../_images/33b26d0ab5f438e3df16ff5c010b3e7d5f004de5c26e98c7bc3854e51e12b1d1.png" style="width: 584px; height: 433px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/33b26d0ab5f438e3df16ff5c010b3e7d5f004de5c26e98c7bc3854e51e12b1d1.png"><img alt="../../../_images/33b26d0ab5f438e3df16ff5c010b3e7d5f004de5c26e98c7bc3854e51e12b1d1.png" height="433" src="../../../_images/33b26d0ab5f438e3df16ff5c010b3e7d5f004de5c26e98c7bc3854e51e12b1d1.png" width="584" />
+</a>
 </div>
 </div>
 <p>If we just care about how far from zero these percentages are, we can view absolute percentage error:</p>
@@ -774,7 +780,8 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Count&#39;)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/b6187bb5dc9e1f76e30fdb74d80838a5b8cc91e4c5adedfba69b5c04474ca4c4.png"><img alt="../../../_images/b6187bb5dc9e1f76e30fdb74d80838a5b8cc91e4c5adedfba69b5c04474ca4c4.png" src="../../../_images/b6187bb5dc9e1f76e30fdb74d80838a5b8cc91e4c5adedfba69b5c04474ca4c4.png" style="width: 584px; height: 432px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/b6187bb5dc9e1f76e30fdb74d80838a5b8cc91e4c5adedfba69b5c04474ca4c4.png"><img alt="../../../_images/b6187bb5dc9e1f76e30fdb74d80838a5b8cc91e4c5adedfba69b5c04474ca4c4.png" height="432" src="../../../_images/b6187bb5dc9e1f76e30fdb74d80838a5b8cc91e4c5adedfba69b5c04474ca4c4.png" width="584" />
+</a>
 </div>
 </div>
 <p>If we summarizing the above plots into an individual metric, we arrive at our two key metrics: root mean squared error (RMSE) and mean absolute percentage error (MAPE). The RMSE is in the original units of the data (in this case dollars) while the MAPE is a measure relative to the true target value. An error of $50,000 for a home price of $100,000 would have an RMSE of $50,000 and a MAPE of 50%</p>
@@ -832,7 +839,8 @@ MAPE = 16.76842304409422%
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Count&#39;)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/8f0cfa0f66444b066604294681c0866f5dc5d47b3add4a5d615b4a6b8ea16c5d.png"><img alt="../../../_images/8f0cfa0f66444b066604294681c0866f5dc5d47b3add4a5d615b4a6b8ea16c5d.png" src="../../../_images/8f0cfa0f66444b066604294681c0866f5dc5d47b3add4a5d615b4a6b8ea16c5d.png" style="width: 571px; height: 432px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/8f0cfa0f66444b066604294681c0866f5dc5d47b3add4a5d615b4a6b8ea16c5d.png"><img alt="../../../_images/8f0cfa0f66444b066604294681c0866f5dc5d47b3add4a5d615b4a6b8ea16c5d.png" height="432" src="../../../_images/8f0cfa0f66444b066604294681c0866f5dc5d47b3add4a5d615b4a6b8ea16c5d.png" width="571" />
+</a>
 </div>
 </div>
 <p>We can see there is a very long tail to this distribution and the maximum value is over 7 million dollars:</p>
@@ -908,7 +916,8 @@ k = 29
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;MAPE (%)&#39;)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/2ff9dd34d93664ee8490652938aa088790feff0f8791d0ce6c9341dcb1276798.png"><img alt="../../../_images/2ff9dd34d93664ee8490652938aa088790feff0f8791d0ce6c9341dcb1276798.png" src="../../../_images/2ff9dd34d93664ee8490652938aa088790feff0f8791d0ce6c9341dcb1276798.png" style="width: 600px; height: 432px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/2ff9dd34d93664ee8490652938aa088790feff0f8791d0ce6c9341dcb1276798.png"><img alt="../../../_images/2ff9dd34d93664ee8490652938aa088790feff0f8791d0ce6c9341dcb1276798.png" height="432" src="../../../_images/2ff9dd34d93664ee8490652938aa088790feff0f8791d0ce6c9341dcb1276798.png" width="600" />
+</a>
 </div>
 </div>
 <div class="cell docutils container">

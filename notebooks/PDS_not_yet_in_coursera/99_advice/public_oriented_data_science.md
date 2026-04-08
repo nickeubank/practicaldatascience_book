@@ -4,6 +4,8 @@ So you're a data scientist interested in contributing to society by helping gove
 
 Below are a set of resources and groups we've compiled to help you in your search. There is a section on seeking positions directly with non-profits and government agencies, but this list is focused primarily on groups that are designed to contribute to the public good but which tend to offer slightly better compensation and benefits (though you shouldn't expect any FANG-like salaries from any of these groups).
 
+## 
+
 ### H1B Benefits for Non-Profit Employees
 
 That's not to say there aren't benefits to working for a non-profit employer — as of April 2026 (these things are changing), employees of non-profit companies (and Universities) are eligible for H1B visas *without having to go through the lottery*. So that's no small thing!
