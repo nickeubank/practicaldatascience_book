@@ -1,22 +1,20 @@
 # Public-Good Oriented Data Science
 
-So you're a data scientist interested in contributing to society by helping government agencies or non-profits, but you aren't sure a job with the government (federal, state, or local) or a non-profit is right for you. This is not an uncommon position to find yourself in — many young data scientists want to give back, but also have student loans or need visa sponsorship, limiting their options.
+So you're a data scientist interested in using your skills to contributing to the public good. At the same time, you aren't sure a job with the government (federal, state, or local) or a non-profit is right for you. This is not an uncommon position to find yourself in — many young data scientists want to give back, but are also nervous about the practicalities of things like student loans and visa sponsorship. As discussed below, however, there are many paths to doing good with your data science degree, and many of them actually come with *increased* job security and an easier path to securing a green card.
 
-Below are a set of resources and groups we've compiled to help you in your search. There is a section on seeking positions directly with non-profits and government agencies, but this list is focused primarily on groups that are designed to contribute to the public good but which tend to offer slightly better compensation and benefits (though you shouldn't expect any FANG-like salaries from any of these groups).
+## Considerations for Public-Good Oriented Jobs
 
-### H1B Benefits for Non-Profit Employees
-
-That's not to say there aren't benefits to working for a non-profit employer — as of April 2026 (these things are changing), employees of non-profit companies (and Universities) are eligible for H1B visas *without having to go through the lottery*. So that's no small thing!
-
-## Don't Fixate on Job Descriptions
-
-Non-profits and government consultants often don't use keywords the same way as big tech companies. For jobs in these sectors, "Data and Policy Analyst" or "Data Analyst" may be for precisely the same jobs as what a big tech company might call "Data Scientist" or "Data Engineering."
+- Job security
+- **No, you don't need a security clearance.** There are lots of jobs that involve consulting for the US government that do not require citizenship or a security clearance, so don't assume those paths are closed off to you.
+- Employees of non-profit companies (and Universities) are eligible for H1B visas *without having to go through the lottery*
 
 ## Public-Sector Oriented Data Science Consulting
 
-Most of the companies below offer data science consulting services to non-profits, membership organizations (e.g., museums, the American Medical Assocation, etc.).
+Most of the companies below offer data science consulting services to non-profits, membership organizations (e.g., museums, the American Medical Association, etc.) and government agencies.
 
-Please note that this list is meant to help students explore this space; these are **not** endorsements. Some of these we know about personally, but others are ones we've just come across. But as we've learned from [companies like McKinsey](https://www.currentaffairs.org/news/2023/02/exposing-the-secretive-and-sinister-work-of-mckinsey-co), not all public-sector consulting actually makes the world a better place.
+As you look into these companies and look for job postings, **don't fixate on job description titles.** Non-profits and government consultants often don't use keywords the same way as big tech companies. For jobs in these sectors, "Data and Policy Analyst" or "Data Analyst" may be for precisely the same jobs as what a big tech company might call "Data Scientist" or "Data Engineering."
+
+One disclaimer: this list is meant to help students explore this space; these are **not** endorsements. Some of these we know about personally, but others are ones we've just come across. But as we've learned from [companies like McKinsey](https://www.currentaffairs.org/news/2023/02/exposing-the-secretive-and-sinister-work-of-mckinsey-co), not all public-sector consulting actually makes the world a better place.
 
 ## US-Based Companies
 
@@ -28,7 +26,7 @@ Please note that this list is meant to help students explore this space; these a
 - [Knowli Data Science](https://www.knowli.com/) — A women-owned data science consulting firm specializing in healthcare analytics, public health, and government programs like Medicaid and Medicare.
 - [Mathematica](https://www.mathematica.org/) — A research and data analytics firm that bridges data, technology, and policy to help government agencies, foundations, and healthcare organizations improve program performance and public well-being.
 - [Recidiviz](https://www.recidiviz.org/) — A nonprofit that builds data tools and AI-powered assistants for criminal justice agencies, helping corrections leaders make smarter decisions, reduce incarceration, and improve reentry outcomes. Currently active in 19 states.
-- [RTI International](https://www.rti.org/careers/explore-rti-careers)
+- [RTI International](https://www.rti.org/careers/explore-rti-careers) — An independent, nonprofit research institute that provides research, development, and technical services to government and commercial clients worldwide, with expertise in health, education, surveys and statistics, advanced technologies, and environmental and social policy.
 
 ## International Companies (including both US and International Operations)
 
