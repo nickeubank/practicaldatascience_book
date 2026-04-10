@@ -1,6 +1,6 @@
 # Public-Interest Data Science Jobs
 
-So you're a data scientist interested in using your skills to contributing to the public good. At the same time, you aren't sure a job with the government (federal, state, or local) or a non-profit is right for you. This is not an uncommon position to find yourself in — many young data scientists want to give back, but are also nervous about the practicalities of things like student loans and visa sponsorship. As discussed below, however, there are many paths to doing good with your data science degree, and many of them actually come with *increased* job security and an easier path to securing a green card.
+So you're a data scientist interested in using your skills to contributing to the public good. At the same time, you aren't sure a job with the government (federal, state, or local) or a non-profit is right for you. This is not an uncommon position to find yourself in — many young data scientists want to give back, but are also nervous about the practicalities of things like student loans and visa sponsorship. As discussed below, however, there are many paths to doing good with your data science degree, and **many of them actually come with *increased* job security and an easier path to securing a green card.**
 
 ## Considerations for Jobs in the Public Interest
 
@@ -8,7 +8,7 @@ While not all jobs that contribute to the public good offer the same salary as o
 
 First, there are a surprising number of for-profit or not-for-profit companies that specialize in serving non-profit and government clients. These companies — like Civis Analytics, Mathematica, or Acumen — offer quite competitive salaries. They aren't "meta just acquired my AI startup" salaries, but they are often more than adequate to cover your student loans.
 
-Second, there are also many non-salary benefits to public interest jobs. For example, employees of non-profit or government research organizations (like universities, think tanks, or government research groups) are **eligible for H1B visas without going through the visa lottery system.** (These are referred to as "H1B cap-exempt employers.")
+Second, there are also many non-salary benefits to public interest jobs. For example, employees of non-profit or government research organizations (like universities, think tanks, or government research groups) are **eligible for H1B visas without going through the visa lottery system.** (These are referred to as "[H1B cap-exempt employers](https://elevate.iit.edu/blog/2026/03/01/what-are-h-1b-cap-exempt-jobs/).")
 
 And third, companies with government clients often offer substantial job security, job security that can be far greater than what one can find in the for-profit private sector.
 
