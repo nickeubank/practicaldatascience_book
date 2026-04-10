@@ -6,18 +6,11 @@ So you're a data scientist interested in using your skills to contributing to th
 
 While not all jobs that contribute to the public good offer the same salary as one might get working for a major tech company like Google or NVIDIA, you may be surprised by the benefits on offer for data scientists who take public interest jobs.
 
-First, there are a surprising number of for-profit or not-for-profit companies that specialize in serving non-profit and government clients. These companies — like Civis Analytics, Mathematica, or Acumen — offer quite competitive salaries. They aren't "meta just acquired my AI startup" salaries, but they are often more than adequate to cover your student loans.
-
-Second, there are also many non-salary benefits to public interest jobs. For example, employees of non-profit or government research organizations (like universities, think tanks, or government research groups) are **eligible for H1B visas without going through the visa lottery system.** (These are referred to as "[H1B cap-exempt employers](https://elevate.iit.edu/blog/2026/03/01/what-are-h-1b-cap-exempt-jobs/).")
-
-And third, companies with government clients often offer substantial job security, job security that can be far greater than what one can find in the for-profit private sector.
-
-### Misconceptions about Public Interest Careers
-
-A few additional things to know about public interest careers:
-
-- **Don't read too much into job titles in job posts.** Non-profits and government consultants often don't use keywords the same way as big tech companies. For jobs in these sectors, "Data and Policy Analyst" or "Data Analyst" may be for precisely the same jobs as what a big tech company might call "Data Scientist" or "Data Engineering."
-- **No, you don't need a security clearance.** There are lots of jobs that involve consulting for the US government that do not require citizenship or a security clearance, so don't assume those paths are closed off to you.
+1. **Many public-interest jobs offer quite competitive salaries.** There are a surprising number of for-profit or not-for-profit companies that specialize in serving non-profit and government clients. These companies — like Civis Analytics, Mathematica, or Acumen — pay very reasonably. They don't pay "meta just acquired my AI startup" salaries, but they are often more than adequate to cover your student loans.
+2. **Employees of certain non-profits can get H1B visas without going through the visa lottery system.** Employees of non-profit or government research organizations (like universities, think tanks, or government research groups) are what are called ["H1B cap-exempt employers"](https://elevate.iit.edu/blog/2026/03/01/what-are-h-1b-cap-exempt-jobs/), can their employees can apply for H1Bs without worrying about getting one of those lucky draws.
+3. **Just because the job title isn't "data scientist" or "data engineer" doesn't mean it isn't a data science job.** Non-profits and government consultants often don't use keywords the same way as big tech companies. For jobs in these sectors, "Data and Policy Analyst" or "Data Analyst" may be for precisely the same jobs as what a big tech company might call "Data Scientist" or "Data Engineering."
+4. **Companies with government clients often offer substantially better job security than the for-profit private sector,** especially companies who have contracts with the federal government.
+5. **No, you don't need a security clearance.** There are lots of jobs that involve consulting for the US government that do not require citizenship or a security clearance, so don't assume those paths are closed off to you.
 
 ## Public Interest Data Science Opportunities
 
