@@ -53,6 +53,10 @@ One disclaimer: this list is meant to help students explore this space; these ar
 - [Cedars Sinai](https://careers.cshs.org/choose-your-area-of-interest-information-technology) — A major nonprofit academic medical center in Los Angeles with a growing data science and AI research program, hiring analysts and engineers to work on clinical informatics, genomics, and health outcomes research.
 - [Cleveland Clinic](https://jobs.clevelandclinic.org/job-search-results/?category%5B%5D=Research%20and%20Data) — A top-ranked nonprofit academic medical center in Ohio with a robust research enterprise, employing data scientists and analysts to work on clinical trials, population health analytics, and AI-driven diagnostic and treatment tools.
 
+### Universities
+
+We aren't going to list all the Universities in the US — you know them! — but they are almost all H1B cap-exempt employers, so definitely check them out for jobs!
+
 ## Know of Companies That Should Be On This List?
 
 Great! [Email me](mailto:nick@nickeubank.com) and I'll add them!
