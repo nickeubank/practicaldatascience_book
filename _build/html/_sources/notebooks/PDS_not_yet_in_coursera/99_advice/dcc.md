@@ -1,9 +1,8 @@
-# DCC stuff
+# Duke Computing Cluster
 
-- Run interactive: srun --pty bash -i
-- Run interactive with gpu: srun -p scavanger-gpu --pty bash -i --time-min=120
+```{raw} html
+<meta http-equiv="refresh" content="0; url=https://dukemids.com/data_science_skills/dcc.html">
+<script>window.location.href = "https://dukemids.com/data_science_skills/dcc.html";</script>
+```
 
-Home: /hpc/home/nce8 (~/nce8)
-Group: /hpc/group/ssri/
-General: /cwork/nce8
-General: /work/
+This page has moved to the [Duke MIDS site](https://dukemids.com/data_science_skills/dcc.html). You will be automatically redirected. If not, please click the link.
