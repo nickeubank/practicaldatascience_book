@@ -620,7 +620,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolving-a-conflict">Resolving a Conflict</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#default-pull-settings">Default Pull Settings</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
 </ul>
 </li>
@@ -711,12 +714,31 @@ Automatic<span class="w"> </span>merge<span class="w"> </span>failed<span class=
 <section id="exercise-3">
 <h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
 <p>Now on <strong>Computer B</strong> add some text to <code class="docutils literal notranslate"><span class="pre">README.md</span></code> <strong>at line 3</strong>. Say “By “ and your name. Then add, commit, and push.</p>
-<p>Note that even though your edits aren’t happening at the same moment, because you didn’t run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> to synchronize your local files with what’s on github after <strong>Computer A</strong> pushed their changes, you’re making edits at the same place in the repository’s commit history as <strong>Computer A</strong> was editing in Exercise 2.</p>
-<p>Since <strong>Computer A</strong>’s changes are on github, you should get an error saying you’re behind the “remote” (github). So run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code>.</p>
-<p>Now you should get an error saying there’s a conflict in <code class="docutils literal notranslate"><span class="pre">README.md</span></code>.</p>
+<p>(Note that even though your edits aren’t happening at the same moment, because you didn’t run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> to synchronize your local files with what’s on github after <strong>Computer A</strong> pushed their changes, you’re making edits at the same place in the repository’s commit history as <strong>Computer A</strong> was editing in Exercise 2.)</p>
+<p>Since <strong>Computer A</strong>’s changes are on github, you should get an error saying you’re behind the “remote” (github). <strong>So the first thing you should do is run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code>.</strong> Note that this error can arise whether there are conflicts or not if you’re behind what’s on github.</p>
+<section id="default-pull-settings">
+<h4>Default Pull Settings<a class="headerlink" href="#default-pull-settings" title="Link to this heading">#</a></h4>
+<p>You <em>MAY</em> get the following error, depending on what version of git you’ve installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hint:<span class="w"> </span>You<span class="w"> </span>have<span class="w"> </span>divergent<span class="w"> </span>branches<span class="w"> </span>and<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>specify<span class="w"> </span>how<span class="w"> </span>to<span class="w"> </span>reconcile<span class="w"> </span>them.
+hint:<span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span><span class="k">do</span><span class="w"> </span>so<span class="w"> </span>by<span class="w"> </span>running<span class="w"> </span>one<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>commands<span class="w"> </span>sometime<span class="w"> </span>before
+hint:<span class="w"> </span>your<span class="w"> </span>next<span class="w"> </span>pull:
+hint:<span class="w"> </span>
+hint:<span class="w">   </span>git<span class="w"> </span>config<span class="w"> </span>pull.rebase<span class="w"> </span><span class="nb">false</span><span class="w">  </span><span class="c1"># merge</span>
+hint:<span class="w">   </span>git<span class="w"> </span>config<span class="w"> </span>pull.rebase<span class="w"> </span><span class="nb">true</span><span class="w">   </span><span class="c1"># rebase</span>
+hint:<span class="w">   </span>git<span class="w"> </span>config<span class="w"> </span>pull.ff<span class="w"> </span>only<span class="w">       </span><span class="c1"># fast-forward only</span>
+hint:<span class="w"> </span>
+hint:<span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>replace<span class="w"> </span><span class="s2">&quot;git config&quot;</span><span class="w"> </span>with<span class="w"> </span><span class="s2">&quot;git config --global&quot;</span><span class="w"> </span>to<span class="w"> </span><span class="nb">set</span><span class="w"> </span>a<span class="w"> </span>default
+hint:<span class="w"> </span>preference<span class="w"> </span><span class="k">for</span><span class="w"> </span>all<span class="w"> </span>repositories.<span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>pass<span class="w"> </span>--rebase,<span class="w"> </span>--no-rebase,
+hint:<span class="w"> </span>or<span class="w"> </span>--ff-only<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span><span class="nb">command</span><span class="w"> </span>line<span class="w"> </span>to<span class="w"> </span>override<span class="w"> </span>the<span class="w"> </span>configured<span class="w"> </span>default<span class="w"> </span>per
+hint:<span class="w"> </span>invocation.
+</pre></div>
+</div>
+<p>If you do, type <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span> <span class="pre">pull.rebase</span> <span class="pre">false</span></code> just to make that the default and hit enter. Then do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> again.</p>
+</section>
 </section>
 <section id="exercise-4">
 <h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
+<p>When the pull runs, you should get an error saying there’s a conflict in <code class="docutils literal notranslate"><span class="pre">README.md</span></code>.</p>
 <p>Open <a class="reference external" href="http://README.md">README.md</a> in your editor. What do you see?</p>
 <p>Rather than picking one choice or the other, why don’t you write a new line that says “By [your name] and [your partner’s name].” Then add, commit, and push.</p>
 <p>Congrats! You fixed your first conflict!</p>
@@ -778,7 +800,10 @@ Automatic<span class="w"> </span>merge<span class="w"> </span>failed<span class=
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolving-a-conflict">Resolving a Conflict</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#default-pull-settings">Default Pull Settings</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
 </ul>
 </li>
