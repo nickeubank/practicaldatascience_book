@@ -6,8 +6,22 @@ The files here are hosted at the domain [here](https://nickeubank.github.io/prac
 
 To be able to run (for building — this doesn't cover exercise libraries), install:
 
-`conda install jupyter-book`
-`pip install sphinx_markdown_tables`
+```
+conda install jupyter-book=1
+pip install sphinx_markdown_tables
+```
+
+(Jupyter-book has a version 2.0, but it's not feature-complete, so this is all still building off jupyter `1.0.4.post1`)
+
+## Organization
+
+This repo is primarily organized around the "notebooks" directory — which is home to all the instructional readings, three `ids[course number]_specific` directories with things like class schedules, and an `exercises` directory with course exercises.
+
+Note that the contents of the exercises directory are just for local hosting — the MASTER version of all exercises is in a private `solutions_and_quizzes` repo. Email me if you need access for some reason.
+
+How notebooks are built into the site is determined by the `_toc.yml` table-of-contents file.
+
+You can complete ignore `_build` — that's where builds of the site land — and `docs`, which is where they need to be copied for github pages to serve up the actual website. But you shouldn't edit anything there yourself.
 
 ## Building Book
 
