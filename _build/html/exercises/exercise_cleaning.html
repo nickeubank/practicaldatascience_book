@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -686,6 +686,7 @@ document.write(`
 <section id="exercise-3">
 <h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
 <p>As before, all the values of <code class="docutils literal notranslate"><span class="pre">9999999</span></code> have the potential to cause us real problems, so replace all the values of <code class="docutils literal notranslate"><span class="pre">inctot</span></code> that are <code class="docutils literal notranslate"><span class="pre">9999999</span></code> with <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>.</p>
+<p><strong>Note:</strong> The fancy dataframe viewer in VS Code now likes to show NaNs as <code class="docutils literal notranslate"><span class="pre">Missing</span> <span class="pre">value</span></code> instead of <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. So don’t be surprised if you see that.</p>
 </section>
 <section id="exercise-4">
 <h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
@@ -695,15 +696,14 @@ document.write(`
 </section>
 <section id="exercise-5">
 <h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
-<p>We want to be able to calculate things using age, so we need it to be a numeric type. Check the current type of <code class="docutils literal notranslate"><span class="pre">age</span></code>, and look at all the values of <code class="docutils literal notranslate"><span class="pre">age</span></code> to figure out why it’s categorical and not numeric. You should find two problematic categories.</p>
-<p>Store the names of these categories in <code class="docutils literal notranslate"><span class="pre">&quot;ex5_age_young&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;ex5_age_old&quot;</span></code> (once you find them, it should be clear which is which). In other words, just assign the string being used as a label for each relevant category to <code class="docutils literal notranslate"><span class="pre">results[&quot;ex5_age_young&quot;]</span> <span class="pre">=</span> <span class="pre">&quot;problematic</span> <span class="pre">category</span> <span class="pre">label&quot;</span></code>.</p>
+<p>We want to be able to calculate things using age, so we need it to be a numeric type. Check the current type of <code class="docutils literal notranslate"><span class="pre">age</span></code>, and look at all the values of <code class="docutils literal notranslate"><span class="pre">age</span></code> to figure out why it’s categorical and not numeric. You should find two problematic categories. Store the values of these categories in <code class="docutils literal notranslate"><span class="pre">&quot;ex5_age_young&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;ex5_age_old&quot;</span></code> (once you find them, it should be clear which is which).</p>
 </section>
 <section id="exercise-6">
 <h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
 <p>In order to convert <code class="docutils literal notranslate"><span class="pre">age</span></code> into a numeric variable, we need to replace those problematic entries with values that <code class="docutils literal notranslate"><span class="pre">pandas</span></code> can later convert into numbers. Pick appropriate substitutions for the existing values and replace the current values.</p>
 <p><strong>Hint 1:</strong> Categorical variables act like strings, so you might want to use string methods!</p>
 <p><strong>Hint 2:</strong> Remember that characters like parentheses, pluses, asterisks, etc. are special in Python strings, and you have to escape them if you want them to be interpreted literally!</p>
-<p><strong>Hint 3:</strong> Because the US Census has been conducted regularly for hundreds of years but exactly how the census has been conducted have occasionally changed, variables are sometimes coded in a way that might be interpreted in different ways for different census years. For example, hypothetically, one might write <code class="docutils literal notranslate"><span class="pre">90</span> <span class="pre">(90+</span> <span class="pre">in</span> <span class="pre">1980</span> <span class="pre">and</span> <span class="pre">1990)</span></code> if the Censuses conducted in 1980 and 1990 used to top-code age at 90 (any values <em>over</em> 90 were just coded as 90), but more recent Censuses no longer top-coded age and recorded ages over 90 as the respondents actual age.</p>
+<p><strong>Hint 3:</strong> Because the US Census has been conducted regularly for hundreds of years but exactly how the census has been conducted has occasionally changed, variables are sometimes coded in a way that might be interpreted in different ways for different census years. For example, hypothetically, one might write <code class="docutils literal notranslate"><span class="pre">90</span> <span class="pre">(90+</span> <span class="pre">in</span> <span class="pre">1980</span> <span class="pre">and</span> <span class="pre">1990)</span></code> if the Censuses conducted in 1980 and 1990 used to top-code age at 90 (any values <em>over</em> 90 were just coded as 90), but more recent Censuses no longer top-coded age and recorded ages over 90 as the respondent’s actual age. We’re only working with more recent data, so anyone with a value of <code class="docutils literal notranslate"><span class="pre">90</span> <span class="pre">(90+</span> <span class="pre">in</span> <span class="pre">1980</span> <span class="pre">and</span> <span class="pre">1990)</span></code> can safely be assumed to be 90 years old. People with an age less than 1 year old can be treated as being of age <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 </section>
 <section id="exercise-7">
 <h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>

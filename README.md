@@ -33,6 +33,14 @@ You can complete ignore `_build` — that's where builds of the site land — an
 
 For copy-paste ease:
 
+If you didn't change the table of contents/course organization:
+
+```bash
+jupyter-book build .; cp -R _build/html/* docs; git add .; git commit; git push
+```
+
+If you changed the table of contents/want a slower but full site build:
+
 ```bash
 jupyter-book build --all .; cp -R _build/html/* docs; git add .; git commit; git push
 ```

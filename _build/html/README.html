@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -617,6 +617,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installs">Installs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organization">Organization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-book">Building Book</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
 </ul>
@@ -636,8 +637,18 @@ document.write(`
 <section id="installs">
 <h2>Installs<a class="headerlink" href="#installs" title="Link to this heading">#</a></h2>
 <p>To be able to run (for building — this doesn’t cover exercise libraries), install:</p>
-<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">jupyter-book</span></code>
-<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sphinx_markdown_tables</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">jupyter</span><span class="o">-</span><span class="n">book</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx_markdown_tables</span>
+</pre></div>
+</div>
+<p>(Jupyter-book has a version 2.0, but it’s not feature-complete, so this is all still building off jupyter <code class="docutils literal notranslate"><span class="pre">1.0.4.post1</span></code>)</p>
+</section>
+<section id="organization">
+<h2>Organization<a class="headerlink" href="#organization" title="Link to this heading">#</a></h2>
+<p>This repo is primarily organized around the “notebooks” directory — which is home to all the instructional readings, three <code class="docutils literal notranslate"><span class="pre">ids[course</span> <span class="pre">number]_specific</span></code> directories with things like class schedules, and an <code class="docutils literal notranslate"><span class="pre">exercises</span></code> directory with course exercises.</p>
+<p>Note that the contents of the exercises directory are just for local hosting — the MASTER version of all exercises is in a private <code class="docutils literal notranslate"><span class="pre">solutions_and_quizzes</span></code> repo. Email me if you need access for some reason.</p>
+<p>How notebooks are built into the site is determined by the <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code> table-of-contents file.</p>
+<p>You can complete ignore <code class="docutils literal notranslate"><span class="pre">_build</span></code> — that’s where builds of the site land — and <code class="docutils literal notranslate"><span class="pre">docs</span></code>, which is where they need to be copied for github pages to serve up the actual website. But you shouldn’t edit anything there yourself.</p>
 </section>
 <section id="building-book">
 <h2>Building Book<a class="headerlink" href="#building-book" title="Link to this heading">#</a></h2>
@@ -649,6 +660,11 @@ document.write(`
 <li><p>You can also open <code class="docutils literal notranslate"><span class="pre">_build/index.html</span></code> (just double click!) and it’ll open in your browser locally.</p></li>
 </ul>
 <p>For copy-paste ease:</p>
+<p>If you didn’t change the table of contents/course organization:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter-book<span class="w"> </span>build<span class="w"> </span>.<span class="p">;</span><span class="w"> </span>cp<span class="w"> </span>-R<span class="w"> </span>_build/html/*<span class="w"> </span>docs<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>push
+</pre></div>
+</div>
+<p>If you changed the table of contents/want a slower but full site build:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter-book<span class="w"> </span>build<span class="w"> </span>--all<span class="w"> </span>.<span class="p">;</span><span class="w"> </span>cp<span class="w"> </span>-R<span class="w"> </span>_build/html/*<span class="w"> </span>docs<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>push
 </pre></div>
 </div>
@@ -709,6 +725,7 @@ Notes and warnings: <a class="reference external" href="https://jupyterbook.org/
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installs">Installs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organization">Organization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-book">Building Book</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
 </ul>
