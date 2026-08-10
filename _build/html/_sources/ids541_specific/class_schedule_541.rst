@@ -30,6 +30,6 @@ Class Schedule (Preliminary)
 ----------------------------
 
 .. csv-table::
-   :file: class_schedule_541.csv
+   :file: class_schedule_541.generated.csv
    :widths: 14, 28, 32, 5
    :header-rows: 1

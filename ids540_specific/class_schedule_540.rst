@@ -32,6 +32,6 @@ Key:
 - DSwithNSD is `Data Science with NumPy, Sets, and Dictionaries <https://www.coursera.org/learn/numpy-data-science/>`_, and the number that follows is the module number.
 
 .. csv-table::
-   :file: class_schedule_540.csv
+   :file: class_schedule_540.generated.csv
    :widths: 10, 25, 50, 5
    :header-rows: 1

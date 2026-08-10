@@ -1,0 +1,83 @@
+name: Daily site rebuild
+
+# Rebuilds the book every morning and pushes the result to docs/, so in-class
+# exercises appear on the morning of the class they belong to. The gating
+# itself lives in _ext/schedule_tables.py; this workflow just makes sure a
+# build actually happens on days when nobody runs `jbp` by hand.
+
+on:
+  schedule:
+    # 10:00 UTC = 6am EDT / 5am EST, comfortably before the first class.
+    # GitHub can delay scheduled runs when it is busy; a late build still
+    # lands hours before class.
+    - cron: "0 10 * * *"
+  workflow_dispatch: # lets you trigger a rebuild from the Actions tab
+
+permissions:
+  contents: write
+
+# Never let two rebuilds race to push docs/.
+concurrency:
+  group: daily-build
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install build dependencies
+        # Pinned to 1.x deliberately: jupyter-book 2.0 is not feature-complete
+        # for this book, and an unpinned `pip install jupyter-book` would pull
+        # it. Keep this in sync with the versions in README.md.
+        run: |
+          pip install \
+            "jupyter-book==1.0.4.post1" \
+            sphinx_markdown_tables \
+            pandas \
+            openpyxl
+
+      - name: Build the book
+        # Regenerates the schedule CSVs first (local Sphinx extension), then
+        # builds. Warnings about stale schedules are expected and non-fatal.
+        run: jupyter-book build .
+
+      - name: Copy into docs/ for GitHub Pages
+        # Matches the manual workflow in README.md. The glob deliberately
+        # skips dotfiles so docs/.nojekyll survives.
+        run: cp -R _build/html/* docs
+
+      - name: Commit and push if the site changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # docs/ is what GitHub Pages serves and the generated CSVs are the
+          # record of what got revealed. _build/ is left out on purpose: its
+          # environment.pickle is 1.3MB and changes on every single build.
+          git add docs ids*_specific/*.generated.csv
+
+          if git diff --cached --quiet; then
+            echo "Site unchanged today; nothing to commit."
+            exit 0
+          fi
+
+          git commit -m "Daily rebuild ($(TZ=America/New_York date +%Y-%m-%d))"
+          git push
+
+      - name: Summarize
+        if: always()
+        run: |
+          {
+            echo "### Schedule status"
+            echo ""
+            echo '```'
+            python _ext/schedule_tables.py --as-of "$(TZ=America/New_York date +%F)" || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

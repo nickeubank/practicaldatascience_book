@@ -619,6 +619,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installs">Installs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organization">Organization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-book">Building Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-schedules">Class Schedules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises-appear-on-the-day-of-class">Exercises appear on the day of class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-before-a-date-arrives">Testing before a date arrives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#class-dates-and-rolling-a-schedule-forward">Class dates and rolling a schedule forward</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
 </ul>
             </nav>
@@ -639,8 +645,10 @@ document.write(`
 <p>To be able to run (for building — this doesn’t cover exercise libraries), install:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">jupyter</span><span class="o">-</span><span class="n">book</span><span class="o">=</span><span class="mi">1</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx_markdown_tables</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">pandas</span> <span class="n">openpyxl</span>
 </pre></div>
 </div>
+<p>(<code class="docutils literal notranslate"><span class="pre">pandas</span></code> and <code class="docutils literal notranslate"><span class="pre">openpyxl</span></code> are what read the Excel class schedules during the build — see <a class="reference internal" href="#class-schedules"><span class="xref myst">Class Schedules</span></a>.)</p>
 <p>(Jupyter-book has a version 2.0, but it’s not feature-complete, so this is all still building off jupyter <code class="docutils literal notranslate"><span class="pre">1.0.4.post1</span></code>)</p>
 </section>
 <section id="organization">
@@ -649,6 +657,7 @@ document.write(`
 <p>Note that the contents of the exercises directory are just for local hosting — the MASTER version of all exercises is in a private <code class="docutils literal notranslate"><span class="pre">solutions_and_quizzes</span></code> repo. Email me if you need access for some reason.</p>
 <p>How notebooks are built into the site is determined by the <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code> table-of-contents file.</p>
 <p>You can complete ignore <code class="docutils literal notranslate"><span class="pre">_build</span></code> — that’s where builds of the site land — and <code class="docutils literal notranslate"><span class="pre">docs</span></code>, which is where they need to be copied for github pages to serve up the actual website. But you shouldn’t edit anything there yourself.</p>
+<p><code class="docutils literal notranslate"><span class="pre">_ext</span></code> holds local Sphinx extensions that run during the build (currently just the class schedule generator, described below).</p>
 </section>
 <section id="building-book">
 <h2>Building Book<a class="headerlink" href="#building-book" title="Link to this heading">#</a></h2>
@@ -659,6 +668,7 @@ document.write(`
 <li><p>Push to github and it’ll update online shortly!</p></li>
 <li><p>You can also open <code class="docutils literal notranslate"><span class="pre">_build/index.html</span></code> (just double click!) and it’ll open in your browser locally.</p></li>
 </ul>
+<p>The site <em>also</em> rebuilds itself every morning via GitHub Actions, to release class exercises on schedule — see <a class="reference internal" href="#class-schedules"><span class="xref myst">Class Schedules</span></a>. That means <code class="docutils literal notranslate"><span class="pre">main</span></code> can pick up commits you didn’t make, so <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> before editing.</p>
 <p>For copy-paste ease:</p>
 <p>If you didn’t change the table of contents/course organization:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter-book<span class="w"> </span>build<span class="w"> </span>.<span class="p">;</span><span class="w"> </span>cp<span class="w"> </span>-R<span class="w"> </span>_build/html/*<span class="w"> </span>docs<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>push
@@ -668,6 +678,58 @@ document.write(`
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter-book<span class="w"> </span>build<span class="w"> </span>--all<span class="w"> </span>.<span class="p">;</span><span class="w"> </span>cp<span class="w"> </span>-R<span class="w"> </span>_build/html/*<span class="w"> </span>docs<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>push
 </pre></div>
 </div>
+</section>
+<section id="class-schedules">
+<h2>Class Schedules<a class="headerlink" href="#class-schedules" title="Link to this heading">#</a></h2>
+<p>Each <code class="docutils literal notranslate"><span class="pre">ids[course</span> <span class="pre">number]_specific</span></code> directory has three schedule files, but <strong>you only ever edit the Excel one</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">class_schedule_[num]_xlsx.xlsx</span></code> — the master schedule, and the only file you should edit. Excel keeps the formatting and is easy to rearrange by hand.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">class_schedule_[num].generated.csv</span></code> — built from the xlsx. <strong>Do not edit this</strong>, your changes get overwritten on the next build. It’s committed so schedule changes show up as readable diffs (the xlsx is binary, so <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code> on it tells you nothing).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">class_schedule_[num].rst</span></code> — the actual webpage. Everything above the table (office hours, syllabus link, etc.) lives here and is edited by hand; the table itself is just a <code class="docutils literal notranslate"><span class="pre">csv-table</span></code> pointed at the generated CSV.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">.</span></code> regenerates the CSVs before building, so the normal build commands above already do the right thing. To regenerate without building:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>_ext/schedule_tables.py
+</pre></div>
+</div>
+<section id="exercises-appear-on-the-day-of-class">
+<h3>Exercises appear on the day of class<a class="headerlink" href="#exercises-appear-on-the-day-of-class" title="Link to this heading">#</a></h3>
+<p>You don’t reveal exercises by hand. Each row’s <strong>In-Class Exercise</strong> cell is emptied in the generated CSV until that class date arrives, so unreleased links aren’t in the built HTML at all — not merely hidden with CSS.</p>
+<p>A GitHub Action (<code class="docutils literal notranslate"><span class="pre">.github/workflows/daily_build.yml</span></code>) rebuilds the site every morning at 6am ET and pushes to <code class="docutils literal notranslate"><span class="pre">docs/</span></code>, so the day’s exercise goes up whether or not you build anything. You can also trigger it by hand from the Actions tab. Note that it commits to <code class="docutils literal notranslate"><span class="pre">main</span></code>, so <strong><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> before you start editing</strong> or your next <code class="docutils literal notranslate"><span class="pre">jbp</span></code> will conflict.</p>
+</section>
+<section id="testing-before-a-date-arrives">
+<h3>Testing before a date arrives<a class="headerlink" href="#testing-before-a-date-arrives" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--as-of</span></code> builds the schedule as if it were any date you name. It <strong>only prints</strong> — no files are touched — so it’s safe to run any time:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>_ext/schedule_tables.py<span class="w"> </span>--as-of<span class="w"> </span><span class="m">2026</span>-10-06
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>If the site were built on Tuesday, October 06, 2026:
+
+  class_schedule_540_xlsx.xlsx  (2026)
+    11 of 22 exercises visible  |  next class: Thu Oct 08  |  CHANGES the published CSV
+      + Thu Aug 27: - `Legos &lt;../exercises/10_lego_algorithm.html&gt;`_
+      + Tue Sep 01: - Using VS Code - `Max &lt;../exercises/20_max.html&gt;`_ ...
+</pre></div>
+</div>
+<p>Each <code class="docutils literal notranslate"><span class="pre">+</span></code> line is an exercise that would be public on that date. That’s usually all you need — to check whether an exercise goes up on the right day, name the day.</p>
+<p>If you want to <em>look at the rendered page</em> as it will appear on some future date, add <code class="docutils literal notranslate"><span class="pre">--write</span></code> and build:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>_ext/schedule_tables.py<span class="w"> </span>--as-of<span class="w"> </span><span class="m">2026</span>-10-06<span class="w"> </span>--write
+jupyter-book<span class="w"> </span>build<span class="w"> </span>.<span class="w">          </span><span class="c1"># now open _build/html/... and look at it</span>
+python<span class="w"> </span>_ext/schedule_tables.py<span class="w">   </span><span class="c1"># IMPORTANT: restores today&#39;s schedule</span>
+</pre></div>
+</div>
+<p>Between those commands your working copy holds a schedule from the future, so don’t run <code class="docutils literal notranslate"><span class="pre">jbp</span></code> or commit until you’ve restored it. The last command puts things back (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">ids*_specific/*.generated.csv</span></code> also works).</p>
+<p>To rehearse the Action itself, trigger it by hand from the Actions tab — on a day when nothing is due to change it should report “Site unchanged today; nothing to commit.”</p>
+</section>
+<section id="class-dates-and-rolling-a-schedule-forward">
+<h3>Class dates and rolling a schedule forward<a class="headerlink" href="#class-dates-and-rolling-a-schedule-forward" title="Link to this heading">#</a></h3>
+<p>The schedules write dates as <code class="docutils literal notranslate"><span class="pre">Tues,</span> <span class="pre">Aug</span> <span class="pre">26</span></code> or <code class="docutils literal notranslate"><span class="pre">Mon</span> <span class="pre">Jan</span> <span class="pre">12</span></code>, with no year, so the year is inferred from the weekday — <code class="docutils literal notranslate"><span class="pre">Aug</span> <span class="pre">26</span></code> only falls on a Tuesday in 2025, and so on. <strong>To roll a schedule forward to a new semester, just update the date column.</strong> Nothing else needs changing.</p>
+<p>That inference is also the safety net. If a workbook’s dates resolve to a semester that already ended (i.e. you haven’t rolled it forward yet), then every class is “in the past” and a naive rebuild would dump the whole semester’s exercises onto the live site at once. So the build <strong>skips that schedule entirely</strong> and warns:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>WARNING: class_schedule_540_xlsx.xlsx: skipped -- its dates resolve to a
+semester that ended Dec 10, 2025. Roll the date column forward ...
+</pre></div>
+</div>
+<p>The published CSV is left exactly as it was, so nothing leaks. Update the dates and the warning stops on its own. The build also warns when a weekday doesn’t match its date (<code class="docutils literal notranslate"><span class="pre">'Wed</span> <span class="pre">Dec</span> <span class="pre">12'</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">Friday</span> <span class="pre">in</span> <span class="pre">2025</span></code>), which is a handy typo check when you’re building a new schedule.</p>
+</section>
 </section>
 <section id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
@@ -727,6 +789,12 @@ Notes and warnings: <a class="reference external" href="https://jupyterbook.org/
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installs">Installs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organization">Organization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-book">Building Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-schedules">Class Schedules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises-appear-on-the-day-of-class">Exercises appear on the day of class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-before-a-date-arrives">Testing before a date arrives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#class-dates-and-rolling-a-schedule-forward">Class dates and rolling a schedule forward</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
 </ul>
   </nav></div>
