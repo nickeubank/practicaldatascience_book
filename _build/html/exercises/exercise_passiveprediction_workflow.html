@@ -671,8 +671,8 @@ document.write(`
     <span class="s2">&quot;ex4_train_rows&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ex4_test_rows&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ex6_true_negatives&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex5_baseline_accuracy&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex5_baseline_f1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex7_baseline_accuracy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex7_baseline_f1&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ex8_rf_accuracy&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ex8_rf_f1&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ex9_better_model&quot;</span><span class="p">,</span>
@@ -741,6 +741,7 @@ document.write(`
 <p>Fit a <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code> model as the baseline classifier. You can read more about logistic regression and how to import it on the Scikit-learn <a class="reference external" href="https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression">documentation</a>.</p>
 <p>Set the solver to <code class="docutils literal notranslate"><span class="pre">liblinear</span></code> and the max iterations to <code class="docutils literal notranslate"><span class="pre">1000</span></code>. Specify the <code class="docutils literal notranslate"><span class="pre">random_state=42</span></code> for reproducibility.</p>
 <p>Basically, you will first create a model object with <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, then fit it to your data using the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method and your training data.</p>
+<p><strong>NOTE:</strong> in this exercise, just feed all of your x-variables in as predictors. In this first exercise, we’ve prepared the data so that the columns other than your target variable are all good predictors. In a later exercise we’ll discuss model selection and “feature engineering” (ML lingo for picking your variables).</p>
 <p><strong>Note:</strong> with <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>, when you use <code class="docutils literal notranslate"><span class="pre">.fit</span></code> you get back a new object. In scikit-learn, <code class="docutils literal notranslate"><span class="pre">.fit</span></code> modifies the model object in place. So don’t do:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_model</span> <span class="o">=</span> <span class="n">my_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
@@ -751,7 +752,7 @@ document.write(`
 </section>
 <section id="exercise-6-evaluate-model">
 <h3>Exercise 6: Evaluate Model<a class="headerlink" href="#exercise-6-evaluate-model" title="Link to this heading">#</a></h3>
-<p>To see how our model has performed, let’s let it predict the target variable on our test data. We do this by passing our <code class="docutils literal notranslate"><span class="pre">X_test</span></code> data to the <code class="docutils literal notranslate"><span class="pre">.predict()</span></code> method of our fit model. Then we can compare the predicted values of the target variable to the true values.</p>
+<p>To see how our model has performed, let’s let it predict the target variable on our test data. We do this by passing our <code class="docutils literal notranslate"><span class="pre">X_test</span></code> data to the <code class="docutils literal notranslate"><span class="pre">.predict()</span></code> method of our fit model. Then we can compare the predicted values of the target variable to the true values.  If your model were called <code class="docutils literal notranslate"><span class="pre">lr</span></code>, you’d write:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_lr</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -773,12 +774,12 @@ document.write(`
 <h3>Exercise 7: Scores<a class="headerlink" href="#exercise-7-scores" title="Link to this heading">#</a></h3>
 <p>There are a near infinite number of ways to evaluate a model like this. Indeed, <a class="reference external" href="https://en.wikipedia.org/wiki/Confusion_matrix#Table_of_confusion">if you hop over to wikipedia</a>, you can see the <em>many</em> ways that you can measure performance just by adding up different elements of the confusion matrix and dividing by different elements. For example, accuracy is the sum of true positives and true negatives divided by total number of observations; sensitivity is the number of True Positives (delinquent mortgages predicted as delinquent) divided by the total number of positive observations), etc.</p>
 <p>While you <em>can</em> calculate all these by hand, scikit-learn also provides some convenience functions in the <a class="reference external" href="https://scikit-learn.org/stable/api/sklearn.metrics.html">sklearn.metrics module</a>.</p>
-<p>To illustrate, import and estimate both the model’s <code class="docutils literal notranslate"><span class="pre">accuracy_score</span></code> and <code class="docutils literal notranslate"><span class="pre">f1_score</span></code> (you can lookup F1 in that wikipedia page). Store the test accuracy in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex5_baseline_accuracy&quot;]</span></code> and the F1 score in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex5_baseline_f1&quot;]</span></code>. <strong>Round both to 4 decimal places.</strong></p>
+<p>To illustrate, import and estimate both the model’s <code class="docutils literal notranslate"><span class="pre">accuracy_score</span></code> and <code class="docutils literal notranslate"><span class="pre">f1_score</span></code> (you can lookup F1 in that wikipedia page). Store the test accuracy in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex7_baseline_accuracy&quot;]</span></code> and the F1 score in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex7_baseline_f1&quot;]</span></code>. <strong>Round both to 3 decimal places.</strong></p>
 <p>After fitting, generate predictions using the <code class="docutils literal notranslate"><span class="pre">predict</span></code> method and your test data. Generate:</p>
 <ul class="simple">
 <li><p>Accuracy, Precision, Recall, and F1 Score</p></li>
 </ul>
-<p>Store the test accuracy in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex5_baseline_accuracy&quot;]</span></code> and the F1 score in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex5_baseline_f1&quot;]</span></code>. <strong>Round both to 4 decimal places.</strong></p>
+<p>Store the test accuracy in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex7_baseline_accuracy&quot;]</span></code> and the F1 score in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex7_baseline_f1&quot;]</span></code>. <strong>Round both to 2 decimal places.</strong></p>
 </section>
 </section>
 <section id="machine-learning-workflow-summary">
@@ -835,6 +836,7 @@ document.write(`
 <li><p>Given the business context (avoiding costly delinquent loans), which metric do you think matters most here? Why?</p></li>
 </ul>
 <p>Store the name of the better model (by F1 score) as a string in <code class="docutils literal notranslate"><span class="pre">results[&quot;ex9_better_model&quot;]</span></code>. Use either <code class="docutils literal notranslate"><span class="pre">&quot;logistic_regression&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;random_forest&quot;</span></code>.</p>
+<p>(And we’ll talk more about exactly which metric makes more sense in our next exercise!)</p>
 </section>
 </section>
 <section id="is-that-it">

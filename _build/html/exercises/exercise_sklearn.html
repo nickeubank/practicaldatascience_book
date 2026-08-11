@@ -621,13 +621,34 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-in-medicine">Machine Learning in Medicine</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-your-data">Formatting Your Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-your-data">Splitting Your Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-your-model">Training your Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-your-model">Evaluating your Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-your-data">Formatting Your Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-your-data">Splitting Your Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-your-model">Training your Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-your-model">Evaluating your Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-workflow-summary">Machine Learning Workflow Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-models">Comparing Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-models">Comparing Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#want-more-practice">Want More Practice?</a></li>
 </ul>
             </nav>
@@ -644,8 +665,8 @@ document.write(`
 <h1>Machine Learning with Scikit-Learn<a class="headerlink" href="#machine-learning-with-scikit-learn" title="Link to this heading">#</a></h1>
 <section id="gradescope-autograding">
 <h2>Gradescope Autograding<a class="headerlink" href="#gradescope-autograding" title="Link to this heading">#</a></h2>
-<p>Please follow <a class="reference internal" href="#../autograder_guidelines.ipynb"><span class="xref myst">all standard guidance</span></a> for submitting this assignment to the Gradescope autograder, including storing your solutions in a dictionary called <code class="docutils literal notranslate"><span class="pre">results</span></code> and ensuring your notebook runs from the start to completion without any errors.</p>
-<p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_sklearn.</span></code>ipynb` before uploading.</p>
+<p>Please follow <a class="reference external" href="https://www.practicaldatascience.org/html/autograder_guidelines.html">all standard guidance</a> for submitting this assignment to the Gradescope autograder, including storing your solutions in a dictionary called <code class="docutils literal notranslate"><span class="pre">results</span></code> and ensuring your notebook runs from the start to completion without any errors.</p>
+<p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_sklearn.ipynb</span></code> before uploading.</p>
 <p>You can check that you have answers for all questions in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary with this code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">{</span>
     <span class="s2">&quot;ex3_num_columns&quot;</span><span class="p">,</span>
@@ -679,7 +700,10 @@ document.write(`
 </section>
 <section id="exercises">
 <h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
-<p><strong>(1)</strong> Load the data “smoking.csv”, which includes information on both biometrics of infants at birth, and information on mothers (variables prefixed with the letter “m”), from <a class="reference external" href="https://github.com/nickeubank/MIDS_Data">this MIDS repo</a>. We’ll be working with this data in this exercise.</p>
+<section id="exercise-1">
+<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
+<p>Load the data “smoking.csv”, which includes information on both biometrics of infants at birth, and information on mothers (variables prefixed with the letter “m”), from <a class="reference external" href="https://github.com/nickeubank/MIDS_Data">this MIDS repo</a>. We’ll be working with this data in this exercise.</p>
+</section>
 </section>
 <section id="formatting-your-data">
 <h2>Formatting Your Data<a class="headerlink" href="#formatting-your-data" title="Link to this heading">#</a></h2>
@@ -706,10 +730,16 @@ document.write(`
 </div>
 <p>Re-group mrace to be White(0-5), Hispanic (6), Black(7), other (8, 9, 99)</p>
 <p>(We’re ignoring <code class="docutils literal notranslate"><span class="pre">gestation</span></code> because we don’t really know the value of <code class="docutils literal notranslate"><span class="pre">gestation</span></code> before the child is born, so we can’t use it to predict the birthweight of not-yet-born children!)</p>
-<p><strong>(2)</strong> Begin by using <code class="docutils literal notranslate"><span class="pre">patsy.dmatrices()</span></code> to create two datasets (<code class="docutils literal notranslate"><span class="pre">y</span></code>, which is the birth weights, and <code class="docutils literal notranslate"><span class="pre">X</span></code>, which is a matrix with all your “features” in a nice numpy array).</p>
+<section id="exercise-2">
+<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h3>
+<p>Begin by using <code class="docutils literal notranslate"><span class="pre">patsy.dmatrices()</span></code> to create two datasets (<code class="docutils literal notranslate"><span class="pre">y</span></code>, which is the birth weights, and <code class="docutils literal notranslate"><span class="pre">X</span></code>, which is a matrix with all your “features” in a nice numpy array).</p>
 <p><strong>Note:</strong> You may hit a similar issue using patsy here you encountered when writing formulas in the <a class="reference internal" href="#exercises/statsmodel.ipynb"><span class="xref myst">statsmodels</span></a> exercise.</p>
-<p><strong>(3)</strong> Look at your features matrix <code class="docutils literal notranslate"><span class="pre">X</span></code>. How many columns does it have? Store your answer as <code class="docutils literal notranslate"><span class="pre">ex3_num_columns</span></code>. How does that compare to the number of variables you used as inputs? (if they’re the same, you probably did something wrong…).</p>
+</section>
+<section id="exercise-3">
+<h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
+<p>Look at your features matrix <code class="docutils literal notranslate"><span class="pre">X</span></code>. How many columns does it have? Store your answer as <code class="docutils literal notranslate"><span class="pre">ex3_num_columns</span></code>. How does that compare to the number of variables you used as inputs? (if they’re the same, you probably did something wrong…).</p>
 <p>Explain all the things patsy has done with your data (hint: it’s made TWO changes affecting the number of columns in your data).</p>
+</section>
 </section>
 <section id="splitting-your-data">
 <h2>Splitting Your Data<a class="headerlink" href="#splitting-your-data" title="Link to this heading">#</a></h2>
@@ -724,14 +754,16 @@ document.write(`
 <p>So the first step in machine learning is to split our sample! Thankfully this is easy to do with the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> function. Import the function with <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">sklearn.model_selection</span> <span class="pre">import</span> <span class="pre">train_test_split</span></code>, and split your data. To give you a sense of how it works, this is a common syntax:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> 
-                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> 
-                                                    <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Where <code class="docutils literal notranslate"><span class="pre">X_train</span></code> is your training features, <code class="docutils literal notranslate"><span class="pre">Y_train</span></code> are your training birth weights, <code class="docutils literal notranslate"><span class="pre">X_test</span></code> are your test features, and <code class="docutils literal notranslate"><span class="pre">Y_test</span></code> are your test birth weights. The <code class="docutils literal notranslate"><span class="pre">random_state</span></code> var just ensures that you can re-create this split if you have to re-run your code (helpful for debugging and for our autograder).</p>
-<p><strong>(4)</strong> Start by splitting YOUR data, putting 80% into the training data. Set your random state with the seed <code class="docutils literal notranslate"><span class="pre">42</span></code> so your random split is the same as will be used by the autograder.</p>
+<section id="exercise-4">
+<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
+<p>Start by splitting YOUR data, putting 80% into the training data. Set your random state with the seed <code class="docutils literal notranslate"><span class="pre">42</span></code> so your random split is the same as will be used by the autograder.</p>
+</section>
 </section>
 <section id="training-your-model">
 <h2>Training your Model<a class="headerlink" href="#training-your-model" title="Link to this heading">#</a></h2>
@@ -741,15 +773,20 @@ document.write(`
 <p>For this exercise, let’s start by fitting a <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> model.</p>
 <p>Wait, you say: isn’t that what we did in <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>? Yes!</p>
 <p>Data Science is a very fragmented discipline, and some stuff gets recapitulated in slightly different ways in different places, so it’s common to see different implementations of the same thing as you move from the world of statisticians (<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>) to the world of computer scientists (i.e. machine learning and <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>).</p>
-<p><strong>(5)</strong> Import the Linear Regression model and instantiate it with code like:</p>
+<section id="exercise-5">
+<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
+<p>Import the Linear Regression model and instantiate it with code like:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="n">my_model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">fit_intercept=False</span></code> tells <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> you don’t want it to fit an intercept for your model <em>behind the scenes</em>. We use <code class="docutils literal notranslate"><span class="pre">False</span></code> because <code class="docutils literal notranslate"><span class="pre">patsy</span></code> included an intercept in our design matrix (a column of 1s), and we want to see the coefficient on that column in our coefficients.</p>
-<p><strong>(6)</strong> Now fit your model against X and y and take a look at the coefficients.</p>
+</section>
+<section id="exercise-6">
+<h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
+<p>Now fit your model against X and y and take a look at the coefficients.</p>
 <p>Machine learning, more than absolutely anything else, is concerned with <em>predicting</em> values, and that’s evident in what functionality is exposed by this implementation of linear regressions. As you may recall, in <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>, you could type <code class="docutils literal notranslate"><span class="pre">.summary()</span></code> and get something that looked like this:</p>
-<p><img alt="statsmodel_output" src="../_images/statsmodel_output.png" /></p>
+<p><img alt="statsmodel_output" src="images/statsmodel_output.png" /></p>
 <p>A full printout of various diagnostics, all your coefficients, estimates of confidence intervals for each coefficient, etc.</p>
 <p>By contrast, <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> from <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> has no <code class="docutils literal notranslate"><span class="pre">summary</span></code> method. Indeed, the only output you really get for what the model has actually fit is <code class="docutils literal notranslate"><span class="pre">my_model.coef_</span></code>, which will look something like (not real values or number of coefficients you should get here):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">my_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -763,7 +800,11 @@ document.write(`
 <p>To be clear, you can recover many of the diagnostics for LinearRegression by digging around in other corners of <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, but what is made available speaks to the prioritizes of different users: <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> is for making predictions; <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> is for statistics and understanding mechanisms (i.e. seeing if the coefficient on smoking is significant).</p>
 <p>Store your model’s coefficients for smoking in <code class="docutils literal notranslate"><span class="pre">ex6_model_smoking</span></code>. (Note how much trickier this is here than with <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>! sklearn doesn’t think anyone would ever care about individual coefficients).</p>
 <p><strong>Note:</strong> In <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>, the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method returned a new fitted model. In <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, by contrast, <code class="docutils literal notranslate"><span class="pre">.fit</span></code> modifies (mutates) the model in place.</p>
-<p><strong>(7)</strong> OK, but we’re in the world of sklearn, so let’s do some prediction! Now that you’ve fit your model, use the <code class="docutils literal notranslate"><span class="pre">predict</span></code> method your data to create a set of predictions. Store the first (index 0) predicted birthweight in <code class="docutils literal notranslate"><span class="pre">ex7_first_prediction</span></code>.</p>
+</section>
+<section id="exercise-7">
+<h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
+<p>OK, but we’re in the world of sklearn, so let’s do some prediction! Now that you’ve fit your model, use the <code class="docutils literal notranslate"><span class="pre">predict</span></code> method your data to create a set of predictions. Store the first (index 0) predicted birthweight in <code class="docutils literal notranslate"><span class="pre">ex7_first_prediction</span></code>.</p>
+</section>
 </section>
 <section id="evaluating-your-model">
 <h2>Evaluating your Model<a class="headerlink" href="#evaluating-your-model" title="Link to this heading">#</a></h2>
@@ -774,7 +815,10 @@ document.write(`
 </div>
 <p>If you’re doing a classification model (something that tries to guess the category for each observation, like a model that evalutes a set of pictures and tries to figure out if the pictures are of cats, dogs, or humans), <code class="docutils literal notranslate"><span class="pre">score</span></code> will return an “accuracy” score (the percentage of observations you properly classified). For a regression model (trying to guess a continuous variable) it will give an R-squared score.</p>
 <p>As you get more sophisticated, you will discover these basic scores are often inadequate for evaluating models, and you can turn to other evaluation functions found in <a class="reference external" href="https://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter">sklearn.metrics</a>. But for now we’ll just use the default <code class="docutils literal notranslate"><span class="pre">score</span></code> output of R-squared.</p>
-<p><strong>(8)</strong> What is the score of your model? Store the result as <code class="docutils literal notranslate"><span class="pre">ex8_score</span></code></p>
+<section id="exercise-8">
+<h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
+<p>What is the score of your model? Store the result as <code class="docutils literal notranslate"><span class="pre">ex8_score</span></code></p>
+</section>
 </section>
 <section id="machine-learning-workflow-summary">
 <h2>Machine Learning Workflow Summary<a class="headerlink" href="#machine-learning-workflow-summary" title="Link to this heading">#</a></h2>
@@ -784,7 +828,10 @@ document.write(`
 <li><p>Prep your data:</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">patsy</span>
-<span class="n">y</span> <span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s1">&#39;bwt_oz ~ C(race_recoded) + smoke + mage + mpregwt + mht&#39;</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span>
+
+<span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span>
+    <span class="s2">&quot;bwt_oz ~ C(race_recoded) + smoke + mage + mpregwt + mht&quot;</span><span class="p">,</span> <span class="n">smoking_and_bw</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
@@ -792,16 +839,16 @@ document.write(`
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> 
-                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> 
-                                                    <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
 <li><p>Import and fit a model:</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+
 <span class="n">my_model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">my_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
@@ -822,14 +869,17 @@ document.write(`
 <section id="comparing-models">
 <h2>Comparing Models<a class="headerlink" href="#comparing-models" title="Link to this heading">#</a></h2>
 <p>Now that we have a baseline estimate for the performance of <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> for this set of features and outputs, let’s try a different model and see how it compares!</p>
-<p><strong>(9)</strong> Now repeat your analysis using a Support Vector Regression (<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">sklearn.svm</span> <span class="pre">import</span> <span class="pre">SVR</span></code>).</p>
+<section id="exercise-9">
+<h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
+<p>Now repeat your analysis using a Support Vector Regression (<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">sklearn.svm</span> <span class="pre">import</span> <span class="pre">SVR</span></code>).</p>
 <p>How does the model perform? Is it better or worse than LinearRegression?</p>
 <p><strong>Note:</strong> You’ll probably get a <code class="docutils literal notranslate"><span class="pre">DataConversionWarning:</span> <span class="pre">A</span> <span class="pre">column-vector</span> <span class="pre">y</span> <span class="pre">was</span> <span class="pre">passed</span> <span class="pre">when</span> <span class="pre">a</span> <span class="pre">1d</span> <span class="pre">array</span> <span class="pre">was</span> <span class="pre">expected</span></code>. This is <a class="reference external" href="https://www.practicaldatascience.org/notebooks/class_2/week_3/41_broadcasting.html#a-common-gotcha-narrow-matrices-v-1-dimensional-vectors">related to this common gotcha</a>. Make sure you understand the problem / are able to resolve the warning.</p>
 <p>Why didn’t you get this with <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code>? That I can’t say! They must each be implemented slightly differently beneath the hood.</p>
 <p><strong>ROUND</strong> your value of the score of this fit model result to <em>2</em> decimal places and store as <code class="docutils literal notranslate"><span class="pre">&quot;ex9_SVR_score&quot;</span></code>. (SVR is not deterministic, and it doesn’t seem to respect our random seeds, so values beyond this may differ a little across computers.)</p>
 <p><strong>(10)</strong> One choice parameter for SVRs is the kernel it uses for weighting (again, this isn’t a class on machine learning, so don’t worry too much about what this means—just know that it’s a parameter of the model). Check the SVR documentation to figure out how to set the kernel to <code class="docutils literal notranslate"><span class="pre">linear</span></code> and see how it performs now.</p>
-<p>Store the score of the SVR with linear kernel as <code class="docutils literal notranslate"><span class="pre">&quot;ex10_SVR_linear_score&quot;</span></code>. <strong>ROUND</strong> your value of the score of the SVR with linear kernel to <em>2</em> decimal places and store as <code class="docutils literal notranslate"><span class="pre">&quot;ex10_SVR_linear_score&quot;</span></code></p>
+<p><strong>ROUND</strong> your value of the score of the SVR with linear kernel to <em>2</em> decimal places and store as <code class="docutils literal notranslate"><span class="pre">&quot;ex10_SVR_linear_score&quot;</span></code> Why? Some kind of numerical instability that random number generators can’t seem to help with, sorry!</p>
 <p><strong>(11)</strong> Now pick whatever regression model you’d like and see how it performs (<a class="reference external" href="https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html">some suggestions</a>). Play with your model specifications and see how well you can do with your new model of one of the ones we used above.</p>
+</section>
 </section>
 <section id="want-more-practice">
 <h2>Want More Practice?<a class="headerlink" href="#want-more-practice" title="Link to this heading">#</a></h2>
@@ -888,13 +938,34 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-in-medicine">Machine Learning in Medicine</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-your-data">Formatting Your Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-your-data">Splitting Your Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-your-model">Training your Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-your-model">Evaluating your Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-your-data">Formatting Your Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-your-data">Splitting Your Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-your-model">Training your Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-your-model">Evaluating your Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-workflow-summary">Machine Learning Workflow Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-models">Comparing Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-models">Comparing Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#want-more-practice">Want More Practice?</a></li>
 </ul>
   </nav></div>

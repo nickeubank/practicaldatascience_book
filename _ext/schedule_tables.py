@@ -27,6 +27,9 @@ So the schedule is left alone and the build warns instead.
 
 To roll a schedule forward, update its date column to the new semester's
 dates. Nothing else needs to change.
+
+To see a future class day rendered, set ``SCHEDULE_AS_OF=YYYY-MM-DD`` when you
+build; see ``AS_OF_ENV`` below.
 """
 
 from __future__ import annotations
@@ -34,6 +37,7 @@ from __future__ import annotations
 import argparse
 import calendar
 import datetime as dt
+import os
 import re
 import sys
 from pathlib import Path
@@ -56,6 +60,14 @@ CAMPUS_TZ = ZoneInfo("America/New_York")
 #: Past this, the workbook is assumed to be last year's, not this year's.
 STALE_AFTER = dt.timedelta(days=45)
 
+#: Set to ``YYYY-MM-DD`` to build the site as if it were that date, so you can
+#: look at a future class day rendered. The build has to be told, not just the
+#: CLI: this extension regenerates the CSVs at ``builder-inited``, so a build
+#: that didn't know the date would overwrite them with today's schedule before
+#: Sphinx ever read them. Unset everywhere that matters (the nightly Action),
+#: so real builds always use the real today.
+AS_OF_ENV = "SCHEDULE_AS_OF"
+
 _WEEKDAYS = {name.lower()[:3]: i for i, name in enumerate(calendar.day_name)}
 _MONTHS = {name.lower()[:3]: i for i, name in enumerate(calendar.month_name) if name}
 
@@ -71,6 +83,19 @@ def output_path(workbook: Path) -> Path:
 
 def today_on_campus() -> dt.date:
     return dt.datetime.now(CAMPUS_TZ).date()
+
+
+def as_of_from_env() -> dt.date | None:
+    """The ``SCHEDULE_AS_OF`` override, or None for a normal build."""
+    raw = os.environ.get(AS_OF_ENV, "").strip()
+    if not raw:
+        return None
+    try:
+        return dt.date.fromisoformat(raw)
+    except ValueError:
+        raise ValueError(
+            f"{AS_OF_ENV}={raw!r} is not a date -- expected YYYY-MM-DD."
+        ) from None
 
 
 # -- Dates -------------------------------------------------------------------
@@ -324,7 +349,15 @@ def _on_builder_inited(app):
     from sphinx.util import logging
 
     logger = logging.getLogger(__name__)
-    for path in generate(Path(app.srcdir), warn=logger.warning):
+    as_of = as_of_from_env()
+    if as_of is not None:
+        logger.warning(
+            f"[schedule_tables] {AS_OF_ENV}={as_of:%Y-%m-%d}: building the "
+            f"schedules as if it were that date. The generated CSVs are now a "
+            f"schedule from another day -- run `python _ext/schedule_tables.py` "
+            f"to restore them before you commit or copy into docs/."
+        )
+    for path in generate(Path(app.srcdir), warn=logger.warning, today=as_of):
         logger.info(f"[schedule_tables] regenerated {path.name}")
 
 
@@ -346,28 +379,22 @@ if __name__ == "__main__":
         "--as-of",
         metavar="YYYY-MM-DD",
         type=dt.date.fromisoformat,
-        help="pretend today is this date. Previews only -- nothing is written "
-        "unless you also pass --write",
-    )
-    parser.add_argument(
-        "--write",
-        action="store_true",
-        help="with --as-of, actually write the future-dated CSVs so you can "
-        "build and look at the rendered page. Leaves the repo holding a "
-        "schedule from the future -- rerun with no arguments to restore",
+        help="print what a build on this date would publish. Nothing is "
+        f"written. To see that date rendered, build with {AS_OF_ENV}=YYYY-MM-DD "
+        "set instead",
     )
     args = parser.parse_args()
 
     root = Path(__file__).resolve().parent.parent
     problems: list[str] = []
 
-    if args.as_of and not args.write:
+    if args.as_of:
         preview(root, args.as_of, warn=problems.append)
         for message in problems:
             print(f"WARNING: {message}", file=sys.stderr)
         sys.exit(1 if problems else 0)
 
-    written = generate(root, warn=problems.append, today=args.as_of)
+    written = generate(root, warn=problems.append)
 
     for path in written:
         print(f"wrote {path.relative_to(root)}")
@@ -375,10 +402,4 @@ if __name__ == "__main__":
         print(f"WARNING: {message}", file=sys.stderr)
     if not written and not problems:
         print("all schedule CSVs already up to date")
-    if args.as_of and written:
-        print(
-            f"\nNOTE: these CSVs describe {args.as_of}, not today. "
-            f"Run `python _ext/schedule_tables.py` to restore them.",
-            file=sys.stderr,
-        )
     sys.exit(1 if problems else 0)

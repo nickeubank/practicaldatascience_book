@@ -12,7 +12,7 @@ pip install sphinx_markdown_tables
 conda install pandas openpyxl
 ```
 
-(`pandas` and `openpyxl` are what read the Excel class schedules during the build — see [Class Schedules](#class-schedules).)
+(`pandas` and `openpyxl` are what read the Excel class schedules during the build — the ones behind the [540](ids540_specific/class_schedule_540.rst), [541](ids541_specific/class_schedule_541.rst), and [720](ids720_specific/class_schedule_720.rst) schedule pages.)
 
 (Jupyter-book has a version 2.0, but it's not feature-complete, so this is all still building off jupyter `1.0.4.post1`)
 
@@ -36,7 +36,7 @@ You can complete ignore `_build` — that's where builds of the site land — an
 - Push to github and it'll update online shortly!
 - You can also open `_build/index.html` (just double click!) and it'll open in your browser locally.
 
-The site *also* rebuilds itself every morning via GitHub Actions, to release class exercises on schedule — see [Class Schedules](#class-schedules). That means `main` can pick up commits you didn't make, so `git pull` before editing.
+The site *also* rebuilds itself every morning via GitHub Actions, to release class exercises onto the [540](ids540_specific/class_schedule_540.rst), [541](ids541_specific/class_schedule_541.rst), and [720](ids720_specific/class_schedule_720.rst) schedule pages on the day of each class. That means `main` can pick up commits you didn't make, so `git pull` before editing.
 
 For copy-paste ease:
 
@@ -91,15 +91,16 @@ If the site were built on Tuesday, October 06, 2026:
 
 Each `+` line is an exercise that would be public on that date. That's usually all you need — to check whether an exercise goes up on the right day, name the day.
 
-If you want to *look at the rendered page* as it will appear on some future date, add `--write` and build:
+If you want to *look at the rendered page* as it will appear on some future date, build with `SCHEDULE_AS_OF` set:
 
 ```bash
-python _ext/schedule_tables.py --as-of 2026-10-06 --write
-jupyter-book build .          # now open _build/html/... and look at it
-python _ext/schedule_tables.py   # IMPORTANT: restores today's schedule
+SCHEDULE_AS_OF=2026-10-06 jupyter-book build .   # now open _build/html/... and look at it
+python _ext/schedule_tables.py                   # IMPORTANT: restores today's schedule
 ```
 
-Between those commands your working copy holds a schedule from the future, so don't run `jbp` or commit until you've restored it. The last command puts things back (`git checkout ids*_specific/*.generated.csv` also works).
+The build regenerates the CSVs itself before rendering, so the date has to be set on the build — running the script beforehand doesn't help, the build just overwrites it with today's schedule.
+
+Between those two commands your working copy holds a schedule from the future, so don't run `jbp` or commit until you've restored it. The second command puts things back (`git checkout ids*_specific/*.generated.csv` also works).
 
 To rehearse the Action itself, trigger it by hand from the Actions tab — on a day when nothing is due to change it should report "Site unchanged today; nothing to commit."
 

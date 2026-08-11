@@ -689,9 +689,7 @@ document.write(`
 <h3>Testing Your Assumptions<a class="headerlink" href="#testing-your-assumptions" title="Link to this heading">#</a></h3>
 <p>It’s important to be able to test whether the data you are working with really is organized the way you think it is, especially when working with groupby. Let’s discuss how to check your answer to Exercise 2 with the <code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> method.</p>
 <p>Consider the following toy data:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="p">{</span>
@@ -708,97 +706,15 @@ document.write(`
 <span class="n">df</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>social_security_numbers</th>
-      <th>second_column</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>111111111</td>
-      <td>a</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>222222222</td>
-      <td>a</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>222222222</td>
-      <td>a</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>333333333</td>
-      <td>a</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>333333333</td>
-      <td>b</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
 <p>If we want to see if there are any duplicate rows in the dataset, we can use the <code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> method:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    False
-1    False
-2     True
-3    False
-4    False
-dtype: bool
-</pre></div>
-</div>
-</div>
 </div>
 <p>As you can see, <code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> looks at each row and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if it has seen the row it is looking at before.</p>
 <p>Notice that <code class="docutils literal notranslate"><span class="pre">.duplicted()</span></code> doesn’t return <code class="docutils literal notranslate"><span class="pre">True</span></code> for <em>all</em> rows that look the same as another row in the data—it treats the first instance of a row as unique, and only tags <em>subsequent</em> repetitions as “duplicates” (You can change this behavior with the <code class="docutils literal notranslate"><span class="pre">keep</span></code> keyword argument if you want).</p>
 <p><code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> can also be used to test for rows that are duplicates in terms of a sub-set of columns. For example, <code class="docutils literal notranslate"><span class="pre">df.duplicated([&quot;social_security_numbers&quot;])</span></code> identifies rows with duplicate values of the variable <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    False
-1    False
-2     True
-3    False
-4     True
-dtype: bool
-</pre></div>
-</div>
-</div>
 </div>
 <p>Since <code class="docutils literal notranslate"><span class="pre">duplicated</span></code> is now only looking at <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> (not all values in a row), the last row is now a duplicate (because <code class="docutils literal notranslate"><span class="pre">333333333</span></code> is duplicated), where when we considered all columns, it was not a duplicate.</p>
 </section>
@@ -807,17 +723,8 @@ dtype: bool
 <p><code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> can be paired with the <code class="docutils literal notranslate"><span class="pre">.any()</span></code> method to write <code class="docutils literal notranslate"><span class="pre">assert</span></code> tests to detect the presence of duplicates in our dataset and to validate our assumptions about whether certain variables uniquely identify observations in our data.</p>
 <p>When you run <code class="docutils literal notranslate"><span class="pre">.any()</span></code> on an array of Booleans, it returns a single value of <code class="docutils literal notranslate"><span class="pre">True</span></code> if <em>any</em> entries are <code class="docutils literal notranslate"><span class="pre">True</span></code>, and a single value of <code class="docutils literal notranslate"><span class="pre">False</span></code> if <em>no</em> entries are <code class="docutils literal notranslate"><span class="pre">True</span></code>. (You can also use <code class="docutils literal notranslate"><span class="pre">.all()</span></code> to test if all entries are <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
 <p>Thus the command <code class="docutils literal notranslate"><span class="pre">df.duplicated(['social_security_numbers'])</span></code> will return <code class="docutils literal notranslate"><span class="pre">False</span></code> if <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> uniquely identifies every row in our dataset (since there are no duplicates)! But if there <em>are</em> any duplicates, it will return <code class="docutils literal notranslate"><span class="pre">True</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.True_
-</pre></div>
-</div>
-</div>
 </div>
 <p>So if I wanted a test that would raise an <code class="docutils literal notranslate"><span class="pre">Error</span></code> if it turned out that <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> <em>didn’t</em> uniquely identify observations, I would combine that code with <code class="docutils literal notranslate"><span class="pre">assert</span> <span class="pre">not</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
@@ -878,25 +785,52 @@ dtype: bool
 <p>Include assert statements to check all these features of your data.</p>
 <p>(Reminder: the autograder will only work if you are entire notebook runs without errors.)</p>
 <p>If you encounter any problems, make sure you understand why they are happening, and fix them (if a fix is appropriate!).</p>
+<p>First, check arrest shares make sense:</p>
+<p>OK, so something up with alpine county! Let’s look at one of these years:</p>
+<p>Ah, ok – it’s because no drug arrests! I guess np.nan is fine for those – after all, I’m trying to calculate “share of drug arrests that were Black arrestees” – if there are no drug arrests, then that’s just undefined (not zero). Make sure that’s only problem:</p>
+<p>Now we can check if we have same county counts:</p>
 </section>
 <section id="exercise-9">
 <h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
 <p>Now check to see if you have the same number of counties <em>in each year for each racial group</em>.</p>
 <p>Can you figure out why there aren’t? (Hint: this isn’t trivial to figure out! You’ll probably have to do some detective work, and even then you’ll have to make a bit of a “best guess” at what’s going on!)</p>
+<p>Uh oh! Let’s poke around to see what’s up:</p>
+<p>K, so we can see problem in 1980. Let’s dig in:</p>
+<p>K, Alpine obviously missing one. Let’s look:</p>
+<p>Huh, missing Hispanic and Black. Wonder why…</p>
+<p>OK, digging around on the internet (and looking at the number of arrests Alpine reported), looks like Alpine county is a small and very White county, so perhaps they didn’t have any Hispanic arrests, so didn’t report them.</p>
+<p>Indeed, that’s also true for the other counties with fewer rows than they should have in 1984 – if we go to <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_counties_in_California">wikipedia</a> and sort by population, we find these are some of the smallest counties:</p>
+<p>Now, this isn’t a slam dunk case – it does appear counties sometimes report rows that are all zeros, even some of our smaller counties:</p>
+<p>But this is the kind of detective work sometimes required for data science, and I think it’s reasonable to infer that these are cases where there just were no arrests for a given racial group, and so nothing was reported. This is real world, government-agency-reported data – there are gonna be issues.</p>
 </section>
 <section id="exercise-10">
 <h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Link to this heading">#</a></h3>
 <p>Once you think you have a theory of the case, fix the problem. Again, this will NOT be trivial.</p>
+<p>So let’s fill in those cells with zeros, since without them we’d be systematically dropping observations where 0 of the arrests in a given category were of a given racial group (e.g. Black), and systematically dropping situations where the pct of arrestees who were Black would obviously bias our conclusions.</p>
+<p>Fixing this can actually be done in several ways, but here’s what feels “intuitive” (nothing with groupby is intuitive, but this works) to me:</p>
+<ol class="arabic simple">
+<li><p>Identify the county-years missing Black entries (we’re only working with Black and White later, so I don’t need to worry about filling in zeros for Other and Hispanic. If I were working with all groups, I would).</p></li>
+<li><p>Add in rows will all zeros for these entries.</p></li>
+</ol>
+<p><strong>Part 1: Identify county-years missing Black entries</strong></p>
+<p>Here we’re going to use a trick that’s actually something I use a lot: to figure out which groups contain observations of a given type, make a new variable that identifies which <em>rows</em> are of a type with a 1 (0 otherwise), then take the max of that variable for a group. Groups that include a row of the type we’re looking for will have a max value of 1, those that don’t will have a max value of 0.</p>
+<p>This works for finding, say, surveyed groups with men, or countries that experience a disaster in one year of your data, or customers whose purchases include the purchase of a given good:</p>
+<p><strong>PART 2: Add in Black rows for these county-years</strong></p>
+<p>Now that we’ve identified the county-years with no Black rows, we want to add in rows with zeros in all the cells we care about. Here there are quite a few solutions, so I’ll do two (and you may have others!)</p>
+<p>First, there are no county-years that lack a white row:</p>
 </section>
 <section id="exercise-11">
 <h3>Exercise 11<a class="headerlink" href="#exercise-11" title="Link to this heading">#</a></h3>
 <p>Now that you have corrected your problem, averaging over the values for each county-year, calculate the average share of drug arrestees who are Black and the average share of drug arrestees who are White. Store the results as <code class="docutils literal notranslate"><span class="pre">&quot;ex11_white_drug_share&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;ex11_black_drug_share&quot;</span></code>.</p>
+<p><strong>Please round the shares to two decimal places (these are shares, so if one group was responsible for 50.1% of drug arrests, your rounded answer would be 0.50).</strong></p>
 </section>
 <section id="exercise-12">
 <h3>Exercise 12<a class="headerlink" href="#exercise-12" title="Link to this heading">#</a></h3>
 <p>Plot the share of violent arrestees that are Black against the share of felony drug arrestees that are Black. Do they look proportionate? Answer in text here.</p>
 <p>Do Black arrestees make up a greater share of violent arrestees, or a greater share of drug arrestees? Store you answer as <code class="docutils literal notranslate"><span class="pre">&quot;greater</span> <span class="pre">violent&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;greater</span> <span class="pre">drug&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">&quot;ex12_proportionate&quot;</span></code>.</p>
 <p><strong>Hint:</strong> You can add a 45 degree reference line by making a dummy dataset with one point at 0,0 and one point at a location near the top of your data (e.g. 0.7, 0.7). Without a reference line it’s VERY hard to be sure if how your points relate to proportionality.</p>
+<p>Proportionality is hard to see, so I’m gonna add a 45 degree line:</p>
+<p>Clearly this is below the line of proportionality, meaning that Black arrestees make up a larger share of violent arrestees than drug arrests.</p>
 <p>(A quick note of warning on interpretation: these results can tell you whether Black Californians make up a larger proportion of <em>arrests</em> for certain types of crimes, not whether they make up a larger proportion of people who <em>commit</em> a give type of crime! Those <em>might</em> be the same, but they might not… this data just can’t answer that question.)</p>
 </section>
 </section>
