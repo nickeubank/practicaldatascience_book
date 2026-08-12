@@ -735,7 +735,7 @@
 <h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <p>For these exercises, we will borrow some data and exercises from another MIDS course on Statistical Modeling:</p>
 <p>These days, it is widely understood that mothers who smoke during pregnancy risk exposing their babies to many health problems. This was not common knowledge fifty years ago. One of the first studies that addressed the issue of pregnancy and smoking was the Child Health and Development Studies, a comprehensive study of all babies born between 1960 and 1967 at the Kaiser Foundation Hospital in Oakland, CA. The original reference for the study is Yerushalmy (1964, American Journal of Obstetrics and Gynecology, pp. 505-518). The data and a summary of the study are in Nolan and Speed (2000, Stat Labs, Chapter 10) and can be found at <a class="reference external" href="https://www.stat.berkeley.edu/users/statlabs/">the book’s website.</a></p>
-<p>There were about 15,000 families in the study. We will only analyze a subset of the data, in particular 1236 male single births where the baby lived at least 28 days. The researchers interviewed mothers early in their pregnancy to collect information on socioeconomic and demographic characteristics, including an indicator of whether the mother smoked during pregnancy. The variables in the dataset are described in the <a class="reference external" href="https://ids-702-f19.github.io/Course-Website/hw/hw-02.html">code book here</a>. In this exercise, we will attempt to use this data to answer the following questions:</p>
+<p>There were about 15,000 families in the study. We will only analyze a subset of the data, in particular 869 male single births where the baby lived at least 28 days. The researchers interviewed mothers early in their pregnancy to collect information on socioeconomic and demographic characteristics, including an indicator of whether the mother smoked during pregnancy. The variables in the dataset are described in the <a class="reference external" href="https://ids-702-f19.github.io/Course-Website/hw/hw-02.html">code book here</a>. In this exercise, we will attempt to use this data to answer the following questions:</p>
 <ol class="arabic simple">
 <li><p>Do mothers who smoke tend to give birth to babies with lower weights than mothers who do not smoke?</p></li>
 <li><p>What is a likely range for the difference in birth weights for smokers and non-smokers?</p></li>
@@ -760,8 +760,8 @@
 <section id="exercise-3">
 <h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
 <p>Now check this relationship using <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>. Regress birthweight on gestational period and whether the infant’s mother smoked. Is your conclusion from the previous exercise confirmed? Store the coefficient for smoking in results under the key <code class="docutils literal notranslate"><span class="pre">&quot;ex3_smoking_coefficient&quot;</span></code>.</p>
-<p><em>Note:</em> coefficients are stored in the <code class="docutils literal notranslate"><span class="pre">.params</span></code> attribute of your fit model.</p>
-<p><em>Note 2:</em> you may hit a problem because of the name of one of your columns. You should probably be able to guess the problem given your experience with Python. Also, if you have trouble figuring out how to access the parameters from a fitted model, check out the docs <a class="reference external" href="https://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.OLS.html">here</a>.</p>
+<p><em>Note:</em> coefficients are stored in the <code class="docutils literal notranslate"><span class="pre">.params</span></code> attribute of your fit model. If you have trouble figuring out how to access the parameters from a fitted model, check out the docs <a class="reference external" href="https://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.OLS.html">here</a>.</p>
+<p><em>Note 2:</em> you may hit a problem because of the name of one of your columns. You should probably be able to guess the problem given your experience with Python.</p>
 </section>
 <section id="exercise-4">
 <h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
@@ -769,7 +769,7 @@
 </section>
 <section id="exercise-5">
 <h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
-<p>Now let’s test for whether there is an interaction between the mother’s race and the effect of smoking.</p>
+<p>Now let’s test for whether there is an interaction between the mother’s race and the effect of smoking by adding an interaction term to this regression.</p>
 <p>Note that race is coded as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mrace    mother’s race or ethnicity
          0-5= white
@@ -786,7 +786,8 @@
 <h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
 <p>Now, using <a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.t_test.html">post-regression test syntax</a> (not by running a new regression on a subpopulation), recover the coefficient and t-statistic for <em>whether smoking reduces birth weight for white mothers.</em>  Store the t-statistic of your test in <code class="docutils literal notranslate"><span class="pre">ex6_compare_white_black_tstat</span></code>.</p>
 <p><strong>Hint:</strong> Read to the BOTTOM of the post-regression test syntax documentation for how to specify hypotheses with strings.</p>
-<p>How does this coefficient compare to that for non-white mothers? Is the reduction in birth weight associated with smoking for white mothers larger or smaller than for non-white mothers? Store your answer as either <code class="docutils literal notranslate"><span class="pre">&quot;larger&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;smaller&quot;</span></code> under the key <code class="docutils literal notranslate"><span class="pre">&quot;ex6_compare_white_black&quot;</span></code>.</p>
+<p>How does this coefficient compare to that for non-White mothers?</p>
+<p>Is the reduction in birth weight associated with smoking for White mothers larger or smaller than for non-White mothers (the effect of smoking is negative for everyone, so basically I’m asking whether the <em>absolute value</em> of this negative value is larger or smaller for White mothers than non-White mothers)? Store your answer as either <code class="docutils literal notranslate"><span class="pre">&quot;larger&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;smaller&quot;</span></code> under the key <code class="docutils literal notranslate"><span class="pre">&quot;ex6_compare_white_black&quot;</span></code>.</p>
 <p><strong>Note:</strong> Please ensure your t-stat is stored as a single number, not an array or an array of arrays.</p>
 </section>
 <section id="exercise-7">
@@ -816,7 +817,7 @@
 <h2>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h2>
 <section id="exercise-8">
 <h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
-<p>Now, using statsmodels, evaluate the impact of smoking on the likelihood a child is born prematurely (where “premature” is defined as gestation of <em>less than</em> 252 days).</p>
+<p>Now, using statsmodels, evaluate the impact of smoking on the likelihood a child is born prematurely <strong>using a logistic regression</strong>  (where “premature” is defined as gestation of <em>less than</em> 252 days).</p>
 <p>For obvious reasons, <strong>DO NOT USE OUR SUBSET FOR GESTATION GREATER THAN 225 DAYS</strong> from above for this section.</p>
 <p>For this model, please include mother’s pre-pregnancy weight, smoking status, and whether the mother is White (if you use all the racial categories, the model won’t converge). Please don’t include the interaction we used in the last question. Store the coefficient for smoking in <code class="docutils literal notranslate"><span class="pre">ex8_smoking_coefficient</span></code>.</p>
 </section>
@@ -831,11 +832,11 @@
 <p>Here, let’s use weighted least squares to weight observations based on population. This will allow bigger counties to influence our estimates more.</p>
 <section id="exercise-9">
 <h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
-<p>To begin, read in our data on California arrest rates and population from <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/arrest_rates_and_population.parquet">github</a>. You will see I’ve reshaped the data to long format for convenience. This data is stored as a parquet file, so you’ll need to install an engine (I usually use <code class="docutils literal notranslate"><span class="pre">fastparquet</span></code> to load the data).</p>
+<p>To begin, read in our data on California arrest rates and population from <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/arrest_rates_and_population.parquet">github</a>. You will see I’ve reshaped the data to long format for convenience. This data is stored as a parquet file.</p>
 </section>
 <section id="exercise-10">
 <h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Link to this heading">#</a></h3>
-<p>To run our difference-in-difference in a regression framework, we need both an indicator variable for observations that occur after legalization (i.e. year == 2018), and an indicator for the population we consider treated (those who had drug arrest rates above the average 2009 drug arrest rate). Re-create those here.</p>
+<p>To run our difference-in-difference in a regression framework, we need both an indicator variable for observations that occur after legalization (i.e. year == 2018), and an indicator for the population we consider treated (those who had drug arrest rates above the average 2009 drug arrest rate). Re-create those here. Remember that your “high drug arrest rate in 2009” variable should only take on a single value for each county (regardless of the year of the observation).</p>
 <p>As a check, store the number of counties that have a high drug arrest rate in 2009 under the key <code class="docutils literal notranslate"><span class="pre">&quot;ex10_num_high_drug_arrest&quot;</span></code>.</p>
 <p><em>Note:</em> if you want, you can also use the 2009 drug arrest rates as a continuous variable. This is a kind of “generalized difference-in-difference”, in which we’re just doing the continuous analogue of the thing we do when we split the sample into “high” and “low” 2009 arrest rates.</p>
 </section>

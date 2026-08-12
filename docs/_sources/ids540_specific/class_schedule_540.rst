@@ -8,11 +8,9 @@ Office Hours
 
 Adriane: `Signup with this link <https://calendly.com/adriane-adrianefresh/20min>`_
 
-`Nick <https://duke.zoom.us/my/nickeubank>`_ (Zoom or in Gross 231): Thursday 8:45 am - 9:45 am. *Please email me in advance if you plan to attend.* I'll usually be there regardless, but knowing people are coming is useful if conflicts arise.
+Shambhavi (TA): *day and time TBD, location TBD*
 
-`Diego <https://duke.zoom.us/j/96262659331>`_ (Zoom or Gross Hall 2nd Floor, 230K): Wednesday 2:00 - 3:00 pm
-
-`Meron <https://duke.zoom.us/j/7699232186>`_ (Zoom or Gross Hall 2nd Floor, 230N): Tuesday 12:15 - 1:15pm.
+Bruce (TA): *day and time TBD, location TBD*
 
 
 
@@ -24,7 +22,7 @@ A preliminary syllabus can be found `here <https://github.com/nickeubank/practic
 Class Schedule
 ---------------
 
-Class will be Tuesdays and Thursdays from 10:05am-11:25am (EDT).
+Class will be Mondays and Wednesdays from 8:30-9:45am (EDT) in Gross 270.
 
 Key:
 

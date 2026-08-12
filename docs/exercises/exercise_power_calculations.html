@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Groupby and Arrest Data &#8212; Practical Data Science with Python</title>
+    <title>Power Calculations and Experiment Planning &#8212; Practical Data Science with Python</title>
   
   
   
@@ -85,7 +85,9 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'exercises/exercise_groupby';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'exercises/exercise_power_calculations';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="icon" href="../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -549,7 +551,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fexercises/exercise_groupby.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fexercises/exercise_power_calculations.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -579,7 +581,7 @@
       
       
       
-      <li><a href="../_sources/exercises/exercise_groupby.ipynb" target="_blank"
+      <li><a href="../_sources/exercises/exercise_power_calculations.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -655,7 +657,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Groupby and Arrest Data</h1>
+    <h1>Power Calculations and Experiment Planning</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -665,30 +667,32 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-context">The Context</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradescope-autograding">Gradescope Autograding</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-limits">Submission Limits</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-group-structure-of-your-data">Learning the Group Structure of Your Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-power-calculations">Part 1: Power Calculations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-your-assumptions">Testing Your Assumptions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-with-duplicated">Testing with .duplicated()</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#racial-arrest-composition">Racial Arrest Composition</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-how-good-are-these-guesses">Part 2: How Good Are These Guesses?</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10">Exercise 10</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11">Exercise 11</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12">Exercise 12</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-13">Exercise 13</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14">Exercise 14</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -700,188 +704,203 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="groupby-and-arrest-data">
-<h1>Groupby and Arrest Data<a class="headerlink" href="#groupby-and-arrest-data" title="Link to this heading">#</a></h1>
-<p>In our merging exercises, we examined the relationship between county-level violent arrest totals and county-level drug arrest totals. In those exercises, you were given a dataset that provided you with county-level arrest totals. But that’s not actually how the data is provided by the state of California. This week we will work with the <em>raw</em> California arrest data, which is not organized by county or even county-year.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="power-calculations-and-experiment-planning">
+<h1>Power Calculations and Experiment Planning<a class="headerlink" href="#power-calculations-and-experiment-planning" title="Link to this heading">#</a></h1>
+<p>When you read about them in a book, power calculations can feel very abstract. To make the concept more concrete, and to give you a chance to familiarize yourself with power calculation tools and the considerations that go into power calculations, in this exercise you will play the role of an experiment planner hired by a Non-Governmental Organization (NGO) named <a class="reference external" href="https://www.bandhan.org/">Bandhan</a> in West Bengal, India. Bandhan is planning to roll out a program that provides livestock, cash, and some basic training to households in extreme poverty. They hope to demonstrate the value of cash and asset transfers, and so wish their program to take the form of a randomized experiment, with data being collected on both control and treatment households.</p>
+<p>Your job will be to help them estimate how many households they should enroll in the program.</p>
+<p>This was, in fact, a real program, and so the data you will be working with comes from the actual program (conducted in 2007, with followup data collection in 2010, 2017, and 2020), allowing us to do some retrospective comparison of your power calculations and what actually occurred.</p>
+<section id="the-context">
+<h2>The Context<a class="headerlink" href="#the-context" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Development economics has long posited that the poor may be poor for no good reason other than the fact that they started poor. This is the idea of a poverty trap, which has the implication that a one-time capital grant that makes very poor households significantly less poor (“big push”) might set off a virtuous cycle that takes them out of poverty. Forty-three countries now embrace some version of this idea and make large transfers to over 3.1 million of their poorest households. In particular, the “Targeting the Ultra Poor” (TUP) intervention, pioneered by BRAC in Bangladesh, employs a multifaceted approach, offering poor households an asset transfer, consumption support, savings, and training in the hopes of unlocking a poverty trap.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><a class="reference external" href="https://economics.mit.edu/sites/default/files/inline-files/aeri.20200667.pdf"><em>Long-Term Effects of the Targeting the Ultra Poor Program</em></a>, Abhijit Banerjee, Esther Duflo, and Garima Sharma, 2021.</p></li>
+</ul>
+<p>In 2007, Bandhan in West Bengal, India created a pilot program to provide direct, unconditional transfers of productive livestock and a 30 or 40 week stipend of 90 rupees a week (about 7 US dollars a week using the <a class="reference external" href="https://en.wikipedia.org/wiki/Purchasing_power_parity">Purchasing Power Parity (PPP)</a> exchange rate). The program targeted the poorest households in these villages based on range of criteria, and the average eligible household was later estimated to have a consumption level of about 1.35 2018 US Dollars per capita per day in PPP terms <span class="math notranslate nohighlight">\(.^1\)</span></p>
+<p>Because the goal of the program was, in significant part, to demonstrate the effect of direct asset transfers, Bandhan identified twice as many eligible households as it could support in the pilot and randomly selected half of the households to act as controls and half to be treated <span class="math notranslate nohighlight">\(.^2\)</span> Treated households were offered assets from a menu of options, from the most common choice was productive livestock (e.g., cows and goats). <span class="math notranslate nohighlight">\(^3\)</span> Bandhan’s contact with the households came to an end 18 months after the households were initially provided their livestock and cash transfers began.</p>
+<p>Although data was collected on a huge range of attributes of the households in this program, our focus will be on per capita household expenditures in 2018 US Dollars (PPP).</p>
+<p>(Note that these households certainly were not buying their food with dollars, and in most cases they weren’t even buying most of their food with rupees — consumption estimates in this type of study are calculated by collecting detailed data on what household members have consumed in the past week, then estimating the price one would pay to buy those goods in local markets and using <a class="reference external" href="https://en.wikipedia.org/wiki/Purchasing_power_parity">PPP conversion rates</a> conversion rates to convert that into US Dollars).</p>
+</section>
 <section id="gradescope-autograding">
 <h2>Gradescope Autograding<a class="headerlink" href="#gradescope-autograding" title="Link to this heading">#</a></h2>
-<p>Please follow <a class="reference external" href="https://www.practicaldatascience.org/html/autograder_guidelines.html">all standard guidance</a> for submitting this assignment to the Gradescope autograder, including storing your solutions in a dictionary called <code class="docutils literal notranslate"><span class="pre">results</span></code> and ensuring your notebook runs from the start to completion without any errors.</p>
-<p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_groupby.ipynb</span></code> before uploading.</p>
+<p>Please follow <a class="reference external" href="https://www.practicaldatascience.org/ids720_specific/autograder_guidelines.html">all standard guidance</a> for submitting this assignment to the Gradescope autograder, including storing your solutions in a dictionary called <code class="docutils literal notranslate"><span class="pre">results</span></code> and ensuring your notebook runs from the start to completion without any errors.</p>
+<p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_power_calculations.ipynb</span></code> before uploading.</p>
 <p>You can check that you have answers for all questions in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary with this code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">{</span>
-    <span class="s2">&quot;ex4_num_rows&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex5_collapsed_vars&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex7_alameda_1980_share_violent_arrestees_black&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex11_white_drug_share&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex11_black_drug_share&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex12_proportionate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex2_baseline_percap_expend_mean&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex2_baseline_percap_expend_std&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex4_obs_needed&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex5_effect_size_34&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex5_treated_34&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex6_treated_notchance&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex7_constrained_mde&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex9_true_effect&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex10_ratio&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex10_standardized_effect&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex11_power_35&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex12_avg_effect&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex12_reject_rate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex13_analytic_power&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex13_bootstrapped_power&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <section id="submission-limits">
 <h3>Submission Limits<a class="headerlink" href="#submission-limits" title="Link to this heading">#</a></h3>
-<p>Please remember that you are <strong>only allowed three submissions to the autograder.</strong> Your last submission (if you submit 3 or fewer times), or your third submission (if you submit more than 3 times) will determine your grade Submissions that error out will <strong>not</strong> count against this total.</p>
+<p>Please remember that you are <strong>only allowed THREE submissions to the autograder.</strong> Your last submission (if you submit 3 or fewer times), or your third submission (if you submit more than 3 times) will determine your grade Submissions that error out will <strong>not</strong> count against this total.</p>
 </section>
+</section>
+<section id="part-1-power-calculations">
+<h2>Part 1: Power Calculations<a class="headerlink" href="#part-1-power-calculations" title="Link to this heading">#</a></h2>
 <section id="exercise-1">
 <h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
-<p>Import the raw California arrest data from the State Attorney General’s office. Please use <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/OnlineArrestData1980-2021.csv">this link</a> (the original is here <a class="reference external" href="https://openjustice.doj.ca.gov/data">here</a>, but they keep updating it and I get tired of updating solutions, so… please use my copy!)</p>
+<p>Load a thinned version of household-level survey data from <a class="reference external" href="https://economics.mit.edu/research/publications/long-term-effects-targeting-ultra-poor-program">Banerjee, Duflo, and Sharma (2021)’s</a> evaluation of the Bandham program <a class="reference external" href="https://github.com/nickeubank/MIDS_Data/tree/master/cash_transfers">here</a>.</p>
+<p>This is just a version of the replication data for that paper (<a class="reference external" href="https://www.openicpsr.org/openicpsr/project/130362">which can be found here</a>) with only the variables that are relevant for our analysis.</p>
 </section>
-</section>
-<section id="learning-the-group-structure-of-your-data">
-<h2>Learning the Group Structure of Your Data<a class="headerlink" href="#learning-the-group-structure-of-your-data" title="Link to this heading">#</a></h2>
 <section id="exercise-2">
 <h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h3>
-<p>What is the unit of observation for this dataset? In other words, when row zero says that there were 505 arrests for <code class="docutils literal notranslate"><span class="pre">VIOLENT</span></code> crimes, what exactly is that telling you—505 arrests in 1980? 505 arrests in Alameda County?</p>
-<p>(Please answer in Markdown)</p>
-</section>
-<section id="testing-your-assumptions">
-<h3>Testing Your Assumptions<a class="headerlink" href="#testing-your-assumptions" title="Link to this heading">#</a></h3>
-<p>It’s important to be able to test whether the data you are working with really is organized the way you think it is, especially when working with groupby. Let’s discuss how to check your answer to Exercise 2 with the <code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> method.</p>
-<p>Consider the following toy data:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-    <span class="p">{</span>
-        <span class="s2">&quot;social_security_numbers&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="mi">111111111</span><span class="p">,</span>
-            <span class="mi">222222222</span><span class="p">,</span>
-            <span class="mi">222222222</span><span class="p">,</span>
-            <span class="mi">333333333</span><span class="p">,</span>
-            <span class="mi">333333333</span><span class="p">,</span>
-        <span class="p">],</span>
-        <span class="s2">&quot;second_column&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span>
-    <span class="p">}</span>
-<span class="p">)</span>
-<span class="n">df</span>
-</pre></div>
-</div>
-<p>If we want to see if there are any duplicate rows in the dataset, we can use the <code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>As you can see, <code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> looks at each row and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if it has seen the row it is looking at before.</p>
-<p>Notice that <code class="docutils literal notranslate"><span class="pre">.duplicted()</span></code> doesn’t return <code class="docutils literal notranslate"><span class="pre">True</span></code> for <em>all</em> rows that look the same as another row in the data—it treats the first instance of a row as unique, and only tags <em>subsequent</em> repetitions as “duplicates” (You can change this behavior with the <code class="docutils literal notranslate"><span class="pre">keep</span></code> keyword argument if you want).</p>
-<p><code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> can also be used to test for rows that are duplicates in terms of a sub-set of columns. For example, <code class="docutils literal notranslate"><span class="pre">df.duplicated([&quot;social_security_numbers&quot;])</span></code> identifies rows with duplicate values of the variable <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span>
-</pre></div>
-</div>
-<p>Since <code class="docutils literal notranslate"><span class="pre">duplicated</span></code> is now only looking at <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> (not all values in a row), the last row is now a duplicate (because <code class="docutils literal notranslate"><span class="pre">333333333</span></code> is duplicated), where when we considered all columns, it was not a duplicate.</p>
-</section>
-<section id="testing-with-duplicated">
-<h3>Testing with .duplicated()<a class="headerlink" href="#testing-with-duplicated" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> can be paired with the <code class="docutils literal notranslate"><span class="pre">.any()</span></code> method to write <code class="docutils literal notranslate"><span class="pre">assert</span></code> tests to detect the presence of duplicates in our dataset and to validate our assumptions about whether certain variables uniquely identify observations in our data.</p>
-<p>When you run <code class="docutils literal notranslate"><span class="pre">.any()</span></code> on an array of Booleans, it returns a single value of <code class="docutils literal notranslate"><span class="pre">True</span></code> if <em>any</em> entries are <code class="docutils literal notranslate"><span class="pre">True</span></code>, and a single value of <code class="docutils literal notranslate"><span class="pre">False</span></code> if <em>no</em> entries are <code class="docutils literal notranslate"><span class="pre">True</span></code>. (You can also use <code class="docutils literal notranslate"><span class="pre">.all()</span></code> to test if all entries are <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
-<p>Thus the command <code class="docutils literal notranslate"><span class="pre">df.duplicated(['social_security_numbers'])</span></code> will return <code class="docutils literal notranslate"><span class="pre">False</span></code> if <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> uniquely identifies every row in our dataset (since there are no duplicates)! But if there <em>are</em> any duplicates, it will return <code class="docutils literal notranslate"><span class="pre">True</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>So if I wanted a test that would raise an <code class="docutils literal notranslate"><span class="pre">Error</span></code> if it turned out that <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> <em>didn’t</em> uniquely identify observations, I would combine that code with <code class="docutils literal notranslate"><span class="pre">assert</span> <span class="pre">not</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
-
-<span class="o">---------------------------------------------------------------------------</span>
-<span class="ne">AssertionError</span>                            <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="o">----&gt;</span> <span class="mi">1</span> <span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
-
-<span class="ne">AssertionError</span><span class="p">:</span> 
-</pre></div>
-</div>
-<p>(which in this case raises an Error because <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> <em>isn’t</em> unique!)</p>
-<p>BTW, if this feels oddly familiar, that’s probably because we talked about this same idea when discussing merging. A <code class="docutils literal notranslate"><span class="pre">1:1</span></code> merge is one in which the merging variables uniquely identify observations in both datasets.</p>
+<p>The first step in doing any power calculations is to establish an estimate of the baseline level of variation that exists in the dependent variable you wish to study. In this case, that variable is Per Capita Monthly Expenditures, and the baseline survey values of expenditures are in <code class="docutils literal notranslate"><span class="pre">pc_exp_month_bl</span></code> (the <code class="docutils literal notranslate"><span class="pre">_bl</span></code> stands for “baseline”, meaning this data was collected prior to any households receiving asset transfers and indeed any households being assigned to treatment or control).</p>
+<p>What is the mean and standard deviation of <code class="docutils literal notranslate"><span class="pre">pc_exp_month_bl</span></code> in the baseline survey?</p>
+<p>Store the average baseline monthly per capita expenditure in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary under <code class="docutils literal notranslate"><span class="pre">ex2_baseline_percap_expend_mean</span></code> and the standard deviation of this statistic under <code class="docutils literal notranslate"><span class="pre">ex2_baseline_percap_expend_std</span></code>. Do <strong>not</strong> round these numbers — we’ll use their full value repeatedly in this exercise.</p>
+<p>(Monthly expenditure may feel a little abstract, so also divide by 30 to confirm our average household has the expected per capita expenditure level of about US Dollar 1.35 (PPP) a day. You don’t have to save this result.)</p>
 </section>
 <section id="exercise-3">
 <h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
-<p>Use <code class="docutils literal notranslate"><span class="pre">duplicated</span></code> to test if the variables <em>you</em> think uniquely identify rows in your data really do uniquely identify rows. If you were wrong, update your beliefs (and your code) until you have an <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement that passes.</p>
+<p>For these exercises, we’ll use the <code class="docutils literal notranslate"><span class="pre">power</span></code> module in <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> to do our power calculations. <a class="reference external" href="https://www.statsmodels.org/stable/stats.html#power-and-sample-size-calculations">You can read more about it here.</a> Basically, this package just offers some convenience functions for doing the <a class="reference external" href="https://en.wikipedia.org/wiki/Power_(statistics)#Analytic_solution">standard analytic power calculations</a> you’ve read about.</p>
+<p>Since we’re comparing means in a continuous variable (expenditures) from two samples of households, we will use <code class="docutils literal notranslate"><span class="pre">TTestIndPower</span></code> in <code class="docutils literal notranslate"><span class="pre">statsmodels.stats.power</span></code>. Import this class and instantiate a new instance (for some reason this is class based, so you have to start of with a command like <code class="docutils literal notranslate"><span class="pre">my_power</span> <span class="pre">=</span> <span class="pre">TTestIndPower()</span></code>).</p>
+<p>Note that a common situation in data science is testing a difference in <em>proportions</em> between groups (e.g., across treatment arms). This situation arises when your dependent variable is binary, and so each group’s mean is just the share of observations for whom the binary variable is 1. This comes up a lot with apps and websites — e.g., “clicked an ad,” “subscribed,” “made a purchase.”</p>
+<p>For that reason, there’s actually a full sub-class of power calculating tools for <a class="reference external" href="https://www.statsmodels.org/stable/stats.html#proportion">proportions you should be aware of.</a> Basically, because the standard deviation of a binary variable is just <span class="math notranslate nohighlight">\(\sqrt{p * (1-p)}\)</span>, power calculations become really simple. For example, you may wish to identify the sample size required to get confidence intervals of a given size using a tool like <a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.stats.proportion.confint_proportions_2indep.html#statsmodels.stats.proportion.confint_proportions_2indep">confint_proportions_2indep</a>.</p>
+<p>But the most common use of a power test remains evaluating whether one can reject a null hypothesis of no effect, so we’ll start with that here.</p>
 </section>
 <section id="exercise-4">
 <h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
-<p>Once you have a handle on how the data looks now, please <strong>collapse the data</strong> to be one observation per county-year-racial group. Store the number of rows in the resulting dataframe in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary under the key <code class="docutils literal notranslate"><span class="pre">&quot;ex4_num_rows&quot;</span></code>.</p>
-<p><strong>Hint:</strong> Think carefully about the most appropriate <em>aggregation function</em> (e.g., mean, median, sum, count) given the data we’re working with!</p>
-<p><strong>Hint 2:</strong> When using <code class="docutils literal notranslate"><span class="pre">groupby</span></code>, I am a HUGE fan of the <code class="docutils literal notranslate"><span class="pre">as_index=False</span></code> keyword argument (e.g., <code class="docutils literal notranslate"><span class="pre">df.groupby(&quot;col1&quot;,</span> <span class="pre">as_index=False).mean()</span></code>). By default when you use groupby, pandas likes to make a new index out of the grouping columns. As you know, I HATE indices, and this keyword argument prevents pandas from this behavior. To illustrate:</p>
+<p><a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.stats.power.TTestIndPower.html#statsmodels.stats.power.TTestIndPower">TTestIndPower has three methods</a> — <code class="docutils literal notranslate"><span class="pre">plot_power</span></code>, <code class="docutils literal notranslate"><span class="pre">solve_power</span></code>, and <code class="docutils literal notranslate"><span class="pre">power</span></code>. <code class="docutils literal notranslate"><span class="pre">solve_power</span></code> does everything <code class="docutils literal notranslate"><span class="pre">power</span></code> does, though, so really there are two methods.</p>
+<p>The idea of <code class="docutils literal notranslate"><span class="pre">solve_power</span></code> is that you give it all three of the four parameters that go into the power formula — minimum detectable effect, number of observations, power, and p-value <span class="math notranslate nohighlight">\(\alpha\)</span> threshold — and it will solve for the omitted variable.</p>
+<p>To get a quick flavor for how this works, set:</p>
+<ul class="simple">
+<li><p>Minimal Detectable Effect (<code class="docutils literal notranslate"><span class="pre">effect_size</span></code>) to <code class="docutils literal notranslate"><span class="pre">0.5</span></code> (we’ll take about the units of that argument soon),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code> to <code class="docutils literal notranslate"><span class="pre">0.05</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ratio</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code> (this is the ratio of between the number of observations being treated and the number in control — in this study, the target was to have these be equal, as that provides the best statistical power for a given total number of observations).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">power</span></code> to <code class="docutils literal notranslate"><span class="pre">0.8</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alternative</span></code> to <code class="docutils literal notranslate"><span class="pre">two-sided</span></code> (we want to do a two-tailed t-test, as you could imagine social unrest caused by transfers could make people worse off).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nobs1</span></code> to <code class="docutils literal notranslate"><span class="pre">None</span></code>. By passing <code class="docutils literal notranslate"><span class="pre">None</span></code>, we’re telling <code class="docutils literal notranslate"><span class="pre">solve_power</span></code> this is the quantity we want it to solve for.</p></li>
+</ul>
+<p>So in other words, we’re asking:</p>
+<ul class="simple">
+<li><p>how many observations do we need to have in the treatment arm,</p></li>
+<li><p>assuming we’ll have the same number also in the control arm,</p></li>
+<li><p>to have an 80% chance</p></li>
+<li><p>of rejecting the null hypothesis of no-effect at a significance threshold of 0.05</p></li>
+<li><p>if the true effect is of size 0.5?</p></li>
+</ul>
+<p>What’s the answer?</p>
+<p>Round your answer to the nearest integer and save it in <code class="docutils literal notranslate"><span class="pre">results</span></code> as <code class="docutils literal notranslate"><span class="pre">ex4_obs_needed</span></code>.</p>
 </section>
 <section id="exercise-5">
 <h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
-<p>You should notice that there are significantly fewer rows in the data now. Given your answer from 3, what groups were you <em>collapsing</em> in question 4 (in other words, which different groups were previously split out into separate rows but have now been aggregated into the same rows)?</p>
-<p>Store the names of those variables <strong>in a <code class="docutils literal notranslate"><span class="pre">list</span></code> in alphabetical order</strong> in <code class="docutils literal notranslate"><span class="pre">results</span></code> as <code class="docutils literal notranslate"><span class="pre">&quot;ex5_collapsed_vars&quot;</span></code>.</p>
+<p>Of all these quantities, perhaps the most obscure is the Minimal Detectable Effect (<code class="docutils literal notranslate"><span class="pre">effect_size</span></code>). What is this 0.5? Where did it come from? And how did you do all that without telling it that standard deviation you had me calculate?</p>
+<p>If you check the docs for <code class="docutils literal notranslate"><span class="pre">solve_power</span></code>, you’ll see that you’re supposed to pass <code class="docutils literal notranslate"><span class="pre">effect_size</span></code> the “standardized effect size, difference between the two means divided by the standard deviation. <code class="docutils literal notranslate"><span class="pre">effect_size</span></code> has to be positive.”</p>
+<p>In other words, when we passed 0.5, we weren’t saying we wanted to be able to detect an effect of 0.5 2018 US Dollars (PPP) per capita per month, we were saying we wanted to detect an effect of 1/2 standard deviation.</p>
+<p>Given the standard deviation in our baseline survey was about 24 Dollars, that means we were saying we wanted to detect an effect size of about 12 US Dollars.</p>
+<p>Does that feel like a lot? The average per capita monthly expenditures in the baseline survey was about 41 Dollars, so it’s an increase in expenditures of about 25%. So it’s certainly pretty big in proportion to the baseline level of expenditures. But whether it’s a “lot” is actually not a technical question, it’s a substantive one.</p>
+<p>The idea of a Minimal Detectable Effect is to pick the smallest effect size that you’d care about detecting. That way if the true effect <em>is</em> the MDE, then when you reject the null you’d want to take some kind of action based on the result (e.g., scale up the program). And if the true effect is smaller, you’d be ok with your inability to reject the null hypothesis since the effect is small enough you wouldn’t want to change what you’re doing (e.g., you <em>wouldn’t</em> want to scale up the program).</p>
+<p>If you set the MDE too high, you may run an under-powered experiment where you miss out on learning that your treatment was effective; if you set the MDE too low, you’re spending time and money collecting more data than is necessary given you might reject the null at a point estimate where you still wouldn’t scale up the treatment.</p>
+<p>So what value makes sense here? That’s a question you’d want to start off by asking the stakeholders. Since Bandhan wants to use this to convince international donors and governments to support cash transfer programs, they probably need the effect to be relatively large to be convincing.</p>
+<p>Let’s assume that, three years after the intervention, they feel they need to show that incomes have increased by at least 34%.</p>
+<p>What value does that imply should be passed to <code class="docutils literal notranslate"><span class="pre">effect_size</span></code>? What is the new implied number of treated households they’ll need? How many households total?</p>
+<p>Store the new MDE you would pass to <code class="docutils literal notranslate"><span class="pre">effect_size</span></code> in <code class="docutils literal notranslate"><span class="pre">results</span></code> under <code class="docutils literal notranslate"><span class="pre">ex5_effect_size_34</span></code>, and the new number of houses you’d need to put in the treatment group under <code class="docutils literal notranslate"><span class="pre">ex5_treated_34</span></code> <strong>rounded to the nearest integer</strong>.</p>
 </section>
-</section>
-<section id="racial-arrest-composition">
-<h2>Racial Arrest Composition<a class="headerlink" href="#racial-arrest-composition" title="Link to this heading">#</a></h2>
-<p>The next question we want to ask is: does the racial composition of arrests in each county vary by arrest type? In other words, do Blacks, Hispanics, Whites, and Other make up substantially different portions of the people arrested for drug offenses and violent offenses?</p>
-<p>To answer this question, we need to be able to say what proportion of all drug arrestees were Black/White/Hispanic/Other and what proportion of all violent arrestees were Black/White/Hispanic/Other <em>for each county and for each year</em>.</p>
-<p>In trying to do this, we’ll need to break the problem down into pieces, starting from our goal (these quantities) and working backwards.</p>
 <section id="exercise-6">
 <h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
-<p>To calculate the share of all drug and violent arrestees who come from each racial group, what quantities do we need?</p>
-<p>Expressed differently, what two variables (one for drug arrests, one for violent arrests) do we need to add to our data to it allow us to calculate the share of arrestees in each county-year that come from a given racial group?</p>
-<p>Calculate these two variables (one variable for drug arrests, one for violent arrests).</p>
-<p><strong>Hint:</strong> <code class="docutils literal notranslate"><span class="pre">transform</span></code> should probably make an appearance here.</p>
-<p><strong>Hint:</strong> This types of groupby manipulations are an easy place to do things wrong, so it’s important to eye-ball your data to be sure you did things right!</p>
-<p>Take a look at the data for, say, Alameda County in 1980, and compare the values that you calculate above with what you get if you try to calculate those same numbers by hand using the raw data from Exercise 5?</p>
+<p>Because Bandhan really wants to sell their result, suppose they also want to ensure no one claims it might have arisen by chance.</p>
+<p>What parameter should they adjust, and in what direction?</p>
+<p>Try modifying the relevant parameter by a factor of 2 (so either double the parameter or halve it, depending on the direction you think it should change). Can you predict what the change in the number of observations you will be before you do it?</p>
+<p>Store the new number of observations that need to be treated in <code class="docutils literal notranslate"><span class="pre">results</span></code> under the key <code class="docutils literal notranslate"><span class="pre">&quot;ex6_treated_notchance&quot;</span></code>. As before, round the number of households needed to nearest integer.</p>
 </section>
 <section id="exercise-7">
 <h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
-<p>Now calculate the share of violent and drug arrestees in each county and year from each racial group.</p>
-<p>To ensure you’re on the right track, store the share (between zero and one) of violent arrestees in Alameda County in 1980 who were Black as <code class="docutils literal notranslate"><span class="pre">ex7_alameda_1980_share_violent_arrestees_black</span></code>.</p>
+<p>Now suppose that your stakeholder is budget constrained to only being able to enroll a total of 100 (50 in each arm). Assuming an alpha of <code class="docutils literal notranslate"><span class="pre">0.05</span></code> and a power of <code class="docutils literal notranslate"><span class="pre">0.8</span></code>, what is their minimal detectable effect size (in dollars)? Store your result under the key <code class="docutils literal notranslate"><span class="pre">&quot;ex7_constrained_mde&quot;</span></code>.</p>
 </section>
 <section id="exercise-8">
 <h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Link to this heading">#</a></h3>
-<p>We’re about to start studying this data by plotting the share of violent arrestees that are Black against the share of felony drug arrestees that are Black. But the moment where you finish your data manipulations and are about to start you data analysis is a <em>great</em> time to just make sure everything in your data looks good. Let’s run a few checks:</p>
-<ul class="simple">
-<li><p>Are your values of the share of felony arrestees who were arrested for violent crimes sensible?</p></li>
-<li><p>You’re about to analyze the data using only the rows for the Black racial group. How many unique counties are there with data for Black arrestees? How many for White arrestees? Do you remember how many counties there are in CA (google is your friend if not!)?</p></li>
-</ul>
-<p>Include assert statements to check all these features of your data.</p>
-<p>(Reminder: the autograder will only work if you are entire notebook runs without errors.)</p>
-<p>If you encounter any problems, make sure you understand why they are happening, and fix them (if a fix is appropriate!).</p>
-<p>First, check arrest shares make sense:</p>
-<p>OK, so something up with alpine county! Let’s look at one of these years:</p>
-<p>Ah, ok – it’s because no drug arrests! I guess np.nan is fine for those – after all, I’m trying to calculate “share of drug arrests that were Black arrestees” – if there are no drug arrests, then that’s just undefined (not zero). Make sure that’s only problem:</p>
-<p>Now we can check if we have same county counts:</p>
+<p>Suppose your stakeholder wants to see a few different scenarios to see how different experiment sizes would impact power given different effect sizes. Let’s use <code class="docutils literal notranslate"><span class="pre">plot_power</span></code>. Pass it an array of treatment arm observation counts you want evaluated (I’d recommend <code class="docutils literal notranslate"><span class="pre">np.arange()</span></code>) between 20 and 100, along with effect sizes of 0.2, 0.4, and 0.6 (again, use <code class="docutils literal notranslate"><span class="pre">np.arange()</span></code>).</p>
+<p>If the stakeholder decided they wanted power above 90% — they’re only gonna get a chance to do this once, after all! — what kind of sample size would they need with a minimal detectable effect size of 0.6? (Approximately).</p>
+<p>You may need to check the docs to figure out how to use it.</p>
 </section>
+</section>
+<section id="part-2-how-good-are-these-guesses">
+<h2>Part 2: How Good Are These Guesses?<a class="headerlink" href="#part-2-how-good-are-these-guesses" title="Link to this heading">#</a></h2>
+<p>The biggest challenge with power calculations like these is that they are subject to lots of source of uncertainty. It’s not just that power itself is a probabilistic concept (recall power is the <em>probability</em> you will the true effect is precisely the minimimal detectable effect you specified); the problem is that we are using estimates of population parameters as inputs to these calculations and formulas based on distributional assumptions. For example:</p>
+<ol class="arabic simple">
+<li><p>We are <em>estimating</em> the true population mean from a sample of observations,</p></li>
+<li><p>We are <em>estimating</em> the true population standard deviation from a sample of observations,</p></li>
+<li><p>Our models <em>assume</em> our outcomes variables are normally distributed (i.e. modelling uncertainty).</p></li>
+</ol>
+<p>Of course, as our sample size gets larger, each of these assumptions becomes less of a problem — the uncertainty in our estimates of the population mean and standard deviation will shrink and t-tests become robust to outcomes that are not normally distributed when samples become large enough (i.e., t-tests are asymptotically robust to outcomes that are not normal since the sampling distribution of the <em>mean</em> of a population converges to normal thanks to the Central Limit Theorem).</p>
+<p>But all three of these mean that there’s substantial uncertainty underlying these apparently clean predictions.</p>
+<p>Most people never pause to reflect on this. You run a power calculation, it tells you the probability you’d reject the null if you had a Minimal Detectable Effect of a given value, and you use these values to plan an experiment. You run the experiment, and you get a result. And by that point you’ve largely forgotten about your power calculation and are focused on the results you now have.</p>
+<p>In the case of this study (Bandhan), because we have data from the final survey result, we can use the experiment’s results to do some simulations to see how things may have turned out in different situations. Moreover, because the actual experiment — as run in West Bengal — was quite overpowered (they had a lot more observations than they needed to reject the null at standard levels), we have a reasonably precise estimate of the true effect size, which is important to make this work.</p>
+<p>To reiterate: what we’re now doing is a kind of “after-action report” / post-mortem on our power calculations. Everything we do below relies on the results of the experiment, which you (and the Bandhan team) would obviously not have had at the time you were doing your power calculations. This is the kind of thing we can only do <em>after</em> an experiment has been run, and its value is largely to help you think about uncertainty in power calculations the next time you’re doing power calculations.</p>
 <section id="exercise-9">
 <h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Link to this heading">#</a></h3>
-<p>Now check to see if you have the same number of counties <em>in each year for each racial group</em>.</p>
-<p>Can you figure out why there aren’t? (Hint: this isn’t trivial to figure out! You’ll probably have to do some detective work, and even then you’ll have to make a bit of a “best guess” at what’s going on!)</p>
-<p>Uh oh! Let’s poke around to see what’s up:</p>
-<p>K, so we can see problem in 1980. Let’s dig in:</p>
-<p>K, Alpine obviously missing one. Let’s look:</p>
-<p>Huh, missing Hispanic and Black. Wonder why…</p>
-<p>OK, digging around on the internet (and looking at the number of arrests Alpine reported), looks like Alpine county is a small and very White county, so perhaps they didn’t have any Hispanic arrests, so didn’t report them.</p>
-<p>Indeed, that’s also true for the other counties with fewer rows than they should have in 1984 – if we go to <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_counties_in_California">wikipedia</a> and sort by population, we find these are some of the smallest counties:</p>
-<p>Now, this isn’t a slam dunk case – it does appear counties sometimes report rows that are all zeros, even some of our smaller counties:</p>
-<p>But this is the kind of detective work sometimes required for data science, and I think it’s reasonable to infer that these are cases where there just were no arrests for a given racial group, and so nothing was reported. This is real world, government-agency-reported data – there are gonna be issues.</p>
+<p>The data we used for our power calculations above came from a baseline survey done before anyone received cash transfers. It’s the kind of data collection and analysis you do <em>before</em> launching an experiment to help determine how big a sample you need in your experiment.</p>
+<p>But because this team <em>did</em> run their cash transfer experiment, we have access to data on how things turned out. In particular, the variables in this data with the suffix <code class="docutils literal notranslate"><span class="pre">_el3</span></code> (short for “end-line 3”) are results from surveys collected 7 years after households received their first cash transfers.</p>
+<p>With that in mind, we will treat the difference in <code class="docutils literal notranslate"><span class="pre">pc_exp_month_el3</span></code> between the <code class="docutils literal notranslate"><span class="pre">treatment</span> <span class="pre">==</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">treatment</span> <span class="pre">==</span> <span class="pre">0</span></code> groups as the “true” effect of the experiment. Technically this is an estimated quantity, so there is some uncertainty around this estimate, but the standard error of the estimate of the effect size is ~1/6 of the effect size, the precision is good enough we can “pretend” it’s the true effect size for our purposes (especially given what comes next).</p>
+<p>Calculate what we will call the “true” effect of the experiment (avg difference in <code class="docutils literal notranslate"><span class="pre">pc_exp_month_el3</span></code> between treatment and control). Store this as <code class="docutils literal notranslate"><span class="pre">ex9_true_effect</span></code>.</p>
 </section>
 <section id="exercise-10">
 <h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Link to this heading">#</a></h3>
-<p>Once you think you have a theory of the case, fix the problem. Again, this will NOT be trivial.</p>
-<p>So let’s fill in those cells with zeros, since without them we’d be systematically dropping observations where 0 of the arrests in a given category were of a given racial group (e.g. Black), and systematically dropping situations where the pct of arrestees who were Black would obviously bias our conclusions.</p>
-<p>Fixing this can actually be done in several ways, but here’s what feels “intuitive” (nothing with groupby is intuitive, but this works) to me:</p>
-<ol class="arabic simple">
-<li><p>Identify the county-years missing Black entries (we’re only working with Black and White later, so I don’t need to worry about filling in zeros for Other and Hispanic. If I were working with all groups, I would).</p></li>
-<li><p>Add in rows will all zeros for these entries.</p></li>
-</ol>
-<p><strong>Part 1: Identify county-years missing Black entries</strong></p>
-<p>Here we’re going to use a trick that’s actually something I use a lot: to figure out which groups contain observations of a given type, make a new variable that identifies which <em>rows</em> are of a type with a 1 (0 otherwise), then take the max of that variable for a group. Groups that include a row of the type we’re looking for will have a max value of 1, those that don’t will have a max value of 0.</p>
-<p>This works for finding, say, surveyed groups with men, or countries that experience a disaster in one year of your data, or customers whose purchases include the purchase of a given good:</p>
-<p><strong>PART 2: Add in Black rows for these county-years</strong></p>
-<p>Now that we’ve identified the county-years with no Black rows, we want to add in rows with zeros in all the cells we care about. Here there are quite a few solutions, so I’ll do two (and you may have others!)</p>
-<p>First, there are no county-years that lack a white row:</p>
+<p>Now let’s calculate the statistical power the Bandham team may have anticipated if they had known this was the true effect size.</p>
+<p>Use the value from exercise 9 as the Minimal Detectable Effect we want to identify, but otherwise do all our calculations the way we would if we hadn’t run the experiment yet. So when you convert our effect size into “effect in standard deviations,” use the standard deviation we calculated at baseline for the normalization. Then use the real number of observations in treatment, and the real ratio of people in treatment and control for whom we have valid observations of <code class="docutils literal notranslate"><span class="pre">pc_exp_month_el3</span></code>.</p>
+<p>Store the ratio of the number of control observations to number of treatment observations you pass to <code class="docutils literal notranslate"><span class="pre">ratio</span></code> under <code class="docutils literal notranslate"><span class="pre">&quot;ex10_ratio&quot;</span></code>, your standardized effect size under <code class="docutils literal notranslate"><span class="pre">&quot;ex10_standardized_effect&quot;</span></code>.</p>
+<p>That value of power you get back is, given this effect size and the number of observations in the study, the probability the team would be able to reject the null hypothesis of no effect at alpha=0.05.</p>
 </section>
 <section id="exercise-11">
 <h3>Exercise 11<a class="headerlink" href="#exercise-11" title="Link to this heading">#</a></h3>
-<p>Now that you have corrected your problem, averaging over the values for each county-year, calculate the average share of drug arrestees who are Black and the average share of drug arrestees who are White. Store the results as <code class="docutils literal notranslate"><span class="pre">&quot;ex11_white_drug_share&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;ex11_black_drug_share&quot;</span></code>.</p>
-<p><strong>Please round the shares to two decimal places (these are shares, so if one group was responsible for 50.1% of drug arrests, your rounded answer would be 0.50).</strong></p>
+<p>What would the power be if Bandhan had only enrolled 35 households per arm with a 1:1 ratio? Store as <code class="docutils literal notranslate"><span class="pre">ex11_power_35</span></code>. Don’t round your answer.</p>
 </section>
 <section id="exercise-12">
 <h3>Exercise 12<a class="headerlink" href="#exercise-12" title="Link to this heading">#</a></h3>
-<p>Plot the share of violent arrestees that are Black against the share of felony drug arrestees that are Black. Do they look proportionate? Answer in text here.</p>
-<p>Do Black arrestees make up a greater share of violent arrestees, or a greater share of drug arrestees? Store you answer as <code class="docutils literal notranslate"><span class="pre">&quot;greater</span> <span class="pre">violent&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;greater</span> <span class="pre">drug&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">&quot;ex12_proportionate&quot;</span></code>.</p>
-<p><strong>Hint:</strong> You can add a 45 degree reference line by making a dummy dataset with one point at 0,0 and one point at a location near the top of your data (e.g. 0.7, 0.7). Without a reference line it’s VERY hard to be sure if how your points relate to proportionality.</p>
-<p>Proportionality is hard to see, so I’m gonna add a 45 degree line:</p>
-<p>Clearly this is below the line of proportionality, meaning that Black arrestees make up a larger share of violent arrestees than drug arrests.</p>
-<p>(A quick note of warning on interpretation: these results can tell you whether Black Californians make up a larger proportion of <em>arrests</em> for certain types of crimes, not whether they make up a larger proportion of people who <em>commit</em> a give type of crime! Those <em>might</em> be the same, but they might not… this data just can’t answer that question.)</p>
+<p>The idea of the “power” of a test is that, when we draw a sample from a population, there’s some variation in who happens to end up in that sample. Consequently, even if the <em>true</em> effect size in the population is equal to our Minimal Detectable Effect, there’s some probability that when we compare treated and untreated outcomes for the <span class="math notranslate nohighlight">\(N\)</span> people who actually end up in the study, that Minimal Detectable Effect may not be evident in that sample (at the level of statistical significance <span class="math notranslate nohighlight">\(\alpha\)</span> we have chosen).</p>
+<p>Given that, one way to think of power is: “If the true effect in the population is our Minimal Detectable Effect, then if I were able to re-run this experiment over and over — drawing new people into the study and testing the difference in outcomes between the control and treated sample each time — then in what percentage of those instances of the experiment would I reject the null hypothesis of no effect?” Power of 80% means that we’d expect to reject the null of no effect in 80% of those many experiments.</p>
+<p>Well, we can basically do that thought experiment with this data!</p>
+<p>To do the experiment you did the power calculations for in Exercise 11, we just need to sample 35 observations from the treated group and 35 from the control group, treat that as our experimental sample, and estimate the difference in per capita month expenditures between those two groups (along with the associated p-value).</p>
+<p>Then we can repeat that over and over to simulate “re-running” the experiment, each time drawing a new sample of 35 treated observations and 35 control observations. Then we can store the p-values from all these “re-run” experiments and see how often we reject the null of no effect!</p>
+<p>Two small details for the autograder:</p>
+<ul class="simple">
+<li><p>When drawing your sample of 35 observations, draw from observations for which <code class="docutils literal notranslate"><span class="pre">pc_exp_month_el3</span></code> is not missing.</p></li>
+<li><p>In your t-test, please use equal variance t-test.</p></li>
+</ul>
+<p>There are arguments for both strategies in this context, but for the autograder is just important we all do the same thing.</p>
+<p>Note that when you do this experiment, we have to sample our 35 observations from each treatment arm <em>with replacement</em>, just as you would when bootstrapping (this is basically a version of bootstrapping).</p>
+<p>So: write a loop where, on each pass, you draw 35 observations (with replacement) from treatment and 35 from control, then calculate the treatment effect and p-value for that sample.</p>
+<p><strong>Repeat this 20,000 times</strong></p>
+<p>In what share of cases would you reject the null of no effect at alpha = 0.05 (two-tailed)?</p>
+<p>Store your rejection rate under the key <code class="docutils literal notranslate"><span class="pre">&quot;ex12_reject_rate&quot;</span></code> and estimated average effect under <code class="docutils literal notranslate"><span class="pre">&quot;ex12_avg_effect&quot;</span></code>.</p>
+<p>Round your estimate of the rejection rate to two decimal places (i.e., the nearest percentage point) and effect size to the nearest integer (i.e., no decimal places).</p>
 </section>
+<section id="exercise-13">
+<h3>Exercise 13<a class="headerlink" href="#exercise-13" title="Link to this heading">#</a></h3>
+<p>Repeat exercises 11 and 12 with 50 treated observations and 50 untreated.</p>
+<p>For the analytic power calculations, use the same standardized effect size from Ex 10 and a ratio of 1:1.</p>
+<p>Store the power from your analytic calculations using <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> under <code class="docutils literal notranslate"><span class="pre">&quot;ex13_analytic_power&quot;</span></code> and your real-data simulated result as <code class="docutils literal notranslate"><span class="pre">&quot;ex13_bootstrapped_power&quot;</span></code>.</p>
+<p>Do not round your answer to <code class="docutils literal notranslate"><span class="pre">&quot;ex13_analytic_power&quot;</span></code>.</p>
+<p>Round your answer for <code class="docutils literal notranslate"><span class="pre">&quot;ex13_bootstrapped_power&quot;</span></code> to one decimal places (i.e., nearest 10 percentage points — the real answer is around a .5 cut point, so rounding to nearest decimal goes back and forth, and that annoys the autograder).</p>
+</section>
+<section id="exercise-14">
+<h3>Exercise 14<a class="headerlink" href="#exercise-14" title="Link to this heading">#</a></h3>
+<p>What can you conclude from these results? The next time you are asked to do power calculations, how will these results shape your thinking?</p>
+<p>(Note: if you want to try and get a better sense of exactly why you are getting the results you’re getting, compare the standard deviation of expenditures in <code class="docutils literal notranslate"><span class="pre">el3</span></code> to the standard deviation in baseline expenditures).</p>
+</section>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>The poorest households were identified in two steps. First, residents across 120 village hamlets ranked households into five wealth quintiles. Among households ranked in the bottom quintile, Bandhan then verified eligibility per seven criteria: (i) presence of an able-bodied female member (to manage the asset), (ii) no credit access, (iii) landholding below 0.2 acres, (iv) no ownership of productive assets, (v) no able-bodied male member, (vi) presence of school-aged children who were working instead of attending school, and (vii) primary source of income being informal labor or begging. Households had to meet the first two criteria and at least three of the remaining five in order to be eligible for the TUP intervention.</p></li>
+<li><p>The <a class="reference external" href="https://www.povertyactionlab.org/resource/ethical-conduct-randomized-evaluations">ethics of randomization in these types of programs</a> is subject of a rich literature, and there are currently an extensive set of guidelines used by researchers developing these types of programs.</p></li>
+<li><p>Of the 514 offered the livestock and cash transfers, only 266 accepted. The treatment estimates that follow are thus estimates of the effect of <em>offering</em> these transfers. Households that accepted the offers might differ systematically from those that do not, so the study simply compares those <em>offered</em> the transfer to those who did not). This is what’s called an estimate of the “intention to treat” effect, and is thus <em>likely</em> an under-estimate of the effect of cash transfers that would be observed if uptake were greater.</p></li>
+</ol>
 </section>
 </section>
 
@@ -933,30 +952,32 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-context">The Context</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradescope-autograding">Gradescope Autograding</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-limits">Submission Limits</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-group-structure-of-your-data">Learning the Group Structure of Your Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-power-calculations">Part 1: Power Calculations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-your-assumptions">Testing Your Assumptions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-with-duplicated">Testing with .duplicated()</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#racial-arrest-composition">Racial Arrest Composition</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8">Exercise 8</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-how-good-are-these-guesses">Part 2: How Good Are These Guesses?</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9">Exercise 9</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10">Exercise 10</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11">Exercise 11</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12">Exercise 12</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-13">Exercise 13</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14">Exercise 14</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
   </nav></div>
 

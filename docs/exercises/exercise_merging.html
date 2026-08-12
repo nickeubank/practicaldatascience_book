@@ -813,283 +813,74 @@
 </ul>
 <p>This allows you to quickly identify failed merges!</p>
 <p>For example, suppose you had the following data:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;key1&quot;</span><span class="p">,</span> <span class="s2">&quot;key2&quot;</span><span class="p">],</span> <span class="s2">&quot;df1_var&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]})</span>
 <span class="n">df1</span>
 </pre></div>
 </div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">key</span>   <span class="n">df1_var</span>
+<span class="mi">0</span>  <span class="n">key1</span>        <span class="mi">1</span>
+<span class="mi">1</span>  <span class="n">key2</span>        <span class="mi">2</span>
+</pre></div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>key</th>
-      <th>df1_var</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>key1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>key2</td>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;key1&quot;</span><span class="p">,</span> <span class="s2">&quot;Key2&quot;</span><span class="p">],</span> <span class="s2">&quot;df2_var&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]})</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;key1&quot;</span><span class="p">,</span> <span class="s2">&quot;Key2&quot;</span><span class="p">],</span> <span class="s2">&quot;df2_var&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]})</span>
 <span class="n">df2</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>key</th>
-      <th>df2_var</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>key1</td>
-      <td>a</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Key2</td>
-      <td>b</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">key</span>  <span class="n">df2_var</span>
+<span class="mi">0</span>  <span class="n">key1</span>       <span class="n">a</span>
+<span class="mi">1</span>  <span class="n">Key2</span>       <span class="n">b</span>
+</pre></div>
 </div>
 <p>Now suppose you <em>expected</em> that all observations should merge when you merge these datasets (because you hadn’t noticed the typo in <code class="docutils literal notranslate"><span class="pre">df2</span></code> where <code class="docutils literal notranslate"><span class="pre">key2</span></code> has a capital <code class="docutils literal notranslate"><span class="pre">Key2</span></code>. If you just run a merge, it works without any problems:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p>And so you might carry on in life unaware your data is now corrupted: instead of two merged rows, you now have 3, only 1 of which merged correctly!</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>key</th>
-      <th>df1_var</th>
-      <th>df2_var</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>key1</td>
-      <td>1.0</td>
-      <td>a</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>key2</td>
-      <td>2.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Key2</td>
-      <td>NaN</td>
-      <td>b</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">key</span>   <span class="n">df1_var</span> <span class="n">df2_var</span>
+<span class="mi">0</span>  <span class="n">Key2</span>      <span class="n">NaN</span>       <span class="n">b</span>
+<span class="mi">1</span>  <span class="n">key1</span>      <span class="mf">1.0</span>       <span class="n">a</span>
+<span class="mi">2</span>  <span class="n">key2</span>      <span class="mf">2.0</span>     <span class="n">NaN</span>
+</pre></div>
 </div>
 <p>When what you really wanted was:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2_correct</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2_correct</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">df2_correct</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df2</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;Key2&quot;</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;key2&quot;</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2_correct</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>key</th>
-      <th>df1_var</th>
-      <th>df2_var</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>key1</td>
-      <td>1</td>
-      <td>a</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>key2</td>
-      <td>2</td>
-      <td>b</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">key</span>  <span class="n">df1_var</span> <span class="n">df2_var</span>
+<span class="mi">0</span>  <span class="n">key1</span>        <span class="mi">1</span>       <span class="n">a</span>
+<span class="mi">1</span>  <span class="n">key2</span>        <span class="mi">2</span>       <span class="n">b</span>
+</pre></div>
 </div>
 <p>(in a small dataset, you’d quickly see you have 1 row instead of 2, but if you have millions of rows, a couple missing won’t be evident).</p>
 <p>But now suppose we use the <code class="docutils literal notranslate"><span class="pre">indicator</span></code> function:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">new_data</span><span class="o">.</span><span class="n">_merge</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>_merge
-left_only     1
-right_only    1
-both          1
-Name: count, dtype: int64
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">_merge</span>
+<span class="n">left_only</span>     <span class="mi">1</span>
+<span class="n">right_only</span>    <span class="mi">1</span>
+<span class="n">both</span>          <span class="mi">1</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">count</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p>We could immediately see that only one observation merged correct, and that one row from each dataset failed to merge!</p>
 <p>Moreover, we can look at the failed merges:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span><span class="p">[</span><span class="n">new_data</span><span class="o">.</span><span class="n">_merge</span> <span class="o">!=</span> <span class="s2">&quot;both&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span><span class="p">[</span><span class="n">new_data</span><span class="o">.</span><span class="n">_merge</span> <span class="o">!=</span> <span class="s2">&quot;both&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>key</th>
-      <th>df1_var</th>
-      <th>df2_var</th>
-      <th>_merge</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>key2</td>
-      <td>2.0</td>
-      <td>NaN</td>
-      <td>left_only</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Key2</td>
-      <td>NaN</td>
-      <td>b</td>
-      <td>right_only</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">key</span>  <span class="n">df1_var</span>  <span class="n">df2_var</span>      <span class="n">_merge</span>
+<span class="mi">0</span>  <span class="n">Key2</span>      <span class="n">NaN</span>       <span class="n">b</span>  <span class="n">right_only</span>
+<span class="mi">2</span>  <span class="n">key2</span>      <span class="mf">2.0</span>     <span class="n">NaN</span>   <span class="n">left_only</span>
+</pre></div>
 </div>
 <p>Allowing us to easily diagnose the problem.</p>
 <p><strong>Note:</strong> The <code class="docutils literal notranslate"><span class="pre">pandas</span></code> merge function allows users to decide whether to keep only observations that merge (<code class="docutils literal notranslate"><span class="pre">how='inner'</span></code>), all the observations from the first dataset pasted to merge (<code class="docutils literal notranslate"><span class="pre">how='left'</span></code>), all the observations from the second dataset passed to merge (<code class="docutils literal notranslate"><span class="pre">how='right'</span></code>), or all observations (<code class="docutils literal notranslate"><span class="pre">how='outer'</span></code>):</p>
