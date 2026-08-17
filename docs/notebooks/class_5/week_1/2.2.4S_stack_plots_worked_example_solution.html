@@ -685,13 +685,13 @@
 <h2>I. Prepare your data for plotting<a class="headerlink" href="#i-prepare-your-data-for-plotting" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = 'retina'
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">file</span> <span class="o">=</span> <span class="s2">&quot;data/poverty-dollars-a-day.csv&quot;</span>
+<span class="n">file</span> <span class="o">=</span> <span class="s2">"data/poverty-dollars-a-day.csv"</span>
 <span class="n">poverty</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 <span class="n">poverty</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
@@ -777,7 +777,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prepare the data</span>
-<span class="n">income_levels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;$1.90 or less&quot;</span><span class="p">,</span> <span class="s2">&quot;$1.90-$5&quot;</span><span class="p">,</span> <span class="s2">&quot;$5-$10&quot;</span><span class="p">,</span> <span class="s2">&quot;$10-$30&quot;</span><span class="p">,</span> <span class="s2">&quot;$30 or more&quot;</span><span class="p">]</span>
+<span class="n">income_levels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"$1.90 or less"</span><span class="p">,</span> <span class="s2">"$1.90-$5"</span><span class="p">,</span> <span class="s2">"$5-$10"</span><span class="p">,</span> <span class="s2">"$10-$30"</span><span class="p">,</span> <span class="s2">"$30 or more"</span><span class="p">]</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">poverty</span><span class="p">[</span><span class="n">income_levels</span><span class="p">]</span>
 
 <span class="n">scaled_poverty</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
@@ -862,11 +862,11 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prepare the data in the right format for `stackplot`</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">poverty</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">poverty</span><span class="p">[</span><span class="s2">"Year"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">Y</span> <span class="o">=</span> <span class="n">scaled_poverty</span><span class="p">[</span><span class="n">income_levels</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span> <span class="c1"># Stackplot takes the data formatted with the time axis in the second dimension, so we transpose the matrix</span>
 
 <span class="c1"># Create legend labels to plot</span>
-<span class="n">legend_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;$1.90 or less per day&quot;</span><span class="p">,</span> <span class="s2">&quot;$1.90-5 per day&quot;</span><span class="p">,</span> <span class="s2">&quot;$5-10 per day&quot;</span><span class="p">,</span> <span class="s2">&quot;$10-30 per day&quot;</span><span class="p">,</span> <span class="s2">&quot;$30 or more per day&quot;</span><span class="p">]</span>
+<span class="n">legend_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"$1.90 or less per day"</span><span class="p">,</span> <span class="s2">"$1.90-5 per day"</span><span class="p">,</span> <span class="s2">"$5-10 per day"</span><span class="p">,</span> <span class="s2">"$10-30 per day"</span><span class="p">,</span> <span class="s2">"$30 or more per day"</span><span class="p">]</span>
 
 <span class="c1"># Plot the figure</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -875,15 +875,15 @@
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1820</span><span class="p">,</span> <span class="mi">2018</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">[</span><span class="mi">2018</span><span class="p">]))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Percent of global population&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Global population at different poverty thresholds&quot;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Percent of global population"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Global population at different poverty thresholds"</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-          <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span>
+          <span class="n">loc</span><span class="o">=</span><span class="s2">"upper left"</span><span class="p">,</span>
           <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#Adjusts the order of the legend entries to match the order top-to-bottom</span>
 
 <span class="c1"># Save the output</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;img/worked_example_poverty_level_1.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">bbox_inches</span> <span class="o">=</span> <span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">'img/worked_example_poverty_level_1.png'</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">bbox_inches</span> <span class="o">=</span> <span class="s1">'tight'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -897,19 +897,19 @@
 <h2>III. Make a professional-quality plot (Level 2 - OPTIONAL)<a class="headerlink" href="#iii-make-a-professional-quality-plot-level-2-optional" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#e25552&quot;</span><span class="p">,</span> <span class="s2">&quot;#e9807d&quot;</span><span class="p">,</span> <span class="s2">&quot;#f1aaa9&quot;</span><span class="p">,</span> <span class="s2">&quot;#f8d5d4&quot;</span><span class="p">,</span> <span class="s2">&quot;#1696d2&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"#e25552"</span><span class="p">,</span> <span class="s2">"#e9807d"</span><span class="p">,</span> <span class="s2">"#f1aaa9"</span><span class="p">,</span> <span class="s2">"#f8d5d4"</span><span class="p">,</span> <span class="s2">"#1696d2"</span><span class="p">]</span>
 
 <span class="c1"># Set the font size</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;font.size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;font.sans-serif&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;Arial Narrow&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;DejaVu Sans&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Lucida Grande&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Verdana&quot;</span><span class="p">,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"font.size"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"font.sans-serif"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"Arial Narrow"</span><span class="p">,</span>
+    <span class="s2">"DejaVu Sans"</span><span class="p">,</span>
+    <span class="s2">"Lucida Grande"</span><span class="p">,</span>
+    <span class="s2">"Verdana"</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="c1"># Prepare the data as before</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">poverty</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">poverty</span><span class="p">[</span><span class="s2">"Year"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">Y</span> <span class="o">=</span> <span class="n">scaled_poverty</span><span class="p">[</span><span class="n">income_levels</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span>
 
 <span class="c1"># Make the main plot as before</span>
@@ -920,9 +920,9 @@
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1820</span><span class="p">,</span> <span class="mi">2018</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">[</span><span class="mi">2018</span><span class="p">]))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[:]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Percent of global population&quot;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Global population at different poverty thresholds&quot;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Percent of global population"</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"top"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">'right'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Global population at different poverty thresholds"</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
 
 <span class="c1"># Add labels to the side of the plot</span>
 <span class="n">poverty2018</span> <span class="o">=</span> <span class="n">scaled_poverty</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -935,7 +935,7 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">maxyear</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cum_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
     
 <span class="c1"># Save the figure</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;img/worked_example_poverty_level_2.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">bbox_inches</span> <span class="o">=</span> <span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">'img/worked_example_poverty_level_2.png'</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">bbox_inches</span> <span class="o">=</span> <span class="s1">'tight'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

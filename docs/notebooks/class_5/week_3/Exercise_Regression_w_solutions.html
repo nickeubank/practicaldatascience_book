@@ -709,9 +709,9 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"mode.copy_on_write"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
-<span class="n">smoking_and_bw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/smoking.csv&quot;</span><span class="p">)</span>
+<span class="n">smoking_and_bw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/smoking.csv"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -847,7 +847,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
 
-<span class="n">s_and_bw_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;bwt_oz ~ smoke&quot;</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">s_and_bw_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">"bwt_oz ~ smoke"</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="n">s_and_bw_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -920,7 +920,7 @@
 <p><strong>Please round your answer to two decimal places.</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_and_bw_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;bwt_oz ~ smoke + gestation&quot;</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_and_bw_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">"bwt_oz ~ smoke + gestation"</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="n">s_and_bw_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -997,7 +997,7 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">patsy</span>
 
-<span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">&quot;bwt_oz ~ smoke + gestation &quot;</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span>
+<span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrices</span><span class="p">(</span><span class="s2">"bwt_oz ~ smoke + gestation "</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
@@ -1069,7 +1069,7 @@
 <h2>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h2>
 <p>Now let’s test for whether there is an interaction between the mother’s race and the effect of smoking by adding an interaction term to this regression.</p>
 <p><code class="docutils literal notranslate"><span class="pre">mrace</span></code> is coded as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mrace</span>    <span class="n">Mother</span><span class="s1">&#39;s race or ethnicity</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mrace</span>    <span class="n">Mother</span><span class="s1">'s race or ethnicity</span>
          <span class="mi">0</span><span class="o">-</span><span class="mi">5</span> <span class="o">=</span> <span class="n">White</span>
          <span class="mi">6</span>   <span class="o">=</span> <span class="n">Mexican</span>
          <span class="mi">7</span>   <span class="o">=</span> <span class="n">Black</span>
@@ -1084,7 +1084,7 @@
 <p><strong>Please round your answer to two decimal places</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">&quot;mrace&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">"mrace"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1107,8 +1107,8 @@ Name: proportion, dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">&quot;mrace&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">&quot;mrace&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">"white"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">"mrace"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">"mrace"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">smoking_and_bw</span><span class="p">[</span><span class="s2">"white"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1134,8 +1134,8 @@ Name: proportion, dtype: float64
 <p><strong>Please round your answer to two decimal places.</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_and_bw_model3</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;bwt_oz ~ gestation + C(white) + smoke&quot;</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;smoke&quot;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_and_bw_model3</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">"bwt_oz ~ gestation + C(white) + smoke"</span><span class="p">,</span> <span class="n">smoking_and_bw</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"smoke"</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1164,7 +1164,7 @@ Name: proportion, dtype: float64
 <p><strong>Please round your answer to two decimal places.</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;smoke&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;C(white)[T.True]:smoke&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"smoke"</span><span class="p">]</span> <span class="o">+</span> <span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"C(white)[T.True]:smoke"</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1184,13 +1184,13 @@ Name: proportion, dtype: float64
 
 <span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7089,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
 
-<span class="ne">KeyError</span>: &#39;C(white)[T.True]:smoke&#39;
+<span class="ne">KeyError</span>: 'C(white)[T.True]:smoke'
 
 <span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
 
 <span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;smoke&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;C(white)[T.True]:smoke&quot;</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"smoke"</span><span class="p">]</span> <span class="o">+</span> <span class="n">s_and_bw_model3</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"C(white)[T.True]:smoke"</span><span class="p">]</span>
 
 <span class="nn">File /users/nce8/miniforge3/lib/python3.12/site-packages/pandas/core/series.py:1121,</span> in <span class="ni">Series.__getitem__</span><span class="nt">(self, key)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1118</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
@@ -1220,7 +1220,7 @@ Name: proportion, dtype: float64
 <span class="g g-Whitespace">   </span><span class="mi">3816</span>     <span class="c1">#  the TypeError.</span>
 <span class="g g-Whitespace">   </span><span class="mi">3817</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<span class="ne">KeyError</span>: &#39;C(white)[T.True]:smoke&#39;
+<span class="ne">KeyError</span>: 'C(white)[T.True]:smoke'
 </pre></div>
 </div>
 </div>

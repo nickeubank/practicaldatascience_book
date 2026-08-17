@@ -734,7 +734,7 @@
 <p>Python is meant to be a friendly language, and one manifestation of that is that in vanilla Python, you can’t overflow your integers! That’s because whenever Python does an integer computation, it stops to check whether you the integer in question has been allocated enough bits to store the result, and, if not, it just adds more bits! So if you do math with an integer that won’t fit in 64 bits, it will just allocate more bits to the integer!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here&#39;s a really big integer</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here's a really big integer</span>
 <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">63</span>
 </pre></div>
 </div>
@@ -742,7 +742,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now let&#39;s make it bigger so it can&#39;t fit in 64 bits!</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now let's make it bigger so it can't fit in 64 bits!</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span>
 <span class="n">x</span>
 </pre></div>
@@ -793,7 +793,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="o">**</span><span class="mi">63</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">63</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="o">**</span><span class="mi">63</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">63</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
 <span class="n">a</span>
 </pre></div>
 </div>
@@ -819,7 +819,7 @@
 <p>It’s also important to understand that with <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, you control the size of integers, and thus how big of an integer you can make before you have overflow problems. By default, <code class="docutils literal notranslate"><span class="pre">numpy</span></code> will make your integers the size your system processor works with natively (usually 64 bits on a modern computer, but sometimes 32 bits on an older computer). But  <code class="docutils literal notranslate"><span class="pre">numpy</span></code> also let’s you make arrays that are 16 bits (<code class="docutils literal notranslate"><span class="pre">int16</span></code>), 32 bits (<code class="docutils literal notranslate"><span class="pre">int32</span></code>) or 64 bits (<code class="docutils literal notranslate"><span class="pre">int64</span></code>). This can be very useful when working with big datasets: smaller integers take up less memory, and sometimes calculations with smaller integers can be faster due to some intricacies of how computers use memory. But if you do use smaller integer sizes, then you really need to be careful with your overflows! <code class="docutils literal notranslate"><span class="pre">int16</span></code> can only store numbers up to 32,768!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">32768</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int16&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">32768</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int16"</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 </pre></div>
 </div>
@@ -833,7 +833,7 @@
 <p>Also, note that <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> have “unsigned” integers (<code class="docutils literal notranslate"><span class="pre">uint16</span></code>, <code class="docutils literal notranslate"><span class="pre">uint32</span></code>, <code class="docutils literal notranslate"><span class="pre">uint64</span></code>). These are like regular integers, except they don’t allocate half their values to negative numbers, so their upper limit is 2x the same-sized regular integer. In general, though, it’s good to avoid <code class="docutils literal notranslate"><span class="pre">uints</span></code>, as it’s too easy to <em>underflow</em> by hitting the <em>bottom</em> of the values it can tolerate (i.e., going below zero):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;uint64&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"uint64"</span><span class="p">)</span>
 <span class="n">x</span>
 </pre></div>
 </div>

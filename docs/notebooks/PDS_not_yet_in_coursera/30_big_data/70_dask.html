@@ -705,9 +705,9 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"mode.copy_on_write"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/users/nce8/dropbox/MIDS/MIDS_Data_Prep/arcos&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">"/users/nce8/dropbox/MIDS/MIDS_Data_Prep/arcos"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -715,10 +715,10 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here we start up a dask cluster.</span>
-<span class="c1"># This creates a set of &quot;workers&quot;.</span>
+<span class="c1"># This creates a set of "workers".</span>
 <span class="c1"># In this case, these workers are all on</span>
 <span class="c1"># my computer, but if we wanted to connect</span>
-<span class="c1"># to a remote cluster, we&#39;d use almost the</span>
+<span class="c1"># to a remote cluster, we'd use almost the</span>
 <span class="c1"># same syntax:</span>
 <span class="c1"># from dask.distributed import Client</span>
 <span class="c1"># client = Client()</span>
@@ -729,11 +729,11 @@
 <span class="c1"># You need to approve those</span>
 <span class="c1"># so workers can talk to one another.</span>
 
-<span class="c1"># DON&#39;T keep rerunning this line of code.</span>
+<span class="c1"># DON'T keep rerunning this line of code.</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;I have </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span><span class="si">}</span><span class="s2"> logical cores.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"I have </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span><span class="si">}</span><span class="s2"> logical cores."</span><span class="p">)</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">dask.distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalCluster</span>
 
@@ -1110,12 +1110,12 @@
 <span class="c1"># This site includes several downloadable opioid samples.</span>
 <span class="c1">#</span>
 <span class="c1"># This, in particular, is the `arcos_all.zip` file you get from the</span>
-<span class="c1"># bullet point &quot;If you want to download the full data set released</span>
-<span class="c1"># by the Ohio federal court, click here.&quot; (I just renamed it before using it here)</span>
+<span class="c1"># bullet point "If you want to download the full data set released</span>
+<span class="c1"># by the Ohio federal court, click here." (I just renamed it before using it here)</span>
 <span class="c1"># Link:</span>
 <span class="c1"># https://gfx-data.news-engineering.aws.wapo.pub/ne-static/arcos/v2/bulk/arcos_all.zip</span>
 
-<span class="c1"># If you&#39;re really internet constrained, here&#39;s a two-year sample of just oxy and hydrocodone:</span>
+<span class="c1"># If you're really internet constrained, here's a two-year sample of just oxy and hydrocodone:</span>
 <span class="c1"># https://www.dropbox.com/scl/fi/8dut9svmbmer83p2qduts/arcos_2011_2012.tsv.zip?rlkey=l3hg46gzo7xgtzd6dg1higf6g&amp;dl=0</span>
 
 <span class="c1"># Note that while pandas can read compressed files like this .tsv.gz,</span>
@@ -1123,24 +1123,24 @@
 <span class="c1"># you have to decompress the data.</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;all_prescriptions.csv&quot;</span><span class="p">,</span>
+    <span class="s2">"all_prescriptions.csv"</span><span class="p">,</span>
     <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;ACTION_INDICATOR&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ORDER_FORM_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;REPORTER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;REPORTER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BUYER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BUYER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;NDC_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;UNIT&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;STRENGTH&quot;</span><span class="p">:</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BUYER_ZIP&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;DRUG_CODE&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;QUANTITY&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;TRANSACTION_DATE&quot;</span><span class="p">:</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;TRANSACTION_ID&quot;</span><span class="p">:</span> <span class="s2">&quot;float64&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;dos_str&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">"ACTION_INDICATOR"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"ORDER_FORM_NO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"REPORTER_ADDRESS2"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"REPORTER_ADDL_CO_INFO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"BUYER_ADDL_CO_INFO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"BUYER_ADDRESS2"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"NDC_NO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"UNIT"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"STRENGTH"</span><span class="p">:</span> <span class="s2">"float64"</span><span class="p">,</span>
+        <span class="s2">"BUYER_ZIP"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"DRUG_CODE"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"MME_Conversion_Factor"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"QUANTITY"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"TRANSACTION_DATE"</span><span class="p">:</span> <span class="s2">"float64"</span><span class="p">,</span>
+        <span class="s2">"TRANSACTION_ID"</span><span class="p">:</span> <span class="s2">"float64"</span><span class="p">,</span>
+        <span class="s2">"dos_str"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">)</span>
 </pre></div>
@@ -1150,20 +1150,20 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract year</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">TRANSACTION_DATE</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%m</span><span class="si">%d</span><span class="s2">%Y&quot;</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span>
-    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">TRANSACTION_DATE</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"%m</span><span class="si">%d</span><span class="s2">%Y"</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"MME_Conversion_Factor"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"MME_Conversion_Factor"</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"coerce"</span>
 <span class="p">)</span>
 <span class="c1"># Make an estimate of total morphine equivalent shipments</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;morphine_equivalent_g&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;CALC_BASE_WT_IN_GM&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"morphine_equivalent_g"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"CALC_BASE_WT_IN_GM"</span><span class="p">])</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">"MME_Conversion_Factor"</span><span class="p">]</span>
 
 <span class="c1"># Drop extra vars</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;morphine_equivalent_g&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_STATE&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_COUNTY&quot;</span><span class="p">]]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">"year"</span><span class="p">,</span> <span class="s2">"morphine_equivalent_g"</span><span class="p">,</span> <span class="s2">"BUYER_STATE"</span><span class="p">,</span> <span class="s2">"BUYER_COUNTY"</span><span class="p">]]</span>
 
 <span class="c1"># Collapse to total shipments to each county in each year.</span>
 <span class="n">collapsed</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
-    <span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_STATE&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_COUNTY&quot;</span><span class="p">]</span>
+    <span class="p">[</span><span class="s2">"year"</span><span class="p">,</span> <span class="s2">"BUYER_STATE"</span><span class="p">,</span> <span class="s2">"BUYER_COUNTY"</span><span class="p">]</span>
 <span class="p">)</span><span class="o">.</span><span class="n">morphine_equivalent_g</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">collapsed</span>
 </pre></div>
@@ -1175,7 +1175,7 @@ npartitions=1
     Float64
         ...
 Dask Name: sum, 17 expressions
-Expr=Sum(frame=(Assign(frame=Assign(frame=Assign(frame=Assign(frame=ReadCSV(d205952)))))[[&#39;year&#39;, &#39;morphine_equivalent_g&#39;, &#39;BUYER_STATE&#39;, &#39;BUYER_COUNTY&#39;]])[[&#39;year&#39;, &#39;morphine_equivalent_g&#39;, &#39;BUYER_STATE&#39;, &#39;BUYER_COUNTY&#39;]], observed=False, chunk_kwargs={&#39;numeric_only&#39;: False}, aggregate_kwargs={&#39;numeric_only&#39;: False}, _slice=&#39;morphine_equivalent_g&#39;)
+Expr=Sum(frame=(Assign(frame=Assign(frame=Assign(frame=Assign(frame=ReadCSV(d205952)))))[['year', 'morphine_equivalent_g', 'BUYER_STATE', 'BUYER_COUNTY']])[['year', 'morphine_equivalent_g', 'BUYER_STATE', 'BUYER_COUNTY']], observed=False, chunk_kwargs={'numeric_only': False}, aggregate_kwargs={'numeric_only': False}, _slice='morphine_equivalent_g')
 </pre></div>
 </div>
 </div>
@@ -1189,8 +1189,8 @@ Expr=Sum(frame=(Assign(frame=Assign(frame=Assign(frame=Assign(frame=ReadCSV(d205
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-07 15:58:51,947 - distributed.shuffle._scheduler_plugin - WARNING - Shuffle ea40ef4a056c628e67e00bb2e66ffa9a initialized by task (&#39;shuffle-transfer-ea40ef4a056c628e67e00bb2e66ffa9a&#39;, 323) executed on worker tcp://127.0.0.1:57793
-2024-11-07 16:01:23,275 - distributed.shuffle._scheduler_plugin - WARNING - Shuffle ea40ef4a056c628e67e00bb2e66ffa9a deactivated due to stimulus &#39;task-finished-1731013283.2746298&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-07 15:58:51,947 - distributed.shuffle._scheduler_plugin - WARNING - Shuffle ea40ef4a056c628e67e00bb2e66ffa9a initialized by task ('shuffle-transfer-ea40ef4a056c628e67e00bb2e66ffa9a', 323) executed on worker tcp://127.0.0.1:57793
+2024-11-07 16:01:23,275 - distributed.shuffle._scheduler_plugin - WARNING - Shuffle ea40ef4a056c628e67e00bb2e66ffa9a deactivated due to stimulus 'task-finished-1731013283.2746298'
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 8.19 s, sys: 1.92 s, total: 10.1 s
@@ -1238,17 +1238,17 @@ Name: morphine_equivalent_g, dtype: Float64
 <p>Recall that the whole reason we’re using dask is precisely because we knew that loading the whole dataset at once would take up more memory than I have available. It’s only because we only loaded a few chunks of the data at a time, thinned out those chunks by dropping variables, and then collapsed by county-state-year that we ended up with a dataset that was small enough that it would fit in memory.</p>
 <p>In other words, this only worked because I knew that the steps after the initial load would reduce the size of the dataset enough that when I ran <code class="docutils literal notranslate"><span class="pre">.compute()</span></code>, the result I got back would be small enough to fit in memory. Had I just run:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;arcos_all_washpost_2006_2012.tsv&quot;</span><span class="p">,</span>
-    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">"arcos_all_washpost_2006_2012.tsv"</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">,</span>
     <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;ACTION_INDICATOR&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ORDER_FORM_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;REPORTER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;REPORTER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BUYER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BUYER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;NDC_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;UNIT&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">"ACTION_INDICATOR"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"ORDER_FORM_NO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"REPORTER_ADDRESS2"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"REPORTER_ADDL_CO_INFO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"BUYER_ADDL_CO_INFO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"BUYER_ADDRESS2"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"NDC_NO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"UNIT"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
@@ -1283,15 +1283,15 @@ Name: morphine_equivalent_g, dtype: Float64
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/users/nce8/dropbox/MIDS/MIDS_Data_Prep/arcos&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">"/users/nce8/dropbox/MIDS/MIDS_Data_Prep/arcos"</span><span class="p">)</span>
 
 <span class="c1"># Create an interator of the data so</span>
-<span class="c1"># it doesn&#39;t all load at once</span>
+<span class="c1"># it doesn't all load at once</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;all_prescriptions.csv&quot;</span><span class="p">,</span>
+    <span class="s2">"all_prescriptions.csv"</span><span class="p">,</span>
     <span class="n">iterator</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">chunksize</span><span class="o">=</span><span class="mi">250_000</span><span class="p">,</span>
-    <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DOSAGE_UNIT&quot;</span><span class="p">,</span> <span class="s2">&quot;Measure&quot;</span><span class="p">],</span>
+    <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">"DOSAGE_UNIT"</span><span class="p">,</span> <span class="s2">"Measure"</span><span class="p">],</span>
 <span class="p">)</span>
 
 
@@ -1299,10 +1299,10 @@ Name: morphine_equivalent_g, dtype: Float64
 <span class="n">max_candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
     <span class="c1"># Subset for pill shipments</span>
-    <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;Measure&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TAB&quot;</span><span class="p">]</span>
+    <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="n">chunk</span><span class="p">[</span><span class="s2">"Measure"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"TAB"</span><span class="p">]</span>
 
     <span class="c1"># Find largest in this chunk</span>
-    <span class="n">max_candidates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;DOSAGE_UNIT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">max_candidates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s2">"DOSAGE_UNIT"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
 
 <span class="c1"># Now gather those candidates together and</span>
 <span class="c1"># find the maximum of all the chunk maximums.</span>
@@ -1321,21 +1321,21 @@ Name: morphine_equivalent_g, dtype: Float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;all_prescriptions.csv&quot;</span><span class="p">,</span>
+    <span class="s2">"all_prescriptions.csv"</span><span class="p">,</span>
     <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;ACTION_INDICATOR&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ORDER_FORM_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;REPORTER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;REPORTER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BUYER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BUYER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;NDC_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;UNIT&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">"ACTION_INDICATOR"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"ORDER_FORM_NO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"REPORTER_ADDRESS2"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"REPORTER_ADDL_CO_INFO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"BUYER_ADDL_CO_INFO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"BUYER_ADDRESS2"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"NDC_NO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"UNIT"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">)</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Measure&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TAB&quot;</span><span class="p">]</span>
-<span class="n">max_shipment</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;DOSAGE_UNIT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"Measure"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"TAB"</span><span class="p">]</span>
+<span class="n">max_shipment</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"DOSAGE_UNIT"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 <span class="n">max_shipment</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1357,20 +1357,20 @@ Name: morphine_equivalent_g, dtype: Float64
 <p>The fact that you can give dask a handful of commands <em>and then</em> tell it to execute them is at the absolute core of what makes it effective. The more commands you can give dask up front, the more it can optimize how it distributes that work—and how it moves data between different computers. Moving data between processes and between computers is <em>by far</em> the slowest part of distributed computing, so the more dask can minimize those transfers, the faster it will be.</p>
 <p>Moreover, lazy evaluation is how you protect yourself from crashing your computer. Consider the following code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;all_prescriptions.csv&quot;</span><span class="p">,</span>
+    <span class="s2">"all_prescriptions.csv"</span><span class="p">,</span>
     <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;ACTION_INDICATOR&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ORDER_FORM_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;REPORTER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;REPORTER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BUYER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BUYER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;NDC_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;UNIT&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">"ACTION_INDICATOR"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"ORDER_FORM_NO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"REPORTER_ADDRESS2"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"REPORTER_ADDL_CO_INFO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"BUYER_ADDL_CO_INFO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"BUYER_ADDRESS2"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"NDC_NO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"UNIT"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">)</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Measure&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TAB&quot;</span><span class="p">]</span> 
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'Measure'</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"TAB"</span><span class="p">]</span> 
 <span class="n">df</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1381,32 +1381,32 @@ Name: morphine_equivalent_g, dtype: Float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;all_prescriptions.csv&quot;</span><span class="p">,</span>
+    <span class="s2">"all_prescriptions.csv"</span><span class="p">,</span>
     <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;ACTION_INDICATOR&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ORDER_FORM_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;REPORTER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;REPORTER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BUYER_ADDL_CO_INFO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BUYER_ADDRESS2&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;NDC_NO&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;UNIT&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">"ACTION_INDICATOR"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"ORDER_FORM_NO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"REPORTER_ADDRESS2"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"REPORTER_ADDL_CO_INFO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"BUYER_ADDL_CO_INFO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"BUYER_ADDRESS2"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"NDC_NO"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+        <span class="s2">"UNIT"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">)</span>
 
 <span class="c1"># Extract year</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">TRANSACTION_DATE</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%m</span><span class="si">%d</span><span class="s2">%Y&quot;</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">TRANSACTION_DATE</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"%m</span><span class="si">%d</span><span class="s2">%Y"</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
 
 <span class="c1"># Make an estimate of total morphine equivalent shipments</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;morphine_equivalent_g&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;CALC_BASE_WT_IN_GM&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MME_Conversion_Factor&quot;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"morphine_equivalent_g"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"CALC_BASE_WT_IN_GM"</span><span class="p">])</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">"MME_Conversion_Factor"</span><span class="p">]</span>
 
 <span class="c1"># Drop extra vars</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;morphine_equivalent_g&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_STATE&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_COUNTY&quot;</span><span class="p">]]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">"year"</span><span class="p">,</span> <span class="s2">"morphine_equivalent_g"</span><span class="p">,</span> <span class="s2">"BUYER_STATE"</span><span class="p">,</span> <span class="s2">"BUYER_COUNTY"</span><span class="p">]]</span>
 
 <span class="c1"># Collapse to total shipments to each county in each year.</span>
 <span class="n">collapsed</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
-    <span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_STATE&quot;</span><span class="p">,</span> <span class="s2">&quot;BUYER_COUNTY&quot;</span><span class="p">]</span>
+    <span class="p">[</span><span class="s2">"year"</span><span class="p">,</span> <span class="s2">"BUYER_STATE"</span><span class="p">,</span> <span class="s2">"BUYER_COUNTY"</span><span class="p">]</span>
 <span class="p">)</span><span class="o">.</span><span class="n">morphine_equivalent_g</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">collapsed</span><span class="o">.</span><span class="n">visualize</span><span class="p">()</span>
 </pre></div>

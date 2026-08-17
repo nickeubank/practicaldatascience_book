@@ -686,10 +686,10 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Load the data</span>
-<span class="n">co2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/intermediate/co2.csv&#39;</span><span class="p">)</span>
-<span class="n">income</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/intermediate/income.csv&#39;</span><span class="p">)</span>
-<span class="n">pop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/intermediate/pop.csv&#39;</span><span class="p">)</span>
-<span class="n">continent</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/intermediate/continent.csv&#39;</span><span class="p">)</span>
+<span class="n">co2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'data/intermediate/co2.csv'</span><span class="p">)</span>
+<span class="n">income</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'data/intermediate/income.csv'</span><span class="p">)</span>
+<span class="n">pop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'data/intermediate/pop.csv'</span><span class="p">)</span>
+<span class="n">continent</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'data/intermediate/continent.csv'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1058,7 +1058,7 @@
 <p>Think about what type of merge would be appropriate here? Left, right, inner, or outer? We only want to save the rows that are matching, so an inner merge seems like the right approach. Let’s start by merging co2 and income based on the ‘country’ column:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">co2</span><span class="p">,</span> <span class="n">income</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;country&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">co2</span><span class="p">,</span> <span class="n">income</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"inner"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"country"</span><span class="p">)</span>
 <span class="n">data</span>
 </pre></div>
 </div>
@@ -1162,7 +1162,7 @@
 <p>Excellent - we have 193 rows, which is as expected given the smallest size among the two dataframes being merged. Next lets add in population:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;country&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"inner"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"country"</span><span class="p">)</span>
 <span class="n">data</span>
 </pre></div>
 </div>
@@ -1314,8 +1314,8 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">closest</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">get_close_matches</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">B</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">long</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">continent</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-<span class="n">short</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">long</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">continent</span><span class="p">[</span><span class="s2">"country"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">short</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"country"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
 <span class="n">long_strings</span> <span class="o">=</span> <span class="n">long</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">short_strings</span> <span class="o">=</span> <span class="n">short</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
@@ -1351,7 +1351,7 @@
     <span class="n">slength</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">short_strings</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SS = </span><span class="si">{</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, LS = </span><span class="si">{</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">, Sim = </span><span class="si">{</span><span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SS = </span><span class="si">{</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, LS = </span><span class="si">{</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">, Sim = </span><span class="si">{</span><span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1442,7 +1442,7 @@ SS = Kenya, LS = Kenya, Sim = 1
 SS = Cambodia, LS = Cambodia, Sim = 1
 SS = Kiribati, LS = Kiribati, Sim = 1
 SS = Kuwait, LS = Kuwait, Sim = 1
-SS = Lao, LS = Lao People&#39;s Democratic Republic, Sim = 1
+SS = Lao, LS = Lao People's Democratic Republic, Sim = 1
 SS = Lebanon, LS = Lebanon, Sim = 1
 SS = Liberia, LS = Liberia, Sim = 1
 SS = Libya, LS = Libya, Sim = 1
@@ -1534,7 +1534,7 @@ SS = Zambia, LS = Zambia, Sim = 1
 SS = Zimbabwe, LS = Zimbabwe, Sim = 1
 SS = St. Vincent and the Grenadines, LS = Saint Vincent and the Grenadines, Sim = 0.9354838709677419
 SS = St. Kitts and Nevis, LS = Saint Kitts and Nevis, Sim = 0.9
-SS = Cote d&#39;Ivoire, LS = Côte d’Ivoire, Sim = 0.8461538461538461
+SS = Cote d'Ivoire, LS = Côte d’Ivoire, Sim = 0.8461538461538461
 SS = Cape Verde, LS = Cabo Verde, Sim = 0.8
 SS = St. Lucia, LS = Saint Lucia, Sim = 0.8
 SS = Vietnam, LS = Viet Nam, Sim = 0.8
@@ -1566,7 +1566,7 @@ SS = Congo, Dem. Rep., LS = Holy See, Sim = 0.3333333333333333
 <p>Now we’re ready to merge our data!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">continent</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;country&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">continent</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"country"</span><span class="p">)</span>
 <span class="n">data</span>
 </pre></div>
 </div>
@@ -1780,12 +1780,12 @@ SS = Congo, Dem. Rep., LS = Holy See, Sim = 0.3333333333333333
 <p>Since we matched so many, we only have 6 remaining that are unmatched! That’s a lot less work to manually assign. And let’s remind ourselves of the list of continents to consider assigning:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">continent</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">continent</span><span class="p">[</span><span class="s2">"continent"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Asia&#39;, &#39;Europe&#39;, &#39;Africa&#39;, &#39;Oceania&#39;, &#39;Americas&#39;, nan],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array(['Asia', 'Europe', 'Africa', 'Oceania', 'Americas', nan],
       dtype=object)
 </pre></div>
 </div>
@@ -1794,12 +1794,12 @@ SS = Congo, Dem. Rep., LS = Holy See, Sim = 0.3333333333333333
 <p>We can use the index above to manually assign each of those and complete our dataset! Let’s see how it looks:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">35</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Africa&quot;</span>
-<span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
-<span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
-<span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">94</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
-<span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
-<span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">177</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">35</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Africa"</span>
+<span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Asia"</span>
+<span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Asia"</span>
+<span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">94</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Asia"</span>
+<span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Asia"</span>
+<span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">177</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Asia"</span>
 <span class="n">data</span>
 </pre></div>
 </div>
@@ -2022,25 +2022,25 @@ dtype: bool
 <p>We just have one final data processing step before we create our plot. If you look at the chart on GapMinder’s website, instead of using 7 continent categories, they use four categories for the world grouping Asia and Oceania into Asia. Let’s do the same here by replacing any instances of “Oceania” with “Asia”. Here we can use the <code class="docutils literal notranslate"><span class="pre">replace()</span></code> method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">"continent"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Asia&#39;, &#39;Africa&#39;, &#39;Europe&#39;, &#39;Americas&#39;, &#39;Oceania&#39;], dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array(['Asia', 'Africa', 'Europe', 'Americas', 'Oceania'], dtype=object)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Oceania&quot;</span><span class="p">,</span> <span class="s2">&quot;Asia&quot;</span><span class="p">)</span>
-<span class="n">data</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"continent"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"Oceania"</span><span class="p">,</span> <span class="s2">"Asia"</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">"continent"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Asia&#39;, &#39;Africa&#39;, &#39;Europe&#39;, &#39;Americas&#39;], dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array(['Asia', 'Africa', 'Europe', 'Americas'], dtype=object)
 </pre></div>
 </div>
 </div>
@@ -2048,7 +2048,7 @@ dtype: bool
 <p>Phew! We have done a LOT of data processing to get ready to make our plot, which we’ll do in the next lesson. Our data are the fuel for all the analyses we do in data science and often its takes some effort to prepare them for use. Having a clean dataset like we do now is entirely worth it as we can now explore these data by plotting them!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/intermediate/data.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'data/intermediate/data.csv'</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2067,8 +2067,8 @@ dtype: bool
     <span class="k">def</span><span class="w"> </span><span class="nf">closest</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">get_close_matches</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">B</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="n">long</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">continent</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-    <span class="n">short</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">long</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">continent</span><span class="p">[</span><span class="s2">"country"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">short</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"country"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
     <span class="n">long_strings</span> <span class="o">=</span> <span class="n">long</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">short_strings</span> <span class="o">=</span> <span class="n">short</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
@@ -2119,35 +2119,35 @@ dtype: bool
     <span class="n">continent</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">continent_file</span><span class="p">)</span>
     
     <span class="c1"># Merge CO2 and income:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">co2</span><span class="p">,</span> <span class="n">income</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;country&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">co2</span><span class="p">,</span> <span class="n">income</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"inner"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"country"</span><span class="p">)</span>
     
     <span class="c1"># Next merge in population:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;country&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"inner"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"country"</span><span class="p">)</span>
     
     <span class="c1"># Next align the continents data for merging, then merge it in:</span>
     <span class="n">continent</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">continent</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">continent</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;country&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">continent</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"country"</span><span class="p">)</span>
     
     <span class="c1"># Manually adjust the unmatched continents:</span>
-    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">35</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Africa&quot;</span>
-    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
-    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
-    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">94</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
-    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
-    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">177</span><span class="p">,</span> <span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Asia&quot;</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">35</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Africa"</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Asia"</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Asia"</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">94</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Asia"</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Asia"</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">177</span><span class="p">,</span> <span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Asia"</span>
     
     <span class="c1"># Replace Oceania with Asia:</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Oceania&quot;</span><span class="p">,</span> <span class="s2">&quot;Asia&quot;</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">"continent"</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"continent"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"Oceania"</span><span class="p">,</span> <span class="s2">"Asia"</span><span class="p">)</span>
     
     <span class="c1"># Save to file</span>
     <span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     
 <span class="c1"># Test and make sure the file produces identical output as the original process:</span>
-<span class="n">co2_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/co2.csv&#39;</span>
-<span class="n">income_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/income.csv&#39;</span>
-<span class="n">population_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/pop.csv&#39;</span> 
-<span class="n">continents_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/continent.csv&#39;</span>
-<span class="n">merged_data_file</span> <span class="o">=</span> <span class="s1">&#39;data/intermediate/data.csv&#39;</span>
+<span class="n">co2_file</span> <span class="o">=</span> <span class="s1">'data/intermediate/co2.csv'</span>
+<span class="n">income_file</span> <span class="o">=</span> <span class="s1">'data/intermediate/income.csv'</span>
+<span class="n">population_file</span> <span class="o">=</span> <span class="s1">'data/intermediate/pop.csv'</span> 
+<span class="n">continents_file</span> <span class="o">=</span> <span class="s1">'data/intermediate/continent.csv'</span>
+<span class="n">merged_data_file</span> <span class="o">=</span> <span class="s1">'data/intermediate/data.csv'</span>
 <span class="n">merge_data</span><span class="p">(</span><span class="n">co2_file</span><span class="p">,</span> <span class="n">income_file</span><span class="p">,</span> <span class="n">population_file</span><span class="p">,</span> <span class="n">continents_file</span><span class="p">,</span> <span class="n">merged_data_file</span><span class="p">)</span>
 </pre></div>
 </div>

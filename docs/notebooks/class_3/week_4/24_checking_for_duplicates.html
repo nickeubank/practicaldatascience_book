@@ -670,18 +670,18 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"mode.copy_on_write"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="p">{</span>
-        <span class="s2">&quot;social_security_numbers&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"social_security_numbers"</span><span class="p">:</span> <span class="p">[</span>
             <span class="mi">111111111</span><span class="p">,</span>
             <span class="mi">222222222</span><span class="p">,</span>
             <span class="mi">222222222</span><span class="p">,</span>
             <span class="mi">333333333</span><span class="p">,</span>
             <span class="mi">333333333</span><span class="p">,</span>
         <span class="p">],</span>
-        <span class="s2">&quot;second_column&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span>
+        <span class="s2">"second_column"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span>
     <span class="p">}</span>
 <span class="p">)</span>
 <span class="n">df</span>
@@ -763,7 +763,7 @@ dtype: bool
 <p>Duplicated can also be used to test for duplicates on a sub-set of rows. For example, if we want to test for rows with duplicate values of the variable <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code>, we can type:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">"social_security_numbers"</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -784,7 +784,7 @@ dtype: bool
 <p>Thus the command: <code class="docutils literal notranslate"><span class="pre">df.duplicated(['social_security_numbers'])</span></code> will return <code class="docutils literal notranslate"><span class="pre">False</span></code> if <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> uniquely idenfies every row in our dataset (since there are no duplicates)! If any rows are duplicated, then <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> doesn’t uniquely identify our observations (i.e. each row does not represent a unique person):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">"social_security_numbers"</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -795,12 +795,12 @@ dtype: bool
 </div>
 </div>
 <p>This might feel backward, so you can also add a <code class="docutils literal notranslate"><span class="pre">not</span></code> before the test if you want! In fact, in my code, I add an explicit test using the <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement. The command <code class="docutils literal notranslate"><span class="pre">assert</span></code> says “if the thing that follows this is <code class="docutils literal notranslate"><span class="pre">True</span></code>, don’t do anything; if it’s False, raise an exception. So in my code, I often write:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">"social_security_numbers"</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
 
 <span class="o">---------------------------------------------------------------------------</span>
 <span class="ne">AssertionError</span>                            <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
 <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">f30d4b630726</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="o">----&gt;</span> <span class="mi">1</span> <span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s1">&#39;social_security_numbers&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s1">'social_security_numbers'</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
 
 <span class="ne">AssertionError</span><span class="p">:</span> 
 

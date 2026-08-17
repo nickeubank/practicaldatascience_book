@@ -714,11 +714,11 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"mode.copy_on_write"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 
 <span class="c1"># Download the data</span>
-<span class="n">acs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span><span class="s2">&quot;data/US_ACS_2017_10pct_sample.dta&quot;</span><span class="p">)</span>
+<span class="n">acs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span><span class="s2">"data/US_ACS_2017_10pct_sample.dta"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -726,7 +726,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Too much output to be useful in a</span>
-<span class="c1"># solution, but here&#39;s the code:</span>
+<span class="c1"># solution, but here's the code:</span>
 <span class="c1"># for c in acs.columns:</span>
 <span class="c1">#     print(c)</span>
 </pre></div>
@@ -741,9 +741,9 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex2_avg_income&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">acs</span><span class="o">.</span><span class="n">inctot</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">"ex2_avg_income"</span><span class="p">]</span> <span class="o">=</span> <span class="n">acs</span><span class="o">.</span><span class="n">inctot</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;The average value of `inctot` in the full ACS data is $</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ex2_avg_income&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">"The average value of `inctot` in the full ACS data is $</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'ex2_avg_income'</span><span class="p">]</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -764,10 +764,10 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shares</span> <span class="o">=</span> <span class="n">acs</span><span class="o">.</span><span class="n">inctot</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex3_share_making_9999999&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shares</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">9_999_999</span><span class="p">]</span>
-<span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex3_share_making_zero&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shares</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Share making 9,999,999 is: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ex3_share_making_9999999&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Share making zero income is: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ex3_share_making_zero&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">"ex3_share_making_9999999"</span><span class="p">]</span> <span class="o">=</span> <span class="n">shares</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">9_999_999</span><span class="p">]</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">"ex3_share_making_zero"</span><span class="p">]</span> <span class="o">=</span> <span class="n">shares</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Share making 9,999,999 is: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'ex3_share_making_9999999'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Share making zero income is: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'ex3_share_making_zero'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -785,7 +785,7 @@ Share making zero income is: 0.106
 <p>To help out <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, use the <code class="docutils literal notranslate"><span class="pre">replace</span></code> command to replace all values of 9999999 with <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acs</span><span class="p">[</span><span class="s2">&quot;inctot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">acs</span><span class="p">[</span><span class="s2">&quot;inctot&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">9999999</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acs</span><span class="p">[</span><span class="s2">"inctot"</span><span class="p">]</span> <span class="o">=</span> <span class="n">acs</span><span class="p">[</span><span class="s2">"inctot"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">9999999</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -797,10 +797,10 @@ Share making zero income is: 0.106
 <p>Please round your answer to two decimal places.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex5_avg_income&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">acs</span><span class="o">.</span><span class="n">inctot</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s2">"ex5_avg_income"</span><span class="p">]</span> <span class="o">=</span> <span class="n">acs</span><span class="o">.</span><span class="n">inctot</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;The average value of `inctot` in the ACS data after &quot;</span>
-    <span class="sa">f</span><span class="s2">&quot;replacing 9,999,999 with np.nan is </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ex5_avg_income&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">"The average value of `inctot` in the ACS data after "</span>
+    <span class="sa">f</span><span class="s2">"replacing 9,999,999 with np.nan is </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'ex5_avg_income'</span><span class="p">]</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -822,7 +822,7 @@ Share making zero income is: 0.106
 <p>Note: In this data, Python doesn’t understand <code class="docutils literal notranslate"><span class="pre">age</span></code> is a number; it thinks it is a string because the original data has categories like “90 (90+ in 1980 and 1990)” and “less than 1 year old”. So you can’t just use <code class="docutils literal notranslate"><span class="pre">min()</span></code> or <code class="docutils literal notranslate"><span class="pre">max()</span></code>. We’ll discuss converting string variables into numbers in a future class.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">acs</span><span class="o">.</span><span class="n">inctot</span><span class="p">),</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">acs</span><span class="o">.</span><span class="n">inctot</span><span class="p">),</span> <span class="s2">"age"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -846,7 +846,7 @@ Name: count, Length: 97, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">acs</span><span class="o">.</span><span class="n">inctot</span><span class="p">),</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">acs</span><span class="o">.</span><span class="n">inctot</span><span class="p">),</span> <span class="s2">"age"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -870,7 +870,7 @@ Name: count, Length: 97, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">acs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">acs</span><span class="o">.</span><span class="n">inctot</span><span class="p">),</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">acs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">acs</span><span class="o">.</span><span class="n">inctot</span><span class="p">),</span> <span class="s2">"age"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -926,7 +926,7 @@ Name: count, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># now subset</span>
-<span class="n">employed</span> <span class="o">=</span> <span class="n">acs</span><span class="p">[</span><span class="n">acs</span><span class="o">.</span><span class="n">empstat</span> <span class="o">==</span> <span class="s2">&quot;employed&quot;</span><span class="p">]</span>
+<span class="n">employed</span> <span class="o">=</span> <span class="n">acs</span><span class="p">[</span><span class="n">acs</span><span class="o">.</span><span class="n">empstat</span> <span class="o">==</span> <span class="s2">"employed"</span><span class="p">]</span>
 <span class="n">employed</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
@@ -961,7 +961,7 @@ Name: count, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check values of `race`:</span>
-<span class="n">employed</span><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">employed</span><span class="p">[</span><span class="s2">"race"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -984,7 +984,7 @@ Name: count, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># life is easier with simple race label</span>
-<span class="n">employed</span><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">employed</span><span class="o">.</span><span class="n">race</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;black/african american/negro&quot;</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">employed</span><span class="p">[</span><span class="s2">"race"</span><span class="p">]</span> <span class="o">=</span> <span class="n">employed</span><span class="o">.</span><span class="n">race</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"black/african american/negro"</span><span class="p">,</span> <span class="s2">"black"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -992,14 +992,14 @@ Name: count, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Avg Income</span>
-<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">]:</span>
-    <span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;ex8_avg_income_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">employed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
-        <span class="p">(</span><span class="n">employed</span><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">r</span><span class="p">),</span> <span class="s2">&quot;inctot&quot;</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"white"</span><span class="p">,</span> <span class="s2">"black"</span><span class="p">]:</span>
+    <span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s2">"ex8_avg_income_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">employed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">employed</span><span class="p">[</span><span class="s2">"race"</span><span class="p">]</span> <span class="o">==</span> <span class="n">r</span><span class="p">),</span> <span class="s2">"inctot"</span>
     <span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
     <span class="nb">print</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;Average income for employed </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> respondents &quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;is $</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;ex8_avg_income_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">"Average income for employed </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> respondents "</span>
+        <span class="sa">f</span><span class="s2">"is $</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s1">'ex8_avg_income_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span>
     <span class="p">)</span>
 </pre></div>
 </div>
@@ -1014,14 +1014,14 @@ Average income for employed Black respondents is $41,747.95
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Percent Whites make more than Blacks</span>
-<span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex8_racial_difference&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex8_avg_income_white&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex8_avg_income_black&quot;</span><span class="p">])</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">"ex8_racial_difference"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"ex8_avg_income_white"</span><span class="p">]</span> <span class="o">-</span> <span class="n">results</span><span class="p">[</span><span class="s2">"ex8_avg_income_black"</span><span class="p">])</span>
     <span class="o">*</span> <span class="mi">100</span>
-    <span class="o">/</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex8_avg_income_black&quot;</span><span class="p">]</span>
+    <span class="o">/</span> <span class="n">results</span><span class="p">[</span><span class="s2">"ex8_avg_income_black"</span><span class="p">]</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Employed White Americans earns an average of </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ex8_racial_difference&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% &quot;</span>
-    <span class="s2">&quot;more than employed Black respondents.&quot;</span>
+    <span class="sa">f</span><span class="s2">"Employed White Americans earns an average of </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'ex8_racial_difference'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% "</span>
+    <span class="s2">"more than employed Black respondents."</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1047,17 +1047,17 @@ Average income for employed Black respondents is $41,747.95
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now the exact estimates taking into account sampling weights</span>
 
-<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">]:</span>
-    <span class="n">group_employed</span> <span class="o">=</span> <span class="n">employed</span><span class="p">[</span><span class="n">employed</span><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">r</span><span class="p">]</span>
-    <span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;ex9_avg_income_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">group_employed</span><span class="p">[</span><span class="s2">&quot;inctot&quot;</span><span class="p">]</span>
-        <span class="o">*</span> <span class="n">group_employed</span><span class="p">[</span><span class="s2">&quot;perwt&quot;</span><span class="p">]</span>
-        <span class="o">/</span> <span class="n">group_employed</span><span class="p">[</span><span class="s2">&quot;perwt&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"white"</span><span class="p">,</span> <span class="s2">"black"</span><span class="p">]:</span>
+    <span class="n">group_employed</span> <span class="o">=</span> <span class="n">employed</span><span class="p">[</span><span class="n">employed</span><span class="p">[</span><span class="s2">"race"</span><span class="p">]</span> <span class="o">==</span> <span class="n">r</span><span class="p">]</span>
+    <span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s2">"ex9_avg_income_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">group_employed</span><span class="p">[</span><span class="s2">"inctot"</span><span class="p">]</span>
+        <span class="o">*</span> <span class="n">group_employed</span><span class="p">[</span><span class="s2">"perwt"</span><span class="p">]</span>
+        <span class="o">/</span> <span class="n">group_employed</span><span class="p">[</span><span class="s2">"perwt"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
     <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
     <span class="nb">print</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;Weighted avg income for employed </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> Americans &quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;is $</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;ex9_avg_income_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">"Weighted avg income for employed </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> Americans "</span>
+        <span class="sa">f</span><span class="s2">"is $</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s1">'ex9_avg_income_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span>
     <span class="p">)</span>
 </pre></div>
 </div>
@@ -1078,8 +1078,8 @@ Weighted avg income for employed Black Americans is $40,430.95
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">white_nonhisp</span> <span class="o">=</span> <span class="n">employed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
-    <span class="p">(</span><span class="n">employed</span><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;white&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">employed</span><span class="p">[</span><span class="s2">&quot;hispan&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;not hispanic&quot;</span><span class="p">),</span>
-    <span class="p">[</span><span class="s2">&quot;inctot&quot;</span><span class="p">,</span> <span class="s2">&quot;perwt&quot;</span><span class="p">],</span>
+    <span class="p">(</span><span class="n">employed</span><span class="p">[</span><span class="s2">"race"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"white"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">employed</span><span class="p">[</span><span class="s2">"hispan"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"not hispanic"</span><span class="p">),</span>
+    <span class="p">[</span><span class="s2">"inctot"</span><span class="p">,</span> <span class="s2">"perwt"</span><span class="p">],</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -1089,8 +1089,8 @@ Weighted avg income for employed Black Americans is $40,430.95
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># White non-hispanic income</span>
 <span class="n">white_nonhisp_weighted</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">white_nonhisp</span><span class="p">[</span><span class="s2">&quot;inctot&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">white_nonhisp</span><span class="p">[</span><span class="s2">&quot;perwt&quot;</span><span class="p">]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">white_nonhisp</span><span class="p">[</span><span class="s2">&quot;perwt&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">white_nonhisp</span><span class="p">[</span><span class="s2">"inctot"</span><span class="p">]</span> <span class="o">*</span> <span class="n">white_nonhisp</span><span class="p">[</span><span class="s2">"perwt"</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">white_nonhisp</span><span class="p">[</span><span class="s2">"perwt"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">white_nonhisp_weighted</span>
 </pre></div>
 </div>
@@ -1103,10 +1103,10 @@ Weighted avg income for employed Black Americans is $40,430.95
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;ex10_wage_gap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="p">(</span><span class="n">white_nonhisp_weighted</span> <span class="o">-</span> <span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;ex9_avg_income_black&quot;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s2">"ex10_wage_gap"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="n">white_nonhisp_weighted</span> <span class="o">-</span> <span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s2">"ex9_avg_income_black"</span><span class="p">])</span>
     <span class="o">*</span> <span class="mi">100</span>
-    <span class="o">/</span> <span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;ex9_avg_income_black&quot;</span><span class="p">]</span>
+    <span class="o">/</span> <span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="s2">"ex9_avg_income_black"</span><span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1115,9 +1115,9 @@ Weighted avg income for employed Black Americans is $40,430.95
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Employed non-Hispanic White Americans earns an average of &quot;</span>
-    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ex10_wage_gap&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% &quot;</span>
-    <span class="s2">&quot;more than employed Black respondents.&quot;</span>
+    <span class="sa">f</span><span class="s2">"Employed non-Hispanic White Americans earns an average of "</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'ex10_wage_gap'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% "</span>
+    <span class="s2">"more than employed Black respondents."</span>
 <span class="p">)</span>
 </pre></div>
 </div>

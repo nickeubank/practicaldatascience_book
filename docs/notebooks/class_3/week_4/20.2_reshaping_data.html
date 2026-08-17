@@ -704,13 +704,13 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"mode.copy_on_write"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="p">{</span>
-        <span class="s2">&quot;patient_name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Lekha&quot;</span><span class="p">,</span> <span class="s2">&quot;Lekha&quot;</span><span class="p">,</span> <span class="s2">&quot;Zhenzhen&quot;</span><span class="p">,</span> <span class="s2">&quot;Zhenzhen&quot;</span><span class="p">,</span> <span class="s2">&quot;Zhenzhen&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;reading&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;temp&quot;</span><span class="p">,</span> <span class="s2">&quot;heart_rate&quot;</span><span class="p">,</span> <span class="s2">&quot;temp&quot;</span><span class="p">,</span> <span class="s2">&quot;heart_rate&quot;</span><span class="p">,</span> <span class="s2">&quot;systolic_bp&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;reading_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">101.5</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mf">98.3</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">115</span><span class="p">],</span>
+        <span class="s2">"patient_name"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Lekha"</span><span class="p">,</span> <span class="s2">"Lekha"</span><span class="p">,</span> <span class="s2">"Zhenzhen"</span><span class="p">,</span> <span class="s2">"Zhenzhen"</span><span class="p">,</span> <span class="s2">"Zhenzhen"</span><span class="p">],</span>
+        <span class="s2">"reading"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"temp"</span><span class="p">,</span> <span class="s2">"heart_rate"</span><span class="p">,</span> <span class="s2">"temp"</span><span class="p">,</span> <span class="s2">"heart_rate"</span><span class="p">,</span> <span class="s2">"systolic_bp"</span><span class="p">],</span>
+        <span class="s2">"reading_values"</span><span class="p">:</span> <span class="p">[</span><span class="mf">101.5</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mf">98.3</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">115</span><span class="p">],</span>
     <span class="p">}</span>
 <span class="p">)</span>
 <span class="n">df</span>
@@ -779,7 +779,7 @@
 <p>Let’s start with the <code class="docutils literal notranslate"><span class="pre">pivot</span></code> method. First off, this is NOT the same as <code class="docutils literal notranslate"><span class="pre">pivot_table</span></code> and has distinct uses which we previously discussed. The <code class="docutils literal notranslate"><span class="pre">pivot</span></code> method, on the other hand, allows us to reshape our data by making each variable into an individual column:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_pivoted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;patient_name&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;reading&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;reading_values&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_pivoted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"patient_name"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"reading"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"reading_values"</span><span class="p">)</span>
 <span class="n">df_pivoted</span>
 </pre></div>
 </div>
@@ -888,8 +888,8 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_melted</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
     <span class="n">df_pivoted</span><span class="p">,</span>
-    <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;patient_name&quot;</span><span class="p">],</span>
-    <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;heart_rate&quot;</span><span class="p">,</span> <span class="s2">&quot;temp&quot;</span><span class="p">,</span> <span class="s2">&quot;systolic_bp&quot;</span><span class="p">],</span>
+    <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"patient_name"</span><span class="p">],</span>
+    <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"heart_rate"</span><span class="p">,</span> <span class="s2">"temp"</span><span class="p">,</span> <span class="s2">"systolic_bp"</span><span class="p">],</span>
 <span class="p">)</span>
 <span class="n">df_melted</span>
 </pre></div>
@@ -1075,21 +1075,21 @@ dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MultiIndex([(0,   &#39;patient_name&#39;),
-            (0,        &#39;reading&#39;),
-            (0, &#39;reading_values&#39;),
-            (1,   &#39;patient_name&#39;),
-            (1,        &#39;reading&#39;),
-            (1, &#39;reading_values&#39;),
-            (2,   &#39;patient_name&#39;),
-            (2,        &#39;reading&#39;),
-            (2, &#39;reading_values&#39;),
-            (3,   &#39;patient_name&#39;),
-            (3,        &#39;reading&#39;),
-            (3, &#39;reading_values&#39;),
-            (4,   &#39;patient_name&#39;),
-            (4,        &#39;reading&#39;),
-            (4, &#39;reading_values&#39;)],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MultiIndex([(0,   'patient_name'),
+            (0,        'reading'),
+            (0, 'reading_values'),
+            (1,   'patient_name'),
+            (1,        'reading'),
+            (1, 'reading_values'),
+            (2,   'patient_name'),
+            (2,        'reading'),
+            (2, 'reading_values'),
+            (3,   'patient_name'),
+            (3,        'reading'),
+            (3, 'reading_values'),
+            (4,   'patient_name'),
+            (4,        'reading'),
+            (4, 'reading_values')],
            )
 </pre></div>
 </div>

@@ -706,9 +706,9 @@
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="p">{</span>
-        <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="n">npr</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">),</span>
-        <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="s2">"a"</span><span class="p">:</span> <span class="n">npr</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">),</span>
+        <span class="s2">"b"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
         <span class="p">],</span>
     <span class="p">}</span>
 <span class="p">)</span>
@@ -777,10 +777,10 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can store &quot;b&quot; as a categorical (analogous to Factors in R).</span>
-<span class="c1"># This is helpful, for reasons we&#39;ll discuss on Tuesday,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can store "b" as a categorical (analogous to Factors in R).</span>
+<span class="c1"># This is helpful, for reasons we'll discuss on Tuesday,</span>
 <span class="c1"># but categoricals are only preserved by fastparquet.</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"b"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"b"</span><span class="p">])</span>
 <span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
 </pre></div>
 </div>
@@ -796,7 +796,7 @@ dtype: object
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s2">"test.parquet"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -810,7 +810,7 @@ dtype: object
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reload</span>
-<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">"test.parquet"</span><span class="p">)</span>
 <span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -887,7 +887,7 @@ dtype: object
 <p>You can also easily load subsets of columns:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">"test.parquet"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"b"</span><span class="p">])</span>
 <span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -949,7 +949,7 @@ dtype: object
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save into 50,000 row chunks,</span>
 <span class="c1"># so we should get file saved into two chunks.</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">,</span> <span class="n">row_group_size</span><span class="o">=</span><span class="mi">50_000</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s2">"test.parquet"</span><span class="p">,</span> <span class="n">row_group_size</span><span class="o">=</span><span class="mi">50_000</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -963,12 +963,12 @@ dtype: object
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Then we have to read it in using the `fastparquet`</span>
-<span class="c1"># library itself (there&#39;s no way to do this directly from</span>
-<span class="c1"># pandas I&#39;m afraid):</span>
+<span class="c1"># library itself (there's no way to do this directly from</span>
+<span class="c1"># pandas I'm afraid):</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">fastparquet</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParquetFile</span>
 
-<span class="n">pf</span> <span class="o">=</span> <span class="n">ParquetFile</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">)</span>
+<span class="n">pf</span> <span class="o">=</span> <span class="n">ParquetFile</span><span class="p">(</span><span class="s2">"test.parquet"</span><span class="p">)</span>
 
 <span class="c1"># Iterates over row groups</span>
 <span class="k">for</span> <span class="n">rg</span> <span class="ow">in</span> <span class="n">pf</span><span class="o">.</span><span class="n">iter_row_groups</span><span class="p">():</span>
@@ -1014,7 +1014,7 @@ dtype: object
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># So you can filter and work with each group if you want:</span>
 <span class="n">all_rows_w_even_a</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">rg</span> <span class="ow">in</span> <span class="n">pf</span><span class="o">.</span><span class="n">iter_row_groups</span><span class="p">():</span>
-    <span class="n">rg</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">rg</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">rg</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">rg</span><span class="p">[</span><span class="s2">"a"</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
     <span class="n">all_rows_w_even_a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rg</span><span class="p">)</span>
 
 <span class="n">even_rows</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_rows_w_even_a</span><span class="p">)</span>
@@ -1105,7 +1105,7 @@ dtype: object
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clean up</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;test.parquet&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">"test.parquet"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

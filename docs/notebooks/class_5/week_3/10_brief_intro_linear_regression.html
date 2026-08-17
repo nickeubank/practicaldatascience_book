@@ -708,10 +708,10 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"mode.copy_on_write"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
-<span class="n">home_prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/kc_house_data.csv&quot;</span><span class="p">)</span>
-<span class="n">price_and_footage_reg</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;price ~ sqft_living&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">home_prices</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">home_prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/kc_house_data.csv"</span><span class="p">)</span>
+<span class="n">price_and_footage_reg</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">"price ~ sqft_living"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">home_prices</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="n">price_and_footage_reg</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -897,20 +897,20 @@
 <p>If I plot the prices this model would predict for each home in our dataset in red (and plot it over the real data points in blue), you can see that we do indeed have what looks like a reasonable line of best fit (similar to what we see in the figure above). We can also see that the red line has a slope of about 280 — this isn’t immediately obvious because each tick on the y-axis is 1,000,000 units (note the 1e6 at the top), while each tick on the x-axis is only 2,000, but if you pick a few points and to the math it works out.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = 'retina'
 
 <span class="c1"># Get home prices predicted by the model</span>
-<span class="n">predicted_price</span> <span class="o">=</span> <span class="n">price_and_footage_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;sqft_living&quot;</span><span class="p">])</span>
+<span class="n">predicted_price</span> <span class="o">=</span> <span class="n">price_and_footage_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">home_prices</span><span class="p">[</span><span class="s2">"sqft_living"</span><span class="p">])</span>
 
 <span class="c1"># Plot predicted home prices</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;sqft_living&quot;</span><span class="p">],</span> <span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;sqft_living&quot;</span><span class="p">],</span> <span class="n">predicted_price</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Square Footage and Home Prices&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;House Size (m^2)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Home Sale Price&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">home_prices</span><span class="p">[</span><span class="s2">"sqft_living"</span><span class="p">],</span> <span class="n">home_prices</span><span class="p">[</span><span class="s2">"price"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">home_prices</span><span class="p">[</span><span class="s2">"sqft_living"</span><span class="p">],</span> <span class="n">predicted_price</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Square Footage and Home Prices"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"House Size (m^2)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Home Sale Price"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -930,7 +930,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">price_sqft_and_condition_reg</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span>
-    <span class="s2">&quot;price ~ sqft_living + condition&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">home_prices</span>
+    <span class="s2">"price ~ sqft_living + condition"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">home_prices</span>
 <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="n">price_sqft_and_condition_reg</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
@@ -1004,33 +1004,33 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First actual data as a 3D scatter plot</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">"3d"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-    <span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;sqft_living&quot;</span><span class="p">],</span>
-    <span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;condition&quot;</span><span class="p">],</span>
-    <span class="n">home_prices</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">],</span>
+    <span class="n">home_prices</span><span class="p">[</span><span class="s2">"sqft_living"</span><span class="p">],</span>
+    <span class="n">home_prices</span><span class="p">[</span><span class="s2">"condition"</span><span class="p">],</span>
+    <span class="n">home_prices</span><span class="p">[</span><span class="s2">"price"</span><span class="p">],</span>
 <span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Square Footage&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Condition&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;Price&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Home Prices, Square Footage and Home Condition&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Square Footage"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Condition"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">"Price"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Home Prices, Square Footage and Home Condition"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4000</span><span class="p">,</span> <span class="mi">8000</span><span class="p">,</span> <span class="mi">12000</span><span class="p">])</span>
 <span class="c1"># Build a mesh of x-y points.</span>
 <span class="n">STEPS</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="p">{</span>
-        <span class="s2">&quot;sqft_living&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">14_000</span><span class="p">,</span> <span class="n">STEPS</span><span class="p">),</span>
-        <span class="s2">&quot;condition&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">STEPS</span><span class="p">),</span>
+        <span class="s2">"sqft_living"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">14_000</span><span class="p">,</span> <span class="n">STEPS</span><span class="p">),</span>
+        <span class="s2">"condition"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">STEPS</span><span class="p">),</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
-<span class="n">X_mesh</span><span class="p">,</span> <span class="n">Y_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="s2">&quot;sqft_living&quot;</span><span class="p">],</span> <span class="n">grid</span><span class="p">[</span><span class="s2">&quot;condition&quot;</span><span class="p">])</span>
+<span class="n">X_mesh</span><span class="p">,</span> <span class="n">Y_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="s2">"sqft_living"</span><span class="p">],</span> <span class="n">grid</span><span class="p">[</span><span class="s2">"condition"</span><span class="p">])</span>
 <span class="n">coefs</span> <span class="o">=</span> <span class="n">price_sqft_and_condition_reg</span><span class="o">.</span><span class="n">params</span>
 
 <span class="c1"># Calculated Predicted Values for each x-y point</span>
-<span class="n">Z</span> <span class="o">=</span> <span class="n">coefs</span><span class="p">[</span><span class="s2">&quot;Intercept&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">X_mesh</span> <span class="o">*</span> <span class="n">coefs</span><span class="p">[</span><span class="s2">&quot;sqft_living&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">Y_mesh</span> <span class="o">*</span> <span class="n">coefs</span><span class="p">[</span><span class="s2">&quot;condition&quot;</span><span class="p">]</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">coefs</span><span class="p">[</span><span class="s2">"Intercept"</span><span class="p">]</span> <span class="o">+</span> <span class="n">X_mesh</span> <span class="o">*</span> <span class="n">coefs</span><span class="p">[</span><span class="s2">"sqft_living"</span><span class="p">]</span> <span class="o">+</span> <span class="n">Y_mesh</span> <span class="o">*</span> <span class="n">coefs</span><span class="p">[</span><span class="s2">"condition"</span><span class="p">]</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">65</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">X_mesh</span><span class="p">,</span> <span class="n">Y_mesh</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">X_mesh</span><span class="p">,</span> <span class="n">Y_mesh</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

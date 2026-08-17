@@ -693,9 +693,9 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"mode.copy_on_write"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
-<span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/world-very-small-type-errors.csv&quot;</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/world-very-small-type-errors.csv"</span><span class="p">)</span>
 <span class="n">world</span>
 </pre></div>
 </div>
@@ -773,7 +773,7 @@
 </div></div></div>
 </div>
 <p>Obviously we can see there are going to be issues with <code class="docutils literal notranslate"><span class="pre">gdppcap08</span></code> and <code class="docutils literal notranslate"><span class="pre">polityIV</span></code>, but this were a real (big) dataset where this wasn’t evident and you tried to calculate the average GDP of countries in the data. You would get a <em>very</em> weird <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> / <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> that might look something like this (I’m removing most of the stuff in the middle for sanity):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="p">[</span><span class="s2">"gdppcap08"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
 <span class="o">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span>                                <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
@@ -781,17 +781,17 @@
    <span class="mi">1621</span> <span class="k">try</span><span class="p">:</span>
 <span class="o">-&gt;</span> <span class="mi">1622</span>     <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
    <span class="mi">1623</span> <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
-   <span class="mi">1624</span>     <span class="c1"># e.g. &quot;1+1j&quot; or &quot;foo&quot;</span>
+   <span class="mi">1624</span>     <span class="c1"># e.g. "1+1j" or "foo"</span>
 
-<span class="ne">ValueError</span><span class="p">:</span> <span class="n">could</span> <span class="ow">not</span> <span class="n">convert</span> <span class="n">string</span> <span class="n">to</span> <span class="nb">float</span><span class="p">:</span> <span class="s1">&#39;1029635613na855161397271&#39;</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">could</span> <span class="ow">not</span> <span class="n">convert</span> <span class="n">string</span> <span class="n">to</span> <span class="nb">float</span><span class="p">:</span> <span class="s1">'1029635613na855161397271'</span>
 
 <span class="p">[</span><span class="o">...</span><span class="p">]</span>
 
 <span class="n">File</span> <span class="o">~/</span><span class="n">opt</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">nanops</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1629</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_ensure_numeric</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
    <span class="mi">1626</span>             <span class="n">x</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
    <span class="mi">1627</span>         <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-   <span class="mi">1628</span>             <span class="c1"># e.g. &quot;foo&quot;</span>
-<span class="o">-&gt;</span> <span class="mi">1629</span>             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not convert </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> to numeric&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">err</span>
+   <span class="mi">1628</span>             <span class="c1"># e.g. "foo"</span>
+<span class="o">-&gt;</span> <span class="mi">1629</span>             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not convert </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> to numeric"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">err</span>
    <span class="mi">1630</span> <span class="k">return</span> <span class="n">x</span>
 
 <span class="ne">TypeError</span><span class="p">:</span> <span class="n">Could</span> <span class="ow">not</span> <span class="n">convert</span> <span class="mi">1029635613</span><span class="n">na855161397271</span> <span class="n">to</span> <span class="n">numeric</span>
@@ -822,7 +822,7 @@ dtype: object
 <p>So this kind of phenomenon is such a common problem that pandas has a tool to deal with it: <code class="docutils literal notranslate"><span class="pre">.str.isnumeric()</span></code>. This method returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if an observation can be converted to a number without issues, and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise, so by using its logical negation, we can find all observations that aren’t convertible (which we may then need to fix):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">(),</span> <span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">world</span><span class="p">[</span><span class="s2">"gdppcap08"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">(),</span> <span class="s2">"gdppcap08"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -839,7 +839,7 @@ Name: count, dtype: int64
 <p>OK, so how do we fix this? In this case, it seems like <code class="docutils literal notranslate"><span class="pre">na</span></code> is probably just short for <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>, so we can replace it with <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>, which <em>is</em> a number:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;na&quot;</span><span class="p">,</span> <span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">world</span><span class="p">[</span><span class="s2">"gdppcap08"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"na"</span><span class="p">,</span> <span class="s2">"gdppcap08"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 </pre></div>
 </div>
 </div>
@@ -847,8 +847,8 @@ Name: count, dtype: int64
 <p>Then we can either cast <code class="docutils literal notranslate"><span class="pre">gdppcap08</span></code> to a numeric type directly with <code class="docutils literal notranslate"><span class="pre">world[&quot;gdppcap08&quot;]</span> <span class="pre">=</span> <span class="pre">world[&quot;gdppcap08&quot;].astype(&quot;float&quot;)</span></code>, or let pandas do it implicitly when we run <code class="docutils literal notranslate"><span class="pre">world[&quot;gdppcap08&quot;].mean()</span></code>. In general the former is probably better practice, so let’s do that:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
-<span class="n">world</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="p">[</span><span class="s2">"gdppcap08"</span><span class="p">]</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="s2">"gdppcap08"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"float"</span><span class="p">)</span>
+<span class="n">world</span><span class="p">[</span><span class="s2">"gdppcap08"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -861,7 +861,7 @@ Name: count, dtype: int64
 <p>Now, there’s one other option in these situations: if <code class="docutils literal notranslate"><span class="pre">na</span></code> is appearing in lots of places in your data as a representation for missing data, we can also communicate this fact to <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>. Remember when we said that <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> has more options than you could ever imagine? Well, one is <code class="docutils literal notranslate"><span class="pre">na_values</span></code>, where you can specify how missing data is represented in a dataset. If we use that to tell <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> that <code class="docutils literal notranslate"><span class="pre">&quot;na&quot;</span></code> means data is missing, it’ll make this correction on the fly!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/world-very-small-type-errors.csv&quot;</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="s2">&quot;na&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/world-very-small-type-errors.csv"</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="s2">"na"</span><span class="p">)</span>
 <span class="n">world</span>
 </pre></div>
 </div>
@@ -956,7 +956,7 @@ dtype: object
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;gdppcap08&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="p">[</span><span class="s2">"gdppcap08"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -973,7 +973,7 @@ dtype: object
 <p>While in the example above <code class="docutils literal notranslate"><span class="pre">&quot;na&quot;</span></code> wasn’t really meant to be interpreted as a string, sometimes non-numeric values are inserted into datasets to communicate something important to the user. For example, in this toy example, <code class="docutils literal notranslate"><span class="pre">polityIV</span></code> has a non-numeric value:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;polityIV&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">()]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">world</span><span class="p">[</span><span class="s2">"polityIV"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">()]</span>
 </pre></div>
 </div>
 </div>

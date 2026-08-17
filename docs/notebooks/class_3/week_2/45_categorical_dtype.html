@@ -720,8 +720,8 @@
 
 <span class="n">customers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="p">{</span>
-        <span class="s2">&quot;customer&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;Aditya&quot;</span><span class="p">,</span> <span class="s2">&quot;Francisco&quot;</span><span class="p">,</span> <span class="s2">&quot;Shufan&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Colorado&quot;</span><span class="p">,</span> <span class="s2">&quot;Tennessee&quot;</span><span class="p">,</span> <span class="s2">&quot;Colorado&quot;</span><span class="p">,</span> <span class="s2">&quot;Virginia&quot;</span><span class="p">],</span>
+        <span class="s2">"customer"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Bob"</span><span class="p">,</span> <span class="s2">"Aditya"</span><span class="p">,</span> <span class="s2">"Francisco"</span><span class="p">,</span> <span class="s2">"Shufan"</span><span class="p">],</span>
+        <span class="s2">"state"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Colorado"</span><span class="p">,</span> <span class="s2">"Tennessee"</span><span class="p">,</span> <span class="s2">"Colorado"</span><span class="p">,</span> <span class="s2">"Virginia"</span><span class="p">],</span>
     <span class="p">}</span>
 <span class="p">)</span>
 <span class="n">customers</span>
@@ -793,7 +793,7 @@ dtype: object
 <p>As we can see, <code class="docutils literal notranslate"><span class="pre">state</span></code> begins its life as a standard <code class="docutils literal notranslate"><span class="pre">object</span></code> Series, but we can convert it to a Categorical with <code class="docutils literal notranslate"><span class="pre">.astype(&quot;category&quot;)</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span> <span class="o">=</span> <span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)</span>
 <span class="n">customers</span>
 </pre></div>
 </div>
@@ -849,7 +849,7 @@ dtype: object
 <p>As you can see, at first glance nothing about this column has changed. But if we pull it out, you can see it’s dtype is <code class="docutils literal notranslate"><span class="pre">category</span></code> and that the Categories associated with the Series (the lookup table) contains three values: <code class="docutils literal notranslate"><span class="pre">&quot;Colorado&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Tennessee&quot;</span></code> and “<code class="docutils literal notranslate"><span class="pre">Virginia&quot;</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -859,7 +859,7 @@ dtype: object
 2     Colorado
 3     Virginia
 Name: state, dtype: category
-Categories (3, object): [&#39;Colorado&#39;, &#39;Tennessee&#39;, &#39;Virginia&#39;]
+Categories (3, object): ['Colorado', 'Tennessee', 'Virginia']
 </pre></div>
 </div>
 </div>
@@ -867,19 +867,19 @@ Categories (3, object): [&#39;Colorado&#39;, &#39;Tennessee&#39;, &#39;Virginia&
 <p>And if you want to, you can see the two underlying pieces directly:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Colorado&#39;, &#39;Tennessee&#39;, &#39;Virginia&#39;], dtype=&#39;object&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index(['Colorado', 'Tennessee', 'Virginia'], dtype='object')
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span>
 </pre></div>
 </div>
 </div>
@@ -897,7 +897,7 @@ dtype: int8
 <p>But as we said, in most cases <code class="docutils literal notranslate"><span class="pre">category</span></code> Series will operate just like <code class="docutils literal notranslate"><span class="pre">object</span></code> Series. Subsetting, for example, will work just as it would with an <code class="docutils literal notranslate"><span class="pre">object</span></code> Series:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Colorado&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Colorado"</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -941,11 +941,11 @@ dtype: int8
 </div>
 <p>The only place that problems <em>may</em> arise is that one cannot make arbitrary edits to a <code class="docutils literal notranslate"><span class="pre">category</span></code> Series — if you try and set a cell to have a value that isn’t in the current <code class="docutils literal notranslate"><span class="pre">Categories</span></code> table, you will get an error:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="n">customers</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Colorado&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Kansas&quot;</span>
+<span class="n">customers</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Colorado"</span><span class="p">,</span> <span class="s2">"state"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Kansas"</span>
 
 <span class="ne">TypeError</span>                                 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
 <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">nce8</span><span class="o">/</span><span class="n">github</span><span class="o">/</span><span class="n">practicaldatascience_book</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">class_3</span><span class="o">/</span><span class="n">week_2</span><span class="o">/</span><span class="mi">37</span><span class="n">_object_and_categorical_dtypes</span><span class="o">.</span><span class="n">ipynb</span> <span class="n">Cell</span> <span class="mi">22</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="o">----&gt;</span> <span class="mi">1</span> <span class="n">customers</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Colorado&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Kansas&quot;</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="n">customers</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Colorado"</span><span class="p">,</span> <span class="s2">"state"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Kansas"</span>
 
 <span class="p">[</span><span class="o">...</span><span class="p">]</span>
 
@@ -955,8 +955,8 @@ dtype: int8
 <p>You <em>can</em> add novel values, to be clear, you just have to add the category first:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">add_categories</span><span class="p">([</span><span class="s2">&quot;Kansas&quot;</span><span class="p">])</span>
-<span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span> <span class="o">=</span> <span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">add_categories</span><span class="p">([</span><span class="s2">"Kansas"</span><span class="p">])</span>
+<span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -966,14 +966,14 @@ dtype: int8
 2     Colorado
 3     Virginia
 Name: state, dtype: category
-Categories (4, object): [&#39;Colorado&#39;, &#39;Tennessee&#39;, &#39;Virginia&#39;, &#39;Kansas&#39;]
+Categories (4, object): ['Colorado', 'Tennessee', 'Virginia', 'Kansas']
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">customers</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Colorado&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Kansas&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">customers</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">customers</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Colorado"</span><span class="p">,</span> <span class="s2">"state"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Kansas"</span>
 <span class="n">customers</span>
 </pre></div>
 </div>

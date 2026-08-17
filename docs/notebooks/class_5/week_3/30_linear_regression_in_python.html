@@ -700,14 +700,14 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"mode.copy_on_write"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Load data on infant mortality, gdp per capita, and</span>
 <span class="c1"># World Bank CPIA public sector transparency, accountability,</span>
 <span class="c1"># and corruption in the public sector scores</span>
 <span class="c1"># (1 = low transparency and accountability, 6 = high transparency and accountability).</span>
 
-<span class="n">wdi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/wdi_corruption.csv&quot;</span><span class="p">)</span>
+<span class="n">wdi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/wdi_corruption.csv"</span><span class="p">)</span>
 
 <span class="c1"># Check one observation to get a feel for things.</span>
 <span class="n">wdi</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
@@ -777,8 +777,8 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit model</span>
 <span class="n">corruption_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span>
-    <span class="s2">&quot;mortality_rate_under5_per_1000 ~ np.log(gdp_per_capita_ppp) +&quot;</span>
-    <span class="s2">&quot; CPIA_public_sector_rating + region&quot;</span><span class="p">,</span>
+    <span class="s2">"mortality_rate_under5_per_1000 ~ np.log(gdp_per_capita_ppp) +"</span>
+    <span class="s2">" CPIA_public_sector_rating + region"</span><span class="p">,</span>
     <span class="n">data</span><span class="o">=</span><span class="n">wdi</span><span class="p">,</span>
 <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
@@ -896,8 +896,8 @@ dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;The partial correlation of CPIA rating with under &quot;</span>
-    <span class="sa">f</span><span class="s2">&quot;five mortality is </span><span class="si">{</span><span class="n">corruption_model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;CPIA_public_sector_rating&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="s2">"The partial correlation of CPIA rating with under "</span>
+    <span class="sa">f</span><span class="s2">"five mortality is </span><span class="si">{</span><span class="n">corruption_model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">'CPIA_public_sector_rating'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -912,12 +912,12 @@ dtype: float64
 <p>For example, to test whether the coefficient for the South Asia region is statistically significantly different from the coefficient for the Middle East and North Africa region, you would:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corruption_model</span><span class="o">.</span><span class="n">t_test</span><span class="p">(</span><span class="s2">&quot;region[T.South Asia] = region[T.Middle East and North Africa]&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corruption_model</span><span class="o">.</span><span class="n">t_test</span><span class="p">(</span><span class="s2">"region[T.South Asia] = region[T.Middle East and North Africa]"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;statsmodels.stats.contrast.ContrastResults&#39;&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class 'statsmodels.stats.contrast.ContrastResults'&gt;
                              Test for Constraints                             
 ==============================================================================
                  coef    std err          t      P&gt;|t|      [0.025      0.975]
@@ -934,7 +934,7 @@ c0             1.1703     23.625      0.050      0.961     -46.013      48.354
 <p><code class="docutils literal notranslate"><span class="pre">RegressionResult</span></code> objects also have a method for different standard error calculations (again, don’t worry if this doesn’t mean anything to you!). statsmodels supports <code class="docutils literal notranslate"><span class="pre">HC1</span></code>, <code class="docutils literal notranslate"><span class="pre">HC2</span></code>, and <code class="docutils literal notranslate"><span class="pre">HC3</span></code> heteroskedastic robust standard errors, as well as heteroskedasticity-autocorrelation robust standard errors:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corruption_model</span><span class="o">.</span><span class="n">get_robustcov_results</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s2">&quot;HC2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corruption_model</span><span class="o">.</span><span class="n">get_robustcov_results</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s2">"HC2"</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1017,14 +1017,14 @@ c0             1.1703     23.625      0.050      0.961     -46.013      48.354
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corruption_model</span><span class="o">.</span><span class="n">get_robustcov_results</span><span class="p">(</span>
-    <span class="n">cov_type</span><span class="o">=</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">wdi</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">region</span>
+    <span class="n">cov_type</span><span class="o">=</span><span class="s2">"cluster"</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">wdi</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">region</span>
 <span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/nce8/opt/miniconda3/lib/python3.11/site-packages/statsmodels/base/model.py:1896: ValueWarning: covariance of constraints does not have full rank. The number of constraints is 7, but rank is 2
-  warnings.warn(&#39;covariance of constraints does not have full &#39;
+  warnings.warn('covariance of constraints does not have full '
 </pre></div>
 </div>
 <div class="output text_html"><table class="simpletable">
@@ -1108,21 +1108,21 @@ c0             1.1703     23.625      0.050      0.961     -46.013      48.354
 <p>(Note that for reasons we’ll cover in the following reading, I have to do some extra data wrangling first)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wdi</span><span class="p">[</span><span class="s2">&quot;log_gdp_per_cap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">wdi</span><span class="p">[</span><span class="s2">&quot;gdp_per_capita_ppp&quot;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wdi</span><span class="p">[</span><span class="s2">"log_gdp_per_cap"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">wdi</span><span class="p">[</span><span class="s2">"gdp_per_capita_ppp"</span><span class="p">])</span>
 <span class="n">wdi_w_onehots</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
-    <span class="p">[</span><span class="n">wdi</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">wdi</span><span class="p">[</span><span class="s2">&quot;region&quot;</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;reg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)],</span>
-    <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">wdi</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">wdi</span><span class="p">[</span><span class="s2">"region"</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"reg"</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"int"</span><span class="p">)],</span>
+    <span class="n">axis</span><span class="o">=</span><span class="s2">"columns"</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">subset</span> <span class="o">=</span> <span class="n">wdi_w_onehots</span><span class="p">[</span>
     <span class="p">[</span>
-        <span class="s2">&quot;mortality_rate_under5_per_1000&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;log_gdp_per_cap&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;CPIA_public_sector_rating&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;reg_Europe and Central Asia&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;reg_Latin America and Caribbean&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;reg_Middle East and North Africa&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;reg_South Asia&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;reg_Sub-Saharan Africa&quot;</span><span class="p">,</span>
+        <span class="s2">"mortality_rate_under5_per_1000"</span><span class="p">,</span>
+        <span class="s2">"log_gdp_per_cap"</span><span class="p">,</span>
+        <span class="s2">"CPIA_public_sector_rating"</span><span class="p">,</span>
+        <span class="s2">"reg_Europe and Central Asia"</span><span class="p">,</span>
+        <span class="s2">"reg_Latin America and Caribbean"</span><span class="p">,</span>
+        <span class="s2">"reg_Middle East and North Africa"</span><span class="p">,</span>
+        <span class="s2">"reg_South Asia"</span><span class="p">,</span>
+        <span class="s2">"reg_Sub-Saharan Africa"</span><span class="p">,</span>
     <span class="p">]</span>
 <span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 </pre></div>

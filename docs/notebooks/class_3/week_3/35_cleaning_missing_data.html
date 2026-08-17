@@ -710,10 +710,10 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">smallworld</span> <span class="o">=</span> <span class="n">smallworld</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;https://raw.githubusercontent.com/nickeubank/practicaldatascience_book&quot;</span>
-    <span class="s2">&quot;/main/notebooks/class_3/week_3/data/world-very-small.csv&quot;</span>
+    <span class="s2">"https://raw.githubusercontent.com/nickeubank/practicaldatascience_book"</span>
+    <span class="s2">"/main/notebooks/class_3/week_3/data/world-very-small.csv"</span>
 <span class="p">)</span>
-<span class="n">smallworld</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smallworld</span><span class="o">.</span><span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;Mozambique&quot;</span><span class="p">,</span> <span class="s2">&quot;polityIV&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">smallworld</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smallworld</span><span class="o">.</span><span class="n">country</span> <span class="o">==</span> <span class="s2">"Mozambique"</span><span class="p">,</span> <span class="s2">"polityIV"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 <span class="n">smallworld</span>
 </pre></div>
 </div>
@@ -932,7 +932,7 @@
 <p>So if, for example, our data didn’t have a polity score for Mozambique but we just learned what it should be, we could edit that specific value with:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smallworld</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smallworld</span><span class="o">.</span><span class="n">polityIV</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="s2">&quot;polityIV&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smallworld</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smallworld</span><span class="o">.</span><span class="n">polityIV</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="s2">"polityIV"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">smallworld</span>
 </pre></div>
 </div>
@@ -1015,12 +1015,12 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span>
-    <span class="s2">&quot;https://github.com/nickeubank/MIDS_Data/blob/master&quot;</span>
-    <span class="s2">&quot;/US_AmericanCommunitySurvey/US_ACS_2017_10pct_sample.dta?raw=true&quot;</span>
+    <span class="s2">"https://github.com/nickeubank/MIDS_Data/blob/master"</span>
+    <span class="s2">"/US_AmericanCommunitySurvey/US_ACS_2017_10pct_sample.dta?raw=true"</span>
 <span class="p">)</span>
 
-<span class="n">acs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">acs</span><span class="p">[</span><span class="s2">&quot;empstat&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;n/a&quot;</span><span class="p">,</span> <span class="s2">&quot;empstat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-<span class="n">acs</span><span class="p">[</span><span class="s2">&quot;empstat&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">acs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">acs</span><span class="p">[</span><span class="s2">"empstat"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"n/a"</span><span class="p">,</span> <span class="s2">"empstat"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">acs</span><span class="p">[</span><span class="s2">"empstat"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1038,7 +1038,7 @@ Name: count, dtype: int64
 <p>While this can be a useful behavior, sometimes we want to know about observations with missing values. In those situations, you have to pass the <code class="docutils literal notranslate"><span class="pre">dropna=False</span></code> keyword argument to <code class="docutils literal notranslate"><span class="pre">value_counts()</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acs</span><span class="p">[</span><span class="s2">&quot;empstat&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acs</span><span class="p">[</span><span class="s2">"empstat"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

@@ -806,13 +806,13 @@
 <span class="c1"># The following columns also raised exceptions on conversion:</span>
 
 <span class="c1"># - TailNum</span>
-<span class="c1">#   ValueError(&quot;could not convert string to float: &#39;N54711&#39;&quot;)</span>
+<span class="c1">#   ValueError("could not convert string to float: 'N54711'")</span>
 
-<span class="c1"># Usually this is due to dask&#39;s dtype inference failing, and</span>
+<span class="c1"># Usually this is due to dask's dtype inference failing, and</span>
 <span class="c1"># *may* be fixed by specifying dtypes manually by adding:</span>
 
-<span class="c1"># dtype={&#39;CRSElapsedTime&#39;: &#39;float64&#39;,</span>
-<span class="c1">#        &#39;TailNum&#39;: &#39;object&#39;}</span>
+<span class="c1"># dtype={'CRSElapsedTime': 'float64',</span>
+<span class="c1">#        'TailNum': 'object'}</span>
 
 <span class="c1"># to the call to `read_csv`/`read_table`.</span>
 
@@ -832,7 +832,7 @@
 <p>If you’re thinking about distributed computing, your data is probably stored remotely on services (like Amazon’s S3 or Google’s cloud storage) and is in a friendlier format (like Parquet). Dask can read data in various formats directly from these remote locations <strong>lazily</strong> and <strong>in parallel</strong>.</p>
 <p>Here’s how you can read the NYC taxi cab data from Amazon S3:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">flights</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span>
-    <span class="s2">&quot;s3://nyc-tlc/trip data/yellow_tripdata_2012-*.parquet&quot;</span><span class="p">,</span>
+    <span class="s2">"s3://nyc-tlc/trip data/yellow_tripdata_2012-*.parquet"</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -845,12 +845,12 @@
 <p>With just pandas, we would loop over each file to find the individual maximums, then find the final maximum over all the individual maximums.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;/users/nce8/downloads/nycflights&quot;</span><span class="p">)</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">"/users/nce8/downloads/nycflights"</span><span class="p">)</span>
 
 <span class="n">maxes</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;/users/nce8/downloads/nycflights/</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/users/nce8/downloads/nycflights/</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
     <span class="n">maxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">DepDelay</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
     
 <span class="n">final_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxes</span><span class="p">)</span>

@@ -709,12 +709,12 @@
 <p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_groupby.ipynb</span></code> before uploading.</p>
 <p>You can check that you have answers for all questions in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary with this code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">{</span>
-    <span class="s2">&quot;ex4_num_rows&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex5_collapsed_vars&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex7_alameda_1980_share_violent_arrestees_black&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex11_white_drug_share&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex11_black_drug_share&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ex12_proportionate&quot;</span><span class="p">,</span>
+    <span class="s2">"ex4_num_rows"</span><span class="p">,</span>
+    <span class="s2">"ex5_collapsed_vars"</span><span class="p">,</span>
+    <span class="s2">"ex7_alameda_1980_share_violent_arrestees_black"</span><span class="p">,</span>
+    <span class="s2">"ex11_white_drug_share"</span><span class="p">,</span>
+    <span class="s2">"ex11_black_drug_share"</span><span class="p">,</span>
+    <span class="s2">"ex12_proportionate"</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -742,14 +742,14 @@
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="p">{</span>
-        <span class="s2">&quot;social_security_numbers&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"social_security_numbers"</span><span class="p">:</span> <span class="p">[</span>
             <span class="mi">111111111</span><span class="p">,</span>
             <span class="mi">222222222</span><span class="p">,</span>
             <span class="mi">222222222</span><span class="p">,</span>
             <span class="mi">333333333</span><span class="p">,</span>
             <span class="mi">333333333</span><span class="p">,</span>
         <span class="p">],</span>
-        <span class="s2">&quot;second_column&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span>
+        <span class="s2">"second_column"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span>
     <span class="p">}</span>
 <span class="p">)</span>
 <span class="n">df</span>
@@ -762,7 +762,7 @@
 <p>As you can see, <code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> looks at each row and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if it has seen the row it is looking at before.</p>
 <p>Notice that <code class="docutils literal notranslate"><span class="pre">.duplicted()</span></code> doesn’t return <code class="docutils literal notranslate"><span class="pre">True</span></code> for <em>all</em> rows that look the same as another row in the data—it treats the first instance of a row as unique, and only tags <em>subsequent</em> repetitions as “duplicates” (You can change this behavior with the <code class="docutils literal notranslate"><span class="pre">keep</span></code> keyword argument if you want).</p>
 <p><code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> can also be used to test for rows that are duplicates in terms of a sub-set of columns. For example, <code class="docutils literal notranslate"><span class="pre">df.duplicated([&quot;social_security_numbers&quot;])</span></code> identifies rows with duplicate values of the variable <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">"social_security_numbers"</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>Since <code class="docutils literal notranslate"><span class="pre">duplicated</span></code> is now only looking at <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> (not all values in a row), the last row is now a duplicate (because <code class="docutils literal notranslate"><span class="pre">333333333</span></code> is duplicated), where when we considered all columns, it was not a duplicate.</p>
@@ -772,16 +772,16 @@
 <p><code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> can be paired with the <code class="docutils literal notranslate"><span class="pre">.any()</span></code> method to write <code class="docutils literal notranslate"><span class="pre">assert</span></code> tests to detect the presence of duplicates in our dataset and to validate our assumptions about whether certain variables uniquely identify observations in our data.</p>
 <p>When you run <code class="docutils literal notranslate"><span class="pre">.any()</span></code> on an array of Booleans, it returns a single value of <code class="docutils literal notranslate"><span class="pre">True</span></code> if <em>any</em> entries are <code class="docutils literal notranslate"><span class="pre">True</span></code>, and a single value of <code class="docutils literal notranslate"><span class="pre">False</span></code> if <em>no</em> entries are <code class="docutils literal notranslate"><span class="pre">True</span></code>. (You can also use <code class="docutils literal notranslate"><span class="pre">.all()</span></code> to test if all entries are <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
 <p>Thus the command <code class="docutils literal notranslate"><span class="pre">df.duplicated(['social_security_numbers'])</span></code> will return <code class="docutils literal notranslate"><span class="pre">False</span></code> if <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> uniquely identifies every row in our dataset (since there are no duplicates)! But if there <em>are</em> any duplicates, it will return <code class="docutils literal notranslate"><span class="pre">True</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">"social_security_numbers"</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>So if I wanted a test that would raise an <code class="docutils literal notranslate"><span class="pre">Error</span></code> if it turned out that <code class="docutils literal notranslate"><span class="pre">social_security_numbers</span></code> <em>didn’t</em> uniquely identify observations, I would combine that code with <code class="docutils literal notranslate"><span class="pre">assert</span> <span class="pre">not</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">"social_security_numbers"</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
 
 <span class="o">---------------------------------------------------------------------------</span>
 <span class="ne">AssertionError</span>                            <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
 <span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="o">----&gt;</span> <span class="mi">1</span> <span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">&quot;social_security_numbers&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">"social_security_numbers"</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
 
 <span class="ne">AssertionError</span><span class="p">:</span> 
 </pre></div>

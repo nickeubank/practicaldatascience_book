@@ -737,11 +737,11 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"mode.copy_on_write"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_rows&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"display.max_rows"</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 
-<span class="n">file2009</span> <span class="o">=</span> <span class="s2">&quot;data/ca_arrests_2009.csv&quot;</span>
+<span class="n">file2009</span> <span class="o">=</span> <span class="s2">"data/ca_arrests_2009.csv"</span>
 <span class="n">df_arrests_2009</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file2009</span><span class="p">)</span>
 <span class="n">df_arrests_2009</span>
 </pre></div>
@@ -938,7 +938,7 @@
 <p>To address this, also import <code class="docutils literal notranslate"><span class="pre">nhgis_county_populations.csv</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pop_file</span> <span class="o">=</span> <span class="s2">&quot;data/nhgis_county_populations.csv&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pop_file</span> <span class="o">=</span> <span class="s2">"data/nhgis_county_populations.csv"</span>
 <span class="n">df_pop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pop_file</span><span class="p">)</span>
 <span class="n">df_pop</span>
 </pre></div>
@@ -1077,12 +1077,12 @@
 <p>Once you feel like you have a good sense of the relation between our arrest and population data, merge the two datasets. You may need to filter the data first. Do both datasets cover all states or just some or just one? Which years do you care about in this case?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter the data so we&#39;re only using data from the correct year and the correct State</span>
-<span class="n">df_pop_filtered_2009</span> <span class="o">=</span> <span class="n">df_pop</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_pop</span><span class="p">[</span><span class="s2">&quot;YEAR&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;2005-2009&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter the data so we're only using data from the correct year and the correct State</span>
+<span class="n">df_pop_filtered_2009</span> <span class="o">=</span> <span class="n">df_pop</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_pop</span><span class="p">[</span><span class="s2">"YEAR"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"2005-2009"</span><span class="p">]</span>
 <span class="n">df_pop_filtered_2009</span> <span class="o">=</span> <span class="n">df_pop_filtered_2009</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
-    <span class="n">df_pop_filtered_2009</span><span class="p">[</span><span class="s2">&quot;STATE&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;California&quot;</span>
+    <span class="n">df_pop_filtered_2009</span><span class="p">[</span><span class="s2">"STATE"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"California"</span>
 <span class="p">]</span>
-<span class="n">df_pop_filtered_2009</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_pop_filtered_2009</span><span class="p">[</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Alameda County&quot;</span><span class="p">]</span>
+<span class="n">df_pop_filtered_2009</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_pop_filtered_2009</span><span class="p">[</span><span class="s2">"COUNTY"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Alameda County"</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1132,7 +1132,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2009</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-    <span class="n">df_arrests_2009</span><span class="p">,</span> <span class="n">df_pop_filtered_2009</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;1:1&quot;</span>
+    <span class="n">df_arrests_2009</span><span class="p">,</span> <span class="n">df_pop_filtered_2009</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"COUNTY"</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">"1:1"</span>
 <span class="p">)</span>
 <span class="n">df_2009</span>
 </pre></div>
@@ -1371,9 +1371,9 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2009</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
     <span class="n">df_arrests_2009</span><span class="p">,</span>
     <span class="n">df_pop_filtered_2009</span><span class="p">,</span>
-    <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span>
-    <span class="n">on</span><span class="o">=</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span>
-    <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;1:1&quot;</span><span class="p">,</span>
+    <span class="n">how</span><span class="o">=</span><span class="s2">"outer"</span><span class="p">,</span>
+    <span class="n">on</span><span class="o">=</span><span class="s2">"COUNTY"</span><span class="p">,</span>
+    <span class="n">validate</span><span class="o">=</span><span class="s2">"1:1"</span><span class="p">,</span>
     <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">df_2009</span><span class="o">.</span><span class="n">_merge</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -1392,7 +1392,7 @@ Name: count, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2009</span><span class="p">[</span><span class="n">df_2009</span><span class="o">.</span><span class="n">_merge</span> <span class="o">!=</span> <span class="s2">&quot;both&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2009</span><span class="p">[</span><span class="n">df_2009</span><span class="o">.</span><span class="n">_merge</span> <span class="o">!=</span> <span class="s2">"both"</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1519,8 +1519,8 @@ Name: count, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_pop_fixed_2009</span> <span class="o">=</span> <span class="n">df_pop_filtered_2009</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
-    <span class="n">to_replace</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DelNorte County&quot;</span><span class="p">,</span> <span class="s2">&quot;Injo County&quot;</span><span class="p">],</span>
-    <span class="n">value</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Del Norte County&quot;</span><span class="p">,</span> <span class="s2">&quot;Inyo County&quot;</span><span class="p">],</span>
+    <span class="n">to_replace</span><span class="o">=</span><span class="p">[</span><span class="s2">"DelNorte County"</span><span class="p">,</span> <span class="s2">"Injo County"</span><span class="p">],</span>
+    <span class="n">value</span><span class="o">=</span><span class="p">[</span><span class="s2">"Del Norte County"</span><span class="p">,</span> <span class="s2">"Inyo County"</span><span class="p">],</span>
 <span class="p">)</span>
 <span class="n">df_pop_fixed_2009</span>
 </pre></div>
@@ -1651,9 +1651,9 @@ Name: count, dtype: int64
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2009</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
     <span class="n">df_arrests_2009</span><span class="p">,</span>
     <span class="n">df_pop_fixed_2009</span><span class="p">,</span>
-    <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span>
-    <span class="n">on</span><span class="o">=</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span>
-    <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;1:1&quot;</span><span class="p">,</span>
+    <span class="n">how</span><span class="o">=</span><span class="s2">"outer"</span><span class="p">,</span>
+    <span class="n">on</span><span class="o">=</span><span class="s2">"COUNTY"</span><span class="p">,</span>
+    <span class="n">validate</span><span class="o">=</span><span class="s2">"1:1"</span><span class="p">,</span>
     <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">df_2009</span><span class="o">.</span><span class="n">_merge</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -1928,18 +1928,18 @@ Name: count, dtype: int64
 <p>Calculate the average county-level felony drug arrest rate for 2009 (in arrests per 1,000) rounded to three significant places. <strong>Note this average value - you will need to submit this at the end of this week for the final Quiz.</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2009</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2009&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">df_2009</span><span class="p">[</span><span class="s2">&quot;VIOLENT&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_2009</span><span class="p">[</span><span class="s2">&quot;total_population&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1_000</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2009</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2009"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_2009</span><span class="p">[</span><span class="s2">"VIOLENT"</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_2009</span><span class="p">[</span><span class="s2">"total_population"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1_000</span>
 <span class="p">)</span>
-<span class="n">df_2009</span><span class="p">[</span><span class="s2">&quot;f_drugoff_arrest_rate_2009&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">df_2009</span><span class="p">[</span><span class="s2">&quot;F_DRUGOFF&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_2009</span><span class="p">[</span><span class="s2">&quot;total_population&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1_000</span>
+<span class="n">df_2009</span><span class="p">[</span><span class="s2">"f_drugoff_arrest_rate_2009"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_2009</span><span class="p">[</span><span class="s2">"F_DRUGOFF"</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_2009</span><span class="p">[</span><span class="s2">"total_population"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1_000</span>
 <span class="p">)</span>
 
 
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Avg Felongy arrest rate in 2009 / 1,000&quot;</span>
-    <span class="sa">f</span><span class="s2">&quot; is </span><span class="si">{</span><span class="n">df_2009</span><span class="p">[</span><span class="s1">&#39;f_drugoff_arrest_rate_2009&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">.&quot;</span>
-    <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">df_2009</span><span class="p">[</span><span class="s1">&#39;f_drugoff_arrest_rate_2009&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> is wrong num sig figs&quot;</span>
+    <span class="sa">f</span><span class="s2">"Avg Felongy arrest rate in 2009 / 1,000"</span>
+    <span class="sa">f</span><span class="s2">" is </span><span class="si">{</span><span class="n">df_2009</span><span class="p">[</span><span class="s1">'f_drugoff_arrest_rate_2009'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">."</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="si">{</span><span class="n">df_2009</span><span class="p">[</span><span class="s1">'f_drugoff_arrest_rate_2009'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> is wrong num sig figs"</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1962,7 +1962,7 @@ Name: count, dtype: int64
 <p>something is wrong.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s2">&quot;data/ca_arrests_2018.csv&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s2">"data/ca_arrests_2018.csv"</span>
 <span class="n">df_arrests_2018</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 <span class="n">df_arrests_2018</span>
 </pre></div>
@@ -2150,11 +2150,11 @@ Name: count, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_pop_filtered_2018</span> <span class="o">=</span> <span class="n">df_pop</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_pop</span><span class="p">[</span><span class="s2">&quot;YEAR&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;2013-2017&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_pop_filtered_2018</span> <span class="o">=</span> <span class="n">df_pop</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_pop</span><span class="p">[</span><span class="s2">"YEAR"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"2013-2017"</span><span class="p">]</span>
 <span class="n">df_pop_filtered_2018</span> <span class="o">=</span> <span class="n">df_pop_filtered_2018</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
-    <span class="n">df_pop_filtered_2018</span><span class="p">[</span><span class="s2">&quot;STATE&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;California&quot;</span>
+    <span class="n">df_pop_filtered_2018</span><span class="p">[</span><span class="s2">"STATE"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"California"</span>
 <span class="p">]</span>
-<span class="n">df_pop_filtered_2018</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_pop_filtered_2018</span><span class="p">[</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Alameda County&quot;</span><span class="p">]</span>
+<span class="n">df_pop_filtered_2018</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_pop_filtered_2018</span><span class="p">[</span><span class="s2">"COUNTY"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Alameda County"</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -2200,8 +2200,8 @@ Name: count, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_pop_fixed_2018</span> <span class="o">=</span> <span class="n">df_pop_filtered_2018</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
-    <span class="n">to_replace</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DelNorte County&quot;</span><span class="p">,</span> <span class="s2">&quot;Injo County&quot;</span><span class="p">],</span>
-    <span class="n">value</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Del Norte County&quot;</span><span class="p">,</span> <span class="s2">&quot;Inyo County&quot;</span><span class="p">],</span>
+    <span class="n">to_replace</span><span class="o">=</span><span class="p">[</span><span class="s2">"DelNorte County"</span><span class="p">,</span> <span class="s2">"Injo County"</span><span class="p">],</span>
+    <span class="n">value</span><span class="o">=</span><span class="p">[</span><span class="s2">"Del Norte County"</span><span class="p">,</span> <span class="s2">"Inyo County"</span><span class="p">],</span>
 <span class="p">)</span>
 <span class="n">df_pop_fixed_2018</span>
 </pre></div>
@@ -2332,9 +2332,9 @@ Name: count, dtype: int64
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2018</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
     <span class="n">df_arrests_2018</span><span class="p">,</span>
     <span class="n">df_pop_fixed_2018</span><span class="p">,</span>
-    <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span>
-    <span class="n">on</span><span class="o">=</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span>
-    <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;1:1&quot;</span><span class="p">,</span>
+    <span class="n">how</span><span class="o">=</span><span class="s2">"outer"</span><span class="p">,</span>
+    <span class="n">on</span><span class="o">=</span><span class="s2">"COUNTY"</span><span class="p">,</span>
+    <span class="n">validate</span><span class="o">=</span><span class="s2">"1:1"</span><span class="p">,</span>
     <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">df_2018</span><span class="o">.</span><span class="n">_merge</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -2359,16 +2359,16 @@ Name: count, dtype: int64
 <p>Calculate the average county-level felony drug arrest rate for 2018 (in arrests per 1,000) rounded to three significant places. <strong>Note this average value - you will need to submit this at the end of this week for the final Quiz.</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2018</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2018&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">df_2018</span><span class="p">[</span><span class="s2">&quot;VIOLENT&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_2018</span><span class="p">[</span><span class="s2">&quot;total_population&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1_000</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2018</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2018"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_2018</span><span class="p">[</span><span class="s2">"VIOLENT"</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_2018</span><span class="p">[</span><span class="s2">"total_population"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1_000</span>
 <span class="p">)</span>
-<span class="n">df_2018</span><span class="p">[</span><span class="s2">&quot;f_drugoff_arrest_rate_2018&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">df_2018</span><span class="p">[</span><span class="s2">&quot;F_DRUGOFF&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_2018</span><span class="p">[</span><span class="s2">&quot;total_population&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1_000</span>
+<span class="n">df_2018</span><span class="p">[</span><span class="s2">"f_drugoff_arrest_rate_2018"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_2018</span><span class="p">[</span><span class="s2">"F_DRUGOFF"</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_2018</span><span class="p">[</span><span class="s2">"total_population"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1_000</span>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Avg Felongy arrest rate in 2018 / 1,000&quot;</span>
-    <span class="sa">f</span><span class="s2">&quot; is </span><span class="si">{</span><span class="n">df_2018</span><span class="p">[</span><span class="s1">&#39;f_drugoff_arrest_rate_2018&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">"Avg Felongy arrest rate in 2018 / 1,000"</span>
+    <span class="sa">f</span><span class="s2">" is </span><span class="si">{</span><span class="n">df_2018</span><span class="p">[</span><span class="s1">'f_drugoff_arrest_rate_2018'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -2403,10 +2403,10 @@ Name: count, dtype: int64
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2009</span> <span class="o">=</span> <span class="n">df_2009</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;_merge&quot;</span><span class="p">)</span>
-<span class="n">df_2018</span> <span class="o">=</span> <span class="n">df_2018</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;_merge&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2009</span> <span class="o">=</span> <span class="n">df_2009</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">"_merge"</span><span class="p">)</span>
+<span class="n">df_2018</span> <span class="o">=</span> <span class="n">df_2018</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">"_merge"</span><span class="p">)</span>
 <span class="n">df_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-    <span class="n">df_2009</span><span class="p">,</span> <span class="n">df_2018</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;1:1&quot;</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">df_2009</span><span class="p">,</span> <span class="n">df_2018</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"outer"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"COUNTY"</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">"1:1"</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 <span class="n">df_all</span><span class="o">.</span><span class="n">_merge</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
@@ -2744,11 +2744,11 @@ Name: count, dtype: int64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span>
     <span class="p">[</span>
-        <span class="s2">&quot;COUNTY&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;violent_arrest_rate_2009&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;violent_arrest_rate_2018&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;f_drugoff_arrest_rate_2009&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;f_drugoff_arrest_rate_2018&quot;</span><span class="p">,</span>
+        <span class="s2">"COUNTY"</span><span class="p">,</span>
+        <span class="s2">"violent_arrest_rate_2009"</span><span class="p">,</span>
+        <span class="s2">"violent_arrest_rate_2018"</span><span class="p">,</span>
+        <span class="s2">"f_drugoff_arrest_rate_2009"</span><span class="p">,</span>
+        <span class="s2">"f_drugoff_arrest_rate_2018"</span><span class="p">,</span>
     <span class="p">]</span>
 <span class="p">]</span>
 <span class="n">df</span>
@@ -2901,8 +2901,8 @@ Name: 0, dtype: object
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">percent_change</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;f_drugoff_arrest_rate_2018&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;f_drugoff_arrest_rate_2009&quot;</span><span class="p">])</span>
-    <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;f_drugoff_arrest_rate_2009&quot;</span><span class="p">]</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"f_drugoff_arrest_rate_2018"</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s2">"f_drugoff_arrest_rate_2009"</span><span class="p">])</span>
+    <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s2">"f_drugoff_arrest_rate_2009"</span><span class="p">]</span>
     <span class="o">*</span> <span class="mi">100</span>
 <span class="p">)</span>
 <span class="n">percent_change</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
@@ -2928,7 +2928,7 @@ Length: 58, dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Avg pct change in felony drug arrest rate: </span><span class="si">{</span><span class="n">percent_change</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Avg pct change in felony drug arrest rate: </span><span class="si">{</span><span class="n">percent_change</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2946,8 +2946,8 @@ Length: 58, dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">percent_change</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2018&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2009&quot;</span><span class="p">])</span>
-    <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2009&quot;</span><span class="p">]</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2018"</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2009"</span><span class="p">])</span>
+    <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2009"</span><span class="p">]</span>
     <span class="o">*</span> <span class="mi">100</span>
 <span class="p">)</span>
 <span class="n">percent_change</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
@@ -2997,9 +2997,9 @@ Length: 58, dtype: float64
 <p>To decide who goes into each group, first calculate the average 2009 drug arrest rate across all counties. Then make the “high drug arrest” group counties whose 2009 drug arrest rate was above that mean value and make the “low drug arrest rate” counties whose 2009 drug arrest rate was above that mean value.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">average</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;f_drugoff_arrest_rate_2009&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">high_drug_arrests_2009</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;f_drugoff_arrest_rate_2009&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">average</span><span class="p">]</span>
-<span class="n">low_drug_arrests_2009</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;f_drugoff_arrest_rate_2009&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">average</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">average</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"f_drugoff_arrest_rate_2009"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">high_drug_arrests_2009</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"f_drugoff_arrest_rate_2009"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">average</span><span class="p">]</span>
+<span class="n">low_drug_arrests_2009</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"f_drugoff_arrest_rate_2009"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">average</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -3014,20 +3014,20 @@ Length: 58, dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">change_high</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">high_drug_arrests_2009</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2018&quot;</span><span class="p">]</span>
-    <span class="o">-</span> <span class="n">high_drug_arrests_2009</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2009&quot;</span><span class="p">]</span>
+    <span class="n">high_drug_arrests_2009</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2018"</span><span class="p">]</span>
+    <span class="o">-</span> <span class="n">high_drug_arrests_2009</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2009"</span><span class="p">]</span>
 <span class="p">)</span>
 <span class="n">change_low</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">low_drug_arrests_2009</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2018&quot;</span><span class="p">]</span>
-    <span class="o">-</span> <span class="n">low_drug_arrests_2009</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2009&quot;</span><span class="p">]</span>
+    <span class="n">low_drug_arrests_2009</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2018"</span><span class="p">]</span>
+    <span class="o">-</span> <span class="n">low_drug_arrests_2009</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2009"</span><span class="p">]</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">change_high</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">change_low</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Abs change for high: </span><span class="si">{</span><span class="n">change_high</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Abs change for low: </span><span class="si">{</span><span class="n">change_low</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Diff in Diff: </span><span class="si">{</span><span class="n">change_high</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">change_low</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Abs change for high: </span><span class="si">{</span><span class="n">change_high</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Abs change for low: </span><span class="si">{</span><span class="n">change_low</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Diff in Diff: </span><span class="si">{</span><span class="n">change_high</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">change_low</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3059,16 +3059,16 @@ Diff in Diff: -0.24739378861355804
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pchange_high</span> <span class="o">=</span> <span class="n">percent_change</span><span class="p">(</span>
-    <span class="n">high_drug_arrests_2009</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2018&quot;</span><span class="p">],</span>
-    <span class="n">high_drug_arrests_2009</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2009&quot;</span><span class="p">],</span>
+    <span class="n">high_drug_arrests_2009</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2018"</span><span class="p">],</span>
+    <span class="n">high_drug_arrests_2009</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2009"</span><span class="p">],</span>
 <span class="p">)</span>
 <span class="n">pchange_low</span> <span class="o">=</span> <span class="n">percent_change</span><span class="p">(</span>
-    <span class="n">low_drug_arrests_2009</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2018&quot;</span><span class="p">],</span>
-    <span class="n">low_drug_arrests_2009</span><span class="p">[</span><span class="s2">&quot;violent_arrest_rate_2009&quot;</span><span class="p">],</span>
+    <span class="n">low_drug_arrests_2009</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2018"</span><span class="p">],</span>
+    <span class="n">low_drug_arrests_2009</span><span class="p">[</span><span class="s2">"violent_arrest_rate_2009"</span><span class="p">],</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pct change for high: </span><span class="si">{</span><span class="n">pchange_high</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pct change for low: </span><span class="si">{</span><span class="n">pchange_low</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Diff in Diff: </span><span class="si">{</span><span class="n">pchange_high</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">pchange_low</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pct change for high: </span><span class="si">{</span><span class="n">pchange_high</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pct change for low: </span><span class="si">{</span><span class="n">pchange_low</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Diff in Diff: </span><span class="si">{</span><span class="n">pchange_high</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">pchange_low</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

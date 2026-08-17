@@ -700,9 +700,9 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 
 <span class="n">world</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span>
-    <span class="s2">&quot;https://github.com/nickeubank/practicaldatascience_book/&quot;</span>
-    <span class="s2">&quot;raw/refs/heads/main/notebooks/&quot;</span>
-    <span class="s2">&quot;gis/example_data/world_countries/world_countries_robinson.geojson&quot;</span>
+    <span class="s2">"https://github.com/nickeubank/practicaldatascience_book/"</span>
+    <span class="s2">"raw/refs/heads/main/notebooks/"</span>
+    <span class="s2">"gis/example_data/world_countries/world_countries_robinson.geojson"</span>
 <span class="p">)</span>
 
 <span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -845,8 +845,8 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span>
-    <span class="s2">&quot;https://github.com/nickeubank/practicaldatascience_book/raw&quot;</span>
-    <span class="s2">&quot;/refs/heads/main/notebooks/gis/example_data/world_cities/world_cities_robinson.geojson&quot;</span>
+    <span class="s2">"https://github.com/nickeubank/practicaldatascience_book/raw"</span>
+    <span class="s2">"/refs/heads/main/notebooks/gis/example_data/world_cities/world_cities_robinson.geojson"</span>
 <span class="p">)</span>
 
 <span class="n">cities</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -1037,7 +1037,7 @@
 <p>In this toy city dataset, you will notice that we have cities’ names, but not the country in which they are located. Since we know this variable is in our <code class="docutils literal notranslate"><span class="pre">world</span></code> dataset, we can do a spatial join to match each city observation up with the country in which it is located:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cities_w_county</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">world</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="s2">&quot;intersects&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cities_w_county</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">world</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="s2">"intersects"</span><span class="p">)</span>
 <span class="n">cities_w_county</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1197,10 +1197,10 @@
 <p>To illustrate, let’s find out what city is closest to the “middle” of each country (e.g. closest to each country’s centroid):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="p">[</span><span class="s2">&quot;centroids&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">centroid</span>
-<span class="n">world</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="s2">&quot;centroids&quot;</span><span class="p">)</span>
-<span class="n">center_most_city</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">sjoin_nearest</span><span class="p">(</span><span class="n">cities</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
-<span class="n">center_most_city</span> <span class="o">=</span> <span class="n">center_most_city</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name_right&quot;</span><span class="p">:</span> <span class="s2">&quot;centermost_city&quot;</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="p">[</span><span class="s2">"centroids"</span><span class="p">]</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">centroid</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="s2">"centroids"</span><span class="p">)</span>
+<span class="n">center_most_city</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">sjoin_nearest</span><span class="p">(</span><span class="n">cities</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"inner"</span><span class="p">)</span>
+<span class="n">center_most_city</span> <span class="o">=</span> <span class="n">center_most_city</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"name_right"</span><span class="p">:</span> <span class="s2">"centermost_city"</span><span class="p">})</span>
 <span class="n">center_most_city</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1343,10 +1343,10 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create circular polygons with buffer</span>
-<span class="n">cities</span><span class="p">[</span><span class="s2">&quot;buffers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">500_000</span><span class="p">)</span>
+<span class="n">cities</span><span class="p">[</span><span class="s2">"buffers"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">500_000</span><span class="p">)</span>
 
-<span class="c1"># Make the buffers the &quot;official geometry&quot;</span>
-<span class="n">city_buffers</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="s2">&quot;buffers&quot;</span><span class="p">)</span>
+<span class="c1"># Make the buffers the "official geometry"</span>
+<span class="n">city_buffers</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="s2">"buffers"</span><span class="p">)</span>
 <span class="n">city_buffers</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1505,7 +1505,7 @@ dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now join the polygons with our points</span>
-<span class="n">joined</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">city_buffers</span><span class="p">[[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;buffers&quot;</span><span class="p">]])</span>
+<span class="n">joined</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">city_buffers</span><span class="p">[[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"buffers"</span><span class="p">]])</span>
 <span class="n">joined</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1682,16 +1682,16 @@ dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cleanup columns</span>
 <span class="n">joined</span> <span class="o">=</span> <span class="n">joined</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
-    <span class="p">{</span><span class="s2">&quot;name_left&quot;</span><span class="p">:</span> <span class="s2">&quot;city_name&quot;</span><span class="p">,</span> <span class="s2">&quot;name_right&quot;</span><span class="p">:</span> <span class="s2">&quot;nearby_city&quot;</span><span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span>
+    <span class="p">{</span><span class="s2">"name_left"</span><span class="p">:</span> <span class="s2">"city_name"</span><span class="p">,</span> <span class="s2">"name_right"</span><span class="p">:</span> <span class="s2">"nearby_city"</span><span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="s2">"columns"</span>
 <span class="p">)</span>
-<span class="n">joined</span> <span class="o">=</span> <span class="n">joined</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;index_right&quot;</span><span class="p">,</span> <span class="s2">&quot;buffers&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+<span class="n">joined</span> <span class="o">=</span> <span class="n">joined</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"index_right"</span><span class="p">,</span> <span class="s2">"buffers"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="s2">"columns"</span><span class="p">)</span>
 
 <span class="c1"># Cities are obviously within 500 kilometers of themselves, so</span>
-<span class="c1"># drop the &quot;self joins&quot;</span>
+<span class="c1"># drop the "self joins"</span>
 <span class="n">joined</span> <span class="o">=</span> <span class="n">joined</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">joined</span><span class="o">.</span><span class="n">city_name</span> <span class="o">==</span> <span class="n">joined</span><span class="o">.</span><span class="n">nearby_city</span><span class="p">)]</span>
 
 <span class="c1"># Now check out a few!</span>
-<span class="n">joined</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;city_name&quot;</span><span class="p">)</span>
+<span class="n">joined</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"city_name"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

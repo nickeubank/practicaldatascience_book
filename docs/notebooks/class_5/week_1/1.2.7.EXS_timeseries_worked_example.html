@@ -667,18 +667,18 @@
 <h1>Exercise: Creating a subplot of timeseries (solution)<a class="headerlink" href="#exercise-creating-a-subplot-of-timeseries-solution" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = 'retina'
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="n">file_child_mortality</span> <span class="o">=</span> <span class="s2">&quot;data/child-mortality.csv&quot;</span>
-<span class="n">file_life_expectancy</span> <span class="o">=</span> <span class="s2">&quot;data/life-expectancy.csv&quot;</span>
-<span class="n">file_poverty</span> <span class="o">=</span> <span class="s2">&quot;data/poverty.csv&quot;</span>
-<span class="n">file_education</span> <span class="o">=</span> <span class="s2">&quot;data/education.csv&quot;</span>
-<span class="n">file_literacy</span> <span class="o">=</span> <span class="s2">&quot;data/literacy.csv&quot;</span>
-<span class="n">file_women_in_office</span> <span class="o">=</span> <span class="s2">&quot;data/women-in-office.csv&quot;</span>
+<span class="n">file_child_mortality</span> <span class="o">=</span> <span class="s2">"data/child-mortality.csv"</span>
+<span class="n">file_life_expectancy</span> <span class="o">=</span> <span class="s2">"data/life-expectancy.csv"</span>
+<span class="n">file_poverty</span> <span class="o">=</span> <span class="s2">"data/poverty.csv"</span>
+<span class="n">file_education</span> <span class="o">=</span> <span class="s2">"data/education.csv"</span>
+<span class="n">file_literacy</span> <span class="o">=</span> <span class="s2">"data/literacy.csv"</span>
+<span class="n">file_women_in_office</span> <span class="o">=</span> <span class="s2">"data/women-in-office.csv"</span>
 
 <span class="c1"># Load the data</span>
 <span class="n">child_mortality</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_child_mortality</span><span class="p">)</span>
@@ -689,12 +689,12 @@
 <span class="n">women_in_office</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_women_in_office</span><span class="p">)</span>
 
 <span class="n">titles</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;Children Surviving to Age 5 [%]&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Life Expectancy [Years]&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;People living on more than ($5 a day) [%]&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Literacy [%]&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;People with Some Education [%]&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;National Legislatures with &gt;10% Women [%]&quot;</span><span class="p">,</span>
+    <span class="s2">"Children Surviving to Age 5 [%]"</span><span class="p">,</span>
+    <span class="s2">"Life Expectancy [Years]"</span><span class="p">,</span>
+    <span class="s2">"People living on more than ($5 a day) [%]"</span><span class="p">,</span>
+    <span class="s2">"Literacy [%]"</span><span class="p">,</span>
+    <span class="s2">"People with Some Education [%]"</span><span class="p">,</span>
+    <span class="s2">"National Legislatures with &gt;10% Women [%]"</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span>
@@ -714,16 +714,16 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">child_mortality</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">],</span> <span class="n">child_mortality</span><span class="p">[</span><span class="s2">&quot;Share surviving first five years&quot;</span><span class="p">]</span>
+    <span class="n">child_mortality</span><span class="p">[</span><span class="s2">"Year"</span><span class="p">],</span> <span class="n">child_mortality</span><span class="p">[</span><span class="s2">"Share surviving first five years"</span><span class="p">]</span>
 <span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">life_expectancy</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">],</span> <span class="n">life_expectancy</span><span class="p">[</span><span class="s2">&quot;Life Expectancy&quot;</span><span class="p">])</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">poverty</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">],</span> <span class="n">poverty</span><span class="p">[</span><span class="s2">&quot;More than $5 a day&quot;</span><span class="p">])</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">literacy</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">],</span> <span class="n">literacy</span><span class="p">[</span><span class="s2">&quot;Share of population aged 15+ literate&quot;</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">life_expectancy</span><span class="p">[</span><span class="s2">"Year"</span><span class="p">],</span> <span class="n">life_expectancy</span><span class="p">[</span><span class="s2">"Life Expectancy"</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">poverty</span><span class="p">[</span><span class="s2">"Year"</span><span class="p">],</span> <span class="n">poverty</span><span class="p">[</span><span class="s2">"More than $5 a day"</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">literacy</span><span class="p">[</span><span class="s2">"Year"</span><span class="p">],</span> <span class="n">literacy</span><span class="p">[</span><span class="s2">"Share of population aged 15+ literate"</span><span class="p">])</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">education</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">],</span>
-    <span class="n">education</span><span class="p">[</span><span class="s2">&quot;Share of population with at least some basic education&quot;</span><span class="p">],</span>
+    <span class="n">education</span><span class="p">[</span><span class="s2">"Year"</span><span class="p">],</span>
+    <span class="n">education</span><span class="p">[</span><span class="s2">"Share of population with at least some basic education"</span><span class="p">],</span>
 <span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">women_in_office</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">],</span> <span class="n">women_in_office</span><span class="p">[</span><span class="s2">&quot;More than 10%&quot;</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">women_in_office</span><span class="p">[</span><span class="s2">"Year"</span><span class="p">],</span> <span class="n">women_in_office</span><span class="p">[</span><span class="s2">"More than 10%"</span><span class="p">])</span>
 
 <span class="c1"># Common formatting changes</span>
 <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">titles</span><span class="p">):</span>

@@ -685,7 +685,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"mode.copy_on_write"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Seaborn.objects</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn.objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">so</span>
@@ -697,10 +697,10 @@
 <span class="c1"># Filter out FutureWarnings</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
-<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
 
 <span class="c1"># Get Penguins Dataset</span>
-<span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span>
+<span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">"penguins"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -710,13 +710,13 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_regression_w_ci</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">yvar</span><span class="p">,</span> <span class="n">xvar</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Returns a seaborn.objects scatter plot with Dots and a linear</span>
 <span class="sd">    regression with confidence intervals.</span>
 
 <span class="sd">    :param alpha: Confidence inteval alpha.</span>
 <span class="sd">    :param dots: Should data points be included in plot?</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># missings get dropped before `model` object created</span>
     <span class="c1"># also `model_predict` ends up with new index, causing index</span>
@@ -724,12 +724,12 @@
     <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">yvar</span><span class="p">])</span> <span class="o">&amp;</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">xvar</span><span class="p">])]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
     <span class="c1"># Fit model</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">yvar</span><span class="si">}</span><span class="s2"> ~ </span><span class="si">{</span><span class="n">xvar</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">yvar</span><span class="si">}</span><span class="s2"> ~ </span><span class="si">{</span><span class="n">xvar</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
     <span class="c1"># Get predicted values</span>
     <span class="n">model_predict</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">xvar</span><span class="p">])</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;predicted_&quot;</span> <span class="o">+</span> <span class="n">yvar</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_predict</span><span class="o">.</span><span class="n">summary_frame</span><span class="p">()[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span>
-    <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;ci_low&quot;</span><span class="p">,</span> <span class="s2">&quot;ci_high&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">model_predict</span><span class="o">.</span><span class="n">conf_int</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">"predicted_"</span> <span class="o">+</span> <span class="n">yvar</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_predict</span><span class="o">.</span><span class="n">summary_frame</span><span class="p">()[</span><span class="s2">"mean"</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[[</span><span class="s2">"ci_low"</span><span class="p">,</span> <span class="s2">"ci_high"</span><span class="p">]]</span> <span class="o">=</span> <span class="n">model_predict</span><span class="o">.</span><span class="n">conf_int</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
 
     <span class="c1"># Make plot.</span>
     <span class="n">plot</span> <span class="o">=</span> <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">xvar</span><span class="p">)</span>
@@ -738,8 +738,8 @@
         <span class="n">plot</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Dots</span><span class="p">(),</span> <span class="n">y</span><span class="o">=</span><span class="n">yvar</span><span class="p">)</span>
 
     <span class="c1"># Add overlay later so y-var name is from dots.</span>
-    <span class="n">plot</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Lines</span><span class="p">(),</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;predicted_&quot;</span> <span class="o">+</span> <span class="n">yvar</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-        <span class="n">so</span><span class="o">.</span><span class="n">Band</span><span class="p">(),</span> <span class="n">ymin</span><span class="o">=</span><span class="s2">&quot;ci_low&quot;</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="s2">&quot;ci_high&quot;</span>
+    <span class="n">plot</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Lines</span><span class="p">(),</span> <span class="n">y</span><span class="o">=</span><span class="s2">"predicted_"</span> <span class="o">+</span> <span class="n">yvar</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">so</span><span class="o">.</span><span class="n">Band</span><span class="p">(),</span> <span class="n">ymin</span><span class="o">=</span><span class="s2">"ci_low"</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="s2">"ci_high"</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">plot</span>
@@ -750,7 +750,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_regression_w_ci</span><span class="p">(</span>
-    <span class="n">penguins</span><span class="p">[</span><span class="n">penguins</span><span class="o">.</span><span class="n">species</span> <span class="o">==</span> <span class="s2">&quot;Adelie&quot;</span><span class="p">],</span> <span class="n">xvar</span><span class="o">=</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span> <span class="n">yvar</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span>
+    <span class="n">penguins</span><span class="p">[</span><span class="n">penguins</span><span class="o">.</span><span class="n">species</span> <span class="o">==</span> <span class="s2">"Adelie"</span><span class="p">],</span> <span class="n">xvar</span><span class="o">=</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="n">yvar</span><span class="o">=</span><span class="s2">"body_mass_g"</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -771,22 +771,22 @@
 
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Lowess</span><span class="p">(</span><span class="n">Stat</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Fit a locally-weighted regression to smooth the data.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">frac</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c1"># Fraction of data to use when estimating each y-value</span>
     <span class="n">gridsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># How fine-grained to plot the curve. Increase if jagged.</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_fit_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"x"</span><span class="p">]</span>
         <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">gridsize</span><span class="p">)</span>
         <span class="c1"># https://www.statsmodels.org/devel/generated/statsmodels.nonparametric.smoothers_lowess.lowess.html</span>
-        <span class="n">yy</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">nonparametric</span><span class="o">.</span><span class="n">lowess</span><span class="p">(</span><span class="n">exog</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">endog</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">xvals</span><span class="o">=</span><span class="n">xx</span><span class="p">,</span> <span class="n">frac</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frac</span><span class="p">)</span>
+        <span class="n">yy</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">nonparametric</span><span class="o">.</span><span class="n">lowess</span><span class="p">(</span><span class="n">exog</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">endog</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">"y"</span><span class="p">],</span> <span class="n">xvals</span><span class="o">=</span><span class="n">xx</span><span class="p">,</span> <span class="n">frac</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frac</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xx</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">yy</span><span class="p">))</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">groupby</span><span class="p">,</span> <span class="n">orient</span><span class="p">,</span> <span class="n">scales</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">groupby</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_predict</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">groupby</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"x"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_predict</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -794,7 +794,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="n">penguins</span><span class="o">.</span><span class="n">species</span> <span class="o">==</span> <span class="s2">&quot;Adelie&quot;</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">)</span>
+    <span class="n">so</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="n">penguins</span><span class="o">.</span><span class="n">species</span> <span class="o">==</span> <span class="s2">"Adelie"</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"body_mass_g"</span><span class="p">)</span>
     <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Dots</span><span class="p">())</span>
     <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">Line</span><span class="p">(),</span> <span class="n">Lowess</span><span class="p">())</span>
 <span class="p">)</span>
