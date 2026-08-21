@@ -1,0 +1,898 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Drug Legalization Difference-in-Difference &#8212; Practical Data Science with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-MC77BKR89Z"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-MC77BKR89Z');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-MC77BKR89Z');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'exercises/exercise_diffindiff';</script>
+    <link rel="icon" href="../_static/mids_logo.svg"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Practical Data Science with Python - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Practical Data Science with Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Practical Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Duke IDS Classes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ids540_specific/class_schedule_540.html">PDS I (IDS 540)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ids541_specific/class_schedule_541.html">PDS II (IDS 541)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ids720_specific/class_schedule_720.html">PDS (MIDS) (IDS 720)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up Your Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Setting Up Python and conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/validate_python.html">Validate Python Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Setting Up VS Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Augmenting Your Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">VS Code, R, and Jupyter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Command Line</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/10_commandline/git_and_github.html">Git and Github</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Numpy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_2/week_2/10_why_numpy.html">Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/20_intro_to_vectors.html">Working with Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/21_math_with_vectors.html">Doing Math With Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/23_type_promotion_in_vectors.html">Type Promotion in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_4/10_speed_and_ease_of_use.html">The Python Ease of Use / Speed Tradeoff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_4/11_vectorization.html">Vectorization in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/24_vector_recap.html">Vector Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_2/week_2/30_subsetting_vectors.html">Subsetting Vectors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/35_modifying_subsets_of_vectors.html">Modifying Subsets of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_2/37_vector_subsets_recap.html">Recap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_2/week_3/10_views_and_copies.html">Views and Copies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View and When Do I Get a Copy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/13_objects_and_variables.html">Variables are pointers to objects</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/12_views_and_copies_recap.html">Review of Views and Copies</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_2/week_3/00_welcome_to_week_3.html">Matrices</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/20_matrices.html">Intro to Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/22_reshaping_matrices.html">Folding and Reshaping Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/25_images_as_matrices.html">Matrices as Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/30_subsetting_matrices.html">Subsetting Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/32_modifying_subsets.html">Editing Subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/33_matrix_recaps.html">Review of Matrices</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_2/week_3/40_nd_arrays.html">Arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/41_broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_3/42_nd_array_review.html">Review of ND-Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_4/03_summarizing_arrays.html">Summarizing Arrays</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_4/04_summarizing_arrays_example.html">Practical Example: comparing weather by counting like-values</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_2/week_4/04.1_color_images_as_arrays.html">Color Images as Arrays</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_2/week_4/20_random_numbers.html">Random numbers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_3/week_2/00_intro_to_pandas.html">Welcome to Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/10_pandas_series.html">Pandas Series</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/15_manipulating_series.html">Subsetting and Indexing Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/16_indexing_with_brackets.html">(OPTIONAL) Subsetting and Indexing with Single Square Brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/18_object_dtype.html">The <code class="docutils literal notranslate"><span class="pre">object</span></code> Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting DataFrame Tricks and Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/45_categorical_dtype.html">The Categorical Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_2/50_pandas_pyarrow.html">PyArrow: An Alternative to Numpy as Pandas Backend</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_3/week_3/07_indices.html">Indexes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/15_views_and_copies_in_pandas.html">Views and Copies in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">The View/Copy Headache in pandas without Copy on Write</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_3/week_3/03_plaintext_files.html">Reading Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/05_binary_files.html">Binary Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_3/week_3/20_cleaning_identifying.html">Data Cleaning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/30_cleaning_editing_globally.html">Fixing Data Value Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/32_cleaning_editing_specific_locations.html">Editing Specific Locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_3/week_4/00_intro_to_querying_data.html">Data Manipulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/10_combining_concatenating.html">Concatenating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/15_combining_merging.html">Merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/15.1_combining_merging_continued.html">Combining datasets: merging</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/15.2_combining_merging_practical_example.html">Practical Example</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/15.3_validating_a_merge.html">Validating Merges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/20_grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/20.1_grouping_pivot_tables.html">Grouping in multiple dimensions with <code class="docutils literal notranslate"><span class="pre">pivot_tables</span></code></a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/20.2_reshaping_data.html">Reshaping Data</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_3/week_4/30_queries.html">Querying</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_5/week_1/1.1.2_effective_plotting_practices.html">Matplotlib Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.1_basic_plotting_with_matplotlib.html">Plotting with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.2_ten_figure_pieces.html">A figure in 10 pieces</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.4.5_explicit_vs_implicit_syntax.html">Implicit vs explicit syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.4.4_saving_to_file.html">Saving to file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.5.1_plotting_zoo.html">Plotting Zoo: multiple ways to visualize the same set of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.6.1_plotting_with_pandas.html">Plotting with Pandas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.4_bar_plots_deep_dive.html">Different Types of Plots</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.3_text.html">Plotting text (and a side note on axis scaling)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.5_stack_plots.html">Stack Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.6_pie_charts.html">Pie charts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.7.1_subplots.html">Subplots</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.7.2_subplots_deep_dive.html">Subplots: a deeper dive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.7.EXS_timeseries_worked_example.html">Exercise: Creating a subplot of timeseries (solution)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.7.EX_timeseries_worked_example.html">Exercise: Creating a subplot of timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.7_scatter_plots_deep_dive.html">Doing more with scatter plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.8_errorbars.html">Visualizing ranges and uncertainty</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.2.9_heat_maps.html">Heat maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.3.1.EXS_histograms_solutions.html">Exercise: Analyzing Poker Hand Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.3.1.EX_histograms.html">Exercise: Analyzing Poker Hand Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.3.1_histograms.html">Histograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/1.3.2_2d_histograms.html">Two Dimensional Histograms</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_5/week_1/2.1.1_the_matplotlib_model.html">Advanced Matplotlib</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.1.2_customizing_plot_styles.html">Customizing styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.1.3_plotting_zoo_restyled.html">Plotting Zoo - with style!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.2.1_making_plots_pretty_1.html">Making Plots Pretty Part 1: laying the foundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.2.2_making_plots_pretty_2.html">Making pretty plots in Python: customizing plots in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/class_5/week_1/2.3.1_plotting_with_seaborn.html">Seaborn Objects and GoG</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.3.2_seaborn_recipes.html">Seaborn Object Recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/class_5/week_1/2.3.3_from_seaborn_to_matplotlib.html">From Seaborn to Matplotlib</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Big Data &amp; Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/10_big_data_what_is_it.html">What is Big Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/20_big_data_strategies.html">Big Data Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/30_parquet.html">Parquet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/object_vectors.html">Object dtypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/50_performance_solutions.html">Solving Performance Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/60_parallelism.html">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/30_big_data/70_dask.html">Distributed Computing with dask</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Geospatial Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/10_gis_what_is_gis.html">What is GIS?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/15_gis_setup_geopandas.html">Installing Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/20_gis_geopandas.html">GIS with Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/25_gis_mapping.html">Mapping with Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/30_gis_spatial_joins.html">Merging Spatial Data Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/40_gis_projections.html">Spatial Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/50_gis_crs_geopandas.html">Managing Projections in Geopandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/gis/60_gis_data.html">Spatial Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practical Skills and Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging Python in VS Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">Defensive Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_tests.html">Testing in a Data Analysis Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_readability.html">Readability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_duplicate.html">Don’t Duplicate Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_collaboration.html">Collaboration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">The Iceberg Principle</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/workflow.html">Workflow Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/getting_help.html">Getting Help Online</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/vars_v_objects.html">Python: Variables vs. Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python vs. R: Important Differences To Be Aware Of</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/backwards_design.html">Backwards Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/pr_review.html">Reviewing Code on Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/conda_environments.html">conda Environments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_5/week_3/20_inference_v_prediction.html">Inference vs. Prediction Data Science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_5/week_3/30_linear_regression_in_python.html">Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_5/week_3/15_brief_intro_categorical_variables.html">Categorical Variables, Indicator Variables and Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_5/week_3/35_pandas_to_numpy_with_patsy.html">Pulling Back the Curtain: Pandas to Numpy with patsy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_5/week_3/40_linear_regression_extensions.html">OPTIONAL: Beyond The Basic Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Professional Advice</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/mids_electives.html">Duke Data Science Electives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/PhD_Advice.html">So You’re Thinking About a PhD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/getting_involved_in_research.html">Getting Involved in Research</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/public_oriented_data_science.html">Public Interest DS Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/buying_datascience_computer.html">How To Buy A Computer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/llms.html">chatGPT and You</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/PDS_not_yet_in_coursera/99_advice/ergonomics_and_adaptive_tech.html">Ergonomics and Adaptive Tech</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_2/week_1/00_interactive_console.html">Running Python in the VS Code Interactive Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_2/week_4/30_managing_python_packages.html">Understanding and Managing Python Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/other/fstrings.html">Combining numbers and text into strings: f-strings</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fexercises/exercise_diffindiff.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/exercises/exercise_diffindiff.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Drug Legalization Difference-in-Difference</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradescope-autograding">Gradescope Autograding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-limits">Submission Limits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diff-in-diff-event-study-plots">Diff-in-Diff Event Study Plots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-event-study-diff-in-diff">Estimating Event-Study Diff-in-Diff</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="drug-legalization-difference-in-difference">
+<h1>Drug Legalization Difference-in-Difference<a class="headerlink" href="#drug-legalization-difference-in-difference" title="Link to this heading">#</a></h1>
+<p>In recent years, many US states have decided to legalize the use of marijuana.</p>
+<p>When these ideas were first proposed, there were many theories about the relationship between crime and the “War on Drugs” (the term given to US efforts to arrest drug users and dealers over the past several decades).</p>
+<p>In this exercise, we’re going to test a few of those theories using drug arrest data from the state of California.</p>
+<p>Though California has passed a number of laws lessening penalities for marijuana possession over the years, arguably the biggest changes were in  2010, when the state changed the penalty for possessing a small amount of marijuana from a criminal crime to a “civil” penality (meaning those found guilty only had to pay a fine, not go to jail), though possessing, selling, or producing larger quantities remained illegal. Then in 2016, the state fully legalized marijuana for recreational use, not only making possession of small amounts legal, but also creating a regulatory system for producing marijuana for sale.</p>
+<p>Proponents of drug legalization have long argued that the war on drugs contributes to violent crime by creating an opportunity for drug dealers and organized crime to sell and distribute drugs, a business which tends to generate violence when gangs battle over territory. According to this theory, with drug legalization, we should see violent crime decrease after legalization in places where drug arrests had previously been common.</p>
+<p><strong>To be clear,</strong> this is far from the only argument for drug legalization! It is simply the argument we are well positioned to analyze today.</p>
+<p>(Students from Practical Data Science: This should sound familiar! Last semester we did this analysis in a very simple, crude manner; in this class we’ll do it rigorously with your new found difference-in-differences skills!)</p>
+<section id="gradescope-autograding">
+<h2>Gradescope Autograding<a class="headerlink" href="#gradescope-autograding" title="Link to this heading">#</a></h2>
+<p>Please follow <a class="reference external" href="https://www.practicaldatascience.org/ids720_specific/autograder_guidelines.html">all standard guidance</a> for submitting this assignment to the Gradescope autograder, including storing your solutions in a dictionary called <code class="docutils literal notranslate"><span class="pre">results</span></code> and ensuring your notebook runs from the start to completion without any errors.</p>
+<p>For this assignment, please name your file <code class="docutils literal notranslate"><span class="pre">exercise_diffindiff.ipynb</span></code> before uploading.</p>
+<p>You can check that you have answers for all questions in your <code class="docutils literal notranslate"><span class="pre">results</span></code> dictionary with this code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">{</span>
+    <span class="s2">&quot;ex2_median&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex4_diff_in_diff&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex4_y_t0_post&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex4_y_t0_pre&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex4_y_t1_post&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex4_y_t1_pre&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex5_interaction_coefficient&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ex5_standard_error&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="submission-limits">
+<h3>Submission Limits<a class="headerlink" href="#submission-limits" title="Link to this heading">#</a></h3>
+<p>Please remember that you are <strong>only allowed THREE submissions to the autograder.</strong> Your last submission (if you submit 3 or fewer times), or your third submission (if you submit more than 3 times) will determine your grade Submissions that error out will <strong>not</strong> count against this total.</p>
+</section>
+</section>
+<section id="exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
+<p>Download and import California arrest data from <a class="github reference external" href="https://github.com/nickeubank/MIDS_Data/blob/master/UDS_arrest_data.csv">nickeubank/MIDS_Data</a>. What is a unit of observation (a single row) in this data? What entities are being tracked, and over what time period?</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">VIOLENT</span></code> is a count of arrests for violent offenses, and <code class="docutils literal notranslate"><span class="pre">F_DRUGOFF</span></code> is a count of felony drug arrests. <code class="docutils literal notranslate"><span class="pre">total_population</span></code> is total population.</p>
+</section>
+<section id="exercise-2">
+<h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
+<p>In this analysis, we will split our sample into “treated” and “control” counties on the basis of whether a given county had a high average drug arrest rate in the three years before California began drug legalization in 2010. Counties with high drug arrest rates, after all, will be more impacted by drug liberalization policies.</p>
+<p>Calculate each county’s average drug arrest <em>rate</em> for the period from 2007-2009 (including 2007 and 2009). Calculate the rate in arrests <em>per 100,000</em> — arrest are relatively rare, so this type of scaling helps avoid chasing decimals.</p>
+<p>Then calculate the <strong>median</strong> of these averaged values across counties, and create an indicator called <code class="docutils literal notranslate"><span class="pre">treated</span></code> for counties whose average drug arrest rate during this period was above the median average drug arrest rate. In other words, half your counties should be in the “treated” group, and half in “control”.</p>
+<p>Note that this indicator should be <em>time-invariant</em>—if a county is in the treated group, it should be in the treated group in all years.</p>
+<p>Store the median value of drug arrest rates used to separate counties into high and low drug arrest rates in <code class="docutils literal notranslate"><span class="pre">results</span></code> under the key <code class="docutils literal notranslate"><span class="pre">&quot;ex2_median&quot;</span></code>.</p>
+</section>
+<section id="exercise-3">
+<h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h2>
+<p>Our outcome in this analysis is the violent arrest rate – if drug liberalization reduces crime overall, we would expect to see this rate fall in counties with high drug arrest rates after liberalization; if not, we would not expect to see any changes. Create a <code class="docutils literal notranslate"><span class="pre">violent_rate</span></code> variable with is violent arrests per 100,000 people.</p>
+</section>
+<section id="exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h2>
+<p>Differences-in-differences get their name from the fact that the estimator, in its most basic implementation, is just the difference between:</p>
+<ul class="simple">
+<li><p>difference in the average change in outcome among eventually-treated units from before to after when treatment is applied, and</p></li>
+<li><p>difference in the average change in outcome among never-treated units from before to after when treatment (to the treated units).</p></li>
+</ul>
+<p>(Obviously treatment is never a applied to the never-treated units – when we talk about pre / post, we refer to before and after the point in time in which treatment is applied to the treated units. So if treated units are treated in 2008, then for the never-treated units, we are also comparing outcomes before 2008 to after 2008, even though 2008 has no special significance for the never-treated units).</p>
+<p>In its most basic implementation, therefore, calculating a difference-in-difference estimate requires calculating just 4 numbers:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\bar y_{T=1,Post}\)</span>  Avg for Treatment, Post-Treatment</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar y_{T=0,Post}\)</span>  Avg for Control, Post-Treatment</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar y_{T=1,Pre}\)</span>   Avg for Treatment, Pre-Treatment</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar y_{T=0,Pre}\)</span>   Avg for Control, Pre-Treatment</p></li>
+</ul>
+<p>The difference-in-differences estimator <span class="math notranslate nohighlight">\(\hat \delta\)</span>  is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\delta}= (\bar{y}_{T=1,\,Post}-\bar{y}_{T=1,\,Pre})-(\bar{y}_{T=0,\,Post}-\bar{y}_{T=0,\,Pre})
+\]</div>
+<p>Calculate (a) the change in violent arrest rates for our treated groups from before legalization to after (<span class="math notranslate nohighlight">\(\bar y_{T=1,Post} - \bar y_{T=1, Pre}\)</span>), and (b) our difference in difference estimator <span class="math notranslate nohighlight">\(\hat\delta\)</span> by calculating these four values. Does doing your difference-in-difference estimate tell you something different from what you’d learn if you had just done a pre-post comparison?</p>
+<p>For the <code class="docutils literal notranslate"><span class="pre">Pre</span></code> period, consider the three years before liberalization begins in 2010 (e.g. 2007-2009). For the <code class="docutils literal notranslate"><span class="pre">Post</span></code> period, consider the three years after final legalization took place (2016-2018). We will ignore the middle period in which marijuana was decriminalized but not yet legal.</p>
+<p>Store your estimates in <code class="docutils literal notranslate"><span class="pre">results</span></code> under the keys <code class="docutils literal notranslate"><span class="pre">&quot;ex4_y_t0_pre&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;ex4_y_t1_pre&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;ex4_y_t0_post&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;ex4_y_t1_post&quot;</span></code>.</p>
+<p>Store your final estimate of our difference-in-difference estimate in <code class="docutils literal notranslate"><span class="pre">results</span></code> under the key <code class="docutils literal notranslate"><span class="pre">&quot;ex4_diff_in_diff&quot;</span></code>.</p>
+</section>
+<section id="exercise-5">
+<h2>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h2>
+<p>Now calculate <span class="math notranslate nohighlight">\(\hat\delta\)</span> using a regression with an indicator for post-2010, an indicator for treated, and an interaction of the two. Use only the same set of years you used above. Store the coefficient on your interaction term in <code class="docutils literal notranslate"><span class="pre">results</span></code> as <code class="docutils literal notranslate"><span class="pre">&quot;ex5_interaction_coefficient&quot;</span></code>.</p>
+<p>How does your estimate compare to the estimate you calculated in Exercise 4? What does this tell you about interpretation of interaction terms with two indicator variables?</p>
+<p>Note: You need to cluster your standard errors by county, since we expect counties (over time) to be subject to common fluctuations.</p>
+<p>Store your standard error in <code class="docutils literal notranslate"><span class="pre">results</span></code> in the key <code class="docutils literal notranslate"><span class="pre">&quot;ex5_standard_error&quot;</span></code>. Note that clustered standard errors are a little hidden — the <code class="docutils literal notranslate"><span class="pre">cov_params()</span></code> method will give you the right variance-covariance matrix for the model if you cluster it, but it is in terms of variances not standard deviations, and you have to pull out the right value.</p>
+</section>
+<section id="exercise-6">
+<h2>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h2>
+<p>In the preceding exercise, we did a simple pre-post / treated-control comparison. But one important limitation of these designs is that they do not allow us to test for <em>parallel trends</em>.</p>
+<p><strong>Plot</strong> a difference-in-difference model using data from <strong>2000-2009</strong> (inclusive) and from <strong>2016-2018</strong> (inclusive). Note this will have four different geometric components: a time trend for treated counties pre-2010, a time trend for control counties pre-2010, a time trend for treated counties post-2016 (include 2016), and a time trend for control counties post-2016 (include 2016).</p>
+<p>Please represent the time trends using a regression line, not a line plot of the individual points — there’s a small enough number of points here that you could do a line plot between yearly averages and it might look ok, but that approach doesn’t scale.</p>
+<p>Do you see evidence of parallel trends for these two datasets? Does that make you feel more or less confident in your diff-in-diff estimates?</p>
+</section>
+<section id="diff-in-diff-event-study-plots">
+<h2>Diff-in-Diff Event Study Plots<a class="headerlink" href="#diff-in-diff-event-study-plots" title="Link to this heading">#</a></h2>
+<p>Above, we:</p>
+<ul class="simple">
+<li><p>Estimated a simple two-period, two-group difference in difference estimate, and</p></li>
+<li><p>Plotted the raw pre-and-post treatment trends for both groups to evaluate parallel trends.</p></li>
+</ul>
+<p>Many difference-in-difference papers increasingly like to include difference-in-difference “event study” plots. This is accomplished by creating indicators for the difference between treatment and control for different lags pre-and-post treatment. For example, Figure 57 from <em>Causal Mixtape</em>:</p>
+<p><img alt="causal mixtape lead plot" src="https://raw.githubusercontent.com/nickeubank/ds4humans/refs/heads/main/99_exercises/images/diff_in_diff_leadplot.png" /></p>
+<p>These are created by adding indicators for different periods of time before and after treatment began.</p>
+<p>More specifically, the estimating equation is:</p>
+<div class="math notranslate nohighlight">
+\[Y_{i,t} = \gamma_i + \lambda_t + \sum_{\tau=-q}^{-1} \gamma_\tau D_{i\tau} + \sum_{\tau=0}^{m} \delta_\tau
+  D_{i\tau} + \varepsilon_{i,t}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(q\)</span> is the number of anticipatory (negative) lags, <span class="math notranslate nohighlight">\(m\)</span> is the number of post-treatment (positive) lags. <span class="math notranslate nohighlight">\(i\)</span> indexes entities, <span class="math notranslate nohighlight">\(t\)</span> indexes time, <span class="math notranslate nohighlight">\(\tau\)</span> is time from initiation of treatment, and <span class="math notranslate nohighlight">\(\gamma_i\)</span> and <span class="math notranslate nohighlight">\(\lambda_t\)</span> are entity and time fixed effects, respectively.</p>
+<p>This design has three advantages:</p>
+<ol class="arabic simple">
+<li><p>it is usable when treatment starts at different times for different units, as a result of which these are often called <em>staggered</em> diff-in-diff models,</p></li>
+<li><p>you get standard errors on how different treatment and control are during the pre-treatment period (making it easier to evaluate whether pre-treatment trends are parallel), and</p></li>
+<li><p>you get estimates of the treatment effect at different periods post-treatment, allowing one to examine how the treatment effect may change over time.</p></li>
+</ol>
+<p>The only downside is that when you estimate so many parameters, you need a little more data to get good standard errors than if you’d imposed linearity on the trends.</p>
+<section id="estimating-event-study-diff-in-diff">
+<h3>Estimating Event-Study Diff-in-Diff<a class="headerlink" href="#estimating-event-study-diff-in-diff" title="Link to this heading">#</a></h3>
+<p>While this is just a lot of indicator variables, and so we could estimate it easily with statsmodels, it can require a lot of keeping track of coefficients to make a nice plot. Instead, let’s use the <code class="docutils literal notranslate"><span class="pre">causalpy</span></code> package from PyMC labs, which will make the plot very easily.</p>
+<p>PyMC labs is the custodian of some of the best Bayesian Python inference packages (namely <a class="reference external" href="https://www.pymc.io/welcome.html">PyMC</a>), but they’ve built this library to also work with frequentist machinery.</p>
+<p>In particular, we’ll be using their <a class="reference external" href="https://causalpy.readthedocs.io/en/stable/notebooks/staggered_did_pymc.html">StaggeredDifferenceInDifferences</a> function.</p>
+<p>Note: if you go to the documentation for this, you’ll find some discussion of some of the subtle issues that arise in a traditional difference-in-difference framework. Their model is doing something just a little more complicated to do their estimation than what we were doing above, though I don’t think it’s worth getting into the details. If you want to get into the weeds of the technical nuances behind difference-in-difference estimators, you can read the paper they link in their documentation, or you may find <a class="reference external" href="https://yiqingxu.org/papers/english/2023_panel/CLLX_post.pdf">this review</a> useful.</p>
+</section>
+<section id="exercise-7">
+<h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Link to this heading">#</a></h3>
+<p>Make a Diff-in-Diff Event Study plot.</p>
+<p>To make this work, you’ll want to import <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> from <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> and pass it to the <code class="docutils literal notranslate"><span class="pre">model</span></code> argument, as illustrated <a class="reference external" href="https://causalpy.readthedocs.io/en/stable/notebooks/did_skl.html">here</a>.</p>
+<p>Then you will need to specify four additional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">formula</span></code>: you can use <code class="docutils literal notranslate"><span class="pre">&quot;violent_rate</span> <span class="pre">~</span> <span class="pre">1</span> <span class="pre">+</span> <span class="pre">C(COUNTY)</span> <span class="pre">+</span> <span class="pre">C(YEAR)&quot;</span></code>. Note we don’t include <code class="docutils literal notranslate"><span class="pre">treated</span></code> in this formula.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unit_variable_name</span></code>, <code class="docutils literal notranslate"><span class="pre">time_variable_name</span></code>, and <code class="docutils literal notranslate"><span class="pre">treated_variable_name</span></code></p></li>
+</ul>
+<p>Where <code class="docutils literal notranslate"><span class="pre">treated_variable_name</span></code> is just each unit’s treatment status for each observation (e.g. <code class="docutils literal notranslate"><span class="pre">post_2010</span> <span class="pre">*</span> <span class="pre">treated</span></code>).</p>
+<p>Please use the dataset we used for Exercise 6 above.</p>
+<p>Fit the model, then call:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>to get your staggered Diff-in-Diff Event Study plot!</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./exercises"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradescope-autograding">Gradescope Autograding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-limits">Submission Limits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diff-in-diff-event-study-plots">Diff-in-Diff Event Study Plots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-event-study-diff-in-diff">Estimating Event-Study Diff-in-Diff</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7">Exercise 7</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kyle Bradbury & Nick Eubank
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
