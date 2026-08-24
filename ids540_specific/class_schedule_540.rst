@@ -8,7 +8,7 @@ Office Hours
 
 Adriane: `Signup with this link <https://calendly.com/adriane-adrianefresh/20min>`_
 
-Shambhavi (TA): *day and time TBD, location TBD*
+Shambhavi (TA): Wednesday, 12-2pm in Gross Hall 230L
 
 Bruce (TA): Tuesday, 2-4pm in Gross Hall 230N
 
