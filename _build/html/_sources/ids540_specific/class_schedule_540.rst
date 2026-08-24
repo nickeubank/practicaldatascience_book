@@ -10,7 +10,7 @@ Adriane: `Signup with this link <https://calendly.com/adriane-adrianefresh/20min
 
 Shambhavi (TA): *day and time TBD, location TBD*
 
-Bruce (TA): *day and time TBD, location TBD*
+Bruce (TA): Tuesday, 2-4pm in Gross Hall 230N
 
 
 
@@ -22,7 +22,7 @@ A preliminary syllabus can be found `here <https://github.com/nickeubank/practic
 Class Schedule
 ---------------
 
-Class will be Mondays and Wednesdays from 8:30-9:45am (EDT) in Gross 270.
+Class will be Mondays and Wednesdays from 8:30-9:45am (EDT) in Gross Hall 230C.
 
 Key:
 
