@@ -10,9 +10,9 @@ in as a local extension in ``_config.yml``). To regenerate without building::
 
     python _ext/schedule_tables.py
 
-In-class exercise links are published on the morning of the class they belong
+In-class exercise links are published on the day of the class they belong
 to: a row's exercise cell is emptied until that class date arrives, so the
-links are absent from the built HTML rather than merely hidden. The nightly
+links are absent from the built HTML rather than merely hidden. The scheduled
 GitHub Action (``.github/workflows/daily_build.yml``) rebuilds the site so
 this happens without you doing anything.
 
@@ -64,7 +64,7 @@ STALE_AFTER = dt.timedelta(days=45)
 #: look at a future class day rendered. The build has to be told, not just the
 #: CLI: this extension regenerates the CSVs at ``builder-inited``, so a build
 #: that didn't know the date would overwrite them with today's schedule before
-#: Sphinx ever read them. Unset everywhere that matters (the nightly Action),
+#: Sphinx ever read them. Unset everywhere that matters (the scheduled Action),
 #: so real builds always use the real today.
 AS_OF_ENV = "SCHEDULE_AS_OF"
 
