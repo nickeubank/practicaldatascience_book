@@ -1,16 +1,26 @@
 name: Daily site rebuild
 
-# Rebuilds the book every morning and pushes the result to docs/, so in-class
-# exercises appear on the morning of the class they belong to. The gating
+# Rebuilds the book every day and pushes the result to docs/, so in-class
+# exercises appear on the day of the class they belong to. The gating
 # itself lives in _ext/schedule_tables.py; this workflow just makes sure a
 # build actually happens on days when nobody runs `jbp` by hand.
 
 on:
   schedule:
-    # 10:00 UTC = 6am EDT / 5am EST, comfortably before the first class.
-    # GitHub can delay scheduled runs when it is busy; a late build still
-    # lands hours before class.
-    - cron: "0 10 * * *"
+    # Every day is covered, but Tues/Thurs run in the afternoon: IDS 720 meets
+    # Tues/Thurs, IDS 540 meets Mon/Wed.
+    #
+    # Cron is UTC-only and does not follow daylight saving, so both times slide
+    # an hour earlier when EST starts in November. That direction is safe: the
+    # gating in _ext/schedule_tables.py keys off the campus *date*, not the
+    # hour, so an early build still publishes exactly the right day's
+    # exercises. GitHub can also delay scheduled runs when it is busy, which is
+    # the other reason not to aim these any closer to the start of class.
+    #
+    # 11:00 UTC = 7am EDT / 6am EST -- Mon, Wed, Fri, Sat, Sun.
+    - cron: "0 11 * * 0,1,3,5,6"
+    # 17:00 UTC = 1pm EDT / 12pm EST -- Tues, Thurs.
+    - cron: "0 17 * * 2,4"
   workflow_dispatch: # lets you trigger a rebuild from the Actions tab
 
 permissions:
