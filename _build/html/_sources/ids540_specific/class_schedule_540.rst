@@ -8,6 +8,8 @@ Office Hours
 
 Adriane: `Signup with this link <https://calendly.com/adriane-adrianefresh/20min>`_
 
+Please consult with the TAs on homework and reading questions first before signing up for my office hours.  If you have conceptual questions or project questions please do meet with me.
+
 Shambhavi (TA): Wednesday, 12-2pm in Gross Hall 230L
 
 Bruce (TA): Tuesday, 2-4pm in Gross Hall 230N
@@ -17,7 +19,7 @@ Bruce (TA): Tuesday, 2-4pm in Gross Hall 230N
 Syllabus
 --------
 
-The syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/ids540_specific/syllabus_540/Syllabus_IDS540_F2026.pdf>`_.
+The syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/blob/main/ids540_specific/syllabus_540/Syllabus_IDS540_F2026.pdf>`_.
 
 ---------------
 
