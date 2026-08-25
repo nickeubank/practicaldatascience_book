@@ -17,9 +17,8 @@ Bruce (TA): Tuesday, 2-4pm in Gross Hall 230N
 Syllabus
 --------
 
-A preliminary syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/blob/main/ids590_specific/syllabus_540/Syllabus_IDS540.pdf>`_.
+The syllabus can be found `here <https://github.com/nickeubank/practicaldatascience_book/ids540_specific/syllabus_540/Syllabus_IDS540_F2026.pdf>`_.
 
-Class Schedule
 ---------------
 
 Class will be Mondays and Wednesdays from 8:30-9:45am (EDT) in Gross Hall 230C.
