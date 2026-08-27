@@ -7,8 +7,8 @@ name: Daily site rebuild
 
 on:
   schedule:
-    # Every day is covered, but Tues/Thurs run in the afternoon: IDS 720 meets
-    # Tues/Thurs, IDS 540 meets Mon/Wed.
+    # Every day is covered, but Tues/Thurs run later in the morning: IDS 720
+    # meets Tues/Thurs, IDS 540 meets Mon/Wed.
     #
     # Cron is UTC-only and does not follow daylight saving, so both times slide
     # an hour earlier when EST starts in November. That direction is safe: the
@@ -19,8 +19,11 @@ on:
     #
     # 11:00 UTC = 7am EDT / 6am EST -- Mon, Wed, Fri, Sat, Sun.
     - cron: "0 11 * * 0,1,3,5,6"
-    # 17:00 UTC = 1pm EDT / 12pm EST -- Tues, Thurs.
-    - cron: "0 17 * * 2,4"
+    # 15:52 UTC = 11:52am EDT / 10:52am EST -- Tues, Thurs. The odd minute is
+    # deliberate: GitHub drops scheduled runs at the congested :00 slot when it
+    # is under load (the 2026-08-27 run never fired and had to be replayed by
+    # hand via workflow_dispatch).
+    - cron: "52 15 * * 2,4"
   workflow_dispatch: # lets you trigger a rebuild from the Actions tab
 
 permissions:
