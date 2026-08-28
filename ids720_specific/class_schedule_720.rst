@@ -12,11 +12,11 @@ Course syllabus can be found `here <https://github.com/nickeubank/practicaldatas
 Office Hours and Links
 --------------------------
 
-`Nick <https://duke.zoom.us/my/nickeubank>`_ (Zoom or in Gross 231): Thursday 8:45 am - 9:45 am. *Please email me in advance if you plan to attend.* I'll usually be there regardless, but knowing people are coming is useful if conflicts arise.
+`Nick <https://duke.zoom.us/my/nickeubank>`_ (Zoom or in Gross 231): Monday, 10-11 am. *Please email me before 8pm Sunday night if you plan to attend.* I'll usually be there regardless, but knowing people are coming is useful if conflicts arise, and if you don't RSVP I can't promise I'll be there!
 
-`Diego <https://duke.zoom.us/j/96262659331>`_ (Zoom or Gross Hall 2nd Floor, 230K): Wednesday 2:00 - 3:00 pm
+`Farnoosh <https://duke.zoom.us/j/9146022922>`_ (Zoom or Gross Hall 2nd Floor): Wednesday 12 - 1 pm
 
-`Meron <https://duke.zoom.us/j/7699232186>`_ (Zoom or Gross Hall 2nd Floor, 230N): Tuesday 12:15 - 1:15pm.
+`Myla <https://duke.zoom.us/j/93012298898>`_ (Zoom or Gross Hall 2nd Floor, 230N): Friday 9 - 10am.
 
 
 Class Schedule
