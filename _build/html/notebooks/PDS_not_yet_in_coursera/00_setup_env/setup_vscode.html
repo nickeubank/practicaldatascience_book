@@ -621,6 +621,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-mac-install-code-on-path">On Mac: Install <code class="docutils literal notranslate"><span class="pre">code</span></code> on PATH</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disable-restricted-mode-and-trusted-workspaces">Disable “Restricted Mode” and Trusted Workspaces</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permissions">Permissions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-python-extensions">Installing Python Extensions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-default-python-interpreter">Set Default Python Interpreter</a></li>
@@ -629,7 +630,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-settings-preferences-in-vs-code">Managing Settings/Preferences in VS Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-initial-settings">Recommended Initial Settings</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#format-on-save-with-black-extension">Format on Save with Black Extension</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-black-doesn-t-autoformat">If Black doesn’t autoformat</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-terminal-integrated-inheritenv-to-false-in-vs-code">Set terminal.integrated.inheritEnv to False in VS Code</a></li>
@@ -677,9 +677,18 @@ document.write(`
 </ul>
 </section>
 </section>
+<section id="disable-restricted-mode-and-trusted-workspaces">
+<h2>Disable “Restricted Mode” and Trusted Workspaces<a class="headerlink" href="#disable-restricted-mode-and-trusted-workspaces" title="Link to this heading">#</a></h2>
+<p>As of August 2026, there seem to be a couple bugs in VS Code related to “Trusted Workspaces.” If you’re on your personal laptop, I’ve never hesitated to trust my workspace, so I think just disabling this behavior in order to avoid bugs makes sense.</p>
+<ul class="simple">
+<li><p>In VS Code, type <code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">P</span></code> on macOS or <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">P</span></code> in Windows. This will cause the Command Palette — a text box that provides access to essentially all VS Code without use of a mouse — to open at the top of your open window.</p></li>
+<li><p>Choose <code class="docutils literal notranslate"><span class="pre">Preferences:</span> <span class="pre">Open</span> <span class="pre">User</span> <span class="pre">Settings</span></code> (not the version that ends in <code class="docutils literal notranslate"><span class="pre">(JSON)</span></code>),</p></li>
+<li><p>Search for <code class="docutils literal notranslate"><span class="pre">Trust</span></code> and find the <code class="docutils literal notranslate"><span class="pre">Security</span> <span class="pre">›</span> <span class="pre">Workspace</span> <span class="pre">›</span> <span class="pre">Trust:</span> <span class="pre">Enabled</span></code> setting. <em>Uncheck</em> it.</p></li>
+</ul>
+</section>
 <section id="permissions">
 <h2>Permissions<a class="headerlink" href="#permissions" title="Link to this heading">#</a></h2>
-<p>VS Code may cause OS-level permission windows to pop upSome — like accessing your user folder or desktop — are not just fine but necessary for most things you’ll want to do.</p>
+<p>VS Code may cause OS-level permission windows to pop up — like accessing your user folder or desktop — are not just fine but necessary for most things you’ll want to do.</p>
 <p>The newer one is asking for permission to access data from other applications in macOS. This is new since AI integration. I’ve accepted it give some of the utility these tools provide, but I don’t think most functionality will be impacted if you don’t feel comfortable saying yes and instead say no.</p>
 </section>
 <section id="installing-python-extensions">
@@ -738,21 +747,6 @@ document.write(`
 <blockquote>
 <div><p>What is “Black”? <a class="reference external" href="https://black.readthedocs.io/en/stable/">Black</a> is an “opinionated code formatter.” As they say on their website “By using Black, you agree to cede control over minutiae of hand-formatting. In return, Black gives you speed, determinism, and freedom from pycodestyle nagging about formatting. You will save time and mental energy for more important matters.” It’s become the standard for formatting Python code, not necessarily because everyone thinks the way it styles codes is “the best,” but rather because it’s put an end to fights over code format that used to arise in every open-source project. The name for the package comes from a quotation from Henry Ford, who once said of the first mass produced automobile, the Model T, “Any customer can have a car painted any color that he wants so long as it is black.”</p>
 </div></blockquote>
-</section>
-<section id="if-black-doesn-t-autoformat">
-<h3>If Black doesn’t autoformat<a class="headerlink" href="#if-black-doesn-t-autoformat" title="Link to this heading">#</a></h3>
-<p>As of August 2026, there seems to be a bug in VS Code related to “Trusted Workspaces.” If you did everything described above, but when you save a file you don’t see VS Code switch the string quotation marks from single ticks to double ticks, you may have discovered this bug.</p>
-<p>The workaround seems to be:</p>
-<p>Go to File &gt; Open, and open your user folder. That <em>should</em> cause a Restricted Mode banner to pop up:</p>
-<p><img alt="restricted mode banner" src="../../../_images/restricted-mode-banner.png" /></p>
-<p>Click “Manage” and then “Trust”. You’ll probably need to set the Default Python Interpreter to miniforge again, after which you SHOULD be good.</p>
-<p>If that fails, try opening the Command Pallet again, choose <code class="docutils literal notranslate"><span class="pre">Preferences:</span> <span class="pre">Open</span> <span class="pre">User</span> <span class="pre">Settings</span></code> (not the version that ends in (JSON)), find the <code class="docutils literal notranslate"><span class="pre">Security</span> <span class="pre">›</span> <span class="pre">Workspace</span> <span class="pre">›</span> <span class="pre">Trust:</span> <span class="pre">Enabled</span></code> setting, and <em>uncheck</em> it. If you’re on your personal computer, I’ve literally <em>never</em> in my many years had occasion to not trust my workspace, so I wouldn’t worry about the setting.</p>
-<blockquote>
-<div><p>NOTE: as of September 2023, it seems there’s bit of a bug in the formatter. If you see <code class="docutils literal notranslate"><span class="pre">Formatting</span> <span class="pre">with</span> <span class="pre">autopep8...</span></code> towards the lower left of the bottom VS Code status bar when you save your notebooks or Python files (after making these changes) try adding this line to your <code class="docutils literal notranslate"><span class="pre">settings.json</span></code>:</p>
-</div></blockquote>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nt">&quot;python.formatting.provider&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
-</pre></div>
-</div>
 </section>
 </section>
 <section id="set-terminal-integrated-inheritenv-to-false-in-vs-code">
@@ -856,6 +850,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-mac-install-code-on-path">On Mac: Install <code class="docutils literal notranslate"><span class="pre">code</span></code> on PATH</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disable-restricted-mode-and-trusted-workspaces">Disable “Restricted Mode” and Trusted Workspaces</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permissions">Permissions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-python-extensions">Installing Python Extensions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-default-python-interpreter">Set Default Python Interpreter</a></li>
@@ -864,7 +859,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-settings-preferences-in-vs-code">Managing Settings/Preferences in VS Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-initial-settings">Recommended Initial Settings</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#format-on-save-with-black-extension">Format on Save with Black Extension</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-black-doesn-t-autoformat">If Black doesn’t autoformat</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-terminal-integrated-inheritenv-to-false-in-vs-code">Set terminal.integrated.inheritEnv to False in VS Code</a></li>

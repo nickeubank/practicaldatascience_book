@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PDS I (IDS 540) &#8212; Practical Data Science with Python</title>
+    <title>Practicing Diagramming Functions &#8212; Practical Data Science with Python</title>
   
   
   
@@ -70,12 +70,10 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ids540_specific/class_schedule_540';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'exercises/exercise_function_stack_diagrams';</script>
     <link rel="icon" href="../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="PDS II (IDS 541)" href="../ids541_specific/class_schedule_541.html" />
-    <link rel="prev" title="Practical Data Science in Python" href="../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -138,6 +136,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -194,8 +194,8 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Duke IDS Classes</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">PDS I (IDS 540)</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ids540_specific/class_schedule_540.html">PDS I (IDS 540)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ids541_specific/class_schedule_541.html">PDS II (IDS 541)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ids720_specific/class_schedule_720.html">PDS (MIDS) (IDS 720)</a></li>
 </ul>
@@ -492,7 +492,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fids540_specific/class_schedule_540.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fexercises/exercise_function_stack_diagrams.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -522,7 +522,7 @@
       
       
       
-      <li><a href="../_sources/ids540_specific/class_schedule_540.rst" target="_blank"
+      <li><a href="../_sources/exercises/exercise_function_stack_diagrams.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -532,7 +532,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.rst</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -606,7 +606,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>PDS I (IDS 540)</h1>
+    <h1>Practicing Diagramming Functions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -616,8 +616,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#office-hours">Office Hours</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syllabus">Syllabus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-code">The Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-things-in-this-code">New Things in This Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isinstance"><code class="docutils literal notranslate"><span class="pre">isinstance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-without-else"><code class="docutils literal notranslate"><span class="pre">if</span></code> without <code class="docutils literal notranslate"><span class="pre">else</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-except-blocks">try-except Blocks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-name-main"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">"__main__":</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -629,407 +635,181 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="pds-i-ids-540">
-<h1>PDS I (IDS 540)<a class="headerlink" href="#pds-i-ids-540" title="Link to this heading">#</a></h1>
-<p>Practical Data Science I is a flipped-classroom, exercise and project-focused course. It requires zero prior experience with programming and begins with an introduction to Python, computational thinking, and the principles of good programming using the 7 Steps method. The class focus then shifts to data analysis with an emphasis on the type of analyses of interest to social scientists and public policy students. The course provides students with experience manipulating and analyzing real (often messy, error-ridden, and poorly documented) data using the full range of Python data science tools (like the command line, git, VS Code, numpy, pandas, matplotlib, statsmodels, and more).</p>
-<section id="office-hours">
-<h2>Office Hours<a class="headerlink" href="#office-hours" title="Link to this heading">#</a></h2>
-<p>Adriane: <a class="reference external" href="https://calendly.com/adriane-adrianefresh/20min">Signup with this link</a></p>
-<p>Please consult with the TAs on homework and reading questions first before signing up for my office hours.  If you have conceptual questions or project questions please do meet with me.</p>
-<p>Shambhavi (TA): Wednesday, 12-2pm in Gross Hall 230L</p>
-<p>Bruce (TA): Tuesday, 2-4pm in Gross Hall 230N</p>
-</section>
-<section id="syllabus">
-<h2>Syllabus<a class="headerlink" href="#syllabus" title="Link to this heading">#</a></h2>
-<p>The syllabus can be found <a class="reference external" href="https://github.com/nickeubank/practicaldatascience_book/blob/main/ids540_specific/syllabus_540/Syllabus_IDS540_F2026.pdf">here</a>.</p>
-<hr class="docutils" />
-<p>Class will be Mondays and Wednesdays from 8:30-9:45am (EDT) in Gross Hall 230C.</p>
-<p>Key:</p>
-<ul class="simple">
-<li><p>PPF is <a class="reference external" href="https://www.coursera.org/learn/python-programming-fundamentals">Python Programming Fundamentals</a>, and the number that follows is the module number.</p></li>
-<li><p>DSwithNSD is <a class="reference external" href="https://www.coursera.org/learn/numpy-data-science/">Data Science with NumPy, Sets, and Dictionaries</a>, and the number that follows is the module number.</p></li>
-</ul>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 11.1%" />
-<col style="width: 27.8%" />
-<col style="width: 55.6%" />
-<col style="width: 5.6%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Date, Rm</p></th>
-<th class="head"><p>Topic</p></th>
-<th class="head"><p>Do Before Class</p></th>
-<th class="head"><p>In-Class Exercise</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Mon, Aug 24</p></td>
-<td><ul class="simple">
-<li><p>Class Introduction</p></li>
-<li><p>Welcome to VS Code</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><strong>SETUP 1:</strong> <a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_python.html">Installing Python and miniconda</a></p></li>
-<li><p><strong>SETUP 2:</strong> <a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html">Installing and Configuring VS Code</a></p></li>
-<li><p><a class="reference external" href="https://github.com/nickeubank/practicaldatascience_book/blob/main/ids540_specific/syllabus_540/Syllabus_IDS540.pdf">Read and sign syllabus, submit on gradescope</a></p></li>
-<li><p><a class="reference external" href="https://uma.pop.umn.edu/usa/user/new">Register with IPUMS</a></p></li>
-<li><p><a class="reference external" href="https://www.datacamp.com/groups/shared_links/2d3263feebc26e4a9d40f8123d4878006b4969fe3063758f0ae599e2162c4d40">Register for DataCamp (duke.edu address required)</a></p></li>
-<li><p><a class="reference external" href="https://coursera.org/groups/python-programming-fundamentals-ywjfc/invitation">Join Coursera IDS 540 Session of Python Programming Fundamentals</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Aug 26</p></td>
-<td><ul class="simple">
-<li><p>Setting Up An Algorithm</p></li>
-<li><p>7 Steps</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>PPF1, Seven Steps for Algorithm Design</p></li>
-<li><p>PPF1, Working an Example of the Seven Steps Process</p></li>
-<li><p>PPF1, <strong>SKIP</strong> Creating an Algorithm</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../exercises/10_lego_algorithm.html">Legos</a></p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><p>Mon, Aug 31</p></td>
-<td><ul class="simple">
-<li><p>Legos Day 2</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>More time with legos</p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Sep 2</p></td>
-<td><ul class="simple">
-<li><p>Ideas Into Code</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="https://dukemids.com/data_science_skills/llms.html">chatGPT and You</a></p></li>
-<li><p>PPF1, Data Types</p></li>
-<li><p>PPF2, Important Python Syntax</p></li>
-<li><p>PPF2, Translating an Algorithm Into Python</p></li>
-<li><p><a class="reference external" href="../notebooks/other/fstrings.html">f-strings</a></p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>Using VS Code</p></li>
-<li><p><a class="reference external" href="../exercises/exercise_max.html">Max</a></p></li>
-<li><p><a class="reference external" href="../exercises/exercise_triangle.html">Triangle</a></p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><p>Mon, Sep 7</p></td>
-<td><p>LABOR DAY</p></td>
-<td><p>LABOR DAY</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Sep 9</p></td>
-<td><p>More time on Max and Triangle</p></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon, Sep 14</p></td>
-<td><ul class="simple">
-<li><p>Testing Your Code</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=JD8BrXXNtjA">What are Tracebacks?</a></p></li>
-<li><p><a class="reference external" href="../notebooks/other/looping_over_lists.html">Loops and Lists</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Sep 16</p></td>
-<td><ul class="simple">
-<li><p>Lists In Depth</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/10_debugging_principles.html">Debugging (principles)</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/20_debugging_in_vscode.html">Debugging (tools)</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon, Sep 21</p></td>
-<td><ul class="simple">
-<li><p>Buffer Day</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>PPF3, Approaches to Testing. <em>Do do Coursera exercises in this section!</em></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Sep 23</p></td>
-<td><ul class="simple">
-<li><p>List Practice</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>PPF4, Diving Deeper with Lists (both Looking More into Lists and Heart Rate: An Example)</p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon, Sep 28</p></td>
-<td><ul class="simple">
-<li><p>More Lists</p></li>
-</ul>
-</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Sep 30</p></td>
-<td><ul class="simple">
-<li><p>Object Oriented Programming</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="https://coursera.org/groups/numpy-data-science-kfkep/invitation">Join class session for next Coursera course with Duke email</a></p></li>
-<li><p>DSwithNSD1, Basics of Object Oriented Programming</p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon, Oct 5</p></td>
-<td><ul class="simple">
-<li><p>Object Oriented Programming</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>More OOP</p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Oct 7</p></td>
-<td><ul class="simple">
-<li><p>Object Oriented Programming</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>DSwithNSD1, Sets and Big-O Notation (and Dicts)</p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon, Oct 12 (Break)</p></td>
-<td><p><strong>FALL BREAK</strong></p></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Oct 14</p></td>
-<td><ul class="simple">
-<li><p>Command Line Basics</p></li>
-<li><p>Advanced Command Line</p></li>
-<li><p>Packages</p></li>
-<li><p>Jupyter</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><strong>SETUP 3:</strong> <a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_augmented_commandline.html">Setup Augmented Command Line</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/10_commandline/commandline_part1.html">Command Line Basics</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/10_commandline/commandline_part2.html">Advanced Command Line</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_2/week_4/30_managing_python_packages.html">Python packages</a></p></li>
-<li><p><strong>SETUP 4:</strong> <a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/jupyter_in_vscode.html">Jupyter in VS Code</a></p></li>
-<li><p><strong>OPTIONAL SETUP:</strong> <a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/00_setup_env/jupyter_r_notebooks.html">R Jupyter Notebooks</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon, Oct 19</p></td>
-<td><ul class="simple">
-<li><p>Numpy Basics</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>Under the numpy heading, <a class="reference external" href="../notebooks/class_2/week_2/10_why_numpy.html">read everything under Vectors EXCEPT Speed/Ease of Use Tradeoff and Vectorization</a></p></li>
-<li><p>Under the numpy heading, also read everything under <a class="reference external" href="../notebooks/class_2/week_2/10_why_numpy.html">Subsetting Vectors</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/python_v_r.html">Python v. R</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Oct 21</p></td>
-<td><ul class="simple">
-<li><p>Numpy Basics</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/class_2/week_3/10_views_and_copies.html">Views and Copies</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_2/week_3/11_when_do_I_get_a_view.html">When Do I Get a View</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_2/week_3/13_objects_and_variables.html">Variables, Objects, and Numpy</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_2/week_3/12_views_and_copies_recap.html">Views and Copies Recap</a></p></li>
-</ul>
-<p><strong>Additional Concepts</strong></p>
-<ul class="simple">
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/ints_and_floats.html">Numbers in Computers</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/writing_good_jupyter_notebooks.html">Writing Good Notebooks</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon, Oct 26</p></td>
-<td><ul class="simple">
-<li><p>Numpy Arrays</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/class_2/week_3/00_welcome_to_week_3.html">Matrices — From Welcome through Review of Matrices</a> (<em>see navigation bar on left</em>)</p></li>
-<li><p><a class="reference external" href="../notebooks/class_2/week_3/40_nd_arrays.html">Arrays — From Welcome through Color Images as Arrays</a> (<em>see navigation bar on left</em>)</p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Oct 28</p></td>
-<td><ul class="simple">
-<li><p>Pandas: Series</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/class_2/week_4/10_speed_and_ease_of_use.html">Speed / Ease of Use Tradeoff</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_2/week_4/11_vectorization.html">Vectorization</a></p></li>
-<li><p>Under Pandas, Read from <a class="reference external" href="../notebooks/class_3/week_2/00_intro_to_pandas.html">From Working with Tabular Data</a> through <a class="reference external" href="../notebooks/class_3/week_2/16_indexing_with_brackets.html">Subsetting and Indexing with Single Square Brackets</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon, Nov 2</p></td>
-<td><ul class="simple">
-<li><p>Pandas: DataFrames</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/class_3/week_2/18_object_dtype.html">Object Datatypes</a></p></li>
-<li><p>Pandas DataFrame readings from <a class="reference external" href="../notebooks/class_3/week_2/30_pandas_dataframes.html">Working with tabular data through Dataframes</a> through <a class="reference external" href="../notebooks/class_3/week_2/35_pandas_dataframe_gotchas.html">Subsetting Tricks and Gotchas</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_3/week_2/45_categorical_dtype.html">Categorical Datatype</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_3/week_2/50_pandas_pyarrow.html">PyArrow Backend</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Nov 4</p></td>
-<td><ul class="simple">
-<li><p>Pandas: Indices &amp; Missing</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/class_3/week_3/07_indices.html">Indices</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_3/week_3/10_views_and_copies_numpy_review.html">Views and Copies in Pandas</a> through <a class="reference external" href="../notebooks/class_3/week_3/17_views_and_copies_in_pandas_wo_CoW.html">the View/Copy Headache without CoW</a></p></li>
-<li><p>Reading and Writing Data: <a class="reference external" href="../notebooks/class_3/week_3/00_plaintext_files.html">Read from Ways To Store and Read Data</a> through ways to <a class="reference external" href="../notebooks/class_3/week_3/05_binary_files.html">Store and Read Binary Data</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_3/week_3/35_cleaning_missing_data.html">Missing Data</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon, Nov 9</p></td>
-<td><ul class="simple">
-<li><p>Pandas: Cleaning</p></li>
-<li><p>Regex</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>Data Cleaning  from <a class="reference external" href="../notebooks/class_3/week_3/20_cleaning_identifying.html">Identifying Problems</a> through <a class="reference external" href="../notebooks/class_3/week_3/33_cleaning_datatypes.html">Cleaning Data Types</a></p></li>
-<li><p><a class="reference external" href="https://campus.datacamp.com/courses/regular-expressions-in-python/basic-concepts-of-string-manipulation?ex=1">Datacamp Class “Regular Expressions for Pattern Matching,” Chapter 3 (Introduction to regular expressions)</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Nov 11</p></td>
-<td><ul class="simple">
-<li><p>Defensive Programming</p></li>
-<li><p>Groupby / Split-Apply-Combine</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>Defensive Programming: from <a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming.html">first reading</a> through <a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/20_programming_concepts/iceberg_principle.html">Iceberg Principle</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_3/week_4/20_grouping.html">Groupby</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon, Nov 16</p></td>
-<td><ul class="simple">
-<li><p>Groupby Continued</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p>Groupby Continued</p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Nov 18</p></td>
-<td><ul class="simple">
-<li><p>Merging</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/class_3/week_4/00_intro_to_querying_data.html">Combining, Grouping and Querying</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_3/week_4/10_combining_concatenating.html">Concatenating</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_3/week_4/15_combining_merging.html">Merging/Joins</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_3/week_4/15.1_combining_merging_continued.html">Merging Part 2</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_3/week_4/15.2_combining_merging_practical_example.html">Merging Example</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_3/week_4/15.3_validating_a_merge.html">Merge Validation</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Mon, Nov 23rd</p></td>
-<td><ul class="simple">
-<li><p>Plotting</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/1.1.2_effective_plotting_practices.html">Plotting Principles</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/1.2.1_basic_plotting_with_matplotlib.html">Matplotlib Basics</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/1.2.2_ten_figure_pieces.html">Matplotlib Vocabulary</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/1.4.5_explicit_vs_implicit_syntax.html">Explicit v Implict</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/1.4.4_saving_to_file.html">Saving Plots</a></p></li>
-<li><p><a class="reference external" href="../notebooks/PDS_not_yet_in_coursera/99_advice/using_llms_well.html">Using LLMs Well</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>Wed, Nov 25th</p></td>
-<td><ul class="simple">
-<li><p>More plotting</p></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/2.3.1_plotting_with_seaborn.html">Plotting in Python through seaborn and Grammer of Graphics</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/2.3.2_seaborn_recipes.html">seaborn recipes</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/2.3.3_from_seaborn_to_matplotlib.html">From seaborn to matplotlib</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/2.1.2_customizing_plot_styles.html">Customizing matplotlib</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/2.2.1_making_plots_pretty_1.html">Making Pretty Plots 1</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/2.2.2_making_plots_pretty_2.html">Making Pretty Plots 2</a></p></li>
-<li><p><a class="reference external" href="../notebooks/class_5/week_1/1.6.1_plotting_with_pandas.html">Pandas Plotting</a></p></li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Wed Dec 9</p></td>
-<td><p>Final project due date</p></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+  <section class="tex2jax_ignore mathjax_ignore" id="practicing-diagramming-functions">
+<h1>Practicing Diagramming Functions<a class="headerlink" href="#practicing-diagramming-functions" title="Link to this heading">#</a></h1>
+<p>In this exercise, you will be provided a block of code and asked to diagram its execution on a whiteboard. The goal of this exercise is to get practice thinking through how Python executes functions and how values are passed among functions.</p>
+<p>In particular, we would like you to write out function stack diagrams like those illustrated in the Coursera video on Functions:</p>
+<p><img alt="stack diagrams" src="../_images/stack_diagrams_example.png" /></p>
+<section id="the-code">
+<h2>The Code<a class="headerlink" href="#the-code" title="Link to this heading">#</a></h2>
+<p>Below you will find the code we wish for you to execute and diagram. Please be sure to also read below the code for some additional notes on its content.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="n">warning</span> <span class="o">=</span> <span class="s2">&quot;f(7) is illegal&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">warning</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="s2">&quot;x must be an int in g(x,y)&quot;</span>
+        <span class="k">return</span> <span class="n">report</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Be aware:</span>
+            <span class="c1"># you can use `+` with two strings</span>
+            <span class="c1"># you can use `+` with two numbers</span>
+            <span class="c1"># you can&#39;t use `+` with an integer and a string.</span>
+            <span class="c1"># Doing so gives an error.</span>
+            <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">42</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">h</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">list_of_args</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+
+    <span class="c1"># This for-loop loops over the list `list_of_args`.</span>
+    <span class="c1"># In the first pass, `args` will become the first entry in the list,</span>
+    <span class="c1"># which is the tuple (1, 2). Thus `args[0]` will be `1` and </span>
+    <span class="c1"># `args[1]` will be `2`.</span>
+    <span class="c1"># The second pass, `args` will become the tuple `(&quot;hello&quot;, 4)`.</span>
+
+    <span class="k">for</span> <span class="n">args</span> <span class="ow">in</span> <span class="n">list_of_args</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;i = </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, j = </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+</pre></div>
 </div>
+</section>
+<section id="new-things-in-this-code">
+<h2>New Things in This Code<a class="headerlink" href="#new-things-in-this-code" title="Link to this heading">#</a></h2>
+<p>There are a couple things in this code that you have not encountered before. We promise they are not particularly difficult to understand, they’re just new.</p>
+<section id="isinstance">
+<h3><code class="docutils literal notranslate"><span class="pre">isinstance()</span></code><a class="headerlink" href="#isinstance" title="Link to this heading">#</a></h3>
+<p>We haven’t gotten too far into the Python type system, but <code class="docutils literal notranslate"><span class="pre">isinstance()</span></code> is a function that checks whether the value associated with a variable is of a given type. It returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if it is, and <code class="docutils literal notranslate"><span class="pre">False</span></code> if it is not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Is `x` an integer?</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="if-without-else">
+<h3><code class="docutils literal notranslate"><span class="pre">if</span></code> without <code class="docutils literal notranslate"><span class="pre">else</span></code><a class="headerlink" href="#if-without-else" title="Link to this heading">#</a></h3>
+<p>In most examples we’ve seen, <code class="docutils literal notranslate"><span class="pre">if</span></code> has always appears alongside <code class="docutils literal notranslate"><span class="pre">else</span></code>. However, <code class="docutils literal notranslate"><span class="pre">else</span></code> is always optional with <code class="docutils literal notranslate"><span class="pre">if</span></code>. If <code class="docutils literal notranslate"><span class="pre">if</span></code> appears without an <code class="docutils literal notranslate"><span class="pre">else</span></code>, the indented code beneath <code class="docutils literal notranslate"><span class="pre">if</span></code> will run if the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement is <code class="docutils literal notranslate"><span class="pre">True</span></code>, and it will be skipped if not. Then execution returns to normal.</p>
+<p>So:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">x</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I only run if x is true&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I&#39;m outside the if so always run&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I only run if x is true
+I&#39;m outside the if so always run
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">if</span> <span class="n">x</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I only run if x is true&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I&#39;m outside the `if` block so always run&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I&#39;m outside the `if` block so always run
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-except-blocks">
+<h3>try-except Blocks<a class="headerlink" href="#try-except-blocks" title="Link to this heading">#</a></h3>
+<p>The logic of a try-except block is that Python will try to execute the code in the <code class="docutils literal notranslate"><span class="pre">try</span></code> block, but if it is unable to execute the code without generating an error, it should run the code in the <code class="docutils literal notranslate"><span class="pre">except</span></code> block instead.</p>
+<p>So if I wrote the function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_numbers</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+        <span class="k">return</span> <span class="n">total</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Can&#39;t add </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then tried to run it with one string and one integer as arguments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">add_numbers</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Python would try to execute <code class="docutils literal notranslate"><span class="pre">total</span> <span class="pre">=</span> <span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></code>, but because that code would normally raise a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> because you can’t add an int and a string, Python would print out <code class="docutils literal notranslate"><span class="pre">Can't</span> <span class="pre">add</span> <span class="pre">banana</span> <span class="pre">and</span> <span class="pre">3</span></code> instead:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_numbers</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+        <span class="k">return</span> <span class="n">total</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Can&#39;t add </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+
+<span class="n">add_numbers</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Can&#39;t add banana and 3.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="if-name-main">
+<h3><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code><a class="headerlink" href="#if-name-main" title="Link to this heading">#</a></h3>
+<p>Why did we put the <code class="docutils literal notranslate"><span class="pre">main()</span></code> call under the if statement <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code>? This <code class="docutils literal notranslate"><span class="pre">if</span></code> statement will be true anytime a <code class="docutils literal notranslate"><span class="pre">.py</span></code> file is directly executed (e.g., by clicking the triangle “play” button in VS Code). So it will behave exactly the way <code class="docutils literal notranslate"><span class="pre">main()</span></code> has operated in all the exercises you’ve done so far.</p>
+<p>The if statement is commonly used in Python because it will <em>not</em> be true if someone imports this file into another program. When a file is imported into another program, Python runs most of the code in the imported file so the functions in the file will be available in the importing program. But since we sometimes have code we don’t want run in that situation, we put it inside an <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> statement.</p>
+<p>From now on, you should follow the practice of putting the primary function call of your script in this if-statement.</p>
+<blockquote>
+<div><p>What exactly is <code class="docutils literal notranslate"><span class="pre">__name__</span></code> and why does it matter if it is equal to <code class="docutils literal notranslate"><span class="pre">&quot;__main__&quot;</span></code>? You don’t need to worry about understanding it, but if you’re curious: when a Python file is run, Python automatically creates a variable called <code class="docutils literal notranslate"><span class="pre">__name__</span></code>. If the file has been called directly, the value of <code class="docutils literal notranslate"><span class="pre">__name__</span></code> is set to <code class="docutils literal notranslate"><span class="pre">&quot;__main__&quot;</span></code>. But if a file is imported (like when a file is run in the process of importing a module), <code class="docutils literal notranslate"><span class="pre">__name__</span></code> takes on the value of module name.</p>
+</div></blockquote>
+</section>
 </section>
 </section>
 
@@ -1046,7 +826,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./ids540_specific"
+            path: "./exercises"
         },
         predefinedOutput: true
     }
@@ -1063,24 +843,6 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../intro.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Practical Data Science in Python</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="../ids541_specific/class_schedule_541.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">PDS II (IDS 541)</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -1097,8 +859,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#office-hours">Office Hours</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syllabus">Syllabus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-code">The Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-things-in-this-code">New Things in This Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isinstance"><code class="docutils literal notranslate"><span class="pre">isinstance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-without-else"><code class="docutils literal notranslate"><span class="pre">if</span></code> without <code class="docutils literal notranslate"><span class="pre">else</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-except-blocks">try-except Blocks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-name-main"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">"__main__":</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
