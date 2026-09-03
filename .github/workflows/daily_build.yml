@@ -7,23 +7,22 @@ name: Daily site rebuild
 
 on:
   schedule:
-    # Every day is covered, but Tues/Thurs run later in the morning: IDS 720
-    # meets Tues/Thurs, IDS 540 meets Mon/Wed.
+    # 11:00 UTC = 7am EDT / 6am EST, every day.
     #
-    # Cron is UTC-only and does not follow daylight saving, so both times slide
-    # an hour earlier when EST starts in November. That direction is safe: the
+    # Cron is UTC-only and does not follow daylight saving, so this slides an
+    # hour earlier when EST starts in November. That direction is safe: the
     # gating in _ext/schedule_tables.py keys off the campus *date*, not the
     # hour, so an early build still publishes exactly the right day's
-    # exercises. GitHub can also delay scheduled runs when it is busy, which is
-    # the other reason not to aim these any closer to the start of class.
+    # exercises.
     #
-    # 11:00 UTC = 7am EDT / 6am EST -- Mon, Wed, Fri, Sat, Sun.
-    - cron: "0 11 * * 0,1,3,5,6"
-    # 15:52 UTC = 11:52am EDT / 10:52am EST -- Tues, Thurs. The odd minute is
-    # deliberate: GitHub drops scheduled runs at the congested :00 slot when it
-    # is under load (the 2026-08-27 run never fired and had to be replayed by
-    # hand via workflow_dispatch).
-    - cron: "52 15 * * 2,4"
+    # Class days used to build mid-morning instead (15:52 UTC Tues/Thurs), to
+    # land the build closer to the start of class. That was worse, not better:
+    # scheduled runs are best-effort, and GitHub silently drops them under load
+    # in the busy mid-day UTC window. Both Thursdays aimed at that slot were
+    # dropped outright (2026-08-27 and 2026-09-03, neither of which was ever
+    # queued), while every 11:00 UTC run has fired, roughly ten minutes late.
+    # Since the gating is by date, the early slot gives up nothing.
+    - cron: "0 11 * * *"
   workflow_dispatch: # lets you trigger a rebuild from the Actions tab
 
 permissions:
