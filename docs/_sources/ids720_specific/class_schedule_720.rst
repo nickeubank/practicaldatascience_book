@@ -14,9 +14,9 @@ Office Hours and Links
 
 `Nick <https://duke.zoom.us/my/nickeubank>`_ (Zoom or in Gross 231): Monday, 10-11 am. *Please email me before 8pm Sunday night if you plan to attend.* I'll usually be there regardless, but knowing people are coming is useful if conflicts arise, and if you don't RSVP I can't promise I'll be there!
 
-`Farnoosh <https://duke.zoom.us/j/9146022922>`_ (Zoom or Gross Hall 2nd Floor): Wednesday 12 - 1 pm
+`Farnoosh <https://duke.zoom.us/j/9146022922>`_ (Zoom or Gross Hall 2nd Floor, 230N): Wednesday 12 - 1 pm
 
-`Myla <https://duke.zoom.us/j/93012298898>`_ (Zoom or Gross Hall 2nd Floor, 230N): Friday 9 - 10am.
+`Myla <https://duke.zoom.us/j/93012298898>`_ (Zoom or Gross Hall 2nd Floor, 230K): Friday 9 - 10am.
 
 
 Class Schedule
