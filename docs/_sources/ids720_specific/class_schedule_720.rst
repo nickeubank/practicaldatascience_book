@@ -16,7 +16,7 @@ Office Hours and Links
 
 `Farnoosh <https://duke.zoom.us/j/9146022922>`_ (Zoom or Gross Hall 2nd Floor, 230N): Wednesday 12 - 1 pm
 
-`Myla <https://duke.zoom.us/j/93012298898>`_ (Zoom or Gross Hall 2nd Floor, 230K): Friday 9 - 10am.
+`Myla <https://duke.zoom.us/j/7519034058>`_ (Zoom or Gross Hall 2nd Floor, 230K): Friday 9 - 10am.
 
 
 Class Schedule
