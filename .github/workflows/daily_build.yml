@@ -7,7 +7,7 @@ name: Daily site rebuild
 
 on:
   schedule:
-    # 11:00 UTC = 7am EDT / 6am EST, every day.
+    # 10:00 UTC = 6am EDT / 5am EST, every day.
     #
     # Cron is UTC-only and does not follow daylight saving, so this slides an
     # hour earlier when EST starts in November. That direction is safe: the
@@ -20,9 +20,10 @@ on:
     # scheduled runs are best-effort, and GitHub silently drops them under load
     # in the busy mid-day UTC window. Both Thursdays aimed at that slot were
     # dropped outright (2026-08-27 and 2026-09-03, neither of which was ever
-    # queued), while every 11:00 UTC run has fired, roughly ten minutes late.
+    # queued), while every run in this early-UTC window has fired, roughly ten
+    # minutes late.
     # Since the gating is by date, the early slot gives up nothing.
-    - cron: "0 11 * * *"
+    - cron: "0 10 * * *"
   workflow_dispatch: # lets you trigger a rebuild from the Actions tab
 
 permissions:
