@@ -616,6 +616,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3:</a></li>
@@ -636,17 +637,106 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="practicing-with-the-vs-code-debugger">
 <h1>Practicing with the VS Code Debugger<a class="headerlink" href="#practicing-with-the-vs-code-debugger" title="Link to this heading">#</a></h1>
-<p>You’ve been asked by a colleague to help them figure out why they’re having issues with a script they wrote. The package is designed to figure out what words in a sentence are repeated.</p>
+<p>You’ve been asked by a colleague to help them figure out why they’re having issues with a script they wrote. The package is designed to figure out what words in a sentence are repeated and return them in alphabetical order (with capital letters first).</p>
 <p>So for example, if our sentence were:</p>
 <blockquote>
 <div><p>far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the Galaxy lies a small unregarded yellow sun.</p>
 </div></blockquote>
-<p>The script should return <code class="docutils literal notranslate"><span class="pre">['the',</span> <span class="pre">'of']</span></code>.</p>
+<p>The script should return <code class="docutils literal notranslate"><span class="pre">['of',</span> <span class="pre">'the']</span></code>.</p>
 <p>Or if the sentence were:</p>
 <blockquote>
 <div><p>You should always be yourself unless you can be Batman then you should always be Batman.</p>
 </div></blockquote>
-<p>The script should return <code class="docutils literal notranslate"><span class="pre">['be',</span> <span class="pre">'you',</span> <span class="pre">'should',</span> <span class="pre">'always',</span> <span class="pre">'Batman']</span></code>.</p>
+<p>The script should return <code class="docutils literal notranslate"><span class="pre">['Batman',</span> <span class="pre">'always',</span> <span class="pre">'be',</span> <span class="pre">'should',</span> <span class="pre">'you']</span></code>.</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>Unfold and copy this script into a new <code class="docutils literal notranslate"><span class="pre">.py</span></code> file and save it somewhere on your computer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="sd">&quot;&quot;&quot;Debugger exercise.&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">split_string</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a string, split it into a list of &#39;words&#39;.&quot;&quot;&quot;</span>
+    <span class="c1"># Remove last period</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Split</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">words</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_repeats</span><span class="p">(</span><span class="n">sentence_as_list</span><span class="p">):</span>
+    <span class="n">unique_words</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">repeated_words</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentence_as_list</span><span class="p">)):</span>
+        <span class="c1"># If we haven&#39;t see it before, put in</span>
+        <span class="c1"># unique words list.</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="n">sentence_as_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_words</span><span class="p">:</span>
+            <span class="n">unique_words</span><span class="o">.</span><span class="n">apend</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+
+        <span class="c1"># If we have seen it before (it&#39;s in</span>
+        <span class="c1"># the unique words list),</span>
+        <span class="c1"># it is a repeat and we put it in</span>
+        <span class="c1"># repeated words if it isn&#39;t already there.</span>
+        <span class="k">elif</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">unique_words</span> <span class="ow">and</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">repeated_words</span><span class="p">:</span>
+            <span class="n">repeated_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+
+    <span class="c1"># Sort list alphabetically </span>
+    <span class="c1"># (with capital letters sorting ahead of lower case)</span>
+    <span class="n">repeated_words</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">repeated_words</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">repeated_words</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_repeated_words</span><span class="p">(</span><span class="n">sentence</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a list that contains one copy of each repeated word in sentence.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Separate words in sentence</span>
+    <span class="n">sentence_as_list</span> <span class="o">=</span> <span class="n">split_string</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+
+    <span class="c1"># Figure out what is repeated</span>
+    <span class="n">repeated_words</span> <span class="o">=</span> <span class="n">get_repeats</span><span class="p">(</span><span class="n">sentence_as_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">repeated_words</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+
+    <span class="c1"># Test Case 0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Case 0:&quot;</span><span class="p">)</span>
+
+    <span class="n">sentence</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;you should always be yourself unless you can &quot;</span>
+        <span class="s2">&quot;be Batman then you should always be Batman.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The sentence is: </span><span class="si">{</span><span class="n">sentence</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The result should be  [&#39;Batman&#39;, &#39;always&#39;, &#39;be&#39;, &#39;should&#39;, &#39;you&#39;]&quot;</span><span class="p">)</span>
+
+    <span class="n">test_word</span> <span class="o">=</span> <span class="n">get_repeated_words</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result is: </span><span class="si">{</span><span class="n">test_word</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Test Case 1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Case 1:&quot;</span><span class="p">)</span>
+
+    <span class="n">sentence</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;far out in the uncharted backwaters of the &quot;</span>
+        <span class="s2">&quot;unfashionable far end of the western spiral arm of &quot;</span>
+        <span class="s2">&quot;the Galaxy lies a small unregarded yellow sun.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The sentence is: </span><span class="si">{</span><span class="n">sentence</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The result should be  [&#39;far&#39;, &#39;of&#39;, &#39;the&#39;]&quot;</span><span class="p">)</span>
+
+    <span class="n">test_words</span> <span class="o">=</span> <span class="n">get_repeated_words</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result is: </span><span class="si">{</span><span class="n">test_words</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</section>
 <section id="exercise-1">
 <h2>Exercise 1:<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
 <p>Download your <a class="reference external" href="https://github.com/nickeubank/practicaldatascience_book/blob/main/Example_Data/debugger_590.py">colleague’s script here</a> and familiarize yourself with its contents.</p>
@@ -745,6 +835,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3:</a></li>

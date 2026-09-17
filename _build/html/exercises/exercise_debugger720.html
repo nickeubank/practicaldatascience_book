@@ -70,7 +70,7 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'exercises/exercise_debugger540';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'exercises/exercise_debugger720';</script>
     <link rel="icon" href="../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -492,7 +492,7 @@
       
       
       
-      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fexercises/exercise_debugger540.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/nickeubank/practicaldatascience_book/issues/new?title=Issue%20on%20page%20%2Fexercises/exercise_debugger720.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -522,7 +522,7 @@
       
       
       
-      <li><a href="../_sources/exercises/exercise_debugger540.ipynb" target="_blank"
+      <li><a href="../_sources/exercises/exercise_debugger720.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -637,109 +637,125 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="practicing-with-the-vs-code-debugger">
 <h1>Practicing with the VS Code Debugger<a class="headerlink" href="#practicing-with-the-vs-code-debugger" title="Link to this heading">#</a></h1>
-<p>You’ve been asked by a colleague to help them figure out why they’re having issues with a script they wrote. The package is designed to figure out what words in a sentence are repeated and return them in alphabetical order (with capital letters first).</p>
-<p>So for example, if our sentence were:</p>
-<blockquote>
-<div><p>far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the Galaxy lies a small unregarded yellow sun.</p>
-</div></blockquote>
-<p>The script should return <code class="docutils literal notranslate"><span class="pre">['of',</span> <span class="pre">'the']</span></code>.</p>
-<p>Or if the sentence were:</p>
-<blockquote>
-<div><p>You should always be yourself unless you can be Batman then you should always be Batman.</p>
-</div></blockquote>
-<p>The script should return <code class="docutils literal notranslate"><span class="pre">['Batman',</span> <span class="pre">'always',</span> <span class="pre">'be',</span> <span class="pre">'should',</span> <span class="pre">'you']</span></code>.</p>
+<p>You’ve been asked by a colleague to help them figure out why they’re having issues with a package they wrote. The packages designed to compare two sentences, figure out how many words they have in common, and then return the word that (a) appears in both sentences, and (b) when more than one word appears in most sentences, identify the word in both sentences with the most total occurrences.</p>
+<p>So for example, if our sentences were:</p>
+<ul class="simple">
+<li><p>“Far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the Galaxy lies a small unregarded yellow sun.”</p></li>
+<li><p>“Orbiting this at a distance of roughly ninety-two million miles is an utterly insignificant little blue green planet whose ape-descended life forms are so amazingly primitive that they still think digital watches are a pretty neat idea.”</p></li>
+</ul>
+<p>The result would be the word “of” (it appears in both, and appears 3 times in total).</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<p>Unfold and copy this script into a new <code class="docutils literal notranslate"><span class="pre">.py</span></code> file and save it somewhere on your computer:</p>
+<p>Copy the following code into a new .py file (and save it — remember VS Code doesn’t always work correctly when working with an unsaved file!):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="sd">&quot;&quot;&quot;Debugger exercise.&quot;&quot;&quot;</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">split_string</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a string, split it into a list of &#39;words&#39;.&quot;&quot;&quot;</span>
-    <span class="c1"># Remove last period</span>
-    <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="c1"># Split</span>
-    <span class="n">words</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">start_of_word</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span><span class="p">:</span>
+            <span class="n">words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">string</span><span class="p">[</span><span class="n">start_of_word</span><span class="p">:</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">start_of_word</span> <span class="o">=</span> <span class="n">i</span>
     <span class="k">return</span> <span class="n">words</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">get_repeats</span><span class="p">(</span><span class="n">sentence_as_list</span><span class="p">):</span>
-    <span class="n">unique_words</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">repeated_words</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentence_as_list</span><span class="p">)):</span>
-        <span class="c1"># If we haven&#39;t see it before, put in</span>
-        <span class="c1"># unique words list.</span>
-        <span class="n">word</span> <span class="o">=</span> <span class="n">sentence_as_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_words</span><span class="p">:</span>
-            <span class="n">unique_words</span><span class="o">.</span><span class="n">apend</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-
-        <span class="c1"># If we have seen it before (it&#39;s in</span>
-        <span class="c1"># the unique words list),</span>
-        <span class="c1"># it is a repeat and we put it in</span>
-        <span class="c1"># repeated words if it isn&#39;t already there.</span>
-        <span class="k">elif</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">unique_words</span> <span class="ow">and</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">repeated_words</span><span class="p">:</span>
-            <span class="n">repeated_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-
-    <span class="c1"># Sort list alphabetically </span>
-    <span class="c1"># (with capital letters sorting ahead of lower case)</span>
-    <span class="n">repeated_words</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">repeated_words</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">repeated_words</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">count_words</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Count how often words occur in a list.&quot;&quot;&quot;</span>
+    <span class="n">word_counts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">word_counts</span><span class="p">:</span>
+            <span class="n">word_counts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">word_counts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">word_counts</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">get_repeated_words</span><span class="p">(</span><span class="n">sentence</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a list that contains one copy of each repeated word in sentence.&quot;&quot;&quot;</span>
-
-    <span class="c1"># Separate words in sentence</span>
-    <span class="n">sentence_as_list</span> <span class="o">=</span> <span class="n">split_string</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
-
-    <span class="c1"># Figure out what is repeated</span>
-    <span class="n">repeated_words</span> <span class="o">=</span> <span class="n">get_repeats</span><span class="p">(</span><span class="n">sentence_as_list</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">repeated_words</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_collective_count</span><span class="p">(</span><span class="n">word_counts1</span><span class="p">,</span> <span class="n">word_counts2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Take two word counters and combine them into one.&quot;&quot;&quot;</span>
+    <span class="n">collective_count</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">word_counts1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">word_counts2</span><span class="p">:</span>
+            <span class="n">collective_count</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">word_counts1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">word_counts2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">collective_count</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">word_counter</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the word that occurs the most across the two strings.&quot;&quot;&quot;</span>
+    <span class="n">string1_words</span> <span class="o">=</span> <span class="n">split_string</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span>
+    <span class="n">string2_words</span> <span class="o">=</span> <span class="n">split_string</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span>
+    <span class="n">word_counts1</span> <span class="o">=</span> <span class="n">count_words</span><span class="p">(</span><span class="n">string1_words</span><span class="p">)</span>
+    <span class="n">word_counts2</span> <span class="o">=</span> <span class="n">count_words</span><span class="p">(</span><span class="n">string2_words</span><span class="p">)</span>
+    <span class="n">collective_count</span> <span class="o">=</span> <span class="n">create_collective_count</span><span class="p">(</span><span class="n">word_counts1</span><span class="p">,</span> <span class="n">word_counts2</span><span class="p">)</span>
+    <span class="n">curr_max</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">collective_count</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">collective_count</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">curr_max</span><span class="p">:</span>
+            <span class="n">curr_max</span> <span class="o">=</span> <span class="n">collective_count</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">curr_word</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="n">curr_word</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
 
     <span class="c1"># Test Case 0</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Case 0:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The result should be &#39;of&#39;&quot;</span><span class="p">)</span>
 
-    <span class="n">sentence</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">&quot;you should always be yourself unless you can &quot;</span>
-        <span class="s2">&quot;be Batman then you should always be Batman.&quot;</span>
+    <span class="n">string1</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;Far out in the uncharted backwaters of the &quot;</span>
+        <span class="s2">&quot;unfashionable end of the western spiral arm of &quot;</span>
+        <span class="s2">&quot;the Galaxy lies a small unregarded yellow sun.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">string2</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;Orbiting this at a distance of roughly ninety-two million &quot;</span>
+        <span class="s2">&quot;miles is an utterly insignificant little blue green &quot;</span>
+        <span class="s2">&quot;planet whose ape-descended life forms are so amazingly &quot;</span>
+        <span class="s2">&quot;primitive that they still think digital watches are a pretty neat idea.&quot;</span>
     <span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The sentence is: </span><span class="si">{</span><span class="n">sentence</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The result should be  [&#39;Batman&#39;, &#39;always&#39;, &#39;be&#39;, &#39;should&#39;, &#39;you&#39;]&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Comparing:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sentence 1: </span><span class="si">{</span><span class="n">string1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sentence 2: </span><span class="si">{</span><span class="n">string2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">test_word</span> <span class="o">=</span> <span class="n">get_repeated_words</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result is: </span><span class="si">{</span><span class="n">test_word</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">test_word</span> <span class="o">=</span> <span class="n">word_counter</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result: </span><span class="si">{</span><span class="n">test_word</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Test Case 1</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Case 1:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The result should be &#39;No matching words&#39;&quot;</span><span class="p">)</span>
 
-    <span class="n">sentence</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">&quot;far out in the uncharted backwaters of the &quot;</span>
-        <span class="s2">&quot;unfashionable far end of the western spiral arm of &quot;</span>
-        <span class="s2">&quot;the Galaxy lies a small unregarded yellow sun.&quot;</span>
-    <span class="p">)</span>
+    <span class="n">string1</span> <span class="o">=</span> <span class="s2">&quot;I love Practical Data Science.&quot;</span>
+    <span class="n">string2</span> <span class="o">=</span> <span class="s2">&quot;Who is Nick Eubank?&quot;</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The sentence is: </span><span class="si">{</span><span class="n">sentence</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The result should be  [&#39;far&#39;, &#39;of&#39;, &#39;the&#39;]&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Comparing:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sentence 1: </span><span class="si">{</span><span class="n">string1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sentence 2: </span><span class="si">{</span><span class="n">string2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">test_words</span> <span class="o">=</span> <span class="n">get_repeated_words</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="n">test_word</span> <span class="o">=</span> <span class="n">word_counter</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result: </span><span class="si">{</span><span class="n">test_word</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result is: </span><span class="si">{</span><span class="n">test_words</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Test Case 2</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Case 2:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The result should &#39;code&#39;&quot;</span><span class="p">)</span>
 
+    <span class="n">string1</span> <span class="o">=</span> <span class="s2">&quot;This is a test of my code.&quot;</span>
+    <span class="n">string2</span> <span class="o">=</span> <span class="s2">&quot;I hope there&#39;s not bugs in this code.&quot;</span>
 
-<span class="n">main</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Comparing:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sentence 1: </span><span class="si">{</span><span class="n">string1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sentence 2: </span><span class="si">{</span><span class="n">string2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
+    <span class="n">test_word</span> <span class="o">=</span> <span class="n">word_counter</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result: </span><span class="si">{</span><span class="n">test_word</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="exercise-1">
 <h2>Exercise 1:<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
-<p>Download your <a class="reference external" href="https://github.com/nickeubank/practicaldatascience_book/blob/main/Example_Data/debugger_590.py">colleague’s script here</a> and familiarize yourself with its contents.</p>
+<p>Familiarize yourself with the code and its contents.</p>
+<p>Note that when you run this file from the command line (e.g. navigate to where it’s located and run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">debugger.py</span></code>), the first thing executed are the three test cases under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code>. As you can see, these all call <code class="docutils literal notranslate"><span class="pre">word_counter</span></code>, so you should start your examination there.</p>
 <p>One trick, for those who aren’t familiar with string manipulation: You can subset a string just the way you would a list. So for example if I have a string:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -764,7 +780,7 @@ document.write(`
 </section>
 <section id="exercise-2">
 <h2>Exercise 2:<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
-<p>Run the script. What happens? Did it run? Did both tests pass?</p>
+<p>Run the script from the command line. What happens? Did all three tests pass?</p>
 </section>
 <section id="exercise-3">
 <h2>Exercise 3:<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h2>
@@ -772,12 +788,11 @@ document.write(`
 </section>
 <section id="exercise-4">
 <h2>Exercise 4:<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h2>
-<p>To address this error, run the script in VS Code’s Python Debugger. Try to figure out the problem you saw when you ran your code.</p>
-<p>(Admittedly, the first bug is one you might be able to solve without the debugger, but let’s try it!)</p>
+<p>Now run <code class="docutils literal notranslate"><span class="pre">debugger.py</span></code> in VS Code’s Python Debugger. Try to figure out the problem you saw when you ran your code at the command line.</p>
 </section>
 <section id="exercise-5">
 <h2>Exercise 5:<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h2>
-<p>Once you’ve fixed that bug, run your script again. Did the code run without problems? Did all the tests turn out as expected?</p>
+<p>Once you’ve fixed that bug, run your script from the command line again. Did the code run without problems? Did all the tests turn out as expected?</p>
 </section>
 <section id="exercise-6">
 <h2>Exercise 6:<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h2>
