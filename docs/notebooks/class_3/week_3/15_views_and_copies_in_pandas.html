@@ -620,7 +620,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example">An Example</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-pd-set-option-mode-copy-on-write-true-easily">Adding pd.set_option(“mode.copy_on_write”, True) Easily</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#life-without-copy-on-write-the-view-copy-headache-in-pandas">Life Without Copy on Write: The View/Copy Headache in pandas</a></li>
 </ul>
             </nav>
@@ -636,7 +635,7 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="views-and-copies-in-pandas">
 <h1>Views and Copies in pandas<a class="headerlink" href="#views-and-copies-in-pandas" title="Link to this heading">#</a></h1>
 <blockquote>
-<div><p>The implementation of <code class="docutils literal notranslate"><span class="pre">Copy-On-Write</span></code>, discussed below, is one of the largest substantive changes between <code class="docutils literal notranslate"><span class="pre">pandas</span> <span class="pre">1.0</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span> <span class="pre">2.0</span></code>. Because this is a new feature as of the Summer of 2023, don’t be surprised if you don’t see this behavior discussed in older books or in forum posts on sites like Stack Overflow.</p>
+<div><p>The implementation of <code class="docutils literal notranslate"><span class="pre">Copy-On-Write</span></code>, discussed below, is one of the largest substantive changes between <code class="docutils literal notranslate"><span class="pre">pandas</span> <span class="pre">1.0</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span> <span class="pre">2.0</span></code>.  And as of <code class="docutils literal notranslate"><span class="pre">pandas</span> <span class="pre">3.0</span></code>, it is now the default behavior in pandas!</p>
 </div></blockquote>
 <p>As we reviewed in our last reading, when we subset a numpy array, the result is not always a new array; sometimes what numpy returns is a <em>view</em> of the data in the original array.</p>
 <p>Since pandas Series and DataFrames are backed by numpy arrays, it will probably come as no surprise that something similar sometimes happens in pandas. Unfortunately, while this behavior is relatively straightforward in <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, in <code class="docutils literal notranslate"><span class="pre">pandas</span></code>… it’s a hot mess.</p>
@@ -658,8 +657,6 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -869,39 +866,12 @@ document.write(`
 <p>It was only when we modified the data in <code class="docutils literal notranslate"><span class="pre">df</span></code> with the command <code class="docutils literal notranslate"><span class="pre">df.iloc[1,</span> <span class="pre">1]</span> <span class="pre">=</span> <span class="pre">-1</span></code> that <code class="docutils literal notranslate"><span class="pre">my_slice</span></code> was converted into a copy. In this example, the timing of the copy doesn’t matter, but if we had never modified the entries in <code class="docutils literal notranslate"><span class="pre">df</span></code> with that command, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> never would have made the copy, and we’d never have to pay the penalty of that copy!</p>
 </section>
 </section>
-<section id="adding-pd-set-option-mode-copy-on-write-true-easily">
-<h2>Adding pd.set_option(“mode.copy_on_write”, True) Easily<a class="headerlink" href="#adding-pd-set-option-mode-copy-on-write-true-easily" title="Link to this heading">#</a></h2>
-<p>The easiest way to consistently add the <code class="docutils literal notranslate"><span class="pre">pd.set_option(&quot;mode.copy_on_write&quot;,</span> <span class="pre">True)</span></code> is probably to create a custom “snippet” — basically, a keyboard shortcut that your editor expands into a block of text you type regularly.</p>
-<p>For example, I’ve set up my VS Code installation so that when I type <code class="docutils literal notranslate"><span class="pre">ipd</span></code> followed by pressing <code class="docutils literal notranslate"><span class="pre">tab</span></code>, I get:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;mode.copy_on_write&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>(in my head, <code class="docutils literal notranslate"><span class="pre">ipd</span></code> is short for <strong>i</strong>mport pandas as <strong>pd</strong> –&gt; <code class="docutils literal notranslate"><span class="pre">ipd</span></code>)</p>
-<p>To set up your own, just look for documentation on adding a snippet to your preferred editor. Use VS Code? <a class="reference external" href="https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets">Here’s how to do it!</a> My VS Code snippet is:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;import pandas, numpy, activate CoW&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">   </span><span class="nt">&quot;prefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ipd&quot;</span><span class="p">,</span>
-<span class="w">   </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="s2">&quot;import pandas as pd&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;import numpy as np&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;pd.set_option(\&quot;mode.copy_on_write\&quot;, True)&quot;</span>
-<span class="w">   </span><span class="p">],</span>
-<span class="w">   </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;import pandas, numpy, activate CoW&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>(note the need to escape quotation marks by putting a backslash right before them)</p>
-</section>
 <section id="life-without-copy-on-write-the-view-copy-headache-in-pandas">
 <h2>Life Without Copy on Write: The View/Copy Headache in pandas<a class="headerlink" href="#life-without-copy-on-write-the-view-copy-headache-in-pandas" title="Link to this heading">#</a></h2>
-<p>At this point, you may be saying “ugh, but I don’t want to write <code class="docutils literal notranslate"><span class="pre">pd.set_option(&quot;mode.copy_on_write&quot;,</span> <span class="pre">True)</span></code> at the top of all my files!”. I hear you. I don’t either. But allow me to explain what happens <em>without</em> CoW enabled:</p>
 <blockquote>
 <div><p>Without Copy on Write, whether you get a view or a copy in pandas—and whether changes made to a view will propagate back to the original <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>—depends not only on the operations you execute (<code class="docutils literal notranslate"><span class="pre">.loc</span></code>, <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>, etc.), but also on the structure of the data in the original DataFrame in ways that are, essentially, impossible to predict consistently.</p>
 </div></blockquote>
-<p>Want to know more? Check out the <a class="reference internal" href="17_views_and_copies_in_pandas_wo_CoW.html"><span class="std std-doc">next reading!</span></a></p>
+<p>Want to know more? Check out the <a class="reference internal" href="17_views_and_copies_in_pandas_wo_CoW.html"><span class="std std-doc">next reading!</span></a> <strong>But you really don’t have to!</strong></p>
 </section>
 </section>
 
@@ -973,7 +943,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example">An Example</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-pd-set-option-mode-copy-on-write-true-easily">Adding pd.set_option(“mode.copy_on_write”, True) Easily</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#life-without-copy-on-write-the-view-copy-headache-in-pandas">Life Without Copy on Write: The View/Copy Headache in pandas</a></li>
 </ul>
   </nav></div>
