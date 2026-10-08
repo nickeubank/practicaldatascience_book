@@ -54,10 +54,12 @@ jupyter-book build --all .; cp -R _build/html/* docs; git add .; git commit; git
 
 ### Forget to Pull and get conflicts?
 
-If you just want to tell git "I meant to pull first! Pretend I pulled first please!", run:
+Most conflict you'll get come from build artifacts — things jupyterbook builds that live in `_build` and `docs`. Those conflicts we don't need to deal with — we can just accept whatever and re-build the website. To use your version of all build artifacts and JUST see what's left, do:
 
 ```bash
-git merge --abort; git pull --rebase
+git checkout --ours -- _build docs   # take your version of every conflicted file there
+git add -A _build docs               # mark them resolved
+git --no-pager diff --name-only --diff-filter=U
 ```
 
 ## Class Schedules
