@@ -59,8 +59,15 @@ Most conflict you'll get come from build artifacts — things jupyterbook builds
 ```bash
 git checkout --ours -- _build docs   # take your version of every conflicted file there
 git add -A _build docs               # mark them resolved
-git --no-pager diff --name-only --diff-filter=U
+git --no-pager diff --name-only --diff-filter=U # Show conflicts not in these folders.
 ```
+
+If there are no more problems, then:
+
+- run `git commit`, 
+- *Then build again!**: `jupyter-book build --all .; cp -R _build/html/* docs; git add .; git commit; git push`
+
+
 
 ## Class Schedules
 
