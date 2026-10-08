@@ -52,6 +52,14 @@ If you changed the table of contents/want a slower but full site build:
 jupyter-book build --all .; cp -R _build/html/* docs; git add .; git commit; git push
 ```
 
+### Forget to Pull and get conflicts?
+
+If you just want to tell git "I meant to pull first! Pretend I pulled first please!", run:
+
+```bash
+git merge --abort; git pull --rebase
+```
+
 ## Class Schedules
 
 Each `ids[course number]_specific` directory has three schedule files, but **you only ever edit the Excel one**:
