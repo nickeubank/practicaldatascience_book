@@ -57,14 +57,14 @@ jupyter-book build --all .; cp -R _build/html/* docs; git add .; git commit; git
 Most conflict you'll get come from build artifacts — things jupyterbook builds that live in `_build` and `docs`. Those conflicts we don't need to deal with — we can just accept whatever and re-build the website. To use your version of all build artifacts and JUST see what's left, do:
 
 ```bash
+git pull
 git checkout --ours -- _build docs   # take your version of every conflicted file there
 git add -A _build docs               # mark them resolved
 git --no-pager diff --name-only --diff-filter=U # Show conflicts not in these folders.
 ```
 
-If there are no more problems, then:
+If there are no more problems, then run the build command again: `jupyter-book build .; cp -R _build/html/* docs; git add .; git commit; git push`
 
-- run `git commit -m"fix build artifact conflicts"; git push`
 
 ## Class Schedules
 
@@ -84,7 +84,33 @@ python _ext/schedule_tables.py
 
 You don't reveal exercises by hand. Each row's **In-Class Exercise** cell is emptied in the generated CSV until that class date arrives, so unreleased links aren't in the built HTML at all — not merely hidden with CSS.
 
-A GitHub Action (`.github/workflows/daily_build.yml`) rebuilds the site every morning at 6am ET and pushes to `docs/`, so the day's exercise goes up whether or not you build anything. You can also trigger it by hand from the Actions tab. Note that it commits to `main`, so **`git pull` before you start editing** or your next `jbp` will conflict.
+A GitHub Action (`.github/workflows/daily_build.yml`) rebuilds the site overnight and pushes to `docs/`, so the day's exercise goes up whether or not you build anything. You can also trigger it by hand from the Actions tab. Note that it commits to `main`, so **`git pull` before you start editing** or your next `jbp` will conflict.
+
+The build is **never allowed to run after 7:30am ET** — past that you're likely editing, and a bot push to `docs/` on top of your work is exactly how you get the conflicts described above. The workflow checks the Durham wall clock when it starts and drops any trigger that arrives late. The "Run workflow" button bypasses this, so you can always force a rebuild by hand.
+
+### Why a Cloudflare Worker triggers the build
+
+GitHub's `schedule` event does not run on time, and that is not fixable by paying them — scheduled runs are best-effort on every plan. Measured on this repo over 21 straight days, a `"0 10 * * *"` cron fired a **median of 5.1 hours late** (min 3.7h, max 9.1h) and *never once* within an hour of its slot. Three other days produced no run at all, each of them a day the cron line itself was edited — editing a schedule re-registers it and costs you that day's run.
+
+Since a trigger that can show up 9 hours late can't honour a 7:30am deadline, the real schedule lives in a Cloudflare Worker (`ops/daily-build-trigger/`) that calls the GitHub API on time. It fires five times between 05:10 and 09:10 UTC and stops as soon as one run succeeds, so the later slots are retries, not extra builds. The `schedule:` block still in the workflow is only a backstop for the Worker being down.
+
+Those UTC times are pinned by two bounds that have to hold in both halves of the year, since neither GitHub nor Cloudflare cron follows daylight saving:
+
+- **after midnight in Durham**, or `_ext/schedule_tables.py` resolves *yesterday's* campus date and publishes the wrong day's exercises (midnight EST = 05:00 UTC, the binding case)
+- **finished before 7:30am ET** (7:30am EDT = 11:30 UTC, the binding case)
+
+To work on the Worker:
+
+```bash
+cd ops/daily-build-trigger
+npm install
+npx wrangler login                      # once
+npx wrangler secret put GITHUB_TOKEN    # fine-grained PAT, this repo, Actions: Read and write
+npx wrangler deploy
+npx wrangler tail                       # watch it decide, live
+```
+
+Hitting the Worker's URL in a browser returns today's build status as JSON. It can only read, never trigger.
 
 ### Testing before a date arrives
 

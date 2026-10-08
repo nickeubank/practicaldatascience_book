@@ -4,27 +4,48 @@ name: Daily site rebuild
 # exercises appear on the day of the class they belong to. The gating
 # itself lives in _ext/schedule_tables.py; this workflow just makes sure a
 # build actually happens on days when nobody runs `jbp` by hand.
+#
+# HOW THIS GETS TRIGGERED
+#
+# Normally: by a Cloudflare Worker (ops/daily-build-trigger/), which fires up
+# to six times between 05:10 and 10:10 UTC and stops as soon as one run
+# succeeds. GitHub's own `schedule` event is kept below only as a backstop for
+# the Worker being down -- it is not the primary trigger, because GitHub does
+# not run scheduled workflows on time. Measured on this repo over the 21 days
+# from 2026-09-17: a "0 10 * * *" cron fired a median of 5.1 hours late (min
+# 3.7h, max 9.1h) and never once within an hour of its slot. Three further days
+# -- 2026-08-27, 09-03 and 09-16 -- produced no scheduled run at all, each of
+# them a day the cron line itself was edited.
+#
+# THE 7:30am CUTOFF
+#
+# Builds must land before the workday starts, or the bot's push to docs/ lands
+# on top of manual edits and causes conflicts (this is what broke the
+# 2026-09-22 run). Because a GitHub-scheduled trigger can arrive hours late, the
+# cutoff cannot be expressed as a cron time -- it is enforced by the `gate` job
+# below, which checks the wall clock in Durham at the moment the job actually
+# starts. A trigger that shows up after 7:30am ET is dropped, not built.
 
 on:
   schedule:
-    # 10:00 UTC = 6am EDT / 5am EST, every day.
-    #
-    # Cron is UTC-only and does not follow daylight saving, so this slides an
-    # hour earlier when EST starts in November. That direction is safe: the
-    # gating in _ext/schedule_tables.py keys off the campus *date*, not the
-    # hour, so an early build still publishes exactly the right day's
-    # exercises.
-    #
-    # Class days used to build mid-morning instead (15:52 UTC Tues/Thurs), to
-    # land the build closer to the start of class. That was worse, not better:
-    # scheduled runs are best-effort, and GitHub silently drops them under load
-    # in the busy mid-day UTC window. Both Thursdays aimed at that slot were
-    # dropped outright (2026-08-27 and 2026-09-03, neither of which was ever
-    # queued), while every run in this early-UTC window has fired, roughly ten
-    # minutes late.
-    # Since the gating is by date, the early slot gives up nothing.
-    - cron: "0 10 * * *"
-  workflow_dispatch: # lets you trigger a rebuild from the Actions tab
+    # Backstop only; see above. 05:05 UTC is the earliest slot that is still
+    # after midnight in Durham once EST starts (midnight EST = 05:00 UTC), so
+    # the build never computes yesterday's campus date. If GitHub delivers this
+    # late, as it usually does, the gate job drops it and no harm is done.
+    - cron: "5 5 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Build even if it is past the 7:30am ET cutoff"
+        # `choice`, not `boolean`, on purpose. The Cloudflare Worker dispatches
+        # through the REST API, where input values go over the wire as strings;
+        # a `boolean` input would make this depend on GitHub coercing the
+        # string "false" to false, which is a thing you cannot test until it is
+        # already deployed. A choice is a string on both sides, and still
+        # renders as a dropdown in the Actions tab.
+        type: choice
+        options: ["true", "false"]
+        default: "true"
 
 permissions:
   contents: write
@@ -35,7 +56,45 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Decides whether this trigger is still allowed to build. Split into its own
+  # job so a dropped trigger costs seconds, not a full environment setup.
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      proceed: ${{ steps.check.outputs.proceed }}
+    steps:
+      - id: check
+        run: |
+          # Durham wall clock, because that is what the cutoff is about.
+          hhmm=$(TZ=America/New_York date +%H:%M)
+          # 10# forces base 10: without it, bash reads "08" and "09" as octal.
+          now=$(( 10#$(TZ=America/New_York date +%H) * 60 + 10#$(TZ=America/New_York date +%M) ))
+          cutoff=$(( 7 * 60 + 30 ))
+
+          # Empty for `schedule` (that event carries no inputs), "true" for a
+          # human clicking "Run workflow", "false" for the Cloudflare Worker.
+          force="${{ github.event.inputs.force }}"
+
+          if [ "$force" = "true" ]; then
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+            echo "Manual run at $hhmm ET; cutoff bypassed." >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$now" -lt "$cutoff" ]; then
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+            echo "Triggered at $hhmm ET, before the 7:30am cutoff. Building." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+            {
+              echo "### Skipped"
+              echo ""
+              echo "Trigger arrived at **$hhmm ET**, past the 7:30am cutoff."
+              echo "Pushing to \`docs/\` during the workday conflicts with manual edits."
+              echo "Use the **Run workflow** button to build anyway."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
   rebuild:
+    needs: gate
+    if: needs.gate.outputs.proceed == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -67,6 +126,10 @@ jobs:
         run: cp -R _build/html/* docs
 
       - name: Commit and push if the site changed
+        # The push is retried against a freshly rebased branch because a plain
+        # push races anyone who commits while the build is running -- that is
+        # exactly how the 2026-09-22 run failed ("! [rejected] main -> main").
+        # Rebasing is safe here: this job only ever touches generated files.
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -82,7 +145,18 @@ jobs:
           fi
 
           git commit -m "Daily rebuild ($(TZ=America/New_York date +%Y-%m-%d))"
-          git push
+
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected on attempt $attempt; rebasing onto origin/main and retrying."
+            git pull --rebase origin main
+          done
+
+          echo "::error::Could not push after 3 attempts."
+          exit 1
 
       - name: Summarize
         if: always()

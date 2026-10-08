@@ -1,0 +1,38 @@
+name = "pds-daily-build-trigger"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+# Five attempts, all of them comfortably inside the safe window.
+#
+# Cloudflare cron expressions are UTC and, like GitHub's, do not follow US
+# daylight saving -- but unlike GitHub's they actually fire on time, which is
+# the entire reason this Worker exists. That makes the window below
+# expressible; it has to satisfy two bounds at once, in both halves of the
+# year:
+#
+#   lower  the build must start after midnight in Durham, or
+#          _ext/schedule_tables.py resolves yesterday's campus date and
+#          publishes the wrong day's exercises.
+#          midnight EST = 05:00 UTC   (the binding case)
+#          midnight EDT = 04:00 UTC
+#
+#   upper  the build must finish before 7:30am ET, or its push to docs/ starts
+#          colliding with hand edits.
+#          7:30am EDT = 11:30 UTC     (the binding case)
+#          7:30am EST = 12:30 UTC
+#
+# So 05:00-11:30 UTC is safe year-round, and these five slots sit inside it
+# with room to spare: the last one is 5:10am EDT / 4:10am EST, and a build
+# takes about six minutes.
+#
+# Five, not six: Cloudflare's free plan allows 5 Cron Triggers per ACCOUNT
+# (not per Worker), so a sixth here would either be rejected or steal a slot
+# from another project.
+[triggers]
+crons = [
+  "10 5 * * *",
+  "10 6 * * *",
+  "10 7 * * *",
+  "10 8 * * *",
+  "10 9 * * *",
+]
