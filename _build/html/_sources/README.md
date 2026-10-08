@@ -52,6 +52,20 @@ If you changed the table of contents/want a slower but full site build:
 jupyter-book build --all .; cp -R _build/html/* docs; git add .; git commit; git push
 ```
 
+### Forget to Pull and get conflicts?
+
+Most conflict you'll get come from build artifacts — things jupyterbook builds that live in `_build` and `docs`. Those conflicts we don't need to deal with — we can just accept whatever and re-build the website. To use your version of all build artifacts and JUST see what's left, do:
+
+```bash
+git checkout --ours -- _build docs   # take your version of every conflicted file there
+git add -A _build docs               # mark them resolved
+git --no-pager diff --name-only --diff-filter=U # Show conflicts not in these folders.
+```
+
+If there are no more problems, then:
+
+- run `git commit -m"fix build artifact conflicts"; git push`
+
 ## Class Schedules
 
 Each `ids[course number]_specific` directory has three schedule files, but **you only ever edit the Excel one**:

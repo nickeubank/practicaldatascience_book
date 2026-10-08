@@ -604,7 +604,10 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installs">Installs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organization">Organization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-book">Building Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-book">Building Book</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forget-to-pull-and-get-conflicts">Forget to Pull and get conflicts?</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-schedules">Class Schedules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises-appear-on-the-day-of-class">Exercises appear on the day of class</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-before-a-date-arrives">Testing before a date arrives</a></li>
@@ -664,6 +667,19 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter-book<span class="w"> </span>build<span class="w"> </span>--all<span class="w"> </span>.<span class="p">;</span><span class="w"> </span>cp<span class="w"> </span>-R<span class="w"> </span>_build/html/*<span class="w"> </span>docs<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>push
 </pre></div>
 </div>
+<section id="forget-to-pull-and-get-conflicts">
+<h3>Forget to Pull and get conflicts?<a class="headerlink" href="#forget-to-pull-and-get-conflicts" title="Link to this heading">#</a></h3>
+<p>Most conflict you’ll get come from build artifacts — things jupyterbook builds that live in <code class="docutils literal notranslate"><span class="pre">_build</span></code> and <code class="docutils literal notranslate"><span class="pre">docs</span></code>. Those conflicts we don’t need to deal with — we can just accept whatever and re-build the website. To use your version of all build artifacts and JUST see what’s left, do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>--ours<span class="w"> </span>--<span class="w"> </span>_build<span class="w"> </span>docs<span class="w">   </span><span class="c1"># take your version of every conflicted file there</span>
+git<span class="w"> </span>add<span class="w"> </span>-A<span class="w"> </span>_build<span class="w"> </span>docs<span class="w">               </span><span class="c1"># mark them resolved</span>
+git<span class="w"> </span>--no-pager<span class="w"> </span>diff<span class="w"> </span>--name-only<span class="w"> </span>--diff-filter<span class="o">=</span>U<span class="w"> </span><span class="c1"># Show conflicts not in these folders.</span>
+</pre></div>
+</div>
+<p>If there are no more problems, then:</p>
+<ul class="simple">
+<li><p>run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m&quot;fix</span> <span class="pre">build</span> <span class="pre">artifact</span> <span class="pre">conflicts&quot;;</span> <span class="pre">git</span> <span class="pre">push</span></code></p></li>
+</ul>
+</section>
 </section>
 <section id="class-schedules">
 <h2>Class Schedules<a class="headerlink" href="#class-schedules" title="Link to this heading">#</a></h2>
@@ -776,7 +792,10 @@ Notes and warnings: <a class="reference external" href="https://jupyterbook.org/
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installs">Installs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organization">Organization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-book">Building Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-book">Building Book</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forget-to-pull-and-get-conflicts">Forget to Pull and get conflicts?</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-schedules">Class Schedules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises-appear-on-the-day-of-class">Exercises appear on the day of class</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-before-a-date-arrives">Testing before a date arrives</a></li>

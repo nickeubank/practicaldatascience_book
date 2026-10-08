@@ -20,6 +20,7 @@
 
 ### Overview
 
+
 - Data science stack: Python -> numpy -> pandas
 
 ### Data structures for computation (numpy)
