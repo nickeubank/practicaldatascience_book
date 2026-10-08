@@ -7,9 +7,9 @@ name: Daily site rebuild
 #
 # HOW THIS GETS TRIGGERED
 #
-# Normally: by a Cloudflare Worker (ops/daily-build-trigger/), which fires up
-# to six times between 05:10 and 10:10 UTC and stops as soon as one run
-# succeeds. GitHub's own `schedule` event is kept below only as a backstop for
+# Normally: by a Cloudflare Worker (ops/daily-build-trigger/), which fires at
+# 05:10 and again at 07:10 UTC, the second only if the first did not produce a
+# successful run. GitHub's own `schedule` event is kept below only as a backstop for
 # the Worker being down -- it is not the primary trigger, because GitHub does
 # not run scheduled workflows on time. Measured on this repo over the 21 days
 # from 2026-09-17: a "0 10 * * *" cron fired a median of 5.1 hours late (min

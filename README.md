@@ -92,7 +92,7 @@ The build is **never allowed to run after 7:30am ET** — past that you're likel
 
 GitHub's `schedule` event does not run on time, and that is not fixable by paying them — scheduled runs are best-effort on every plan. Measured on this repo over 21 straight days, a `"0 10 * * *"` cron fired a **median of 5.1 hours late** (min 3.7h, max 9.1h) and *never once* within an hour of its slot. Three other days produced no run at all, each of them a day the cron line itself was edited — editing a schedule re-registers it and costs you that day's run.
 
-Since a trigger that can show up 9 hours late can't honour a 7:30am deadline, the real schedule lives in a Cloudflare Worker (`ops/daily-build-trigger/`) that calls the GitHub API on time. It fires five times between 05:10 and 09:10 UTC and stops as soon as one run succeeds, so the later slots are retries, not extra builds. The `schedule:` block still in the workflow is only a backstop for the Worker being down.
+Since a trigger that can show up 9 hours late can't honour a 7:30am deadline, the real schedule lives in a Cloudflare Worker (`ops/daily-build-trigger/`) that calls the GitHub API on time. It fires at 05:10 UTC and again at 07:10 UTC, and the second attempt only does anything if the first failed or never fired — so it's one build a day with a retry behind it, not two builds. The `schedule:` block still in the workflow is only a backstop for the Worker being down.
 
 Those UTC times are pinned by two bounds that have to hold in both halves of the year, since neither GitHub nor Cloudflare cron follows daylight saving:
 

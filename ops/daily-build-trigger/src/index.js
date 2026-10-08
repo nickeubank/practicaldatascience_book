@@ -14,12 +14,12 @@
  *      exercise gating keys off, so it is the only date that matters here.
  *   2. Ask GitHub what that workflow has already done today.
  *   3. Skip if a run already succeeded (the normal case: the 05:10 slot does
- *      the work and the other four cost one API call each and go home).
+ *      the work and the 07:10 one costs a single API call and goes home).
  *      Skip too if one is queued or still running, so attempts never stack.
  *   4. Otherwise dispatch a fresh run.
  *
- * So the five slots are retries, not five builds: the day's build happens
- * once, and the later slots only wake up if an earlier one failed.
+ * So the second slot is a retry, not a second build: the day's build happens
+ * once, and 07:10 only does anything if 05:10 failed or never fired.
  *
  * The dispatch passes force=false, which leaves the workflow's own 7:30am ET
  * gate armed. That gate, not this Worker, is what actually enforces the
