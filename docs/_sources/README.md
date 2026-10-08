@@ -64,10 +64,7 @@ git --no-pager diff --name-only --diff-filter=U # Show conflicts not in these fo
 
 If there are no more problems, then:
 
-- run `git commit`, 
-- *Then build again!**: `jupyter-book build --all .; cp -R _build/html/* docs; git add .; git commit; git push`
-
-
+- run `git commit -m"fix build artifact conflicts"; git push`
 
 ## Class Schedules
 

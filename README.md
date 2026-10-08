@@ -64,8 +64,7 @@ git --no-pager diff --name-only --diff-filter=U # Show conflicts not in these fo
 
 If there are no more problems, then:
 
-- run `git commit` 
-
+- run `git commit -m"fix build artifact conflicts"; git push`
 
 ## Class Schedules
 
