@@ -12,7 +12,7 @@ Course syllabus can be found `here <https://github.com/nickeubank/practicaldatas
 Office Hours and Links
 --------------------------
 
-`Nick <https://duke.zoom.us/my/nickeubank>`_ (Zoom or in Gross 231): Monday, 10-11 am. *Please email me before 8pm Sunday night if you plan to attend.* I'll usually be there regardless, but knowing people are coming is useful if conflicts arise, and if you don't RSVP I can't promise I'll be there!
+`Nick <https://duke.zoom.us/my/nickeubank>`_ (Zoom or in Gross 231): Tuesday, 12-1 pm. *Please email me before 8am Tuesday Morning if you plan to attend.* I'll usually be there regardless, but knowing people are coming is useful if conflicts arise, and if you don't RSVP I can't promise I'll be there!
 
 `Farnoosh <https://us04web.zoom.us/j/2662990074?pwd=WbKFCgiBb7DaEPDdwcbbU6TDdAvopo.1>`_ (Zoom or Gross Hall 2nd Floor, 230N): Wednesday 12 - 1 pm
 
