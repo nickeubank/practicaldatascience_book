@@ -4,13 +4,27 @@ The files here are hosted at the domain [here](https://nickeubank.github.io/prac
 
 ## Installs
 
-To be able to run (for building — this doesn't cover exercise libraries), install:
+To be able to run (for building — this doesn't cover exercise libraries), make a
+dedicated environment and install the pinned build chain:
 
+```bash
+conda create -n pds_book python=3.12
+conda activate pds_book
+pip install -r requirements.txt
 ```
-conda install jupyter-book=1
-pip install sphinx_markdown_tables
-conda install pandas openpyxl
-```
+
+**Use that environment, not `base`, for every build.** `requirements.txt` pins
+*all* of the build packages, not just `jupyter-book`, and the daily GitHub
+Action installs from the same file. That is load-bearing: Sphinx bakes theme
+markup and asset digests into every page, so if your environment and the
+Action's disagree on even one theme package, every page in `docs/` rewrites
+itself and `git pull` becomes a site-wide conflict. (This is exactly what
+happened through October 2026, when the Action had drifted to
+pydata-sphinx-theme 0.17.1 while local builds were still on 0.15.4.) Python
+3.12 matches the Action; the pins want a version that resolves the same way.
+
+To move the build chain forward, bump `requirements.txt` deliberately, rebuild,
+and commit the resulting `docs/` churn on its own.
 
 (`pandas` and `openpyxl` are what read the Excel class schedules during the build — the ones behind the [540](ids540_specific/class_schedule_540.rst), [541](ids541_specific/class_schedule_541.rst), and [720](ids720_specific/class_schedule_720.rst) schedule pages.)
 

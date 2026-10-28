@@ -105,15 +105,12 @@ jobs:
           cache: pip
 
       - name: Install build dependencies
-        # Pinned to 1.x deliberately: jupyter-book 2.0 is not feature-complete
-        # for this book, and an unpinned `pip install jupyter-book` would pull
-        # it. Keep this in sync with the versions in README.md.
-        run: |
-          pip install \
-            "jupyter-book==1.0.4.post1" \
-            sphinx_markdown_tables \
-            pandas \
-            openpyxl
+        # Everything is pinned in requirements.txt, including the themes --
+        # see the comment at the top of that file for why. This step used to
+        # name the packages inline with only jupyter-book pinned, which let the
+        # daily build drift onto newer theme releases than local builds used
+        # and rewrote all ~150 pages of docs/ on every pull.
+        run: pip install -r requirements.txt
 
       - name: Build the book
         # Regenerates the schedule CSVs first (local Sphinx extension), then

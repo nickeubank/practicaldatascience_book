@@ -20,6 +20,18 @@ latex:
 bibtex_bibfiles:
   - references.bib
 
+# Keep non-book files out of the build. Without this, Sphinx walks the whole
+# repo and renders every stray Markdown file it finds as a book page: the
+# vendored dependencies under ops/daily-build-trigger/node_modules/ were
+# producing ~176 README/LICENSE pages that got published to the live site and
+# committed to docs/, where they churned on every rebuild.
+exclude_patterns:
+  - "**/node_modules/**"
+  - "ops/**"
+  - "_build/**"
+  - "docs/**"
+  - "README.md"
+
 sphinx:
   extra_extensions:
     - sphinx_markdown_tables
