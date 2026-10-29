@@ -1,6 +1,85 @@
-jupyter-book
-matplotlib
-numpy
-openpyxl
-pandas
-pympler
+# Pinned build environment for this book.
+#
+# WHY EVERY VERSION IS PINNED
+#
+# The site is rebuilt both by hand (`jbp`) and every morning by
+# .github/workflows/daily_build.yml, and both builds commit their output to
+# docs/. Sphinx bakes theme markup and asset digests into every single page, so
+# if the two environments disagree on even one theme package, every page in
+# docs/ rewrites itself and `git pull` turns into a whole-site conflict. Only
+# jupyter-book was pinned before, which left ~100 transitive packages free to
+# drift: by 2026-10-28 the daily build had moved to pydata-sphinx-theme 0.17.1
+# while local builds were still on 0.15.4, and the two produced different HTML
+# for all ~150 pages.
+#
+# These versions are the ones the daily build resolved on 2026-10-28 -- i.e.
+# the environment that produced the docs/ currently committed.
+#
+# The workflow installs from this file, so this file is the single source of
+# truth. To move the build forward, bump deliberately here, rebuild, and commit
+# the resulting docs/ churn in one commit of its own.
+
+# --- Core ---
+jupyter-book==1.0.4.post1
+Sphinx==7.4.7
+docutils==0.21.2
+Jinja2==3.1.6
+MarkupSafe==3.0.4
+Pygments==2.21.0
+accessible-pygments==0.0.5
+alabaster==0.7.16
+babel==2.18.0
+imagesize==2.0.1
+snowballstemmer==3.1.1
+PyYAML==6.0.3
+beautifulsoup4==4.15.0
+soupsieve==3.0.4
+
+# --- MyST / notebook rendering ---
+myst-parser==3.0.1
+myst-nb==1.4.0
+markdown-it-py==3.0.0
+mdit-py-plugins==0.6.1
+mdurl==0.1.2
+linkify-it-py==2.2.0
+nbformat==5.11.1
+nbclient==0.11.0
+jupyter-cache==1.0.1
+SQLAlchemy==2.1.6
+tabulate==0.10.0
+
+# --- Theme and Sphinx extensions (the ones that churn docs/ when they move) ---
+pydata-sphinx-theme==0.17.1
+sphinx-book-theme==1.3.0
+sphinx-design==0.7.0
+sphinx-copybutton==0.5.2
+sphinx-togglebutton==0.4.5
+sphinx-thebe==0.3.1
+sphinx-comments==0.0.3
+sphinx-external-toc==1.1.0
+sphinx-multitoc-numbering==0.1.3
+sphinx-jupyterbook-latex==1.0.0
+sphinx-markdown-tables==0.0.17
+Markdown==3.11.2
+sphinxcontrib-applehelp==2.0.0
+sphinxcontrib-devhelp==2.0.0
+sphinxcontrib-htmlhelp==2.1.0
+sphinxcontrib-jsmath==2.0.0
+sphinxcontrib-qthelp==2.0.0
+sphinxcontrib-serializinghtml==2.0.0
+
+# --- Citations (references.bib) ---
+sphinxcontrib-bibtex==2.7.0
+pybtex==0.26.1
+pybtex-docutils==1.0.3
+latexcodec==3.0.1
+
+# --- Read the Excel class schedules during the build (_ext/schedule_tables.py) ---
+pandas==3.1.0
+openpyxl==3.1.5
+numpy==2.5.4
+
+# --- Used inside notebooks. Not needed to build (_config.yml sets
+#     execute_notebooks: "off"), but pinned so the env is reproducible. ---
+matplotlib==3.11.2
+Pympler==1.1
