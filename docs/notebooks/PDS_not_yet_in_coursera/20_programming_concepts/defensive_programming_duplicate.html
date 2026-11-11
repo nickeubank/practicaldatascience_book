@@ -85,14 +85,12 @@
                 gtag('config', 'G-MC77BKR89Z');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/PDS_not_yet_in_coursera/20_programming_concepts/defensive_programming_duplicate';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="icon" href="../../../_static/mids_logo.svg"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Collaboration" href="defensive_programming_collaboration.html" />
+    <link rel="next" title="Integrate Results Programmatically" href="defensive_programming_transcribe.html" />
     <link rel="prev" title="Readability" href="defensive_programming_readability.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -436,6 +434,7 @@
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_tests.html">Testing in a Data Analysis Workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_readability.html">Readability</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Don’t Duplicate Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="defensive_programming_transcribe.html">Integrate Results Programmatically</a></li>
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_collaboration.html">Collaboration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iceberg_principle.html">The Iceberg Principle</a></li>
 </ul>
@@ -668,7 +667,6 @@
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#no-magic-numbers">No Magic Numbers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#never-transcribe">Never Transcribe</a></li>
 </ul>
             </nav>
         </div>
@@ -815,42 +813,6 @@
 <h2>No Magic Numbers<a class="headerlink" href="#no-magic-numbers" title="Link to this heading">#</a></h2>
 <p>The example above also obeys another good rule for programming: no magic numbers, meaning don’t write code that has constants (like <code class="docutils literal notranslate"><span class="pre">20_000</span></code>) that appear without explanation. Assigning them to a variable — especially a well-named, self-documenting variable — first improves code legibility.</p>
 </section>
-<section id="never-transcribe">
-<h2>Never Transcribe<a class="headerlink" href="#never-transcribe" title="Link to this heading">#</a></h2>
-<p>This one is more relevant for academics, but it’s important anyway: never transcribe numbers into a report or paper if you can possibly avoid it.</p>
-<p>We’ve already covered tricks to maximize the probability we catch our mistakes, but how do we minimize the likelihood they will occur? If there is anything I learned working as the Replication Assistant at the <em>Quarterly Journal of Political Science</em> testing people’s replication packages, it is that authors should <strong>never</strong> transcribe numbers from their statistical software into their papers by hand. This was <em>easily</em> the largest source of replication issues we encountered, as doing so introduced two types of errors:</p>
-<ul class="simple">
-<li><p><strong>Mis-transcriptions:</strong> Humans just aren’t built to reliably transcribe dozens of numbers by hand. If the error is in the last decimal place, it doesn’t mean much, but when a decimal point drifts, or a negative sign is dropped, the results are often quite substantively important.</p></li>
-<li><p><strong>Failures to Update:</strong> We are constantly updating our code, and authors who hand transcribe their results often update their code and forget to update all of their results, leaving old results in their paper.</p></li>
-</ul>
-<p>So, how do you avoid this problem? Use tools that will directly export your results into plain text or formatted tables you can use in the program where you are working. For example, <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> in Python <a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.iolib.table.SimpleTable.html#statsmodels.iolib.table.SimpleTable">can export regression tables to lots of formats</a>, <a class="reference external" href="https://www.rdocumentation.org/packages/stargazer/versions/5.2.2/topics/stargazer">R has stargazer</a>, and Stata has <a class="reference external" href="http://repec.org/bocode/e/estout/esttab.html">estout</a>.</p>
-<p>I suggest users not only do this for tables - which is increasingly common - but also for statistics that appear in text. For example, to put a single number into <span class="math notranslate nohighlight">\(\LaTeX\)</span>, you just generate the number you want to put in your paper, convert it to a string, and save it to disk as a <code class="docutils literal notranslate"><span class="pre">.tex</span></code> file (e.g., <code class="docutils literal notranslate"><span class="pre">exported_statistic.tex</span></code>). Then, in your paper, simply add a <code class="docutils literal notranslate"><span class="pre">\input{exported_statistic.tex}</span></code>call, and LaTeX will insert the contents of that <code class="docutils literal notranslate"><span class="pre">.tex</span></code> file verbatim into your paper.</p>
-<p>For example, here’s a way to save a single number to put into LaTeX:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here's a number I want in a paper</span>
-<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span>
-
-<span class="c1"># Format it...</span>
-<span class="n">x</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span>
-
-<span class="c1"># Now write to disk!</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">"/users/nce8/desktop"</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"test_file.tex"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">text_file</span><span class="p">:</span>
-    <span class="n">text_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-<span class="c1"># Now I'm gonna erase</span>
-<span class="c1"># the file so I don't clutter my desktop. :)</span>
-
-<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">"test_file.tex"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>While this type of integration works best for LaTeX, it can still be accomplished with many other programs like Word. For example, most packages that generate <code class="docutils literal notranslate"><span class="pre">.tex</span></code> files that can be easily integrated into LaTeX also often have options to export to <code class="docutils literal notranslate"><span class="pre">.txt</span></code> or <code class="docutils literal notranslate"><span class="pre">.rtf</span></code> files that you can easily use in Word. These tools can be used to generate tables that can either be (a) copied whole-cloth into Word by hand (minimizing the risk of mis-transcriptions that may occur when typing individual values) or (b) using Word’s <a class="reference external" href="https://support.office.com/en-us/article/Insert-an-object-in-Word-or-Outlook-8fc1ea53-0e01-4603-a4cf-98c49b6ea3f5">Link to Existing File</a> feature to connect your Word document to the output of your code in a way that ensures the Word doc loads the most recent version of the table every time Word is opened. Some great tips for combining R with Word <a class="reference external" href="http://stanford.edu/~ejdemyr/r-tutorials/tables-in-r/">can be found here</a>.</p>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -893,11 +855,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="defensive_programming_collaboration.html"
+       href="defensive_programming_transcribe.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Collaboration</p>
+        <p class="prev-next-title">Integrate Results Programmatically</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -920,7 +882,6 @@
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#no-magic-numbers">No Magic Numbers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#never-transcribe">Never Transcribe</a></li>
 </ul>
   </nav></div>
 

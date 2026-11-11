@@ -434,6 +434,7 @@
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_tests.html">Testing in a Data Analysis Workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_readability.html">Readability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_duplicate.html">Don’t Duplicate Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="defensive_programming_transcribe.html">Integrate Results Programmatically</a></li>
 <li class="toctree-l2"><a class="reference internal" href="defensive_programming_collaboration.html">Collaboration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iceberg_principle.html">The Iceberg Principle</a></li>
 </ul>
@@ -667,6 +668,7 @@
                 <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#folder-structures">Folder Structures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#never-edit-source-data">Never Edit Source Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-results-into-paper-don-t-copy">Read results into paper, don’t copy</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-numbering">File Numbering</a></li>
@@ -716,6 +718,11 @@
 <p>One idea crucial to this workflow is that you NEVER modify data in the <code class="docutils literal notranslate"><span class="pre">00_source_data</span></code> directory and save it back into the <code class="docutils literal notranslate"><span class="pre">00_source_data</span></code> directory. The direction of travel for data should always be from <code class="docutils literal notranslate"><span class="pre">00_source_data</span></code> into <code class="docutils literal notranslate"><span class="pre">20_intermediate_data</span></code>, and never back the other way. The way you “save” modifications is by keeping the code that makes the modifications to your source data.</p>
 <p>Source data, in other words, is “Read Only.”</p>
 <p>A big part of the reason for this is that if you were to open a file in <code class="docutils literal notranslate"><span class="pre">00_source_data</span></code>, change it, and replace the old version of the data with the modified version, there’s no longer any way to roll those changes back, and there’s no record of the changes you’ve made. Yes, if it comes from a third party you could go re-download it (and you should if you do this by mistake!), but (a) someone needs to know a modification took place to be aware they should go get the original data again, and (b) not all source data can be easily replaced. If you get data from the field and don’t have a read-only-never-modified version of the source data, then there’s no way to roll back modifications.</p>
+</section>
+<section id="read-results-into-paper-don-t-copy">
+<h3>Read results into paper, don’t copy<a class="headerlink" href="#read-results-into-paper-don-t-copy" title="Link to this heading">#</a></h3>
+<p>As a reminder, you want the paper in <code class="docutils literal notranslate"><span class="pre">40_docs</span></code> to read-in all results and figures on build (assuming you’re using LaTeX or Typst). Don’t try to transcribe or copy-paste results into your paper explicitly, or you’ll inevitably end up with typos and out-of-date figures in your paper.</p>
+<p><a class="reference internal" href="defensive_programming_transcribe.html"><span class="std std-doc">For more, review this reading.</span></a></p>
 </section>
 </section>
 <section id="file-numbering">
@@ -814,6 +821,7 @@
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#folder-structures">Folder Structures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#never-edit-source-data">Never Edit Source Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-results-into-paper-don-t-copy">Read results into paper, don’t copy</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-numbering">File Numbering</a></li>
